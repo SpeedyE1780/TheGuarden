@@ -4,21 +4,16 @@ using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
-    public List<GameObject> items;
-    int selectedItem = 0;
-    GameObject currentPlant;
+    private List<GameObject> items = new List<GameObject>();
+    private int selectedItem = 0;
+    private GameObject currentPlant;
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnPlant(InputAction.CallbackContext context)
     {
-        items = new List<GameObject>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (context.performed)
         {
+            Debug.Log("ON PLANT");
+
             if (items.Count > 0 && !items[selectedItem].GetComponent<GrowPlant>().getGrown())
             {
                 items[selectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -39,6 +34,7 @@ public class Inventory : MonoBehaviour
 
             currentPlant.GetComponent<GrowPlant>().PickUp();
             AddItemToInventory(currentPlant);
+            currentPlant = null;
         }
     }
 
