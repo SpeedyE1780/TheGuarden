@@ -885,7 +885,7 @@ GameObject:
   - component: {fileID: 686784727}
   - component: {fileID: 686784726}
   - component: {fileID: 686784725}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1475,8 +1475,9 @@ GameObject:
   - component: {fileID: 1020197094}
   - component: {fileID: 1020197095}
   - component: {fileID: 1020197096}
+  - component: {fileID: 1020197098}
   - component: {fileID: 1020197097}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1491,7 +1492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020197093}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 10}
+  m_LocalPosition: {x: 16.46, y: 0, z: 18.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1553,7 +1554,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1020197095}
+  rb: {fileID: 1020197098}
   stoppingDistance: 0.75
+--- !u!54 &1020197098
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020197093}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1001 &1065311848
 PrefabInstance:
   m_ObjectHideFlags: 0
