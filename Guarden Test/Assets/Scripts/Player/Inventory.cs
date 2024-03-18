@@ -35,9 +35,12 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && currentPlant != null)
         {
             Debug.Log("PERFORMED INTERACTION");
+
+            currentPlant.GetComponent<GrowPlant>().PickUp();
+            addItemToInventory(currentPlant);
         }
     }
 

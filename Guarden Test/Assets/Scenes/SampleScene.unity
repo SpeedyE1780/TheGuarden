@@ -1109,8 +1109,6 @@ MonoBehaviour:
   growthRate: 1.05
   minutesAtSpawn: 0
   elapsedMinutes: 0
-  keyPressDuration: 0
-  requiredKeyPressDuration: 1
 --- !u!114 &974848712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,11 +1849,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1635006026113844194, guid: 37a6a26bf9c3dcd4b902610e83d46bed,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a056a3b74a19ddc4ea952690b509f804, type: 2}
     - target: {fileID: 5475836084204442090, guid: 37a6a26bf9c3dcd4b902610e83d46bed,
         type: 3}
       propertyPath: m_Name

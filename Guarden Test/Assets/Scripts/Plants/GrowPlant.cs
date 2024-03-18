@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class GrowPlant : MonoBehaviour
 {
-    public bool growing = false,grown = false;
-    public Vector3 startSize,maxSize;
+    public bool growing = false, grown = false;
+    public Vector3 startSize, maxSize;
     public float growthRate = 1.1f;
-    public int minutesAtSpawn = 0,elapsedMinutes = 0;
-    public float keyPressDuration = 0, requiredKeyPressDuration = 1.0f;
+    public int minutesAtSpawn = 0, elapsedMinutes = 0;
 
     private Vector3 targetGrowth = Vector3.zero;
     // Start is called before the first frame update
@@ -20,9 +19,9 @@ public class GrowPlant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (growing && !grown) 
+        if (growing && !grown)
         {
-            if(GameTime.totalPassedMinutes - minutesAtSpawn > elapsedMinutes && transform.localScale.x < maxSize.x) 
+            if (GameTime.totalPassedMinutes - minutesAtSpawn > elapsedMinutes && transform.localScale.x < maxSize.x)
             {
                 elapsedMinutes = GameTime.totalPassedMinutes - minutesAtSpawn;
                 targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
@@ -31,42 +30,31 @@ public class GrowPlant : MonoBehaviour
             }
             transform.localScale = Vector3.Lerp(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
         }
-        if(Vector3.Distance(transform.localScale, maxSize) < 0.001f) { transform.localScale = maxSize; growing = false; grown = true; }
+        if (Vector3.Distance(transform.localScale, maxSize) < 0.001f) { transform.localScale = maxSize; growing = false; grown = true; }
     }
 
-    private void OnTriggerStay(Collider other)
+    public void PickUp()
     {
-        if (other.CompareTag("Player"))
+        transform.SetParent(null);
+        gameObject.SetActive(false);
+
+        if (!grown)
         {
-            if(Input.GetKey(KeyCode.Space)) 
-            {
-                keyPressDuration += Time.deltaTime;
-                if(keyPressDuration >= requiredKeyPressDuration) 
-                {
-                    keyPressDuration = 0;
-                    transform.SetParent(null);
-                    if (!grown) { transform.localScale = startSize; }
-
-                    other.GetComponent<Inventory>().addItemToInventory(gameObject);
-
-                    gameObject.SetActive(false);
-                }
-            }
-            else { keyPressDuration = 0; }
+            transform.localScale = startSize;
         }
     }
 
-    public void setGrowing(bool grow) 
+    public void setGrowing(bool grow)
     {
         growing = grow;
     }
-    public bool getGrowing() 
+    public bool getGrowing()
     {
         return growing;
     }
     public bool getGrown() { return grown; }
-    public void setGrowthRate(float newGrowthRate) 
+    public void setGrowthRate(float newGrowthRate)
     {
-        growthRate = newGrowthRate;    
+        growthRate = newGrowthRate;
     }
 }
