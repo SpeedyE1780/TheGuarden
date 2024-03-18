@@ -11,6 +11,8 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private float stoppingDistance;
 
+    public bool InsideForceField { get; set; }
+
     private Vector3 GetNewDestination()
     {
         Vector3 destination = Random.insideUnitSphere * 20.0f;
@@ -41,6 +43,14 @@ public class Animal : MonoBehaviour
         if (other.CompareTag("PlantBehavior"))
         {
             other.GetComponent<PlantBehavior>().ApplyBehavior(this);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PlantBehavior"))
+        {
+            other.GetComponent<PlantBehavior>().RemoveBehavior(this);
         }
     }
 
