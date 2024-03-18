@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
@@ -8,9 +9,16 @@ public class InventoryUI : MonoBehaviour
     private ItemUI itemPrefab;
     [SerializeField]
     private Transform itemParents;
+    [SerializeField]
+    private TMP_Text selectedItem;
 
 
     public Inventory PlayerInventory { get; set; }
+
+    public void HideSelected()
+    {
+        selectedItem.gameObject.SetActive(false);
+    }
 
     public void FillUI(List<GrowPlant> plants)
     {
@@ -28,6 +36,8 @@ public class InventoryUI : MonoBehaviour
                 PlayerInventory.SelectedItem = index;
                 Debug.Log("Selected: " + index);
                 gameObject.SetActive(false);
+                selectedItem.gameObject.SetActive(true);
+                selectedItem.text = plants[index].name;
             });
         }
     }

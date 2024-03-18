@@ -54,6 +54,7 @@ public class Inventory : MonoBehaviour
                 items[SelectedItem].gameObject.SetActive(true);
                 items.Remove(items[SelectedItem]);
                 SelectedItem = -1;
+                inventoryUI.HideSelected();
             }
         }
 
