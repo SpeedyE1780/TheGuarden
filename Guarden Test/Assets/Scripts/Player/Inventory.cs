@@ -6,14 +6,24 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField]
     private GameObject plantLocation;
+    [SerializeField]
+    private GameObject inventoryUI;
 
     private List<GrowPlant> items = new List<GrowPlant>();
     private int selectedItem = 0;
     private GameObject currentPlant;
 
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            inventoryUI.SetActive(!inventoryUI.activeSelf);
+        }
+    }
+
     public void OnPlant(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             plantLocation.SetActive(true);
         }
@@ -34,7 +44,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        if(context.canceled)
+        if (context.canceled)
         {
             plantLocation.SetActive(false);
         }
