@@ -1098,6 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growing: 0
+  grown: 0
   startSize: {x: 0.25, y: 0.25, z: 0.25}
   maxSize: {x: 2, y: 2, z: 2}
   growthRate: 1.05
@@ -1806,6 +1807,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1635006026113844194, guid: 37a6a26bf9c3dcd4b902610e83d46bed,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a056a3b74a19ddc4ea952690b509f804, type: 2}
     - target: {fileID: 5475836084204442090, guid: 37a6a26bf9c3dcd4b902610e83d46bed,
         type: 3}
       propertyPath: m_Name
