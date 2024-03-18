@@ -1,34 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Movement : MonoBehaviour
 {
-    public float moveSpeed = 5f,jumpHeight = 5.0f; 
-    private Rigidbody rb; 
+    [SerializeField]
+    private float speed = 5f;
+    [SerializeField]
+    private Rigidbody rb;
 
-    void Start()
+    private Vector3 movement;
+    private Vector3 velocity;
+
+    public void OnMovement(InputAction.CallbackContext context)
     {
-        rb = GetComponent<Rigidbody>();
+        movement.x = context.ReadValue<Vector2>().x;
+        movement.z = context.ReadValue<Vector2>().y;
     }
 
-    void Update()
+    private void Update()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
-
-        movement.Normalize();
-        rb.velocity = movement * moveSpeed;
-
         if (movement != Vector3.zero)
         {
-            // Calculate the rotation to look towards the movement direction
             Quaternion targetRotation = Quaternion.LookRotation(movement);
-
-            // Smoothly rotate towards the target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
+
+        velocity = movement * speed;
+        velocity.y = rb.velocity.y;
+        rb.velocity = velocity;
+    }
+
+    private void OnValidate()
+    {
+        rb = GetComponent<Rigidbody>();
     }
 }
