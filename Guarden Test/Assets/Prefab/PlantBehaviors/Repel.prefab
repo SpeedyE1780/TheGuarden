@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4081531029084331613
+--- !u!1 &7358100774690515844
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1771868150802311041}
-  - component: {fileID: 3614132450077183374}
-  - component: {fileID: 6471973795848142613}
+  - component: {fileID: 6189353991193156652}
+  - component: {fileID: 5981522035217783445}
+  - component: {fileID: 4152168910926811571}
   m_Layer: 0
-  m_Name: Attract
+  m_Name: Repel
   m_TagString: PlantBehavior
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1771868150802311041
+--- !u!4 &6189353991193156652
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4081531029084331613}
+  m_GameObject: {fileID: 7358100774690515844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3614132450077183374
+--- !u!135 &5981522035217783445
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4081531029084331613}
+  m_GameObject: {fileID: 7358100774690515844}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -52,20 +52,21 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 20
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6471973795848142613
+--- !u!114 &4152168910926811571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4081531029084331613}
+  m_GameObject: {fileID: 7358100774690515844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 163308879f31c6946904f7e4d6a8fdda, type: 3}
+  m_Script: {fileID: 11500000, guid: 57e002995ec082f4c980d6e2c0bf4235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviorCollider: {fileID: 3614132450077183374}
-  behaviorRange: 20
-  attractionAreaRadius: 5
+  behaviorCollider: {fileID: 5981522035217783445}
+  behaviorRange: 5
+  repelRange: 20
+  minimumRange: 2
