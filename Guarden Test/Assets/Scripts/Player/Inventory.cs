@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject plantLocation;
 
-    private List<GameObject> items = new List<GameObject>();
+    private List<GrowPlant> items = new List<GrowPlant>();
     private int selectedItem = 0;
     private GameObject currentPlant;
 
@@ -23,12 +23,12 @@ public class Inventory : MonoBehaviour
             Debug.Log("ON PLANT");
             plantLocation.SetActive(false);
 
-            if (items.Count > 0 && !items[selectedItem].GetComponent<GrowPlant>().getGrown())
+            if (items.Count > 0 && !items[selectedItem].getGrown())
             {
                 items[selectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 items[selectedItem].transform.position = plantLocation.transform.position;
                 items[selectedItem].transform.rotation = plantLocation.transform.rotation;
-                items[selectedItem].GetComponent<GrowPlant>().setGrowing(true);
+                items[selectedItem].setGrowing(true);
                 items[selectedItem].gameObject.SetActive(true);
                 items.Remove(items[selectedItem]);
             }
@@ -46,8 +46,9 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("PERFORMED INTERACTION");
 
-            currentPlant.GetComponent<GrowPlant>().PickUp();
-            AddItemToInventory(currentPlant);
+            GrowPlant plant = currentPlant.GetComponent<GrowPlant>();
+            items.Add(plant);
+            plant.PickUp();
             currentPlant = null;
         }
     }
@@ -68,10 +69,5 @@ public class Inventory : MonoBehaviour
             currentPlant = null;
             Debug.Log("EXIT PLANT");
         }
-    }
-
-    private void AddItemToInventory(GameObject item)
-    {
-        items.Add(item);
     }
 }
