@@ -11,6 +11,8 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private float stoppingDistance;
 
+    public bool InsideForceField { get; set; }
+
     private Vector3 GetNewDestination()
     {
         Vector3 destination = Random.insideUnitSphere * 20.0f;
@@ -44,6 +46,14 @@ public class Animal : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PlantBehavior"))
+        {
+            other.GetComponent<PlantBehavior>().RemoveBehavior(this);
+        }
+    }
+
     public void SetDestination(Vector3 destination)
     {
         agent.SetDestination(destination);
@@ -53,5 +63,11 @@ public class Animal : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = InsideForceField ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1.5f);
     }
 }

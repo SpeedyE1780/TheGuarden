@@ -9,6 +9,7 @@ public abstract class PlantBehavior : MonoBehaviour
     protected float behaviorRange;
 
     public abstract void ApplyBehavior(Animal animal);
+    public virtual void RemoveBehavior(Animal animal) { }
 
     private void OnValidate()
     {
