@@ -64,4 +64,10 @@ public class Animal : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = InsideForceField ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1.5f);
+    }
 }
