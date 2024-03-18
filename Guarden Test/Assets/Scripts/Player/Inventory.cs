@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Inventory : MonoBehaviour
 {
     public List<GameObject> items;
-    [SerializeField] GameObject testObject;
     int selectedItem = 0;
     Transform touchingPlantPoint = null;
 
@@ -13,7 +12,6 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         items = new List<GameObject>();
-        //items.Add(testObject);
     }
 
     // Update is called once per frame
@@ -31,6 +29,14 @@ public class Inventory : MonoBehaviour
                 items[selectedItem].gameObject.SetActive(true);
                 items.Remove(items[selectedItem]);
             }
+        }
+    }
+
+    public void OnInteract(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            Debug.Log("PERFORMED INTERACTION");
         }
     }
 
