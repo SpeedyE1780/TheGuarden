@@ -54,9 +54,11 @@ public class GrowPlant : MonoBehaviour
                 if(keyPressDuration >= requiredKeyPressDuration) 
                 {
                     keyPressDuration = 0;
+                    transform.SetParent(null);
                     transform.localScale = startSize;
 
                     other.GetComponent<Inventory>().addItemToInventory(gameObject);
+
                     gameObject.SetActive(false);
                 }
             }
