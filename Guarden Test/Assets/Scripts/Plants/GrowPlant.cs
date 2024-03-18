@@ -10,6 +10,16 @@ public class GrowPlant : MonoBehaviour
     public int minutesAtSpawn = 0, elapsedMinutes = 0;
 
     private Vector3 targetGrowth = Vector3.zero;
+
+    public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
+
+    public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
+    {
+        Vector3 AB = b - a;
+        Vector3 AV = value - a;
+        return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
