@@ -4,7 +4,7 @@ using UnityEngine;
 public class GrowPlant : MonoBehaviour
 {
     [SerializeField]
-    private List<AttractBehavior> behaviors = new List<AttractBehavior>();
+    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
 
     public bool growing = false, grown = false;
     public Vector3 startSize, maxSize;
@@ -61,7 +61,7 @@ public class GrowPlant : MonoBehaviour
         setGrowing(true);
         gameObject.SetActive(true);
 
-        foreach(AttractBehavior behavior in behaviors)
+        foreach(PlantBehavior behavior in behaviors)
         {
             behavior.gameObject.SetActive(true);
         }

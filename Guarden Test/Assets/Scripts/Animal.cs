@@ -40,10 +40,13 @@ public class Animal : MonoBehaviour
     {
         if (other.CompareTag("PlantBehavior"))
         {
-            Debug.Log("Animal Attracted");
-            Vector3 destination = other.GetComponent<AttractBehavior>().GetDestination();
-            agent.SetDestination(destination);
+            other.GetComponent<PlantBehavior>().ApplyBehavior(this);
         }
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        agent.SetDestination(destination);
     }
 
     private void OnValidate()
