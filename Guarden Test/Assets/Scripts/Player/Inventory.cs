@@ -7,17 +7,29 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject plantLocation;
     [SerializeField]
-    private GameObject inventoryUI;
+    private InventoryUI inventoryUI;
 
     private List<GrowPlant> items = new List<GrowPlant>();
-    private int selectedItem = 0;
     private GameObject currentPlant;
+
+    public int SelectedItem { get; set; }
+
+    private void Start()
+    {
+        inventoryUI.PlayerInventory = this;
+        SelectedItem = -1;
+    }
 
     public void OnInventory(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            inventoryUI.SetActive(!inventoryUI.activeSelf);
+            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
+
+            if (inventoryUI.gameObject.activeSelf)
+            {
+                inventoryUI.FillUI(items);
+            }
         }
     }
 
@@ -33,14 +45,15 @@ public class Inventory : MonoBehaviour
             Debug.Log("ON PLANT");
             plantLocation.SetActive(false);
 
-            if (items.Count > 0 && !items[selectedItem].getGrown())
+            if (items.Count > 0 && SelectedItem != -1 && !items[SelectedItem].getGrown())
             {
-                items[selectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                items[selectedItem].transform.position = plantLocation.transform.position;
-                items[selectedItem].transform.rotation = plantLocation.transform.rotation;
-                items[selectedItem].setGrowing(true);
-                items[selectedItem].gameObject.SetActive(true);
-                items.Remove(items[selectedItem]);
+                items[SelectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                items[SelectedItem].transform.position = plantLocation.transform.position;
+                items[SelectedItem].transform.rotation = plantLocation.transform.rotation;
+                items[SelectedItem].setGrowing(true);
+                items[SelectedItem].gameObject.SetActive(true);
+                items.Remove(items[SelectedItem]);
+                SelectedItem = -1;
             }
         }
 
