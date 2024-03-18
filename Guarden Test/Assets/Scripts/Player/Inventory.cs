@@ -48,10 +48,7 @@ public class Inventory : MonoBehaviour
             if (items.Count > 0 && SelectedItem != -1 && !items[SelectedItem].getGrown())
             {
                 items[SelectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                items[SelectedItem].transform.position = plantLocation.transform.position;
-                items[SelectedItem].transform.rotation = plantLocation.transform.rotation;
-                items[SelectedItem].setGrowing(true);
-                items[SelectedItem].gameObject.SetActive(true);
+                items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
                 items.Remove(items[SelectedItem]);
                 SelectedItem = -1;
                 inventoryUI.HideSelected();
