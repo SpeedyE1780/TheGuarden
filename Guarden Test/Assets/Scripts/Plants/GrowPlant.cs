@@ -35,7 +35,6 @@ public class GrowPlant : MonoBehaviour
 
     public void PickUp()
     {
-        transform.SetParent(null);
         gameObject.SetActive(false);
 
         if (!grown)

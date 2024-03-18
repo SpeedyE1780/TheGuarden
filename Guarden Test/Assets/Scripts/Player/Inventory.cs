@@ -6,7 +6,6 @@ public class Inventory : MonoBehaviour
 {
     public List<GameObject> items;
     int selectedItem = 0;
-    Transform touchingPlantPoint = null;
     GameObject currentPlant;
 
     // Start is called before the first frame update
@@ -20,12 +19,11 @@ public class Inventory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (items.Count > 0 && touchingPlantPoint != null && !items[selectedItem].GetComponent<GrowPlant>().getGrown())
+            if (items.Count > 0 && !items[selectedItem].GetComponent<GrowPlant>().getGrown())
             {
                 items[selectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                items[selectedItem].transform.SetParent(touchingPlantPoint, true);
-                items[selectedItem].transform.position = touchingPlantPoint.position;
-                items[selectedItem].transform.rotation = touchingPlantPoint.rotation;
+                items[selectedItem].transform.position = transform.position;
+                items[selectedItem].transform.rotation = transform.rotation;
                 items[selectedItem].GetComponent<GrowPlant>().setGrowing(true);
                 items[selectedItem].gameObject.SetActive(true);
                 items.Remove(items[selectedItem]);
@@ -40,7 +38,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("PERFORMED INTERACTION");
 
             currentPlant.GetComponent<GrowPlant>().PickUp();
-            addItemToInventory(currentPlant);
+            AddItemToInventory(currentPlant);
         }
     }
 
@@ -62,11 +60,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void setTouchingPlantPoint(Transform plantPoint)
-    {
-        touchingPlantPoint = plantPoint;
-    }
-    public void addItemToInventory(GameObject item)
+    private void AddItemToInventory(GameObject item)
     {
         items.Add(item);
     }
