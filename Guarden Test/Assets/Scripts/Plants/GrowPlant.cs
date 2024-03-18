@@ -55,10 +55,6 @@ public class GrowPlant : MonoBehaviour
             else { keyPressDuration = 0; }
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) { keyPressDuration = 0; }
-    }
 
     public void setGrowing(bool grow) 
     {
