@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrowPlant : MonoBehaviour
 {
-    public bool growing = false;
+    public bool growing = false,grown = false;
     public Vector3 startSize,maxSize;
     public float growthRate = 1.1f;
     public int minutesAtSpawn = 0,elapsedMinutes = 0;
@@ -20,7 +20,7 @@ public class GrowPlant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (growing) 
+        if (growing && !grown) 
         {
             if(GameTime.totalPassedMinutes - minutesAtSpawn > elapsedMinutes && transform.localScale.x < maxSize.x) 
             {
@@ -31,18 +31,8 @@ public class GrowPlant : MonoBehaviour
             }
             transform.localScale = Vector3.Lerp(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
         }
-        if(Vector3.Distance(transform.localScale, maxSize) < 0.001f) { transform.localScale = maxSize; growing = false; }
+        if(Vector3.Distance(transform.localScale, maxSize) < 0.001f) { transform.localScale = maxSize; growing = false; grown = true; }
     }
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !growing) 
-        {
-            other.GetComponent<Inventory>().addItemToInventory(gameObject);
-            gameObject.SetActive(false);
-        }
-    }
-    */
 
     private void OnTriggerStay(Collider other)
     {
@@ -55,7 +45,7 @@ public class GrowPlant : MonoBehaviour
                 {
                     keyPressDuration = 0;
                     transform.SetParent(null);
-                    transform.localScale = startSize;
+                    if (!grown) { transform.localScale = startSize; }
 
                     other.GetComponent<Inventory>().addItemToInventory(gameObject);
 
@@ -68,7 +58,6 @@ public class GrowPlant : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player")) { keyPressDuration = 0; }
-        
     }
 
     public void setGrowing(bool grow) 
@@ -79,12 +68,9 @@ public class GrowPlant : MonoBehaviour
     {
         return growing;
     }
+    public bool getGrown() { return grown; }
     public void setGrowthRate(float newGrowthRate) 
     {
         growthRate = newGrowthRate;    
     }
-
-
-
-
 }

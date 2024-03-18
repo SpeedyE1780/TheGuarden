@@ -21,7 +21,7 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
-            if(items.Count > 0 && touchingPlantPoint != null)
+            if(items.Count > 0 && touchingPlantPoint != null && !items[selectedItem].GetComponent<GrowPlant>().getGrown())
             {
                 items[selectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 items[selectedItem].transform.SetParent(touchingPlantPoint,true);
