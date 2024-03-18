@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    public static GameTime gameTime;
+    //public static GameTime gameTime;
     public int second = 0;
+    public static int totalPassedMinutes = 0;
     public static int minute = 0;
     public static int hour = 0;
-    public int day = 1;
-    public int week = 1;
-    public int month = 1;
-    public int year = 0;
-    public List<string> dayNames = new List<string>();
-    public List<string> monthNames = new List<string>();  
+    public static int day = 1;
+    public static int week = 1;
+    public static int month = 1;
+    public static int year = 2024;
+    public static string dayOfTheMonth = "1st";
+    public static List<string> dayNames = new List<string>();
+    public static List<string> monthNames = new List<string>();  
+    public List<string> inspectorDayNames;
+    public List<string> inspectorMonthNames;
 
     public float timeScale = 1f;
     // Start is called before the first frame update
     void Start()
     {
-        
+        dayNames = inspectorDayNames; 
+        monthNames = inspectorMonthNames;
     }
 
     // Update is called once per frame
@@ -32,6 +37,7 @@ public class GameTime : MonoBehaviour
         {
             second -= 60;
             minute++;
+            totalPassedMinutes++;
 
             // Check if an hour has passed
             if (minute >= 60)
@@ -44,6 +50,20 @@ public class GameTime : MonoBehaviour
                 {
                     hour -= 24;
                     day++;
+                    int dayOfMonth = ((week - 1) * 7) + day;
+
+
+                    switch (dayOfMonth)
+                    {
+                        case 1: dayOfTheMonth = dayOfMonth.ToString() + "st"; break;
+                        case 2: dayOfTheMonth = dayOfMonth.ToString() + "nd"; break;
+                        case 3: dayOfTheMonth = dayOfMonth.ToString() + "rd"; break;
+
+                        default: dayOfTheMonth = dayOfMonth.ToString() + "th"; break;
+
+                    }
+
+                    if (dayOfMonth >= 11 && dayOfMonth <= 13) dayOfTheMonth = dayOfMonth.ToString() + "th";
 
                     // Check if a week has passed
                     if (day > 7)
@@ -71,28 +91,5 @@ public class GameTime : MonoBehaviour
 
         
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            int dayOfMonth = ((week - 1) * 7) + day;
-            string tempMonthDay = dayOfMonth.ToString();
-
-            switch (dayOfMonth)
-            {
-                case 1: tempMonthDay = dayOfMonth.ToString() + "st"; break;
-                case 2: tempMonthDay = dayOfMonth.ToString() + "nd"; break;
-                case 3: tempMonthDay = dayOfMonth.ToString() + "rd"; break;
-
-                default: tempMonthDay = dayOfMonth.ToString() + "th"; break;
-                   
-            }
-
-            if (dayOfMonth >= 11 && dayOfMonth <= 13) tempMonthDay = dayOfMonth.ToString() + "th";
-
-
-            Debug.Log("GameTime: " + year + " : " + monthNames[month] + " : " + tempMonthDay + " : " + dayNames[day] + " : " + hour.ToString("00") + " : " + minute.ToString("00") + " : " + second.ToString("00"));
-            Debug.Log("GameTime: " + hour.ToString("00") + " : " + minute.ToString("00") + " : " + second.ToString("00"));
-        }
-    }
+    
 }

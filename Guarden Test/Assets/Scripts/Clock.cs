@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
     [SerializeField] GameObject minuteHand, hourHand;
+    [SerializeField] TMP_Text dateText;
     // Start is called before the first frame update
     float targetMinuteAngle;
     float targetHourAngle;
@@ -25,5 +27,10 @@ public class Clock : MonoBehaviour
         // Apply the new angles to clock hands
         minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
         hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
+
+        // Debug.Log(GameTime.dayNames[GameTime.day]);
+        //Debug.Log(GameTime.monthNames[GameTime.month]);
+        //Debug.Log(GameTime.dayOfTheMonth);
+        dateText.text = (GameTime.dayNames[GameTime.day] + ", The " + GameTime.dayOfTheMonth + " Of " + GameTime.monthNames[GameTime.month] + ", " + GameTime.year);
     }
 }
