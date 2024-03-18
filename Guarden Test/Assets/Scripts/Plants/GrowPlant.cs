@@ -1,9 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GrowPlant : MonoBehaviour
 {
+    [SerializeField]
+    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
+
     public bool growing = false, grown = false;
     public Vector3 startSize, maxSize;
     public float growthRate = 1.1f;
@@ -50,6 +52,18 @@ public class GrowPlant : MonoBehaviour
         if (!grown)
         {
             transform.localScale = startSize;
+        }
+    }
+
+    public void Plant(Vector3 position, Quaternion rotation)
+    {
+        transform.SetPositionAndRotation(position, rotation);
+        setGrowing(true);
+        gameObject.SetActive(true);
+
+        foreach(PlantBehavior behavior in behaviors)
+        {
+            behavior.gameObject.SetActive(true);
         }
     }
 

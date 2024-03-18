@@ -7,7 +7,11 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private NavMeshAgent agent;
     [SerializeField]
+    private Rigidbody rb;
+    [SerializeField]
     private float stoppingDistance;
+
+    public bool InsideForceField { get; set; }
 
     private Vector3 GetNewDestination()
     {
@@ -23,14 +27,47 @@ public class Animal : MonoBehaviour
 
     void Update()
     {
-        if(!agent.pathPending && agent.remainingDistance < stoppingDistance)
+        if (!agent.pathPending && agent.remainingDistance < stoppingDistance)
         {
             agent.SetDestination(GetNewDestination());
         }
     }
 
+    private void LateUpdate()
+    {
+        rb.velocity = agent.velocity;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("PlantBehavior"))
+        {
+            other.GetComponent<PlantBehavior>().ApplyBehavior(this);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("PlantBehavior"))
+        {
+            other.GetComponent<PlantBehavior>().RemoveBehavior(this);
+        }
+    }
+
+    public void SetDestination(Vector3 destination)
+    {
+        agent.SetDestination(destination);
+    }
+
     private void OnValidate()
     {
         agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = InsideForceField ? Color.green : Color.red;
+        Gizmos.DrawWireSphere(transform.position, 1.5f);
     }
 }
