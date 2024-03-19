@@ -161,10 +161,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviors: []
-  growing: 0
-  grown: 0
   startSize: {x: 0.25, y: 0.25, z: 0.25}
   maxSize: {x: 2, y: 2, z: 2}
+  growingHours:
+    startHour: 0
+    endHour: 20
   growthRate: 1.05
   minutesAtSpawn: 0
   elapsedMinutes: 0
@@ -181,8 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growHoursMin: 0
-  growHoursMax: 20
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

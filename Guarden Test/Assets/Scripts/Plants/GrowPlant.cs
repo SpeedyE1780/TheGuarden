@@ -3,12 +3,23 @@ using UnityEngine;
 
 public class GrowPlant : MonoBehaviour
 {
+    [System.Serializable]
+    private struct GrowingInfo
+    {
+        [Range(0, 23)]
+        public int startHour;
+        [Range(0, 23)]
+        public int endHour;
+    }
+
     [SerializeField]
     private List<PlantBehavior> behaviors = new List<PlantBehavior>();
     [SerializeField]
     private Vector3 startSize;
     [SerializeField]
     private Vector3 maxSize;
+    [SerializeField]
+    GrowingInfo growingHours;
 
     public float growthRate = 1.1f;
     public int minutesAtSpawn = 0, elapsedMinutes = 0;
@@ -57,6 +68,18 @@ public class GrowPlant : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (GameTime.hour >= growingHours.startHour && GameTime.hour <= growingHours.endHour)
+        {
+            growthRate = 1.1f;
+        }
+        else
+        {
+            growthRate = 1.001f;
+        }
+    }
+
     public void PickUp()
     {
         gameObject.SetActive(false);
@@ -80,11 +103,6 @@ public class GrowPlant : MonoBehaviour
         }
     }
 
-    public void setGrowthRate(float newGrowthRate)
-    {
-        growthRate = newGrowthRate;
-    }
-
     private void OnValidate()
     {
         transform.localScale = startSize;
@@ -97,6 +115,11 @@ public class GrowPlant : MonoBehaviour
             {
                 behaviors.Add(behavior.GetComponent<PlantBehavior>());
             }
+        }
+
+        if(growingHours.endHour < growingHours.startHour)
+        {
+            growingHours.endHour = growingHours.startHour;
         }
     }
 }
