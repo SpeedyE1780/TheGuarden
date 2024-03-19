@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plant
   - PlantBehavior
+  - PlantSoil
   layers:
   - Default
   - TransparentFX
