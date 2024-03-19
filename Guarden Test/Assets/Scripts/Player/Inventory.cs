@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private InventoryUI inventoryUI;
 
-    private List<GrowPlant> items = new List<GrowPlant>();
+    private List<Mushroom> items = new List<Mushroom>();
     private GameObject currentPlant;
 
     public int SelectedItem { get; set; }
@@ -67,9 +67,9 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log("PERFORMED INTERACTION");
 
-            GrowPlant plant = currentPlant.GetComponent<GrowPlant>();
-            items.Add(plant);
-            plant.PickUp();
+            Mushroom mushroom = currentPlant.GetComponent<Mushroom>();
+            items.Add(mushroom);
+            mushroom.PickUp();
             currentPlant = null;
         }
     }

@@ -16,8 +16,6 @@ public class GrowPlant : MonoBehaviour
     }
 
     [SerializeField]
-    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
-    [SerializeField]
     private Vector3 startSize;
     [SerializeField]
     private Vector3 maxSize;
@@ -27,12 +25,8 @@ public class GrowPlant : MonoBehaviour
     private float growthRate = 1.1f;
     private Vector3 targetGrowth = Vector3.zero;
 
-    public bool IsGrowing { get; private set; }
+    public bool IsGrowing { get; set; }
     public bool IsFullyGrown => transform.localScale == maxSize;
-
-#if UNITY_EDITOR
-    [SerializeField] private Transform behaviorsParent;
-#endif
 
     public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
 
@@ -75,8 +69,6 @@ public class GrowPlant : MonoBehaviour
 
     public void PickUp()
     {
-        gameObject.SetActive(false);
-
         if (IsGrowing)
         {
             transform.localScale = startSize;
@@ -84,31 +76,9 @@ public class GrowPlant : MonoBehaviour
         }
     }
 
-    public void Plant(Vector3 position, Quaternion rotation)
-    {
-        transform.SetPositionAndRotation(position, rotation);
-        IsGrowing = true;
-        gameObject.SetActive(true);
-
-        foreach (PlantBehavior behavior in behaviors)
-        {
-            behavior.gameObject.SetActive(true);
-        }
-    }
-
     private void OnValidate()
     {
         transform.localScale = startSize;
-
-        if (behaviorsParent != null)
-        {
-            behaviors.Clear();
-
-            foreach (Transform behavior in behaviorsParent)
-            {
-                behaviors.Add(behavior.GetComponent<PlantBehavior>());
-            }
-        }
 
         if (growingHours.endHour < growingHours.startHour)
         {
