@@ -25,12 +25,9 @@ public class GrowPlant : MonoBehaviour
     GrowingInfo growingHours;
 
     private float growthRate = 1.1f;
-    public int minutesAtSpawn = 0, elapsedMinutes = 0;
-
     private Vector3 targetGrowth = Vector3.zero;
 
     public bool IsGrowing { get; private set; }
-
     public bool IsFullyGrown => transform.localScale == maxSize;
 
 #if UNITY_EDITOR
@@ -46,25 +43,18 @@ public class GrowPlant : MonoBehaviour
         return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        minutesAtSpawn = GameTime.totalPassedMinutes;
         IsGrowing = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsGrowing)
         {
-            if (GameTime.totalPassedMinutes - minutesAtSpawn > elapsedMinutes && transform.localScale.x < maxSize.x)
-            {
-                elapsedMinutes = GameTime.totalPassedMinutes - minutesAtSpawn;
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
-            }
+            targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
+            targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, maxSize.y);
+            targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
 
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
             IsGrowing = !IsFullyGrown;
@@ -120,7 +110,7 @@ public class GrowPlant : MonoBehaviour
             }
         }
 
-        if(growingHours.endHour < growingHours.startHour)
+        if (growingHours.endHour < growingHours.startHour)
         {
             growingHours.endHour = growingHours.startHour;
         }
