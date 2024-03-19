@@ -166,7 +166,8 @@ MonoBehaviour:
   growingHours:
     startHour: 0
     endHour: 20
-  growthRate: 1.05
+    peakGrowingRate: 1.1
+    offPeakGrowingRate: 1.001
   minutesAtSpawn: 0
   elapsedMinutes: 0
   behaviorsParent: {fileID: 4781410716438576801}

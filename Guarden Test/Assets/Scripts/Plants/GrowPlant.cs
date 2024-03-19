@@ -10,6 +10,9 @@ public class GrowPlant : MonoBehaviour
         public int startHour;
         [Range(0, 23)]
         public int endHour;
+        public float peakGrowingRate;
+        public float offPeakGrowingRate;
+
     }
 
     [SerializeField]
@@ -21,7 +24,7 @@ public class GrowPlant : MonoBehaviour
     [SerializeField]
     GrowingInfo growingHours;
 
-    public float growthRate = 1.1f;
+    private float growthRate = 1.1f;
     public int minutesAtSpawn = 0, elapsedMinutes = 0;
 
     private Vector3 targetGrowth = Vector3.zero;
@@ -72,11 +75,11 @@ public class GrowPlant : MonoBehaviour
     {
         if (GameTime.hour >= growingHours.startHour && GameTime.hour <= growingHours.endHour)
         {
-            growthRate = 1.1f;
+            growthRate = growingHours.peakGrowingRate;
         }
         else
         {
-            growthRate = 1.001f;
+            growthRate = growingHours.offPeakGrowingRate;
         }
     }
 
