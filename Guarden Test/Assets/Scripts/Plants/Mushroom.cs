@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Mushroom : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class Mushroom : MonoBehaviour
     private GrowPlant growPlant;
     [SerializeField]
     private Rigidbody rb;
+    [SerializeField]
+    private NavMeshObstacle navMeshObstacle;
 
 #if UNITY_EDITOR
     [SerializeField] private Transform behaviorsParent;
@@ -27,6 +30,8 @@ public class Mushroom : MonoBehaviour
     public void Plant(Vector3 position, Quaternion rotation)
     {
         InitializePlantedState(position, rotation);
+
+        navMeshObstacle.carving = true;
 
         foreach (PlantBehavior behavior in behaviors)
         {
@@ -50,6 +55,7 @@ public class Mushroom : MonoBehaviour
     private void OnValidate()
     {
         rb = GetComponent<Rigidbody>();
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
 
         if (behaviorsParent != null)
         {
