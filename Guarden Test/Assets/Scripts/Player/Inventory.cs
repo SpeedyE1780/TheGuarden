@@ -8,6 +8,8 @@ public class Inventory : MonoBehaviour
     private GameObject plantLocation;
     [SerializeField]
     private InventoryUI inventoryUI;
+    [SerializeField]
+    private LayerMask plantBedMask;
 
     private List<Mushroom> items = new List<Mushroom>();
     private GameObject currentPlant;
@@ -53,6 +55,13 @@ public class Inventory : MonoBehaviour
                 if (items[SelectedItem].IsFullyGrown)
                 {
                     Debug.Log("Plant anywhere");
+
+                    if(Physics.CheckSphere(plantLocation.transform.position, 2.0f, plantBedMask))
+                    {
+                        Debug.Log("Can't plant in planting bed");
+                        return;
+                    }
+
                     items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
                     planted = true;
                 }

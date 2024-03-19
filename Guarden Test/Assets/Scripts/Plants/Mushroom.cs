@@ -45,7 +45,6 @@ public class Mushroom : MonoBehaviour
         growPlant.IsGrowing = true;
     }
 
-
     public void PickUp()
     {
         gameObject.SetActive(false);

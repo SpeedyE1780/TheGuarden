@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 16067742}
   - component: {fileID: 16067741}
   - component: {fileID: 16067740}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (2)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 37032026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Row
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 82849328}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Row (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 109557785}
   - component: {fileID: 109557784}
   - component: {fileID: 109557783}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -522,7 +522,7 @@ GameObject:
   - component: {fileID: 198515265}
   - component: {fileID: 198515264}
   - component: {fileID: 198515263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 373785041}
   - component: {fileID: 373785040}
   - component: {fileID: 373785039}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (2)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -922,7 +922,7 @@ GameObject:
   - component: {fileID: 377882197}
   - component: {fileID: 377882196}
   - component: {fileID: 377882195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (3)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -1231,7 +1231,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464533003}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Row (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 571400718}
   - component: {fileID: 571400717}
   - component: {fileID: 571400716}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (1)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -1594,7 +1594,7 @@ GameObject:
   - component: {fileID: 605644088}
   - component: {fileID: 605644087}
   - component: {fileID: 605644091}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlantBed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1929,7 @@ GameObject:
   - component: {fileID: 696132023}
   - component: {fileID: 696132022}
   - component: {fileID: 696132021}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2034,7 +2034,7 @@ GameObject:
   - component: {fileID: 718774127}
   - component: {fileID: 718774126}
   - component: {fileID: 718774125}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2139,7 +2139,7 @@ GameObject:
   - component: {fileID: 723563831}
   - component: {fileID: 723563830}
   - component: {fileID: 723563829}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (3)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2244,7 +2244,7 @@ GameObject:
   - component: {fileID: 746251081}
   - component: {fileID: 746251080}
   - component: {fileID: 746251079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (1)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2586,7 +2586,7 @@ GameObject:
   - component: {fileID: 977280933}
   - component: {fileID: 977280932}
   - component: {fileID: 977280931}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (2)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2810,7 +2810,7 @@ GameObject:
   - component: {fileID: 1044358139}
   - component: {fileID: 1044358138}
   - component: {fileID: 1044358137}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (1)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -2915,7 +2915,7 @@ GameObject:
   - component: {fileID: 1051417528}
   - component: {fileID: 1051417527}
   - component: {fileID: 1051417526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (3)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -3158,7 +3158,7 @@ GameObject:
   - component: {fileID: 1436742239}
   - component: {fileID: 1436742238}
   - component: {fileID: 1436742237}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (1)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -3263,7 +3263,7 @@ GameObject:
   - component: {fileID: 1507219677}
   - component: {fileID: 1507219676}
   - component: {fileID: 1507219675}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (2)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
@@ -3777,7 +3777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1645553035}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Row (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3897,6 +3897,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantLocation: {fileID: 764408727}
   inventoryUI: {fileID: 1969506209979049900}
+  plantBedMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1690822346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4146,7 +4149,7 @@ GameObject:
   - component: {fileID: 1863036668}
   - component: {fileID: 1863036667}
   - component: {fileID: 1863036666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Plant Soil (3)
   m_TagString: PlantSoil
   m_Icon: {fileID: 0}
