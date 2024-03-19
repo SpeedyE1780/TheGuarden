@@ -7,6 +7,8 @@ public class Mushroom : MonoBehaviour
     private List<PlantBehavior> behaviors = new List<PlantBehavior>();
     [SerializeField]
     private GrowPlant growPlant;
+    [SerializeField]
+    private Rigidbody rb;
 
 #if UNITY_EDITOR
     [SerializeField] private Transform behaviorsParent;
@@ -15,17 +17,29 @@ public class Mushroom : MonoBehaviour
     public float GrowthPercentage => growPlant.GrowthPercentage;
     public bool IsFullyGrown => growPlant.IsFullyGrown;
 
-    public void Plant(Vector3 position, Quaternion rotation)
+    private void InitializePlantedState(Vector3 position, Quaternion rotation)
     {
         transform.SetPositionAndRotation(position, rotation);
-        growPlant.IsGrowing = true;
         gameObject.SetActive(true);
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void Plant(Vector3 position, Quaternion rotation)
+    {
+        InitializePlantedState(position, rotation);
 
         foreach (PlantBehavior behavior in behaviors)
         {
             behavior.gameObject.SetActive(true);
         }
     }
+
+    public void PlantInSoil(Vector3 position, Quaternion rotation)
+    {
+        InitializePlantedState(position, rotation);
+        growPlant.IsGrowing = true;
+    }
+
 
     public void PickUp()
     {
@@ -35,6 +49,8 @@ public class Mushroom : MonoBehaviour
 
     private void OnValidate()
     {
+        rb = GetComponent<Rigidbody>();
+
         if (behaviorsParent != null)
         {
             behaviors.Clear();

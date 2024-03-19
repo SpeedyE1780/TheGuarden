@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviour
 
     private List<Mushroom> items = new List<Mushroom>();
     private GameObject currentPlant;
+    private GameObject currentSoil;
 
     public int SelectedItem { get; set; }
 
@@ -45,13 +46,29 @@ public class Inventory : MonoBehaviour
             Debug.Log("ON PLANT");
             plantLocation.SetActive(false);
 
-            if (items.Count > 0 && SelectedItem != -1 && !items[SelectedItem].IsFullyGrown)
+            if (items.Count > 0 && SelectedItem != -1)
             {
-                items[SelectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
-                items.Remove(items[SelectedItem]);
-                SelectedItem = -1;
-                inventoryUI.HideSelected();
+                bool planted = false;
+
+                if (items[SelectedItem].IsFullyGrown)
+                {
+                    Debug.Log("Plant anywhere");
+                    items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
+                    planted = true;
+                }
+                else if(currentSoil != null)
+                {
+                    Debug.Log("Plant in soil");
+                    items[SelectedItem].PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
+                    planted = true;
+                }
+
+                if (planted)
+                {
+                    items.Remove(items[SelectedItem]);
+                    SelectedItem = -1;
+                    inventoryUI.HideSelected(); 
+                }
             }
         }
 
@@ -81,6 +98,12 @@ public class Inventory : MonoBehaviour
             currentPlant = other.gameObject;
             Debug.Log("ENTER PLANT");
         }
+
+        if (other.CompareTag("PlantSoil") && currentSoil == null)
+        {
+            currentSoil = other.gameObject;
+            Debug.Log("ENTER SOIL");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -89,6 +112,12 @@ public class Inventory : MonoBehaviour
         {
             currentPlant = null;
             Debug.Log("EXIT PLANT");
+        }
+
+        if (other.gameObject == currentSoil)
+        {
+            currentSoil = null;
+            Debug.Log("EXIT SOIL");
         }
     }
 }
