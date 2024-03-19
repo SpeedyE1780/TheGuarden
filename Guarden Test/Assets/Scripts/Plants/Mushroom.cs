@@ -16,7 +16,7 @@ public class Mushroom : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameTime.hour >= growHoursMin && GameTime.minute >= growHoursMax) 
+        if(GameTime.hour >= growHoursMin && GameTime.hour <= growHoursMax) 
         {
             plantScript.setGrowthRate(1.1f);
         }
