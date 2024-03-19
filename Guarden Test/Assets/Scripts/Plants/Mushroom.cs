@@ -1,28 +1,69 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Mushroom : MonoBehaviour
 {
-    GrowPlant plantScript;
-    public int growHoursMin,growHoursMax;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
+    [SerializeField]
+    private GrowPlant growPlant;
+    [SerializeField]
+    private Rigidbody rb;
+    [SerializeField]
+    private NavMeshObstacle navMeshObstacle;
+
+#if UNITY_EDITOR
+    [SerializeField] private Transform behaviorsParent;
+#endif
+
+    public float GrowthPercentage => growPlant.GrowthPercentage;
+    public bool IsFullyGrown => growPlant.IsFullyGrown;
+
+    private void InitializePlantedState(Vector3 position, Quaternion rotation)
     {
-        plantScript = GetComponent<GrowPlant>();
-        plantScript.setGrowthRate(1.001f);
+        transform.SetPositionAndRotation(position, rotation);
+        gameObject.SetActive(true);
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Plant(Vector3 position, Quaternion rotation)
     {
-        if(GameTime.hour >= growHoursMin && GameTime.minute >= growHoursMax) 
+        InitializePlantedState(position, rotation);
+
+        navMeshObstacle.carving = true;
+
+        foreach (PlantBehavior behavior in behaviors)
         {
-            plantScript.setGrowthRate(1.1f);
+            behavior.gameObject.SetActive(true);
         }
-        else 
+    }
+
+    public void PlantInSoil(Vector3 position, Quaternion rotation)
+    {
+        InitializePlantedState(position, rotation);
+        growPlant.IsGrowing = true;
+    }
+
+    public void PickUp()
+    {
+        gameObject.SetActive(false);
+        growPlant.PickUp();
+    }
+
+    private void OnValidate()
+    {
+        rb = GetComponent<Rigidbody>();
+        navMeshObstacle = GetComponent<NavMeshObstacle>();
+
+        if (behaviorsParent != null)
         {
-            plantScript.setGrowthRate(1.001f);
+            behaviors.Clear();
+
+            foreach (Transform behavior in behaviorsParent)
+            {
+                behaviors.Add(behavior.GetComponent<PlantBehavior>());
+            }
         }
     }
 }

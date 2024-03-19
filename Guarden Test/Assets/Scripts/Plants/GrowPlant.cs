@@ -3,15 +3,30 @@ using UnityEngine;
 
 public class GrowPlant : MonoBehaviour
 {
+    [System.Serializable]
+    private struct GrowingInfo
+    {
+        [Range(0, 23)]
+        public int startHour;
+        [Range(0, 23)]
+        public int endHour;
+        public float peakGrowingRate;
+        public float offPeakGrowingRate;
+
+    }
+
     [SerializeField]
-    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
+    private Vector3 startSize;
+    [SerializeField]
+    private Vector3 maxSize;
+    [SerializeField]
+    GrowingInfo growingHours;
 
-    public bool growing = false, grown = false;
-    public Vector3 startSize, maxSize;
-    public float growthRate = 1.1f;
-    public int minutesAtSpawn = 0, elapsedMinutes = 0;
-
+    private float growthRate = 1.1f;
     private Vector3 targetGrowth = Vector3.zero;
+
+    public bool IsGrowing { get; set; }
+    public bool IsFullyGrown => transform.localScale == maxSize;
 
     public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
 
@@ -22,62 +37,52 @@ public class GrowPlant : MonoBehaviour
         return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        minutesAtSpawn = GameTime.totalPassedMinutes;
+        IsGrowing = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (growing && !grown)
+        if (IsGrowing)
         {
-            if (GameTime.totalPassedMinutes - minutesAtSpawn > elapsedMinutes && transform.localScale.x < maxSize.x)
-            {
-                elapsedMinutes = GameTime.totalPassedMinutes - minutesAtSpawn;
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
-            }
-            transform.localScale = Vector3.Lerp(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
+            targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
+            targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, maxSize.y);
+            targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
+
+            transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
+            IsGrowing = !IsFullyGrown;
         }
-        if (Vector3.Distance(transform.localScale, maxSize) < 0.001f) { transform.localScale = maxSize; growing = false; grown = true; }
+    }
+
+    private void LateUpdate()
+    {
+        if (GameTime.hour >= growingHours.startHour && GameTime.hour <= growingHours.endHour)
+        {
+            growthRate = growingHours.peakGrowingRate;
+        }
+        else
+        {
+            growthRate = growingHours.offPeakGrowingRate;
+        }
     }
 
     public void PickUp()
     {
-        gameObject.SetActive(false);
-
-        if (!grown)
+        if (IsGrowing)
         {
             transform.localScale = startSize;
+            IsGrowing = false;
         }
     }
 
-    public void Plant(Vector3 position, Quaternion rotation)
+    private void OnValidate()
     {
-        transform.SetPositionAndRotation(position, rotation);
-        setGrowing(true);
-        gameObject.SetActive(true);
+        transform.localScale = startSize;
 
-        foreach(PlantBehavior behavior in behaviors)
+        if (growingHours.endHour < growingHours.startHour)
         {
-            behavior.gameObject.SetActive(true);
+            growingHours.endHour = growingHours.startHour;
         }
-    }
-
-    public void setGrowing(bool grow)
-    {
-        growing = grow;
-    }
-    public bool getGrowing()
-    {
-        return growing;
-    }
-    public bool getGrown() { return grown; }
-    public void setGrowthRate(float newGrowthRate)
-    {
-        growthRate = newGrowthRate;
     }
 }
