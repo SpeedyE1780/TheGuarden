@@ -5,8 +5,11 @@ public class GrowPlant : MonoBehaviour
 {
     [SerializeField]
     private List<PlantBehavior> behaviors = new List<PlantBehavior>();
+    [SerializeField]
+    private Vector3 startSize;
+    [SerializeField]
+    private Vector3 maxSize;
 
-    public Vector3 startSize, maxSize;
     public float growthRate = 1.1f;
     public int minutesAtSpawn = 0, elapsedMinutes = 0;
 
@@ -84,6 +87,8 @@ public class GrowPlant : MonoBehaviour
 
     private void OnValidate()
     {
+        transform.localScale = startSize;
+
         if (behaviorsParent != null)
         {
             behaviors.Clear();
