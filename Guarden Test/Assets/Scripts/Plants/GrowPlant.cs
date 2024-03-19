@@ -13,6 +13,10 @@ public class GrowPlant : MonoBehaviour
 
     private Vector3 targetGrowth = Vector3.zero;
 
+#if UNITY_EDITOR
+    [SerializeField] private Transform behaviorsParent;
+#endif
+
     public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
 
     public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
@@ -79,5 +83,18 @@ public class GrowPlant : MonoBehaviour
     public void setGrowthRate(float newGrowthRate)
     {
         growthRate = newGrowthRate;
+    }
+
+    private void OnValidate()
+    {
+        if (behaviorsParent != null)
+        {
+            behaviors.Clear();
+
+            foreach (Transform behavior in behaviorsParent)
+            {
+                behaviors.Add(behavior.GetComponent<PlantBehavior>());
+            } 
+        }
     }
 }
