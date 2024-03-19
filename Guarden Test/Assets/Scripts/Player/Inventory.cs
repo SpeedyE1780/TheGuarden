@@ -45,7 +45,7 @@ public class Inventory : MonoBehaviour
             Debug.Log("ON PLANT");
             plantLocation.SetActive(false);
 
-            if (items.Count > 0 && SelectedItem != -1 && !items[SelectedItem].getGrown())
+            if (items.Count > 0 && SelectedItem != -1 && !items[SelectedItem].IsFullyGrown)
             {
                 items[SelectedItem].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
