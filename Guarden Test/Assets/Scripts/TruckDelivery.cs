@@ -28,6 +28,8 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
     private bool delivered = false;
     private int deliveryCooldown = 0;
 
+    protected Vector3 SpawnPoint => transform.position + Vector3.up;
+
     private void OnEnable()
     {
         gameTime.OnDayEnded += QueueDelivery;
@@ -87,6 +89,13 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
     }
 
     protected abstract void SpawnItem();
+
+    protected Vector3 CalculateVelocity()
+    {
+        Vector3 velocity = deliveryLocation.position - SpawnPoint;
+        velocity.y = Random.Range(2.0f, 5.0f);
+        return velocity;
+    }
 
     private void OnValidate()
     {

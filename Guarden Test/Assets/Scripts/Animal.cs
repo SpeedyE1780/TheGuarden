@@ -13,6 +13,9 @@ public class Animal : MonoBehaviour
 
     public bool InsideForceField { get; set; }
 
+    public Rigidbody Rigidbody => rb;
+    public NavMeshAgent Agent => agent;
+
     private Vector3 GetNewDestination()
     {
         Vector3 destination = Random.insideUnitSphere * 20.0f;
@@ -51,6 +54,16 @@ public class Animal : MonoBehaviour
         if (other.CompareTag("PlantBehavior"))
         {
             other.GetComponent<PlantBehavior>().RemoveBehavior(this);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!enabled || !agent.enabled)
+        {
+            enabled = true;
+            agent.enabled = true;
+            agent.SetDestination(GetNewDestination());
         }
     }
 
