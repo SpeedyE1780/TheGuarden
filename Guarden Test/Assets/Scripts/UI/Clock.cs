@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
+    [SerializeField] private GameTime gameTime;
     [SerializeField] GameObject minuteHand, hourHand;
     [SerializeField] TMP_Text dateText;
-    // Start is called before the first frame update
     float targetMinuteAngle;
     float targetHourAngle;
     const float smoothSpeed = 5f; // Adjust the speed of rotation
@@ -17,8 +15,8 @@ public class Clock : MonoBehaviour
         // Calculate the target angles
         float currentMinuteAngle = -minuteHand.transform.localEulerAngles.z;
         float currentHourAngle = -hourHand.transform.localEulerAngles.z;
-        targetMinuteAngle = 360f * (GameTime.minute / 60f);
-        targetHourAngle = 360f * (GameTime.hour % 12) / 12f + (GameTime.minute / 60f) * 30f; // Include minute contribution
+        targetMinuteAngle = 360f * (gameTime.Minute / 60f);
+        targetHourAngle = 360f * (gameTime.Hour % 12) / 12f + (gameTime.Minute / 60f) * 30f; // Include minute contribution
 
         // Smoothly interpolate between current and target angles
         float newMinuteAngle = Mathf.LerpAngle(currentMinuteAngle, targetMinuteAngle, smoothSpeed * Time.deltaTime);
@@ -28,9 +26,16 @@ public class Clock : MonoBehaviour
         minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
         hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
 
-        // Debug.Log(GameTime.dayNames[GameTime.day]);
-        //Debug.Log(GameTime.monthNames[GameTime.month]);
-        //Debug.Log(GameTime.dayOfTheMonth);
-        dateText.text = (GameTime.dayNames[GameTime.day] + ", The " + GameTime.dayOfTheMonth + " Of " + GameTime.monthNames[GameTime.month] + ", " + GameTime.year);
+        dateText.text = gameTime.DateText;
+    }
+
+    private void OnValidate()
+    {
+        gameTime = FindObjectOfType<GameTime>();
+
+        if (gameTime == null)
+        {
+            Debug.LogWarning("Game Time not available in scene");
+        }
     }
 }

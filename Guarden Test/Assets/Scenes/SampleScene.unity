@@ -766,7 +766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f99265f67ac134bad289cd7f0788b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  second: 0
   inspectorDayNames:
   - Error
   - Mungi
@@ -3389,6 +3388,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushrom Repel
       objectReference: {fileID: 0}
+    - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: behaviors.Array.size
@@ -3496,6 +3500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mushrom Attract
+      objectReference: {fileID: 0}
+    - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
@@ -3610,6 +3619,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mushroom Force Field
       objectReference: {fileID: 0}
+    - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: behaviors.Array.size
@@ -3707,6 +3721,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mushrom (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670486904953502129, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
