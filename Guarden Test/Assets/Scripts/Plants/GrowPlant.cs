@@ -21,6 +21,8 @@ public class GrowPlant : MonoBehaviour
     private Vector3 maxSize;
     [SerializeField]
     GrowingInfo growingHours;
+    [SerializeField]
+    GameTime gameTime;
 
     private float growthRate = 1.1f;
     private Vector3 targetGrowth = Vector3.zero;
@@ -57,7 +59,7 @@ public class GrowPlant : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameTime.Hour >= growingHours.startHour && GameTime.Hour <= growingHours.endHour)
+        if (gameTime.Hour >= growingHours.startHour && gameTime.Hour <= growingHours.endHour)
         {
             growthRate = growingHours.peakGrowingRate;
         }
@@ -83,6 +85,13 @@ public class GrowPlant : MonoBehaviour
         if (growingHours.endHour < growingHours.startHour)
         {
             growingHours.endHour = growingHours.startHour;
+        }
+
+        gameTime = FindObjectOfType<GameTime>();
+
+        if (gameTime == null)
+        {
+            Debug.LogWarning("GameTime not available in scene");
         }
     }
 }

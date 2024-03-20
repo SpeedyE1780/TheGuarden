@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
+    [SerializeField] private GameTime gameTime;
     [SerializeField] GameObject minuteHand, hourHand;
     [SerializeField] TMP_Text dateText;
     float targetMinuteAngle;
@@ -14,8 +15,8 @@ public class Clock : MonoBehaviour
         // Calculate the target angles
         float currentMinuteAngle = -minuteHand.transform.localEulerAngles.z;
         float currentHourAngle = -hourHand.transform.localEulerAngles.z;
-        targetMinuteAngle = 360f * (GameTime.Minute / 60f);
-        targetHourAngle = 360f * (GameTime.Hour % 12) / 12f + (GameTime.Minute / 60f) * 30f; // Include minute contribution
+        targetMinuteAngle = 360f * (gameTime.Minute / 60f);
+        targetHourAngle = 360f * (gameTime.Hour % 12) / 12f + (gameTime.Minute / 60f) * 30f; // Include minute contribution
 
         // Smoothly interpolate between current and target angles
         float newMinuteAngle = Mathf.LerpAngle(currentMinuteAngle, targetMinuteAngle, smoothSpeed * Time.deltaTime);
@@ -25,6 +26,16 @@ public class Clock : MonoBehaviour
         minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
         hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
 
-        dateText.text = GameTime.DateText;
+        dateText.text = gameTime.DateText;
+    }
+
+    private void OnValidate()
+    {
+        gameTime = FindObjectOfType<GameTime>();
+
+        if (gameTime == null)
+        {
+            Debug.LogWarning("Game Time not available in scene");
+        }
     }
 }

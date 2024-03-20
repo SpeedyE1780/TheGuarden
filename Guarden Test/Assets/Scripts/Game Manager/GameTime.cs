@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    private static GameTime Instance { get; set; }
-
     private float second = 0;
     private int minute = 0;
     private int hour = 0;
@@ -23,42 +21,37 @@ public class GameTime : MonoBehaviour
     [SerializeField]
     private float clockScale = 1f;
 
-    public static int Minute => Instance.minute;
-    public static int Hour => Instance.hour;
-    public static int Day => Instance.day;
-    public static int Week => Instance.week;
-    public static int Month => Instance.month;
-    public static int Year => Instance.year;
-    public static string DayName => Instance.inspectorDayNames[Instance.day];
-    public static string MonthName => Instance.inspectorMonthNames[Instance.month];
-    public static string DayOfMonth
+    public int Minute => minute;
+    public int Hour => hour;
+    public int Day => day;
+    public int Week => week;
+    public int Month => month;
+    public int Year => year;
+    public string DayName => inspectorDayNames[day];
+    public string MonthName => inspectorMonthNames[month];
+    public string DayOfMonth
     {
         get
         {
             string suffix = "th";
 
-            if (Instance.dayOfTheMonth == 1 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 1))
+            if (dayOfTheMonth == 1 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 1))
             {
                 suffix = "st";
             }
-            else if (Instance.dayOfTheMonth == 2 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 2))
+            else if (dayOfTheMonth == 2 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 2))
             {
                 suffix = "nd";
             }
-            else if (Instance.dayOfTheMonth == 3 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 3))
+            else if (dayOfTheMonth == 3 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 3))
             {
                 suffix = "rd";
             }
 
-            return $"{Instance.dayOfTheMonth}{suffix}";
+            return $"{dayOfTheMonth}{suffix}";
         }
     }
-    public static string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
-
-    void Start()
-    {
-        Instance = this;
-    }
+    public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
 
     void Update()
     {
