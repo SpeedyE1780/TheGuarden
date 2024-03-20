@@ -53,6 +53,7 @@ public class GameTime : MonoBehaviour
             return $"{Instance.dayOfTheMonth}{suffix}";
         }
     }
+    public static string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
 
     void Start()
     {
