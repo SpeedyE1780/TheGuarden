@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TruckDelivery : MonoBehaviour
+public abstract class TruckDelivery<Item> : MonoBehaviour
 {
     [SerializeField]
     private List<RoadLane> roads;
@@ -11,30 +11,56 @@ public class TruckDelivery : MonoBehaviour
     [SerializeField]
     private GameObject mesh;
     [SerializeField]
-    private List<Mushroom> mushrooms;
+    protected List<Item> items;
     [SerializeField]
     private int deliveryItemCount = 2;
     [SerializeField]
     private GameTime gameTime;
     [SerializeField]
-    private Transform deliveryLocation;
+    protected Transform deliveryLocation;
     [SerializeField]
     private float deliveryInterval = 0.25f;
+    [SerializeField]
+    private List<int> deliveryHours;
+    [SerializeField]
+    private int daysBetweenDelivery = 0;
 
-    private void Start()
+    private bool delivered = false;
+    private int deliveryCooldown = 0;
+
+    protected Vector3 SpawnPoint => transform.position + Vector3.up;
+
+    private void OnEnable()
     {
-        StartCoroutine(Delivery());
+        gameTime.OnDayEnded += QueueDelivery;
+    }
+
+    private void OnDisable()
+    {
+        gameTime.OnDayEnded -= QueueDelivery;
+    }
+
+    private void QueueDelivery()
+    {
+        if (deliveryCooldown <= 0)
+        {
+            StartCoroutine(Delivery());
+            deliveryCooldown = daysBetweenDelivery + 1;
+        }
+
+        deliveryCooldown -= 1;
     }
 
     private IEnumerator Delivery()
     {
-        while (true)
+        foreach (int deliveryHour in deliveryHours)
         {
+            yield return new WaitUntil(() => gameTime.Hour >= deliveryHour);
+
+            delivered = false;
             mesh.SetActive(true);
             RoadLane lane = roads[Random.Range(0, roads.Count)];
-
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
-            bool delivered = false;
 
             while (transform.position != lane.EndPosition)
             {
@@ -50,8 +76,6 @@ public class TruckDelivery : MonoBehaviour
             }
 
             mesh.SetActive(false);
-
-            yield return new WaitForSeconds(1.0f);
         }
     }
 
@@ -59,9 +83,27 @@ public class TruckDelivery : MonoBehaviour
     {
         for (int i = 0; i < deliveryItemCount; i++)
         {
-            Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
-            mushroom.Rigidbody.velocity = deliveryLocation.position - transform.position;
+            SpawnItem();
             yield return new WaitForSeconds(deliveryInterval);
+        }
+    }
+
+    protected abstract void SpawnItem();
+
+    protected Vector3 CalculateVelocity()
+    {
+        Vector3 velocity = deliveryLocation.position - SpawnPoint;
+        velocity.y = Random.Range(2.0f, 5.0f);
+        return velocity;
+    }
+
+    private void OnValidate()
+    {
+        gameTime = FindObjectOfType<GameTime>();
+
+        if (gameTime == null)
+        {
+            Debug.LogWarning("Game Time not available in scene");
         }
     }
 }
