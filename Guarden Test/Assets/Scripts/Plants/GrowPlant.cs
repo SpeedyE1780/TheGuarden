@@ -57,7 +57,7 @@ public class GrowPlant : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameTime.hour >= growingHours.startHour && GameTime.hour <= growingHours.endHour)
+        if (GameTime.Hour >= growingHours.startHour && GameTime.Hour <= growingHours.endHour)
         {
             growthRate = growingHours.peakGrowingRate;
         }

@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
+    private static GameTime Instance {get; set;}
+
     private float second = 0;
-    public static int minute = 0;
-    public static int hour = 0;
-    public static int day = 1;
-    public static int week = 1;
-    public static int month = 1;
-    public static int year = 2024;
+    private int minute = 0;
+    private int hour = 0;
+    private int day = 1;
+    private int week = 1;
+    private int month = 1;
+    private int year = 2024;
     public static string dayOfTheMonth = "1st";
     public static List<string> dayNames = new List<string>();
     public static List<string> monthNames = new List<string>();  
@@ -19,13 +21,20 @@ public class GameTime : MonoBehaviour
     [SerializeField]
     private float timeScale = 1f;
 
+    public static int Minute => Instance.minute;
+    public static int Hour => Instance.hour;
+    public static int Day => Instance.day;
+    public static int Week => Instance.week;
+    public static int Month => Instance.month;
+    public static int Year => Instance.year;
+
     void Start()
     {
         dayNames = inspectorDayNames; 
         monthNames = inspectorMonthNames;
+        Instance = this;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Time.timeScale = timeScale;

@@ -14,8 +14,8 @@ public class Clock : MonoBehaviour
         // Calculate the target angles
         float currentMinuteAngle = -minuteHand.transform.localEulerAngles.z;
         float currentHourAngle = -hourHand.transform.localEulerAngles.z;
-        targetMinuteAngle = 360f * (GameTime.minute / 60f);
-        targetHourAngle = 360f * (GameTime.hour % 12) / 12f + (GameTime.minute / 60f) * 30f; // Include minute contribution
+        targetMinuteAngle = 360f * (GameTime.Minute / 60f);
+        targetHourAngle = 360f * (GameTime.Hour % 12) / 12f + (GameTime.Minute / 60f) * 30f; // Include minute contribution
 
         // Smoothly interpolate between current and target angles
         float newMinuteAngle = Mathf.LerpAngle(currentMinuteAngle, targetMinuteAngle, smoothSpeed * Time.deltaTime);
@@ -25,9 +25,6 @@ public class Clock : MonoBehaviour
         minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
         hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
 
-        // Debug.Log(GameTime.dayNames[GameTime.day]);
-        //Debug.Log(GameTime.monthNames[GameTime.month]);
-        //Debug.Log(GameTime.dayOfTheMonth);
-        dateText.text = (GameTime.dayNames[GameTime.day] + ", The " + GameTime.dayOfTheMonth + " Of " + GameTime.monthNames[GameTime.month] + ", " + GameTime.year);
+        dateText.text = (GameTime.dayNames[GameTime.Day] + ", The " + GameTime.dayOfTheMonth + " Of " + GameTime.monthNames[GameTime.Month] + ", " + GameTime.Year);
     }
 }
