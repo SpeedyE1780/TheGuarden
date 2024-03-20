@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    private static GameTime Instance {get; set;}
+    private static GameTime Instance { get; set; }
 
     private float second = 0;
     private int minute = 0;
@@ -20,6 +20,8 @@ public class GameTime : MonoBehaviour
     private List<string> inspectorMonthNames;
     [SerializeField, Range(0.1f, 100)]
     private float timeScale = 1f;
+    [SerializeField]
+    private float clockScale = 1f;
 
     public static int Minute => Instance.minute;
     public static int Hour => Instance.hour;
@@ -38,25 +40,25 @@ public class GameTime : MonoBehaviour
     void Update()
     {
         Time.timeScale = timeScale;
-        second += Time.deltaTime * 60.0f;
+        second += Time.deltaTime * 60.0f * clockScale;
 
         // Check if a minute has passed
         if (second >= 60)
         {
-            second -= 60;
-            minute++;
+            minute += Mathf.FloorToInt(second / 60.0f);
+            second %= 60.0f;
 
             // Check if an hour has passed
             if (minute >= 60)
             {
-                minute -= 60;
-                hour++;
+                hour += minute / 60;
+                minute %= 60;
 
                 // Reset hour if it reaches 24 (end of day)
                 if (hour >= 24)
                 {
-                    hour -= 24;
-                    day++;
+                    day += hour / 24;
+                    hour %= 24;
                     int dayOfMonth = ((week - 1) * 7) + day;
 
 
@@ -75,28 +77,25 @@ public class GameTime : MonoBehaviour
                     // Check if a week has passed
                     if (day > 7)
                     {
-                        day = 1;
-                        week++;
+                        week += day / 7;
+                        day %= 7;
 
                         // Check if a month has passed
                         if (week > 4)
                         {
-                            week = 1;
-                            month++;
+                            month += week / 4;
+                            week %= 4;
 
                             // Check if a year has passed
                             if (month > 12)
                             {
-                                month = 1;
-                                year++;
+                                year += month / 12;
+                                month %= 12;
                             }
                         }
                     }
                 }
             }
         }
-
-        
     }
-    
 }
