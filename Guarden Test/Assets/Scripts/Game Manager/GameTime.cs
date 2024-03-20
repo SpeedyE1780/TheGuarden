@@ -12,7 +12,7 @@ public class GameTime : MonoBehaviour
     private int week = 1;
     private int month = 1;
     private int year = 2024;
-    public static string dayOfTheMonth = "1st";
+    private int dayOfTheMonth = 1;
 
     [SerializeField]
     private List<string> inspectorDayNames;
@@ -31,6 +31,28 @@ public class GameTime : MonoBehaviour
     public static int Year => Instance.year;
     public static string DayName => Instance.inspectorDayNames[Instance.day];
     public static string MonthName => Instance.inspectorMonthNames[Instance.month];
+    public static string DayOfMonth
+    {
+        get
+        {
+            string suffix = "th";
+
+            if (Instance.dayOfTheMonth == 1 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 1))
+            {
+                suffix = "st";
+            }
+            else if (Instance.dayOfTheMonth == 2 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 2))
+            {
+                suffix = "nd";
+            }
+            else if (Instance.dayOfTheMonth == 3 || (Instance.dayOfTheMonth > 20 && Instance.dayOfTheMonth % 10 == 3))
+            {
+                suffix = "rd";
+            }
+
+            return $"{Instance.dayOfTheMonth}{suffix}";
+        }
+    }
 
     void Start()
     {
@@ -58,21 +80,8 @@ public class GameTime : MonoBehaviour
                 if (hour >= 24)
                 {
                     day += hour / 24;
+                    dayOfTheMonth += hour / 24;
                     hour %= 24;
-                    int dayOfMonth = ((week - 1) * 7) + day;
-
-
-                    switch (dayOfMonth)
-                    {
-                        case 1: dayOfTheMonth = dayOfMonth.ToString() + "st"; break;
-                        case 2: dayOfTheMonth = dayOfMonth.ToString() + "nd"; break;
-                        case 3: dayOfTheMonth = dayOfMonth.ToString() + "rd"; break;
-
-                        default: dayOfTheMonth = dayOfMonth.ToString() + "th"; break;
-
-                    }
-
-                    if (dayOfMonth >= 11 && dayOfMonth <= 13) dayOfTheMonth = dayOfMonth.ToString() + "th";
 
                     // Check if a week has passed
                     if (day > 7)
@@ -85,6 +94,7 @@ public class GameTime : MonoBehaviour
                         {
                             month += week / 4;
                             week %= 4;
+                            dayOfTheMonth = day;
 
                             // Check if a year has passed
                             if (month > 12)

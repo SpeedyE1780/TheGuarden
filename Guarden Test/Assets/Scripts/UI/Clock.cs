@@ -25,6 +25,6 @@ public class Clock : MonoBehaviour
         minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
         hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
 
-        dateText.text = (GameTime.DayName + ", The " + GameTime.dayOfTheMonth + " Of " + GameTime.MonthName + ", " + GameTime.Year);
+        dateText.text = (GameTime.DayName + ", The " + GameTime.DayOfMonth + " Of " + GameTime.MonthName + ", " + GameTime.Year);
     }
 }
