@@ -23,9 +23,6 @@ public class GameTime : MonoBehaviour
 
     public int Minute => minute;
     public int Hour => hour;
-    public int Day => day;
-    public int Week => week;
-    public int Month => month;
     public int Year => year;
     public string DayName => inspectorDayNames[day];
     public string MonthName => inspectorMonthNames[month];
