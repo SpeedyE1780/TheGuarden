@@ -5,6 +5,10 @@ public class RoadLane : MonoBehaviour
     [SerializeField] private Transform start;
     [SerializeField] private Transform end;
 
+    public Vector3 StartPosition => start.position;
+    public Quaternion StartRotation => start.rotation;
+    public Vector3 EndPosition => end.position;
+
     private void OnValidate()
     {
         start = transform.Find("Start");
