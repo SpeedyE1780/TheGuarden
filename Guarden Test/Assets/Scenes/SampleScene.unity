@@ -4330,6 +4330,7 @@ MonoBehaviour:
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
   deliveryHours: 060000000c00000012000000
+  daysBetweenDelivery: 0
 --- !u!1 &1507219673
 GameObject:
   m_ObjectHideFlags: 0
@@ -4503,7 +4504,8 @@ MonoBehaviour:
   gameTime: {fileID: 330585548}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
-  deliveryHours: 0f000000
+  deliveryHours: 0d000000
+  daysBetweenDelivery: 2
 --- !u!1001 &1545856803
 PrefabInstance:
   m_ObjectHideFlags: 0

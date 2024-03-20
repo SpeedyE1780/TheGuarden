@@ -22,8 +22,11 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
     private float deliveryInterval = 0.25f;
     [SerializeField]
     private List<int> deliveryHours;
+    [SerializeField]
+    private int daysBetweenDelivery = 0;
 
     private bool delivered = false;
+    private int deliveryCooldown = 0;
 
     private void OnEnable()
     {
@@ -37,7 +40,13 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
 
     private void QueueDelivery()
     {
-        StartCoroutine(Delivery());
+        if (deliveryCooldown <= 0)
+        {
+            StartCoroutine(Delivery());
+            deliveryCooldown = daysBetweenDelivery + 1;
+        }
+
+        deliveryCooldown -= 1;
     }
 
     private IEnumerator Delivery()
