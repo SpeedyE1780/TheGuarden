@@ -1,16 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class TruckDelivery : MonoBehaviour
 {
     [SerializeField]
-    private NavMeshAgent agent;
-    [SerializeField]
     private List<RoadLane> roads;
     [SerializeField]
-    private float stoppingDistance;
+    private float speed;
     [SerializeField]
     private GameObject mesh;
     [SerializeField]
@@ -35,23 +32,36 @@ public class TruckDelivery : MonoBehaviour
             RoadLane lane = roads[Random.Range(0, roads.Count)];
 
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
-            agent.SetDestination(lane.EndPosition);
-            
-            yield return new WaitUntil(() => agent.remainingDistance <= lane.Length * 0.75f);
-
-            for (int i = 0; i < deliveryItemCount; i++)
+            bool delivered = false;
+            while (transform.position != lane.EndPosition)
             {
-                Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
-                Vector3 velocity = deliveryLocation.position - transform.position;
-                mushroom.Rigidbody.velocity = velocity;
-                yield return new WaitForSeconds(0.1f);
-            }
+                transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
 
-            yield return new WaitUntil(() => agent.remainingDistance <= stoppingDistance);
+                if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= lane.Length * 0.4f)
+                {
+                    delivered = true;
+
+                    StartCoroutine(DeliverMushrooms());
+                }
+
+                yield return null;
+            }
 
             mesh.SetActive(false);
 
             yield return new WaitForSeconds(1.0f);
+        }
+    }
+
+    private IEnumerator DeliverMushrooms()
+    {
+        for (int i = 0; i < deliveryItemCount; i++)
+        {
+            Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
+            Vector3 velocity = deliveryLocation.position - transform.position;
+            velocity.y = Random.Range(3.0f, 5.0f);
+            mushroom.Rigidbody.velocity = velocity;
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
