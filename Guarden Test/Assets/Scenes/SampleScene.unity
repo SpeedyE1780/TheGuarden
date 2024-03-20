@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &95191906
 Transform:
   m_ObjectHideFlags: 0
@@ -3997,6 +3997,7 @@ MonoBehaviour:
   gameTime: {fileID: 330585548}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
+  deliveryHours: 060000000c00000012000000
 --- !u!1 &1507219673
 GameObject:
   m_ObjectHideFlags: 0

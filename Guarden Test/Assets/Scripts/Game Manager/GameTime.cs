@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
+    public delegate void DayEnded();
+
     private float second = 0;
     private int minute = 0;
     private int hour = 0;
@@ -50,6 +52,8 @@ public class GameTime : MonoBehaviour
     }
     public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
 
+    public event DayEnded OnDayEnded;
+
     void Update()
     {
         Time.timeScale = timeScale;
@@ -73,6 +77,7 @@ public class GameTime : MonoBehaviour
                     day += hour / 24;
                     dayOfTheMonth += hour / 24;
                     hour %= 24;
+                    OnDayEnded?.Invoke();
 
                     // Check if a week has passed
                     if (day > 7)

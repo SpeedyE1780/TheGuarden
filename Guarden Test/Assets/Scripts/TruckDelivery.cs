@@ -20,21 +20,36 @@ public class TruckDelivery : MonoBehaviour
     private Transform deliveryLocation;
     [SerializeField]
     private float deliveryInterval = 0.25f;
+    [SerializeField]
+    private List<int> deliveryHours;
 
-    private void Start()
+    private bool delivered = false;
+
+    private void OnEnable()
+    {
+        gameTime.OnDayEnded += QueueDelivery;
+    }
+
+    private void OnDisable()
+    {
+        gameTime.OnDayEnded -= QueueDelivery;
+    }
+
+    private void QueueDelivery()
     {
         StartCoroutine(Delivery());
     }
 
     private IEnumerator Delivery()
     {
-        while (true)
+        foreach (int deliveryHour in deliveryHours)
         {
+            yield return new WaitUntil(() => gameTime.Hour >= deliveryHour);
+
+            delivered = false;
             mesh.SetActive(true);
             RoadLane lane = roads[Random.Range(0, roads.Count)];
-
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
-            bool delivered = false;
 
             while (transform.position != lane.EndPosition)
             {
@@ -50,8 +65,6 @@ public class TruckDelivery : MonoBehaviour
             }
 
             mesh.SetActive(false);
-
-            yield return new WaitForSeconds(1.0f);
         }
     }
 
