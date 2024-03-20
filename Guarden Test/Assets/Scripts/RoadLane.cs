@@ -8,6 +8,7 @@ public class RoadLane : MonoBehaviour
     public Vector3 StartPosition => start.position;
     public Quaternion StartRotation => start.rotation;
     public Vector3 EndPosition => end.position;
+    public float Length => Vector3.Distance(start.position, end.position);
 
     private void OnValidate()
     {

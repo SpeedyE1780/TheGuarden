@@ -36,12 +36,15 @@ public class TruckDelivery : MonoBehaviour
 
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
             agent.SetDestination(lane.EndPosition);
-
-            yield return new WaitUntil(() => agent.remainingDistance <= stoppingDistance * 3);
+            
+            yield return new WaitUntil(() => agent.remainingDistance <= lane.Length * 0.75f);
 
             for (int i = 0; i < deliveryItemCount; i++)
             {
-                Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], deliveryLocation.position, Quaternion.identity);
+                Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
+                Vector3 velocity = deliveryLocation.position - transform.position;
+                mushroom.Rigidbody.velocity = velocity;
+                yield return new WaitForSeconds(0.1f);
             }
 
             yield return new WaitUntil(() => agent.remainingDistance <= stoppingDistance);

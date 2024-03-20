@@ -20,6 +20,8 @@ public class Mushroom : MonoBehaviour
     public float GrowthPercentage => growPlant.GrowthPercentage;
     public bool IsFullyGrown => growPlant.IsFullyGrown;
 
+    public Rigidbody Rigidbody => rb;
+
     private void InitializePlantedState(Vector3 position, Quaternion rotation)
     {
         transform.SetPositionAndRotation(position, rotation);
