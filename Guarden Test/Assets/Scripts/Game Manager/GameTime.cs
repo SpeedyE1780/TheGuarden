@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameTime : MonoBehaviour
 {
-    //public static GameTime gameTime;
-    public int second = 0;
+    private float second = 0;
     public static int totalPassedMinutes = 0;
     public static int minute = 0;
     public static int hour = 0;
@@ -19,7 +17,8 @@ public class GameTime : MonoBehaviour
     public List<string> inspectorDayNames;
     public List<string> inspectorMonthNames;
 
-    public float timeScale = 1f;
+    [SerializeField]
+    private float timeScale = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +29,8 @@ public class GameTime : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        second += Mathf.RoundToInt(Time.deltaTime * (60f / timeScale)); // Adjust time scale
+        Time.timeScale = timeScale;
+        second += Time.deltaTime * 60.0f;
 
         // Check if a minute has passed
         if (second >= 60)

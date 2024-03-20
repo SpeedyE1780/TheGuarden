@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -7,7 +5,6 @@ public class Clock : MonoBehaviour
 {
     [SerializeField] GameObject minuteHand, hourHand;
     [SerializeField] TMP_Text dateText;
-    // Start is called before the first frame update
     float targetMinuteAngle;
     float targetHourAngle;
     const float smoothSpeed = 5f; // Adjust the speed of rotation
