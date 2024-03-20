@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameTime : MonoBehaviour
 {
     private float second = 0;
-    public static int totalPassedMinutes = 0;
     public static int minute = 0;
     public static int hour = 0;
     public static int day = 1;
@@ -19,7 +18,7 @@ public class GameTime : MonoBehaviour
 
     [SerializeField]
     private float timeScale = 1f;
-    // Start is called before the first frame update
+
     void Start()
     {
         dayNames = inspectorDayNames; 
@@ -37,7 +36,6 @@ public class GameTime : MonoBehaviour
         {
             second -= 60;
             minute++;
-            totalPassedMinutes++;
 
             // Check if an hour has passed
             if (minute >= 60)
