@@ -13,12 +13,12 @@ public class GameTime : MonoBehaviour
     private int month = 1;
     private int year = 2024;
     public static string dayOfTheMonth = "1st";
-    public static List<string> dayNames = new List<string>();
-    public static List<string> monthNames = new List<string>();  
-    public List<string> inspectorDayNames;
-    public List<string> inspectorMonthNames;
 
     [SerializeField]
+    private List<string> inspectorDayNames;
+    [SerializeField]
+    private List<string> inspectorMonthNames;
+    [SerializeField, Range(0.1f, 100)]
     private float timeScale = 1f;
 
     public static int Minute => Instance.minute;
@@ -27,11 +27,11 @@ public class GameTime : MonoBehaviour
     public static int Week => Instance.week;
     public static int Month => Instance.month;
     public static int Year => Instance.year;
+    public static string DayName => Instance.inspectorDayNames[Instance.day];
+    public static string MonthName => Instance.inspectorMonthNames[Instance.month];
 
     void Start()
     {
-        dayNames = inspectorDayNames; 
-        monthNames = inspectorMonthNames;
         Instance = this;
     }
 
