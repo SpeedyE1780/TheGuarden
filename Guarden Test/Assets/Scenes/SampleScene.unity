@@ -3996,6 +3996,7 @@ MonoBehaviour:
   deliveryItemCount: 2
   gameTime: {fileID: 330585548}
   deliveryLocation: {fileID: 1410547781}
+  deliveryInterval: 0.25
 --- !u!1 &1507219673
 GameObject:
   m_ObjectHideFlags: 0

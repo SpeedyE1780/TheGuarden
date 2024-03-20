@@ -18,6 +18,8 @@ public class TruckDelivery : MonoBehaviour
     private GameTime gameTime;
     [SerializeField]
     private Transform deliveryLocation;
+    [SerializeField]
+    private float deliveryInterval = 0.25f;
 
     private void Start()
     {
@@ -33,6 +35,7 @@ public class TruckDelivery : MonoBehaviour
 
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
             bool delivered = false;
+
             while (transform.position != lane.EndPosition)
             {
                 transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
@@ -40,7 +43,6 @@ public class TruckDelivery : MonoBehaviour
                 if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= lane.Length * 0.4f)
                 {
                     delivered = true;
-
                     StartCoroutine(DeliverMushrooms());
                 }
 
@@ -58,10 +60,8 @@ public class TruckDelivery : MonoBehaviour
         for (int i = 0; i < deliveryItemCount; i++)
         {
             Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
-            Vector3 velocity = deliveryLocation.position - transform.position;
-            velocity.y = Random.Range(3.0f, 5.0f);
-            mushroom.Rigidbody.velocity = velocity;
-            yield return new WaitForSeconds(0.1f);
+            mushroom.Rigidbody.velocity = deliveryLocation.position - transform.position;
+            yield return new WaitForSeconds(deliveryInterval);
         }
     }
 }
