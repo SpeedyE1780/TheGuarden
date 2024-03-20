@@ -1212,6 +1212,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377882193}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &391620264 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+    type: 3}
+  m_PrefabInstance: {fileID: 1590856077}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,6 +3751,37 @@ Transform:
   m_Father: {fileID: 581709924}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!1 &1410547780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1410547781}
+  m_Layer: 0
+  m_Name: DeliveryLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1410547781
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410547780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1436742235
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,6 +4022,14 @@ MonoBehaviour:
   - {fileID: 250589736}
   stoppingDistance: 0.2
   mesh: {fileID: 95191905}
+  mushrooms:
+  - {fileID: 1635156235}
+  - {fileID: 1537318292}
+  - {fileID: 1903896303}
+  - {fileID: 391620264}
+  deliveryItemCount: 2
+  gameTime: {fileID: 330585548}
+  deliveryLocation: {fileID: 1410547781}
 --- !u!195 &1490191153
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4106,6 +4157,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507219673}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1537318292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+    type: 3}
+  m_PrefabInstance: {fileID: 1571461226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1545856803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4538,6 +4601,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1590856077}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1635156235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+    type: 3}
+  m_PrefabInstance: {fileID: 5997907247448101446}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1645015662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5178,6 +5253,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863036664}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1903896303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+    type: 3}
+  m_PrefabInstance: {fileID: 1545856803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2023612120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6189353991193156652, guid: bd6a5109c29789c4684a3e12fbc3eb36,
