@@ -3949,7 +3949,7 @@ GameObject:
   - component: {fileID: 1490191151}
   - component: {fileID: 1490191152}
   m_Layer: 0
-  m_Name: Truck
+  m_Name: MushroomTruck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3980,7 +3980,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1490191150}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f5d41115efb9748baf9d762768368e, type: 3}
+  m_Script: {fileID: 11500000, guid: ca2a590c0204a9a43852cd25927d134c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   roads:
@@ -3988,7 +3988,7 @@ MonoBehaviour:
   - {fileID: 250589736}
   speed: 10
   mesh: {fileID: 95191905}
-  mushrooms:
+  items:
   - {fileID: 1635156235}
   - {fileID: 1537318292}
   - {fileID: 1903896303}

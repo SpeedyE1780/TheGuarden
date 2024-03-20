@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TruckDelivery : MonoBehaviour
+public abstract class TruckDelivery<Item> : MonoBehaviour
 {
     [SerializeField]
     private List<RoadLane> roads;
@@ -11,13 +11,13 @@ public class TruckDelivery : MonoBehaviour
     [SerializeField]
     private GameObject mesh;
     [SerializeField]
-    private List<Mushroom> mushrooms;
+    protected List<Item> items;
     [SerializeField]
     private int deliveryItemCount = 2;
     [SerializeField]
     private GameTime gameTime;
     [SerializeField]
-    private Transform deliveryLocation;
+    protected Transform deliveryLocation;
     [SerializeField]
     private float deliveryInterval = 0.25f;
     [SerializeField]
@@ -72,9 +72,20 @@ public class TruckDelivery : MonoBehaviour
     {
         for (int i = 0; i < deliveryItemCount; i++)
         {
-            Mushroom mushroom = Instantiate(mushrooms[Random.Range(0, mushrooms.Count)], transform.position, Quaternion.identity);
-            mushroom.Rigidbody.velocity = deliveryLocation.position - transform.position;
+            SpawnItem();
             yield return new WaitForSeconds(deliveryInterval);
+        }
+    }
+
+    protected abstract void SpawnItem();
+
+    private void OnValidate()
+    {
+        gameTime = FindObjectOfType<GameTime>();
+
+        if (gameTime == null)
+        {
+            Debug.LogWarning("Game Time not available in scene");
         }
     }
 }
