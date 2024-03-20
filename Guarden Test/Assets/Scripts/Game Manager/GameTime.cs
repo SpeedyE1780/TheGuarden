@@ -26,7 +26,7 @@ public class GameTime : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Time.timeScale = timeScale;
         second += Time.deltaTime * 60.0f;
