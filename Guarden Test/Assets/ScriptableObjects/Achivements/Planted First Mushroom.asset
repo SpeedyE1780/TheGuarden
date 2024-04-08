@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Planted First Mushroom
   m_EditorClassIdentifier: 
   threshold: 1
-  progress: {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
+  tracker: {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
