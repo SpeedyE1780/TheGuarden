@@ -392,6 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievements:
   - {fileID: 11400000, guid: 52f013c2550f8224ab9b29ad78ff84ac, type: 2}
+  - {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -4377,6 +4378,21 @@ MonoBehaviour:
   deliveryInterval: 0.25
   deliveryHours: 060000000c00000012000000
   daysBetweenDelivery: 0
+  OnDelivery:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
+        m_TargetAssemblyTypeName: AchievementTracker, Assembly-CSharp
+        m_MethodName: IncreaseCount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1507219673
 GameObject:
   m_ObjectHideFlags: 0
@@ -4552,6 +4568,9 @@ MonoBehaviour:
   deliveryInterval: 0.25
   deliveryHours: 0d000000
   daysBetweenDelivery: 2
+  OnDelivery:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1545856803
 PrefabInstance:
   m_ObjectHideFlags: 0

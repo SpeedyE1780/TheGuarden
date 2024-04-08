@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class TruckDelivery<Item> : MonoBehaviour
 {
@@ -25,10 +26,17 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
     [SerializeField]
     private int daysBetweenDelivery = 0;
 
+    public UnityEvent<int> OnDelivery;
+
     private bool delivered = false;
     private int deliveryCooldown = 0;
 
     protected Vector3 SpawnPoint => transform.position + Vector3.up;
+
+    private void Start()
+    {
+        QueueDelivery();
+    }
 
     private void OnEnable()
     {
@@ -70,6 +78,7 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
                 {
                     delivered = true;
                     StartCoroutine(DeliverMushrooms());
+                    OnDelivery?.Invoke(deliveryItemCount);
                 }
 
                 yield return null;
