@@ -160,6 +160,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec789c1f81e39904caa5995484e4656f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnFullyGrown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
+        m_TargetAssemblyTypeName: AchievementProgress, Assembly-CSharp
+        m_MethodName: IncreaseCount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   startSize: {x: 0.25, y: 0.25, z: 0.25}
   maxSize: {x: 2, y: 2, z: 2}
   growingHours:
@@ -167,6 +182,7 @@ MonoBehaviour:
     endHour: 20
     peakGrowingRate: 1.1
     offPeakGrowingRate: 1.001
+  gameTime: {fileID: 0}
 --- !u!114 &6923517243752356787
 MonoBehaviour:
   m_ObjectHideFlags: 0
