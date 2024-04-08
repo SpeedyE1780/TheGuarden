@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GrowPlant : MonoBehaviour
 {
@@ -23,6 +23,8 @@ public class GrowPlant : MonoBehaviour
     GrowingInfo growingHours;
     [SerializeField]
     GameTime gameTime;
+
+    public UnityEvent OnFullyGrown;
 
     private float growthRate = 1.1f;
     private Vector3 targetGrowth = Vector3.zero;
@@ -53,7 +55,6 @@ public class GrowPlant : MonoBehaviour
             targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
 
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
-            IsGrowing = !IsFullyGrown;
         }
     }
 
@@ -67,6 +68,13 @@ public class GrowPlant : MonoBehaviour
         {
             growthRate = growingHours.offPeakGrowingRate;
         }
+
+        if (IsGrowing && IsFullyGrown)
+        {
+            IsGrowing = false;
+            OnFullyGrown?.Invoke();
+        }
+
     }
 
     public void PickUp()
