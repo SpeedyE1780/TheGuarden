@@ -5,17 +5,26 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
+    private Transform spawnPoint;
+    [SerializeField]
     private List<EnemyPath> paths;
+    [SerializeField]
+    private float spawningDelay;
     [SerializeField]
     private Enemy enemyPrefab;
 
-    void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        StartCoroutine(SpawnEnemy());
+    }
+
+    private IEnumerator SpawnEnemy()
+    {
+        while (true)
         {
-            Enemy enemy = Instantiate(enemyPrefab);
-            enemy.Path = paths[0];
-            Debug.Log("Enemy Spawned");
+            yield return new WaitForSeconds(spawningDelay);
+            Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            enemy.Path = paths[Random.Range(0, paths.Count)];
         }
     }
 }
