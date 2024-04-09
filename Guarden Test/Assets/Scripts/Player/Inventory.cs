@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private GameObject plantLocation;
+    private MeshFilter plantLocation;
     [SerializeField]
     private InventoryUI inventoryUI;
     [SerializeField]
@@ -38,15 +38,16 @@ public class Inventory : MonoBehaviour
 
     public void OnPlant(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && items.Count > 0 && SelectedItem != -1)
         {
-            plantLocation.SetActive(true);
+            plantLocation.gameObject.SetActive(true);
+            plantLocation.mesh = items[SelectedItem].Mesh;
         }
 
         if (context.performed)
         {
             Debug.Log("ON PLANT");
-            plantLocation.SetActive(false);
+            plantLocation.gameObject.SetActive(false);
 
             if (items.Count > 0 && SelectedItem != -1)
             {
@@ -83,7 +84,7 @@ public class Inventory : MonoBehaviour
 
         if (context.canceled)
         {
-            plantLocation.SetActive(false);
+            plantLocation.gameObject.SetActive(false);
         }
     }
 

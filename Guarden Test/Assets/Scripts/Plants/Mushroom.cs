@@ -12,6 +12,10 @@ public class Mushroom : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     private NavMeshObstacle navMeshObstacle;
+    [SerializeField]
+    private Mesh mesh;
+
+    public Mesh Mesh => mesh;
 
 #if UNITY_EDITOR
     [SerializeField] private Transform behaviorsParent;

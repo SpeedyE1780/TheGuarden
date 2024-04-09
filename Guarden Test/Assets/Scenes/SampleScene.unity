@@ -5408,7 +5408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4f326bdf366364ba4ce21d6550544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantLocation: {fileID: 764408727}
+  plantLocation: {fileID: 764408731}
   inventoryUI: {fileID: 1969506209979049900}
   plantBedMask:
     serializedVersion: 2

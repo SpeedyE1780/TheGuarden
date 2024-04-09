@@ -160,6 +160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec789c1f81e39904caa5995484e4656f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startSize: {x: 0.25, y: 0.25, z: 0.25}
+  maxSize: {x: 2, y: 2, z: 2}
+  growingHours:
+    startHour: 0
+    endHour: 20
+    peakGrowingRate: 1.1
+    offPeakGrowingRate: 1.001
+  gameTime: {fileID: 0}
   OnFullyGrown:
     m_PersistentCalls:
       m_Calls:
@@ -175,14 +183,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  startSize: {x: 0.25, y: 0.25, z: 0.25}
-  maxSize: {x: 2, y: 2, z: 2}
-  growingHours:
-    startHour: 0
-    endHour: 20
-    peakGrowingRate: 1.1
-    offPeakGrowingRate: 1.001
-  gameTime: {fileID: 0}
 --- !u!114 &6923517243752356787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +199,7 @@ MonoBehaviour:
   growPlant: {fileID: 5518996527343548638}
   rb: {fileID: 7334000047881488347}
   navMeshObstacle: {fileID: 3846474154722925951}
+  mesh: {fileID: 3613567641014311022, guid: b778d6fd047141841bae1798514eee67, type: 3}
   behaviorsParent: {fileID: 4781410716438576801}
 --- !u!54 &7334000047881488347
 Rigidbody:
