@@ -9,12 +9,15 @@ public class Animal : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
     [SerializeField]
+    private Collider animalCollider;
+    [SerializeField]
     private float stoppingDistance;
 
     public bool InsideForceField { get; set; }
 
     public Rigidbody Rigidbody => rb;
     public NavMeshAgent Agent => agent;
+    public Collider Collider => animalCollider;
 
     private Vector3 GetNewDestination()
     {
@@ -72,10 +75,19 @@ public class Animal : MonoBehaviour
         agent.SetDestination(destination);
     }
 
+    public void PickUp()
+    {
+        animalCollider.enabled = false;
+        agent.enabled = false;
+        enabled = false;
+        rb.isKinematic = true;
+    }
+
     private void OnValidate()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        animalCollider = GetComponent<Collider>();
     }
 
     private void OnDrawGizmos()
