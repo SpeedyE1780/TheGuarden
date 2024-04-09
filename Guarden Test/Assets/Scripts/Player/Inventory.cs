@@ -108,6 +108,20 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
+        if (context.started && currentPlant != null)
+        {
+            Debug.Log("STARTED INTERACTION PICKUP");
+
+            Mushroom mushroom = currentPlant.GetComponent<Mushroom>();
+
+            if (mushroom.IsFullyGrown || mushroom.GrowthPercentage == 0)
+            {
+                items.Add(mushroom);
+                mushroom.PickUp();
+                currentPlant = null;
+            }
+        }
+
         if (context.performed && currentPlant != null)
         {
             Debug.Log("PERFORMED INTERACTION");
