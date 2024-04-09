@@ -40,8 +40,14 @@ public class Inventory : MonoBehaviour
     {
         if (context.started && items.Count > 0 && SelectedItem != -1)
         {
+            Mushroom mushroom = items[SelectedItem];
             plantingIndicator.gameObject.SetActive(true);
-            plantingIndicator.UpdateMesh(items[SelectedItem].Mesh, items[SelectedItem].Materials);
+            plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
+
+            if (!mushroom.IsFullyGrown && currentSoil != null)
+            {
+                plantingIndicator.transform.position = currentSoil.transform.position;
+            }
         }
 
         if (context.performed)
