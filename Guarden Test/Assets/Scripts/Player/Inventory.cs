@@ -21,6 +21,7 @@ public class Inventory : MonoBehaviour
     {
         inventoryUI.PlayerInventory = this;
         SelectedItem = -1;
+        plantingIndicator.Mask = plantBedMask;
     }
 
     public void OnInventory(InputAction.CallbackContext context)
@@ -36,56 +37,67 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    private void OnPlantStarted()
+    {
+        Mushroom mushroom = items[SelectedItem];
+        plantingIndicator.gameObject.SetActive(true);
+        plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
+
+        if (!mushroom.IsFullyGrown && currentSoil != null)
+        {
+            plantingIndicator.transform.position = currentSoil.transform.position;
+            plantingIndicator.PlantingInSoil = true;
+        }
+    }
+
+    private void OnPlantPerformed()
+    {
+        plantingIndicator.gameObject.SetActive(false);
+
+        if (items.Count > 0 && SelectedItem != -1)
+        {
+            bool planted = false;
+            Mushroom mushroom = items[SelectedItem];
+
+            if (mushroom.IsFullyGrown)
+            {
+                Debug.Log("Plant anywhere");
+
+                if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
+                {
+                    Debug.Log("Can't plant in planting bed");
+                    return;
+                }
+
+                mushroom.Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
+                planted = true;
+            }
+            else if (currentSoil != null)
+            {
+                Debug.Log("Plant in soil");
+                mushroom.PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
+                planted = true;
+            }
+
+            if (planted)
+            {
+                items.Remove(mushroom);
+                SelectedItem = -1;
+                inventoryUI.HideSelected();
+            }
+        }
+    }
+
     public void OnPlant(InputAction.CallbackContext context)
     {
         if (context.started && items.Count > 0 && SelectedItem != -1)
         {
-            Mushroom mushroom = items[SelectedItem];
-            plantingIndicator.gameObject.SetActive(true);
-            plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
-
-            if (!mushroom.IsFullyGrown && currentSoil != null)
-            {
-                plantingIndicator.transform.position = currentSoil.transform.position;
-            }
+            OnPlantStarted();
         }
 
         if (context.performed)
         {
-            Debug.Log("ON PLANT");
-            plantingIndicator.gameObject.SetActive(false);
-
-            if (items.Count > 0 && SelectedItem != -1)
-            {
-                bool planted = false;
-
-                if (items[SelectedItem].IsFullyGrown)
-                {
-                    Debug.Log("Plant anywhere");
-
-                    if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
-                    {
-                        Debug.Log("Can't plant in planting bed");
-                        return;
-                    }
-
-                    items[SelectedItem].Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
-                    planted = true;
-                }
-                else if (currentSoil != null)
-                {
-                    Debug.Log("Plant in soil");
-                    items[SelectedItem].PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
-                    planted = true;
-                }
-
-                if (planted)
-                {
-                    items.Remove(items[SelectedItem]);
-                    SelectedItem = -1;
-                    inventoryUI.HideSelected();
-                }
-            }
+            OnPlantPerformed();
         }
 
         if (context.canceled)

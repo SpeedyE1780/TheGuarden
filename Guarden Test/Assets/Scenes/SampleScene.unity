@@ -3159,6 +3159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 764408731}
   meshRenderer: {fileID: 764408730}
+  localPosition: {x: 0, y: 0.1, z: 2}
 --- !u!1 &805448657
 GameObject:
   m_ObjectHideFlags: 0
