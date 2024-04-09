@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
-  m_Shader: {fileID: -6465566751694194690, guid: fe14d069f148444479a7160e27bf94e9,
+  m_Shader: {fileID: -6465566751694194690, guid: 741b0396374312c43bbdf698ce29596b,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -144,18 +144,19 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Float: 0
-    - _Foam_Amount: 106
-    - _Foam_Cutoff: 1.9
+    - _Foam_Amount: 188.36
+    - _Foam_Cutoff: 18.8
     - _Foam_Depth: 1.21
     - _Foam_Noise_Scale: 4.34
     - _Foam_Ripple_Speed: 0.4
-    - _Foam_Scale: 38.34
+    - _Foam_Scale: 18.5
     - _Foam_Size: 3.74
-    - _Foam_Speed: 0.76
+    - _Foam_Speed: 1.55
     - _Foam_cutoff: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Intensity: 0.02
     - _Metallic: 0
     - _Normal_Intensity: 0.01
     - _OcclusionStrength: 1
@@ -173,7 +174,7 @@ Material:
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _Water_Depth: 87.9
+    - _Water_Depth: 12.1
     - _Water_Scrolling_intensity: 0.13
     - _Water_caustic_Intensity: 0.05
     - _WorkflowMode: 1
@@ -194,7 +195,7 @@ Material:
     - _Foam_color: {r: 17.148375, g: 17.148375, b: 17.148375, a: 0}
     - _Refr_Speed: {r: 1.82, g: 0, b: 0, a: 0}
     - _Refraction_Rate: {r: 0.2, g: 0, b: 0, a: 0}
-    - _Shallow_Color: {r: 0.16353686, g: 0.6180265, b: 0.7075472, a: 0.49019608}
+    - _Shallow_Color: {r: 0.09313814, g: 0.8584906, b: 0.8144723, a: 0.49019608}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Swamp_caustic_color: {r: 0.38527945, g: 0.735849, b: 0.735849, a: 0.4627451}
     - _Swamp_color: {r: 0.28502136, g: 0.478655, b: 0.5754717, a: 1}
