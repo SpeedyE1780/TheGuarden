@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private MeshFilter plantLocation;
+    private PlantingIndicator plantingIndicator;
     [SerializeField]
     private InventoryUI inventoryUI;
     [SerializeField]
@@ -40,14 +40,14 @@ public class Inventory : MonoBehaviour
     {
         if (context.started && items.Count > 0 && SelectedItem != -1)
         {
-            plantLocation.gameObject.SetActive(true);
-            plantLocation.mesh = items[SelectedItem].Mesh;
+            plantingIndicator.gameObject.SetActive(true);
+            plantingIndicator.UpdateMesh(items[SelectedItem].Mesh, items[SelectedItem].Materials);
         }
 
         if (context.performed)
         {
             Debug.Log("ON PLANT");
-            plantLocation.gameObject.SetActive(false);
+            plantingIndicator.gameObject.SetActive(false);
 
             if (items.Count > 0 && SelectedItem != -1)
             {
@@ -57,16 +57,16 @@ public class Inventory : MonoBehaviour
                 {
                     Debug.Log("Plant anywhere");
 
-                    if(Physics.CheckSphere(plantLocation.transform.position, 2.0f, plantBedMask))
+                    if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
                     {
                         Debug.Log("Can't plant in planting bed");
                         return;
                     }
 
-                    items[SelectedItem].Plant(plantLocation.transform.position, plantLocation.transform.rotation);
+                    items[SelectedItem].Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
                     planted = true;
                 }
-                else if(currentSoil != null)
+                else if (currentSoil != null)
                 {
                     Debug.Log("Plant in soil");
                     items[SelectedItem].PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
@@ -77,14 +77,14 @@ public class Inventory : MonoBehaviour
                 {
                     items.Remove(items[SelectedItem]);
                     SelectedItem = -1;
-                    inventoryUI.HideSelected(); 
+                    inventoryUI.HideSelected();
                 }
             }
         }
 
         if (context.canceled)
         {
-            plantLocation.gameObject.SetActive(false);
+            plantingIndicator.gameObject.SetActive(false);
         }
     }
 

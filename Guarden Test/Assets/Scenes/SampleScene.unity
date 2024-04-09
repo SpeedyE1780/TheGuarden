@@ -3051,6 +3051,7 @@ GameObject:
   - component: {fileID: 764408731}
   - component: {fileID: 764408730}
   - component: {fileID: 764408729}
+  - component: {fileID: 764408732}
   m_Layer: 0
   m_Name: PlantPoint
   m_TagString: Untagged
@@ -3144,6 +3145,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764408727}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &764408732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764408727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26856dabd5a1b7d408a20d858b14e6ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshFilter: {fileID: 764408731}
+  meshRenderer: {fileID: 764408730}
 --- !u!1 &805448657
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,7 +5423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4f326bdf366364ba4ce21d6550544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantLocation: {fileID: 764408731}
+  plantingIndicator: {fileID: 764408732}
   inventoryUI: {fileID: 1969506209979049900}
   plantBedMask:
     serializedVersion: 2
