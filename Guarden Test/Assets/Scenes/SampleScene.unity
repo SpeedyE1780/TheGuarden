@@ -3535,6 +3535,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1020197095}
   rb: {fileID: 1020197098}
+  animalCollider: {fileID: 1020197099}
   stoppingDistance: 0.75
 --- !u!54 &1020197098
 Rigidbody:
@@ -3583,7 +3584,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1044358135
 GameObject:
   m_ObjectHideFlags: 0

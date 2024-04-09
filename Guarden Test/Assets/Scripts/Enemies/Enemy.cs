@@ -16,8 +16,10 @@ public class Enemy : MonoBehaviour
     private float detectionRadius = 3.0f;
     [SerializeField]
     private LayerMask animalMask;
+    [SerializeField]
+    private Transform holdingPoint;
     private EnemyPath path;
-    private Transform target;
+    private Animal targetAnimal;
 
     public EnemyPath Path
     {
@@ -38,12 +40,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine(Patrol());
     }
 
-    private Transform DetectAnimal()
+    private Animal DetectAnimal()
     {
         Collider[] animals = new Collider[1];
         Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, animals, animalMask);
 
-        return animals[0] != null ? animals[0].transform : null;
+        return animals[0] != null ? animals[0].GetComponent<Animal>() : null;
     }
 
     private IEnumerator Patrol()
@@ -66,9 +68,9 @@ public class Enemy : MonoBehaviour
                 agent.SetDestination(path.CurrentPosition);
             }
 
-            target = DetectAnimal();
+            targetAnimal = DetectAnimal();
 
-            if (target != null)
+            if (targetAnimal != null)
             {
                 StartCoroutine(Chase());
                 yield break;
@@ -81,22 +83,35 @@ public class Enemy : MonoBehaviour
     private IEnumerator Chase()
     {
         agent.speed = chaseSpeed;
-        agent.SetDestination(target.position);
+        agent.SetDestination(targetAnimal.transform.position);
 
-        while (target != null)
+        while (targetAnimal != null && targetAnimal.Collider.enabled)
         {
             if (ReachedDestination)
             {
-                Destroy(target.gameObject);
-                StartCoroutine(Escape());
+                StartCoroutine(HoldAnimal());
                 yield break;
             }
 
-            agent.SetDestination(target.position);
+            agent.SetDestination(targetAnimal.transform.position);
             yield return null;
         }
 
         StartCoroutine(Patrol());
+    }
+
+    private IEnumerator HoldAnimal()
+    {
+        targetAnimal.PickUp();
+        agent.SetDestination(transform.position);
+
+        while (targetAnimal.transform.position != holdingPoint.position)
+        {
+            targetAnimal.transform.position = Vector3.MoveTowards(targetAnimal.transform.position, holdingPoint.position, Time.deltaTime * 2);
+            yield return null;
+        }
+
+        StartCoroutine(Escape());
     }
 
     private IEnumerator Escape()
@@ -105,8 +120,11 @@ public class Enemy : MonoBehaviour
 
         while (true)
         {
+            targetAnimal.transform.position = holdingPoint.position;
+
             if (ReachedDestination)
             {
+                Destroy(targetAnimal.gameObject);
                 Destroy(gameObject);
             }
 
