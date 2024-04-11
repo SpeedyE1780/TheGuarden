@@ -1,0 +1,11 @@
+turret plants (not PvsZ pea shooters)
+fence plants 
+enemies that steal cows
+	Enemy Hp
+	Enemy behaviour
+	
+watering the plant beds
+other plant needs (talk to group)
+decide on general level block out
+look at necessary refactoring to deal with new features (clock doesn't need to be as complex as it is really)
+some indication of where plannt will be placed/planted. refinement of inventory mechanics (holographic placement (optional))
