@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Mushroom : MonoBehaviour
 {
     [SerializeField]
-    private List<PlantBehavior> behaviors = new List<PlantBehavior>();
+    private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
     [SerializeField]
     private GrowPlant growPlant;
     [SerializeField]
@@ -42,7 +42,7 @@ public class Mushroom : MonoBehaviour
 
         navMeshObstacle.carving = true;
 
-        foreach (PlantBehavior behavior in behaviors)
+        foreach (PlantPowerUp behavior in behaviors)
         {
             behavior.gameObject.SetActive(true);
         }
