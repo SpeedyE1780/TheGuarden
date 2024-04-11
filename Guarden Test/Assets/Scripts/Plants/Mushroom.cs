@@ -71,7 +71,7 @@ public class Mushroom : MonoBehaviour
 
             foreach (Transform behavior in behaviorsParent)
             {
-                behaviors.Add(behavior.GetComponent<PlantBehavior>());
+                behaviors.Add(behavior.GetComponent<PlantPowerUp>());
             }
         }
     }

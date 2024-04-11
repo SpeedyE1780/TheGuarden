@@ -6,7 +6,7 @@ public class PlantTurret : PlantPowerUp
     [SerializeField]
     private Transform shootPoint;
     [SerializeField]
-    private GameObject bullet;
+    private Projectile projectilePrefab;
     [SerializeField]
     private float range;
     [SerializeField]
@@ -37,7 +37,8 @@ public class PlantTurret : PlantPowerUp
     {
         while (targetEnemy != null)
         {
-            Instantiate(bullet, shootPoint.position, shootPoint.rotation);
+            Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+            projectile.Target = targetEnemy;
             yield return new WaitForSeconds(cooldown);
 
             if (Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > range)

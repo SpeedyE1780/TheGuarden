@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1107462158693736535}
   - component: {fileID: 6692569999859705531}
   - component: {fileID: 3246969403001636757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,9 +95,9 @@ GameObject:
   - component: {fileID: 3744185325282018352}
   - component: {fileID: 3380905506472732822}
   - component: {fileID: 219852099375238453}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8399841673533735529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Holding Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
