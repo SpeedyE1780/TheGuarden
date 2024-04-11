@@ -41,7 +41,7 @@ public class PlantTurret : PlantPowerUp
             projectile.Target = targetEnemy;
             yield return new WaitForSeconds(cooldown);
 
-            if (Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > range)
+            if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > range)
             {
                 targetEnemy = null;
             }

@@ -15,6 +15,8 @@ public class Projectile : MonoBehaviour
             return;
         }
 
+        transform.forward = Target.position - transform.position;
+
         transform.position = Vector3.MoveTowards(transform.position, Target.position, speed * Time.deltaTime);
     }
 
