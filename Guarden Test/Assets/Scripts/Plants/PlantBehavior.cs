@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public abstract class PlantBehavior : MonoBehaviour
+public abstract class PlantBehavior : PlantPowerUp
 {
     [SerializeField]
     protected SphereCollider behaviorCollider;
