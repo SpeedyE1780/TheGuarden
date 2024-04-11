@@ -102,7 +102,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator HoldAnimal()
     {
-        targetAnimal.PickUp();
+        targetAnimal.PauseBehavior();
         agent.SetDestination(transform.position);
 
         while (targetAnimal.transform.position != holdingPoint.position)
@@ -129,6 +129,14 @@ public class Enemy : MonoBehaviour
             }
 
             yield return null;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (targetAnimal != null && !targetAnimal.Collider.enabled)
+        {
+            targetAnimal.ResumeBehavior();
         }
     }
 

@@ -75,12 +75,20 @@ public class Animal : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-    public void PickUp()
+    public void PauseBehavior()
     {
         animalCollider.enabled = false;
         agent.enabled = false;
         enabled = false;
         rb.isKinematic = true;
+    }
+
+    public void ResumeBehavior()
+    {
+        animalCollider.enabled = true;
+        agent.enabled = true;
+        enabled = true;
+        rb.isKinematic = false;
     }
 
     private void OnValidate()
