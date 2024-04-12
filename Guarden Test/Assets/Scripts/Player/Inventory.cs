@@ -87,6 +87,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void FillWaterBucket(Bucket bucket)
+    {
+        bucket.AddWater();
+    }
+
+    public void WaterSoil(Bucket bucket)
+    {
+        bucket.RemoveWater();
+    }
+
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.started && selectedItem != null)
