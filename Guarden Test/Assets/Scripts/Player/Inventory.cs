@@ -10,6 +10,8 @@ public class Inventory : MonoBehaviour
     private InventoryUI inventoryUI;
     [SerializeField]
     private LayerMask plantBedMask;
+    [SerializeField]
+    private LayerMask lakeLayer;
 
     private List<IInteractable> items = new List<IInteractable>();
     private GameObject currentInteractable;
@@ -89,7 +91,11 @@ public class Inventory : MonoBehaviour
 
     public void FillWaterBucket(Bucket bucket)
     {
-        bucket.AddWater();
+        if (Physics.CheckSphere(transform.position, 2.0f, lakeLayer))
+        {
+            bucket.AddWater();
+            Debug.Log("Adding water to bucket");
+        }
     }
 
     public void WaterSoil(Bucket bucket)
