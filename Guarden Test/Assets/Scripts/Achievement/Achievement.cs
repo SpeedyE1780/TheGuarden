@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
@@ -17,7 +16,7 @@ public class Achievement : ScriptableObject
     {
         tracker.Initialize(achievementsProgress);
         isCompleted = tracker.Count >= threshold;
-        Debug.Log($"{name} is completed: {isCompleted}");
+        GameLogger.LogInfo($"{name} is completed: {isCompleted}", this);
 
         tracker.OnValueChanged += OnProgress;
     }
@@ -37,7 +36,7 @@ public class Achievement : ScriptableObject
         if (!isCompleted && value >= threshold)
         {
             isCompleted = true;
-            Debug.Log($"{name} is Completed");
+            GameLogger.LogInfo($"{name} is Completed", this);
         }
     }
 }

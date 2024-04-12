@@ -11,7 +11,7 @@ public class AttractBehavior : PlantBehavior
 
     public override void ApplyBehavior(Animal animal)
     {
-        Debug.Log(animal.name + " Attracted");
+        GameLogger.LogInfo(animal.name + " Attracted", gameObject);
         animal.SetDestination(GetDestination());
     }
 
