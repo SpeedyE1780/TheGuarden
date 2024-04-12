@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,7 +11,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField]
     private TMP_Text selectedItem;
 
-
     public Inventory PlayerInventory { get; set; }
 
     public void HideSelected()
@@ -20,24 +18,24 @@ public class InventoryUI : MonoBehaviour
         selectedItem.gameObject.SetActive(false);
     }
 
-    public void FillUI(List<Mushroom> mushrooms)
+    public void FillUI(List<IInteractable> items)
     {
         for (int i = itemParents.childCount - 1; i >= 0; i--)
         {
             Destroy(itemParents.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < mushrooms.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             ItemUI itemUI = Instantiate(itemPrefab, itemParents);
             int index = i;
-            itemUI.SetItem(mushrooms[i].name, mushrooms[i].GrowthPercentage, () =>
+            itemUI.SetItem(items[i].Name, items[i].GrowthPercentage, () =>
             {
-                PlayerInventory.SelectedItem = index;
+                PlayerInventory.SetSelectedItem(index);
                 Debug.Log("Selected: " + index);
                 gameObject.SetActive(false);
                 selectedItem.gameObject.SetActive(true);
-                selectedItem.text = mushrooms[index].name;
+                selectedItem.text = items[index].Name;
             });
         }
     }
