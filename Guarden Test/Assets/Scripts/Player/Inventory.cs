@@ -14,14 +14,19 @@ public class Inventory : MonoBehaviour
     private List<IInteractable> items = new List<IInteractable>();
     private GameObject currentInteractable;
     private GameObject currentSoil;
+    private IInteractable selectedItem;
 
-    public int SelectedItem { get; set; }
 
     private void Start()
     {
         inventoryUI.PlayerInventory = this;
-        SelectedItem = -1;
+        selectedItem = null;
         plantingIndicator.Mask = plantBedMask;
+    }
+
+    public void SetSelectedItem(int index)
+    {
+        selectedItem = items[index];
     }
 
     public void OnInventory(InputAction.CallbackContext context)
@@ -39,7 +44,7 @@ public class Inventory : MonoBehaviour
 
     private void OnInteractStarted()
     {
-        Mushroom mushroom = items[SelectedItem] as Mushroom;
+        Mushroom mushroom = selectedItem as Mushroom;
         plantingIndicator.gameObject.SetActive(true);
         plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
 
@@ -54,10 +59,10 @@ public class Inventory : MonoBehaviour
     {
         plantingIndicator.gameObject.SetActive(false);
 
-        if (items.Count > 0 && SelectedItem != -1)
+        if (selectedItem != null)
         {
             bool planted = false;
-            Mushroom mushroom = items[SelectedItem] as Mushroom;
+            Mushroom mushroom = selectedItem as Mushroom;
 
             if (mushroom.IsFullyGrown)
             {
@@ -82,7 +87,7 @@ public class Inventory : MonoBehaviour
             if (planted)
             {
                 items.Remove(mushroom);
-                SelectedItem = -1;
+                selectedItem = null;
                 inventoryUI.HideSelected();
             }
         }
@@ -90,7 +95,7 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.started && items.Count > 0 && SelectedItem != -1)
+        if (context.started && selectedItem != null)
         {
             OnInteractStarted();
         }

@@ -33,7 +33,7 @@ public class InventoryUI : MonoBehaviour
             int index = i;
             itemUI.SetItem(items[i].Name, items[i].GrowthPercentage, () =>
             {
-                PlayerInventory.SelectedItem = index;
+                PlayerInventory.SetSelectedItem(index);
                 Debug.Log("Selected: " + index);
                 gameObject.SetActive(false);
                 selectedItem.gameObject.SetActive(true);
