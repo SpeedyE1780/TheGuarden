@@ -99,7 +99,7 @@ public class GrowPlant : MonoBehaviour
 
         if (gameTime == null)
         {
-            Debug.LogWarning("GameTime not available in scene");
+            GameLogger.LogWarning("GameTime not available in scene", gameObject);
         }
     }
 }

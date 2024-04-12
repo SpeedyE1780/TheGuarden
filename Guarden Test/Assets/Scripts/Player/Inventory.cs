@@ -67,7 +67,7 @@ public class Inventory : MonoBehaviour
 
             if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
             {
-                GameLogger.LogInfo("Can't plant in planting bed", gameObject);
+                GameLogger.LogWarning("Can't plant in planting bed", gameObject);
                 return;
             }
 

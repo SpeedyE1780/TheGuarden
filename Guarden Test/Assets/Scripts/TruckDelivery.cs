@@ -112,7 +112,7 @@ public abstract class TruckDelivery<Item> : MonoBehaviour
 
         if (gameTime == null)
         {
-            Debug.LogWarning("Game Time not available in scene");
+            GameLogger.LogWarning("Game Time not available in scene", gameObject);
         }
     }
 }

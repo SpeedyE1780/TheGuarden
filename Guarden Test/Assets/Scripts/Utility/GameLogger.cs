@@ -6,4 +6,9 @@ public static class GameLogger
     {
         Debug.Log(message, sender);
     }
+
+    public static void LogWarning(string message, Object sender)
+    {
+        Debug.LogWarning(message, sender);
+    }
 }
