@@ -37,7 +37,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnPlantStarted()
+    private void OnInteractStarted()
     {
         Mushroom mushroom = items[SelectedItem] as Mushroom;
         plantingIndicator.gameObject.SetActive(true);
@@ -50,7 +50,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnPlantPerformed()
+    private void OnInteractPerformed()
     {
         plantingIndicator.gameObject.SetActive(false);
 
@@ -88,16 +88,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void OnPlant(InputAction.CallbackContext context)
+    public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.started && items.Count > 0 && SelectedItem != -1)
         {
-            OnPlantStarted();
+            OnInteractStarted();
         }
 
         if (context.performed)
         {
-            OnPlantPerformed();
+            OnInteractPerformed();
         }
 
         if (context.canceled)

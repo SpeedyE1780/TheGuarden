@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Plant",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "2e489252-3208-49b4-9d33-af9d28fb2d03",
                     "expectedControlType": "Button",
@@ -116,7 +116,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Plant",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
