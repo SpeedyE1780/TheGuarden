@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mushroom : MonoBehaviour
+public class Mushroom : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
@@ -17,6 +17,7 @@ public class Mushroom : MonoBehaviour
     [SerializeField]
     private MeshRenderer meshRenderer;
 
+    public string Name => name;
     public Mesh Mesh => meshFilter.mesh;
     public Material[] Materials => meshRenderer.materials;
 

@@ -11,8 +11,8 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private LayerMask plantBedMask;
 
-    private List<Mushroom> items = new List<Mushroom>();
-    private GameObject currentPlant;
+    private List<IInteractable> items = new List<IInteractable>();
+    private GameObject currentInteractable;
     private GameObject currentSoil;
 
     public int SelectedItem { get; set; }
@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
 
     private void OnPlantStarted()
     {
-        Mushroom mushroom = items[SelectedItem];
+        Mushroom mushroom = items[SelectedItem] as Mushroom;
         plantingIndicator.gameObject.SetActive(true);
         plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
 
@@ -57,7 +57,7 @@ public class Inventory : MonoBehaviour
         if (items.Count > 0 && SelectedItem != -1)
         {
             bool planted = false;
-            Mushroom mushroom = items[SelectedItem];
+            Mushroom mushroom = items[SelectedItem] as Mushroom;
 
             if (mushroom.IsFullyGrown)
             {
@@ -108,36 +108,36 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.started && currentPlant != null)
+        if (context.started && currentInteractable != null)
         {
             Debug.Log("STARTED INTERACTION PICKUP");
 
-            Mushroom mushroom = currentPlant.GetComponent<Mushroom>();
+            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
 
-            if (mushroom.IsFullyGrown || mushroom.GrowthPercentage == 0)
+            if (interactable.GrowthPercentage == 0)
             {
-                items.Add(mushroom);
-                mushroom.PickUp();
-                currentPlant = null;
+                items.Add(interactable);
+                interactable.PickUp();
+                currentInteractable = null;
             }
         }
 
-        if (context.performed && currentPlant != null)
+        if (context.performed && currentInteractable != null)
         {
             Debug.Log("PERFORMED INTERACTION");
 
-            Mushroom mushroom = currentPlant.GetComponent<Mushroom>();
-            items.Add(mushroom);
-            mushroom.PickUp();
-            currentPlant = null;
+            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
+            items.Add(interactable);
+            interactable.PickUp();
+            currentInteractable = null;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Plant") && currentPlant == null)
+        if (other.CompareTag("Plant") && currentInteractable == null)
         {
-            currentPlant = other.gameObject;
+            currentInteractable = other.gameObject;
             Debug.Log("ENTER PLANT");
         }
 
@@ -150,9 +150,9 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == currentPlant)
+        if (other.gameObject == currentInteractable)
         {
-            currentPlant = null;
+            currentInteractable = null;
             Debug.Log("EXIT PLANT");
         }
 
