@@ -32,7 +32,7 @@ public class InventoryUI : MonoBehaviour
             itemUI.SetItem(items[i].Name, items[i].UsabilityPercentage, () =>
             {
                 PlayerInventory.SetSelectedItem(index);
-                Debug.Log("Selected: " + index);
+                GameLogger.LogInfo("Selected: " + index, gameObject, GameLogger.LogCategory.UI);
                 gameObject.SetActive(false);
                 selectedItem.gameObject.SetActive(true);
                 selectedItem.text = items[index].Name;

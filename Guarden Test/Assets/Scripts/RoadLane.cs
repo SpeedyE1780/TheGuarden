@@ -17,7 +17,7 @@ public class RoadLane : MonoBehaviour
 
         if (start == null || end == null)
         {
-            Debug.LogWarning("Lane has missing start/end point");
+            GameLogger.LogWarning("Lane has missing start/end point", gameObject, GameLogger.LogCategory.Scene);
         }
     }
 

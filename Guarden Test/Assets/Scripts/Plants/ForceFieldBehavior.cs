@@ -4,13 +4,13 @@ public class ForceFieldBehavior : PlantBehavior
 {
     public override void ApplyBehavior(Animal animal)
     {
-        Debug.Log(animal.name + " in force field");
+        GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
         animal.InsideForceField = true;
     }
 
     public override void RemoveBehavior(Animal animal)
     {
-        Debug.Log(animal.name + " out of force field");
+        GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
         animal.InsideForceField = false;
     }
 

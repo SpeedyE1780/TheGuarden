@@ -63,11 +63,11 @@ public class Inventory : MonoBehaviour
 
         if (mushroom.IsFullyGrown)
         {
-            Debug.Log("Plant anywhere");
+            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.Player);
 
             if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
             {
-                Debug.Log("Can't plant in planting bed");
+                GameLogger.LogWarning("Can't plant in planting bed", gameObject, GameLogger.LogCategory.Player);
                 return;
             }
 
@@ -76,7 +76,7 @@ public class Inventory : MonoBehaviour
         }
         else if (currentSoil != null)
         {
-            Debug.Log("Plant in soil");
+            GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.Player);
             mushroom.PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
             planted = true;
         }
@@ -94,7 +94,7 @@ public class Inventory : MonoBehaviour
         if (Physics.CheckSphere(transform.position, 2.0f, lakeLayer))
         {
             bucket.AddWater();
-            Debug.Log("Adding water to bucket");
+            GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.Player);
         }
     }
 
@@ -102,8 +102,8 @@ public class Inventory : MonoBehaviour
     {
         if (currentSoil != null)
         {
-            Debug.Log("Remove water from bucket");
-            bucket.RemoveWater(); 
+            GameLogger.LogInfo("Remove water from bucket", gameObject, GameLogger.LogCategory.Player);
+            bucket.RemoveWater();
         }
     }
 
@@ -129,7 +129,7 @@ public class Inventory : MonoBehaviour
     {
         if (context.started && currentInteractable != null)
         {
-            Debug.Log("STARTED INTERACTION PICKUP");
+            GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
 
             IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
 
@@ -143,7 +143,7 @@ public class Inventory : MonoBehaviour
 
         if (context.performed && currentInteractable != null)
         {
-            Debug.Log("PERFORMED PICKUP");
+            GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
 
             IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
             items.Add(interactable);
@@ -157,13 +157,13 @@ public class Inventory : MonoBehaviour
         if ((other.CompareTag("Plant") || other.CompareTag("Bucket")) && currentInteractable == null)
         {
             currentInteractable = other.gameObject;
-            Debug.Log("ENTER PLANT");
+            GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
         }
 
         if (other.CompareTag("PlantSoil") && currentSoil == null)
         {
             currentSoil = other.gameObject;
-            Debug.Log("ENTER SOIL");
+            GameLogger.LogInfo("ENTER SOIL", gameObject, GameLogger.LogCategory.Player);
         }
     }
 
@@ -172,13 +172,13 @@ public class Inventory : MonoBehaviour
         if (other.gameObject == currentInteractable)
         {
             currentInteractable = null;
-            Debug.Log("EXIT PLANT");
+            GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
         }
 
         if (other.gameObject == currentSoil)
         {
             currentSoil = null;
-            Debug.Log("EXIT SOIL");
+            GameLogger.LogInfo("EXIT SOIL", gameObject, GameLogger.LogCategory.Player);
         }
     }
 }
