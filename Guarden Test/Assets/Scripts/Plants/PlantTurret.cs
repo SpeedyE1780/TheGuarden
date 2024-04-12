@@ -8,11 +8,7 @@ public class PlantTurret : PlantPowerUp
     [SerializeField]
     private Projectile projectilePrefab;
     [SerializeField]
-    private float range;
-    [SerializeField]
     private float cooldown;
-    [SerializeField]
-    private SphereCollider turretCollider;
 
     private Transform targetEnemy;
 
@@ -41,16 +37,10 @@ public class PlantTurret : PlantPowerUp
             projectile.Target = targetEnemy;
             yield return new WaitForSeconds(cooldown);
 
-            if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > range)
+            if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > powerUpRange)
             {
                 targetEnemy = null;
             }
         }
-    }
-
-    private void OnValidate()
-    {
-        turretCollider = GetComponent<SphereCollider>();
-        turretCollider.radius = range;
     }
 }

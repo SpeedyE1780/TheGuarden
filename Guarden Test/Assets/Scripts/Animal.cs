@@ -50,13 +50,17 @@ public class Animal : MonoBehaviour
         {
             other.GetComponent<PlantBehavior>().ApplyBehavior(this);
         }
+        else if (other.CompareTag(Tags.PlantBuff))
+        {
+            other.GetComponent<PlantBuff>().ApplyBuff(this);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag(Tags.PlantBehavior))
+        if (other.CompareTag(Tags.PlantBuff))
         {
-            other.GetComponent<PlantBehavior>().RemoveBehavior(this);
+            other.GetComponent<PlantBuff>().RemoveBuff(this);
         }
     }
 

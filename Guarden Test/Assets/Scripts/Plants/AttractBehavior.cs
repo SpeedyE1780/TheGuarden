@@ -30,7 +30,7 @@ public class AttractBehavior : PlantBehavior
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, behaviorRange);
+        Gizmos.DrawWireSphere(transform.position, powerUpRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, attractionAreaRadius);
         Gizmos.color = Color.red;

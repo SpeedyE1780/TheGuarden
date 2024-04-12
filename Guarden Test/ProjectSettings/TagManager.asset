@@ -9,6 +9,7 @@ TagManager:
   - PlantSoil
   - Enemy
   - Bucket
+  - PlantBuff
   layers:
   - Default
   - TransparentFX

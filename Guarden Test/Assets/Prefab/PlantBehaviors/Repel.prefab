@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &5981522035217783445
 SphereCollider:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e002995ec082f4c980d6e2c0bf4235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviorCollider: {fileID: 5981522035217783445}
-  behaviorRange: 5
+  powerUpRange: 5
+  powerUpCollider: {fileID: 5981522035217783445}
   repelRange: 20
   minimumRange: 2

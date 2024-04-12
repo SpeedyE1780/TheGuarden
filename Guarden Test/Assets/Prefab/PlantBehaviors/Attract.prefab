@@ -66,6 +66,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 163308879f31c6946904f7e4d6a8fdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviorCollider: {fileID: 3614132450077183374}
-  behaviorRange: 20
+  powerUpRange: 20
+  powerUpCollider: {fileID: 3614132450077183374}
   attractionAreaRadius: 5

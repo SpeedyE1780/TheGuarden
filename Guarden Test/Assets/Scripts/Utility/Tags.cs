@@ -7,6 +7,7 @@ public static class Tags
     public const string PlantSoil = "PlantSoil";
     public const string Enemy = "Enemy";
     public const string Bucket = "Bucket";
+    public const string PlantBuff = "PlantBuff";
 
     public static bool HasTag(GameObject gameObject, params string[] tags)
     {

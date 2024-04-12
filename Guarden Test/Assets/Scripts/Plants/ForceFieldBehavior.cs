@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class ForceFieldBehavior : PlantBehavior
+public class ForceFieldBehavior : PlantBuff
 {
-    public override void ApplyBehavior(Animal animal)
+    public override void ApplyBuff(Animal animal)
     {
         GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
         animal.InsideForceField = true;
     }
 
-    public override void RemoveBehavior(Animal animal)
+    public override void RemoveBuff(Animal animal)
     {
         GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
         animal.InsideForceField = false;
@@ -17,6 +17,6 @@ public class ForceFieldBehavior : PlantBehavior
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, behaviorRange);
+        Gizmos.DrawWireSphere(transform.position, powerUpRange);
     }
 }

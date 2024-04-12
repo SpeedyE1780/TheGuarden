@@ -33,10 +33,10 @@ public class RepelBehavior : PlantBehavior
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, behaviorRange);
+        Gizmos.DrawWireSphere(transform.position, powerUpRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, repelRange);
-        Gizmos.DrawWireSphere(transform.position, minimumRange + behaviorRange);
+        Gizmos.DrawWireSphere(transform.position, minimumRange + powerUpRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(destinationDebug, 0.2f);
     }

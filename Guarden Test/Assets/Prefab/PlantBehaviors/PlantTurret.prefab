@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9017589097220768377
 Transform:
   m_ObjectHideFlags: 0
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4011249984743938871
 SphereCollider:
@@ -66,9 +66,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b894535b7188040b6e50191115329c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpRange: 10
+  powerUpCollider: {fileID: 4011249984743938871}
   shootPoint: {fileID: 0}
   projectilePrefab: {fileID: 1128421392708083397, guid: 28be5fc6adb526e41a1adc4649d4d61f,
     type: 3}
-  range: 10
   cooldown: 1
-  turretCollider: {fileID: 4011249984743938871}
