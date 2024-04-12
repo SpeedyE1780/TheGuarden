@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bucket : MonoBehaviour, IInteractable
 {
     public string Name => name;
-
-    public float GrowthPercentage => 0.0f;
+    public bool HasInstantPickUp => false;
+    public float UsabilityPercentage => 0.0f;
 
     public void PickUp()
     {

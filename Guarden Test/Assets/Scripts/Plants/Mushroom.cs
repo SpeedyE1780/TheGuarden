@@ -18,6 +18,8 @@ public class Mushroom : MonoBehaviour, IInteractable
     private MeshRenderer meshRenderer;
 
     public string Name => name;
+    public bool HasInstantPickUp => GrowthPercentage == 0;
+    public float UsabilityPercentage => GrowthPercentage;
     public Mesh Mesh => meshFilter.mesh;
     public Material[] Materials => meshRenderer.materials;
 

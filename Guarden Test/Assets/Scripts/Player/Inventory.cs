@@ -113,7 +113,7 @@ public class Inventory : MonoBehaviour
 
             IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
 
-            if (interactable.GrowthPercentage == 0)
+            if (interactable.HasInstantPickUp)
             {
                 items.Add(interactable);
                 interactable.PickUp();

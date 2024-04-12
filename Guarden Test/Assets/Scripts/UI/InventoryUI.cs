@@ -29,7 +29,7 @@ public class InventoryUI : MonoBehaviour
         {
             ItemUI itemUI = Instantiate(itemPrefab, itemParents);
             int index = i;
-            itemUI.SetItem(items[i].Name, items[i].GrowthPercentage, () =>
+            itemUI.SetItem(items[i].Name, items[i].UsabilityPercentage, () =>
             {
                 PlayerInventory.SetSelectedItem(index);
                 Debug.Log("Selected: " + index);
