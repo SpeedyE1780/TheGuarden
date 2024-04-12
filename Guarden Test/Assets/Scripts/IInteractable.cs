@@ -5,4 +5,5 @@ public interface IInteractable
 
     public void PickUp();
     public void OnInteractionStarted(Inventory inventory);
+    public void OnInteractionPerformed(Inventory inventory);
 }

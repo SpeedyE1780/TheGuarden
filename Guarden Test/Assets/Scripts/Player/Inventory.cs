@@ -54,41 +54,36 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnInteractPerformed()
+    public void PlantMushroom(Mushroom mushroom)
     {
         plantingIndicator.gameObject.SetActive(false);
+        bool planted = false;
 
-        if (selectedItem != null)
+        if (mushroom.IsFullyGrown)
         {
-            bool planted = false;
-            Mushroom mushroom = selectedItem as Mushroom;
+            Debug.Log("Plant anywhere");
 
-            if (mushroom.IsFullyGrown)
+            if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
             {
-                Debug.Log("Plant anywhere");
-
-                if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
-                {
-                    Debug.Log("Can't plant in planting bed");
-                    return;
-                }
-
-                mushroom.Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
-                planted = true;
-            }
-            else if (currentSoil != null)
-            {
-                Debug.Log("Plant in soil");
-                mushroom.PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
-                planted = true;
+                Debug.Log("Can't plant in planting bed");
+                return;
             }
 
-            if (planted)
-            {
-                items.Remove(mushroom);
-                selectedItem = null;
-                inventoryUI.HideSelected();
-            }
+            mushroom.Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
+            planted = true;
+        }
+        else if (currentSoil != null)
+        {
+            Debug.Log("Plant in soil");
+            mushroom.PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
+            planted = true;
+        }
+
+        if (planted)
+        {
+            items.Remove(mushroom);
+            selectedItem = null;
+            inventoryUI.HideSelected();
         }
     }
 
@@ -101,7 +96,7 @@ public class Inventory : MonoBehaviour
 
         if (context.performed)
         {
-            OnInteractPerformed();
+            selectedItem.OnInteractionPerformed(this);
         }
 
         if (context.canceled)
