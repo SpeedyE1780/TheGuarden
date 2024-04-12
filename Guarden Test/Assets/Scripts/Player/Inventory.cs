@@ -106,7 +106,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void OnInteract(InputAction.CallbackContext context)
+    public void OnPickUp(InputAction.CallbackContext context)
     {
         if (context.started && currentInteractable != null)
         {
@@ -124,7 +124,7 @@ public class Inventory : MonoBehaviour
 
         if (context.performed && currentInteractable != null)
         {
-            Debug.Log("PERFORMED INTERACTION");
+            Debug.Log("PERFORMED PICKUP");
 
             IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
             items.Add(interactable);
