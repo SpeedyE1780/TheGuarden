@@ -42,9 +42,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnInteractStarted()
+    public void ShowPlantingIndicator(Mushroom mushroom)
     {
-        Mushroom mushroom = selectedItem as Mushroom;
         plantingIndicator.gameObject.SetActive(true);
         plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
 
@@ -97,7 +96,7 @@ public class Inventory : MonoBehaviour
     {
         if (context.started && selectedItem != null)
         {
-            OnInteractStarted();
+            selectedItem.OnInteractionStarted(this);
         }
 
         if (context.performed)

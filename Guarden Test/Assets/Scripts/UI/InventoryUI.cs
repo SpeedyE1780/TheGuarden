@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,7 +10,6 @@ public class InventoryUI : MonoBehaviour
     private Transform itemParents;
     [SerializeField]
     private TMP_Text selectedItem;
-
 
     public Inventory PlayerInventory { get; set; }
 

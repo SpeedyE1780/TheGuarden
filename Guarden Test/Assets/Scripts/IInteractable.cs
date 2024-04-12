@@ -4,4 +4,5 @@ public interface IInteractable
     public float GrowthPercentage { get; }
 
     public void PickUp();
+    public void OnInteractionStarted(Inventory inventory);
 }

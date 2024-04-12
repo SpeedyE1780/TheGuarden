@@ -61,6 +61,11 @@ public class Mushroom : MonoBehaviour, IInteractable
         growPlant.PickUp();
     }
 
+    public void OnInteractionStarted(Inventory inventory)
+    {
+        inventory.ShowPlantingIndicator(this);
+    }
+
     private void OnValidate()
     {
         rb = GetComponent<Rigidbody>();
