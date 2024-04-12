@@ -134,7 +134,7 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Plant") && currentInteractable == null)
+        if ((other.CompareTag("Plant") || other.CompareTag("Bucket")) && currentInteractable == null)
         {
             currentInteractable = other.gameObject;
             Debug.Log("ENTER PLANT");
