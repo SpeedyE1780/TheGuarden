@@ -13,7 +13,7 @@ public class RepelBehavior : PlantBehavior
 
     public override void ApplyBehavior(Animal animal)
     {
-        GameLogger.LogInfo(animal.name + " Repeled", gameObject);
+        GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantBehaviour);
 
         animal.SetDestination(GetDestination(animal.transform.position));
     }

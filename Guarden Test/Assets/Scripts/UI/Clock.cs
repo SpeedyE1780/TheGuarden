@@ -35,7 +35,7 @@ public class Clock : MonoBehaviour
 
         if (gameTime == null)
         {
-            GameLogger.LogWarning("Game Time not available in scene", gameObject);
+            GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
         }
     }
 }

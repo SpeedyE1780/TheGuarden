@@ -16,7 +16,7 @@ public class Achievement : ScriptableObject
     {
         tracker.Initialize(achievementsProgress);
         isCompleted = tracker.Count >= threshold;
-        GameLogger.LogInfo($"{name} is completed: {isCompleted}", this);
+        GameLogger.LogInfo($"{name} is completed: {isCompleted}", this, GameLogger.LogCategory.Achievements);
 
         tracker.OnValueChanged += OnProgress;
     }
@@ -36,7 +36,7 @@ public class Achievement : ScriptableObject
         if (!isCompleted && value >= threshold)
         {
             isCompleted = true;
-            GameLogger.LogInfo($"{name} is Completed", this);
+            GameLogger.LogInfo($"{name} is Completed", this, GameLogger.LogCategory.Achievements);
         }
     }
 }
