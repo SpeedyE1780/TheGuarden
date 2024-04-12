@@ -11,4 +11,9 @@ public static class GameLogger
     {
         Debug.LogWarning(message, sender);
     }
+
+    public static void LogError(string message, Object sender)
+    {
+        Debug.LogError(message, sender);
+    }
 }
