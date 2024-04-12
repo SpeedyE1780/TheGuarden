@@ -13,6 +13,7 @@ public class GameLogger : MonoBehaviour
         Player = 1 << 4,
         Plant = 1 << 5,
         UI = 1 << 6,
+        FileOperations = 1 << 7,
         All = -1
     }
 

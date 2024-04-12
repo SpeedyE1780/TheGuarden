@@ -15,13 +15,10 @@ public class AchievementManager : MonoBehaviour
 
     private void Start()
     {
-        AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
-
-        if (File.Exists(AchievementPath))
-        {
-            string json = File.ReadAllText(AchievementPath);
-            achievementsProgress = JsonConvert.DeserializeObject<AchivementTrackerDictionary>(json);
-        }
+        string json = FileManager.ReadFile(AchievementPath);
+        AchivementTrackerDictionary achievementsProgress = !string.IsNullOrWhiteSpace(json) ? 
+            JsonConvert.DeserializeObject<AchivementTrackerDictionary>(json) :
+            new AchivementTrackerDictionary();
 
         foreach (Achievement achievement in achievements)
         {
@@ -39,13 +36,7 @@ public class AchievementManager : MonoBehaviour
         }
 
         string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
-        Debug.Log(achievementJSON);
 
-        if (!Directory.Exists(AchievementDirectory))
-        {
-            Directory.CreateDirectory(AchievementDirectory);
-        }
-
-        File.WriteAllText(AchievementPath, achievementJSON);
+        FileManager.WriteFile(AchievementPath, achievementJSON);
     }
 }
