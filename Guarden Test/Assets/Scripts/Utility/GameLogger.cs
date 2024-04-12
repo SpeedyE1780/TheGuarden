@@ -34,7 +34,7 @@ public class GameLogger : MonoBehaviour
             return;
         }
 
-        Debug.Log(message, sender);
+        Debug.Log($"<color=white>[INFO] {message}</color>", sender);
     }
 
     [System.Diagnostics.Conditional("GAME_LOGGER_LOG_WARNING")]
@@ -45,7 +45,7 @@ public class GameLogger : MonoBehaviour
             return;
         }
 
-        Debug.LogWarning(message, sender);
+        Debug.LogWarning($"<color=yellow>[WARNING] {message}</color>", sender);
     }
 
     [System.Diagnostics.Conditional("GAME_LOGGER_LOG_ERROR")]
@@ -56,6 +56,6 @@ public class GameLogger : MonoBehaviour
             return;
         }
 
-        Debug.LogError(message, sender);
+        Debug.LogError($"<color=red>[ERROR] {message}</color>", sender);
     }
 }
