@@ -100,7 +100,11 @@ public class Inventory : MonoBehaviour
 
     public void WaterSoil(Bucket bucket)
     {
-        bucket.RemoveWater();
+        if (currentSoil != null)
+        {
+            Debug.Log("Remove water from bucket");
+            bucket.RemoveWater(); 
+        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
