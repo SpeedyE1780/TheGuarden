@@ -18,7 +18,7 @@ public class PlantTurret : PlantPowerUp
 
     private void OnTriggerEnter(Collider other)
     {
-        if (targetEnemy == null && other.CompareTag("Enemy"))
+        if (targetEnemy == null && other.CompareTag(Tags.Enemy))
         {
             targetEnemy = other.transform;
             StartCoroutine(ShootTurret());

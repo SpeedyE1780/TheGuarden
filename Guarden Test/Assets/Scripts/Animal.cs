@@ -46,7 +46,7 @@ public class Animal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlantBehavior"))
+        if (other.CompareTag(Tags.PlantBehavior))
         {
             other.GetComponent<PlantBehavior>().ApplyBehavior(this);
         }
@@ -54,7 +54,7 @@ public class Animal : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("PlantBehavior"))
+        if (other.CompareTag(Tags.PlantBehavior))
         {
             other.GetComponent<PlantBehavior>().RemoveBehavior(this);
         }
