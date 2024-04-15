@@ -24,6 +24,11 @@ public class GrowPlant : MonoBehaviour
     [SerializeField]
     GameTime gameTime;
 
+#if UNITY_EDITOR
+    [SerializeField]
+    private Transform behaviorParent;
+#endif
+
     public UnityEvent OnFullyGrown;
 
     private float growthRate = 1.1f;
@@ -100,5 +105,12 @@ public class GrowPlant : MonoBehaviour
         {
             GameLogger.LogWarning("GameTime not available in scene", gameObject, GameLogger.LogCategory.Plant);
         }
+
+#if UNITY_EDITOR
+        if (behaviorParent != null)
+        {
+            behaviorParent.localScale = new Vector3(1 / maxSize.x, 1 / maxSize.y, 1 / maxSize.z);
+        }
+#endif
     }
 }
