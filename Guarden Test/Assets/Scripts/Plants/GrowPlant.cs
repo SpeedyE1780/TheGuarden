@@ -12,7 +12,6 @@ public class GrowPlant : MonoBehaviour
         public int endHour;
         public float peakGrowingRate;
         public float offPeakGrowingRate;
-
     }
 
     [SerializeField]
@@ -20,9 +19,9 @@ public class GrowPlant : MonoBehaviour
     [SerializeField]
     private Vector3 maxSize;
     [SerializeField]
-    GrowingInfo growingHours;
+    private GrowingInfo growingHours;
     [SerializeField]
-    GameTime gameTime;
+    private GameTime gameTime;
 
 #if UNITY_EDITOR
     [SerializeField]

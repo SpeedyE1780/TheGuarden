@@ -12,6 +12,8 @@ public class Inventory : MonoBehaviour
     private LayerMask plantBedMask;
     [SerializeField]
     private LayerMask lakeLayer;
+    [SerializeField]
+    private float overlapRadius = 2.0f;
 
     private List<IInteractable> items = new List<IInteractable>();
     private GameObject currentInteractable;
@@ -65,7 +67,7 @@ public class Inventory : MonoBehaviour
         {
             GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.Player);
 
-            if (Physics.CheckSphere(plantingIndicator.transform.position, 2.0f, plantBedMask))
+            if (Physics.CheckSphere(plantingIndicator.transform.position, overlapRadius, plantBedMask))
             {
                 GameLogger.LogWarning("Can't plant in planting bed", gameObject, GameLogger.LogCategory.Player);
                 return;
@@ -91,19 +93,21 @@ public class Inventory : MonoBehaviour
 
     public void FillWaterBucket(Bucket bucket)
     {
-        if (Physics.CheckSphere(transform.position, 2.0f, lakeLayer))
+        if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
         {
             bucket.AddWater();
             GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.Player);
         }
     }
 
-    public void WaterSoil(Bucket bucket)
+    public void WaterPlantBed(Bucket bucket)
     {
-        if (currentSoil != null)
+        Collider[] plantBedsCollider = new Collider[1];
+        if (Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask) > 0)
         {
-            GameLogger.LogInfo("Remove water from bucket", gameObject, GameLogger.LogCategory.Player);
-            bucket.RemoveWater();
+            PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
+            bucket.WaterPlantBed(plantBed);
+            GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.Player);
         }
     }
 
