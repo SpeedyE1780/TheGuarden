@@ -12,6 +12,8 @@ public class GrowPlant : MonoBehaviour
         public int endHour;
         public float peakGrowingRate;
         public float offPeakGrowingRate;
+        [Range(0, 1)]
+        public float minimumDryWetRatio;
     }
 
     [SerializeField]
@@ -19,9 +21,11 @@ public class GrowPlant : MonoBehaviour
     [SerializeField]
     private Vector3 maxSize;
     [SerializeField]
-    private GrowingInfo growingHours;
+    private GrowingInfo growingInfo;
     [SerializeField]
     private GameTime gameTime;
+    [SerializeField]
+    private ParticleSystem growingParticles;
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -32,22 +36,18 @@ public class GrowPlant : MonoBehaviour
 
     private float growthRate = 1.1f;
     private Vector3 targetGrowth = Vector3.zero;
+    private bool isGrowing = false;
+    private PlantSoil soil;
 
-    public bool IsGrowing { get; set; }
     public bool IsFullyGrown => transform.localScale == maxSize;
-
     public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
+    private bool IsGrowing => isGrowing && soil.DryWetRatio > growingInfo.minimumDryWetRatio;
 
     public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
     {
         Vector3 AB = b - a;
         Vector3 AV = value - a;
         return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
-    }
-
-    void Start()
-    {
-        IsGrowing = false;
     }
 
     void Update()
@@ -64,38 +64,50 @@ public class GrowPlant : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (gameTime.Hour >= growingHours.startHour && gameTime.Hour <= growingHours.endHour)
+
+        growthRate = gameTime.Hour >= growingInfo.startHour && gameTime.Hour <= growingInfo.endHour ?
+            growingInfo.peakGrowingRate :
+            growingInfo.offPeakGrowingRate;
+
+        if (IsGrowing && growingParticles.isStopped)
         {
-            growthRate = growingHours.peakGrowingRate;
+            growingParticles.Play();
         }
-        else
+        else if (!IsGrowing && growingParticles.isPlaying)
         {
-            growthRate = growingHours.offPeakGrowingRate;
+            growingParticles.Stop();
         }
 
-        if (IsGrowing && IsFullyGrown)
+        if (isGrowing && IsFullyGrown)
         {
-            IsGrowing = false;
+            isGrowing = false;
+            growingParticles.Stop();
             OnFullyGrown?.Invoke();
         }
     }
 
     public void PickUp()
     {
-        if (IsGrowing)
+        if (isGrowing)
         {
             transform.localScale = startSize;
-            IsGrowing = false;
+            isGrowing = false;
         }
+    }
+
+    public void PlantInSoil(PlantSoil plantSoil)
+    {
+        isGrowing = true;
+        soil = plantSoil;
     }
 
     private void OnValidate()
     {
         transform.localScale = startSize;
 
-        if (growingHours.endHour < growingHours.startHour)
+        if (growingInfo.endHour < growingInfo.startHour)
         {
-            growingHours.endHour = growingHours.startHour;
+            growingInfo.endHour = growingInfo.startHour;
         }
 
         gameTime = FindObjectOfType<GameTime>();
@@ -104,6 +116,8 @@ public class GrowPlant : MonoBehaviour
         {
             GameLogger.LogWarning("GameTime not available in scene", gameObject, GameLogger.LogCategory.Plant);
         }
+
+        growingParticles = GetComponentInChildren<ParticleSystem>();
 
 #if UNITY_EDITOR
         if (behaviorParent != null)

@@ -20,7 +20,6 @@ public class Inventory : MonoBehaviour
     private GameObject currentSoil;
     private IInteractable selectedItem;
 
-
     private void Start()
     {
         inventoryUI.PlayerInventory = this;
@@ -79,7 +78,8 @@ public class Inventory : MonoBehaviour
         else if (currentSoil != null)
         {
             GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.Player);
-            mushroom.PlantInSoil(currentSoil.transform.position, currentSoil.transform.rotation);
+            PlantSoil soil = currentSoil.GetComponent<PlantSoil>();
+            mushroom.PlantInSoil(soil, currentSoil.transform.position, currentSoil.transform.rotation);
             planted = true;
         }
 

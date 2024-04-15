@@ -29,7 +29,6 @@ public class Mushroom : MonoBehaviour, IInteractable
 
     public float GrowthPercentage => growPlant.GrowthPercentage;
     public bool IsFullyGrown => growPlant.IsFullyGrown;
-
     public Rigidbody Rigidbody => rb;
 
     private void InitializePlantedState(Vector3 position, Quaternion rotation)
@@ -51,10 +50,10 @@ public class Mushroom : MonoBehaviour, IInteractable
         }
     }
 
-    public void PlantInSoil(Vector3 position, Quaternion rotation)
+    public void PlantInSoil(PlantSoil plantSoil, Vector3 position, Quaternion rotation)
     {
         InitializePlantedState(position, rotation);
-        growPlant.IsGrowing = true;
+        growPlant.PlantInSoil(plantSoil);
     }
 
     public void PickUp()

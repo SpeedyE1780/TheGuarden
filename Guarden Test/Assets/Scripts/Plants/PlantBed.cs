@@ -12,6 +12,8 @@ public class PlantBed : MonoBehaviour
     private float dryWetRatio = 0;
     private Material material;
 
+    public float DryWetRatio => dryWetRatio;
+
     private void Start()
     {
         material = GetComponent<Renderer>().material;
