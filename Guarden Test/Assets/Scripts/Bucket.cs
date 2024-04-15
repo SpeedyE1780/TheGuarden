@@ -4,6 +4,8 @@ public class Bucket : MonoBehaviour, IInteractable
 {
     [SerializeField]
     private int maxUses = 3;
+    [SerializeField]
+    private float bucketRestoration = 0.4f;
     private int remainingUses = 0;
 
     public string Name => name;
@@ -15,9 +17,13 @@ public class Bucket : MonoBehaviour, IInteractable
         remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
     }
 
-    public void RemoveWater()
+    public void WaterPlantBed(PlantBed plantBed)
     {
-        remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
+        if (remainingUses > 0)
+        {
+            plantBed.Water(bucketRestoration);
+            remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses); 
+        }
     }
 
     public void PickUp()
@@ -32,6 +38,6 @@ public class Bucket : MonoBehaviour, IInteractable
 
     public void OnInteractionPerformed(Inventory inventory)
     {
-        inventory.WaterSoil(this);
+        inventory.WaterPlantBed(this);
     }
 }
