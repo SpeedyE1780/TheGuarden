@@ -74,7 +74,6 @@ public class GrowPlant : MonoBehaviour
             IsGrowing = false;
             OnFullyGrown?.Invoke();
         }
-
     }
 
     public void PickUp()

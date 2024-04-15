@@ -4350,9 +4350,12 @@ MonoBehaviour:
     - {fileID: 1611503459}
     - {fileID: 1478038597}
     - {fileID: 962450590}
-  spawningDelay: 5
+  startTime: 18
+  endTime: 24
+  spawningDelay: 30
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
+  gameTime: {fileID: 330585548}
 --- !u!4 &1393084753
 Transform:
   m_ObjectHideFlags: 0
