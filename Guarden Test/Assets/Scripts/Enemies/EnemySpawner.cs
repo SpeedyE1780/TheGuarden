@@ -33,8 +33,6 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            WaitForSeconds wait = new WaitForSeconds(spawningDelay);
-
             yield return new WaitUntil(ShouldSpawn);
 
             while (ShouldSpawn())
@@ -42,7 +40,7 @@ public class EnemySpawner : MonoBehaviour
                 Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
                 enemy.Path = paths[Random.Range(0, paths.Count)];
                 GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
-                yield return wait;
+                yield return new WaitForSeconds(spawningDelay);
             }
         }
     }
