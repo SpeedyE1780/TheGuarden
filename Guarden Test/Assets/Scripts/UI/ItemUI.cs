@@ -8,14 +8,19 @@ public class ItemUI : MonoBehaviour
     [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
-    private Transform growthImage;
+    private Slider progressSlider;
     [SerializeField]
     private Button button;
 
-    public void SetItem(string itemName, float growthPercent, UnityAction buttonCallback)
+    public void SetItem(string itemName, float progress, bool select, UnityAction buttonCallback)
     {
         nameText.text = itemName;
-        growthImage.localScale = new Vector3 (1, growthPercent, 1);
+        progressSlider.value = progress;
         button.onClick.AddListener(buttonCallback);
+
+        if(select)
+        {
+            button.Select();
+        }
     }
 }

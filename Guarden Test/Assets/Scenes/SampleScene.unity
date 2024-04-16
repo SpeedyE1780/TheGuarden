@@ -6205,6 +6205,7 @@ MonoBehaviour:
     type: 3}
   itemParents: {fileID: 7266160263531556619}
   selectedItem: {fileID: 533850542}
+  eventSystem: {fileID: 424017902}
 --- !u!222 &2136877578787710210
 CanvasRenderer:
   m_ObjectHideFlags: 0

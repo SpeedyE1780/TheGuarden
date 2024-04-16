@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class InventoryUI : MonoBehaviour
     private Transform itemParents;
     [SerializeField]
     private TMP_Text selectedItem;
+    [SerializeField]
+    private EventSystem eventSystem;
 
     public Inventory PlayerInventory { get; set; }
 
@@ -29,7 +32,13 @@ public class InventoryUI : MonoBehaviour
         {
             ItemUI itemUI = Instantiate(itemPrefab, itemParents);
             int index = i;
-            itemUI.SetItem(items[i].Name, items[i].UsabilityPercentage, () =>
+
+            if (i == 0)
+            {
+                eventSystem.SetSelectedGameObject(itemUI.gameObject); 
+            }
+
+            itemUI.SetItem(items[i].Name, items[i].UsabilityPercentage, i == 0, () =>
             {
                 PlayerInventory.SetSelectedItem(index);
                 GameLogger.LogInfo("Selected: " + index, gameObject, GameLogger.LogCategory.UI);
