@@ -19,23 +19,16 @@ public class Animal : MonoBehaviour
     public NavMeshAgent Agent => agent;
     public Collider Collider => animalCollider;
 
-    private Vector3 GetNewDestination()
-    {
-        Vector3 destination = Random.insideUnitSphere * 20.0f;
-        destination.y = 0;
-        return destination;
-    }
-
     void Start()
     {
-        agent.SetDestination(GetNewDestination());
+        agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
     }
 
     void Update()
     {
         if (!agent.pathPending && agent.remainingDistance < stoppingDistance)
         {
-            agent.SetDestination(GetNewDestination());
+            agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
         }
     }
 
@@ -70,7 +63,7 @@ public class Animal : MonoBehaviour
         {
             enabled = true;
             agent.enabled = true;
-            agent.SetDestination(GetNewDestination());
+            agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
         }
     }
 
