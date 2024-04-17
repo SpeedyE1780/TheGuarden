@@ -27,6 +27,11 @@ public class Inventory : MonoBehaviour
         plantingIndicator.Mask = plantBedMask;
     }
 
+    public void SetInventoryUI(InventoryUI UI)
+    {
+        inventoryUI = UI;
+    }
+
     public void SetSelectedItem(int index)
     {
         selectedItem = items[index];
