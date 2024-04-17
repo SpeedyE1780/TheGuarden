@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.UI;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField]
-    private Camera playerCamera;
+    private FollowTarget followCamera;
     [SerializeField]
     private InputSystemUIInputModule inputSystemUIInputModule;
     [SerializeField]
@@ -13,13 +13,14 @@ public class PlayerManager : MonoBehaviour
 
     public void OnPlayerJoin(PlayerInput player)
     {
-        player.camera = playerCamera;
+        player.camera = followCamera.Camera;
         player.uiInputModule = inputSystemUIInputModule;
         player.GetComponent<Inventory>().SetInventoryUI(inventoryUI);
+        followCamera.AddTarget(player.transform);
     }
 
     public void OnPlayerLeave(PlayerInput player)
     {
-
+        followCamera.RemoveTarget(player.transform);
     }
 }

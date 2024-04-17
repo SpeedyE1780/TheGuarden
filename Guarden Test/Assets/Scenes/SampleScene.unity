@@ -1105,7 +1105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e05f6402e6c6b4f8231b21991743ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 330585545}
+  followCamera: {fileID: 330585549}
   inputSystemUIInputModule: {fileID: 424017904}
   inventoryUI: {fileID: 1969506209979049900}
 --- !u!1 &330585543
@@ -1296,8 +1296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35151fb2cecedd34ea5c1c05b03cd564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1690822342}
-  offset: {x: 0, y: 9.23, z: -11.22}
+  followCamera: {fileID: 330585545}
+  targets:
+  - {fileID: 1690822342}
+  offset: {x: 0, y: 0.635297, z: -0.77226794}
+  addedOffset: 15
 --- !u!1 &373785037
 GameObject:
   m_ObjectHideFlags: 0
