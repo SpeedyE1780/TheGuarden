@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -8,35 +9,29 @@ public class InventoryUI : MonoBehaviour
     private ItemUI itemPrefab;
     [SerializeField]
     private Transform itemParents;
-    [SerializeField]
-    private TMP_Text selectedItem;
 
-    public Inventory PlayerInventory { get; set; }
+    private List<ItemUI> items = new List<ItemUI>();
 
-    public void HideSelected()
+    public void AddItem(IInteractable item)
     {
-        selectedItem.gameObject.SetActive(false);
+        ItemUI itemUI = Instantiate(itemPrefab, itemParents);
+        itemUI.SetItem(item.Name, item.UsabilityPercentage);
+        items.Add(itemUI);
     }
 
-    public void FillUI(List<IInteractable> items)
+    public void SelectItem(int index)
     {
-        for (int i = itemParents.childCount - 1; i >= 0; i--)
-        {
-            Destroy(itemParents.GetChild(i).gameObject);
-        }
+        items[index].Select();
+    }
 
-        for (int i = 0; i < items.Count; i++)
-        {
-            ItemUI itemUI = Instantiate(itemPrefab, itemParents);
-            int index = i;
-            itemUI.SetItem(items[i].Name, items[i].UsabilityPercentage, () =>
-            {
-                PlayerInventory.SetSelectedItem(index);
-                GameLogger.LogInfo("Selected: " + index, gameObject, GameLogger.LogCategory.UI);
-                gameObject.SetActive(false);
-                selectedItem.gameObject.SetActive(true);
-                selectedItem.text = items[index].Name;
-            });
-        }
+    public void DeselectItem(int index)
+    {
+        items[index].Deselect();
+    }
+
+    public void RemoveItem(int index)
+    {
+        Destroy(items[index].gameObject);
+        items.RemoveAt(index);
     }
 }

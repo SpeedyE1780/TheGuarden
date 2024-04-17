@@ -1,21 +1,27 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
 public class ItemUI : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text nameText;
     [SerializeField]
-    private Transform growthImage;
-    [SerializeField]
-    private Button button;
+    private Slider progressSlider;
 
-    public void SetItem(string itemName, float growthPercent, UnityAction buttonCallback)
+    public void SetItem(string itemName, float progress)
     {
         nameText.text = itemName;
-        growthImage.localScale = new Vector3 (1, growthPercent, 1);
-        button.onClick.AddListener(buttonCallback);
+        progressSlider.value = progress;
+    }
+
+    public void Select()
+    {
+        nameText.color = Color.yellow;
+    }
+
+    public void Deselect()
+    {
+        nameText.color = Color.white;
     }
 }
