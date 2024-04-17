@@ -348,7 +348,7 @@ Transform:
   - {fileID: 3015820215559826910}
   - {fileID: 944405005728402152}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5394329849608207086
 Rigidbody:
@@ -490,7 +490,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8220134511689740318}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: OnInventory
+        m_MethodName: OnNextItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -500,8 +500,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: fd50d3b8-f63f-4fcb-a846-a372ab17e6b5
-    m_ActionName: Keyboard/Inventory[/Keyboard/i]
+    m_ActionId: 1e3f15a0-3273-413d-a0a5-898e848e1bf7
+    m_ActionName: Keyboard/NextItem[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Keyboard

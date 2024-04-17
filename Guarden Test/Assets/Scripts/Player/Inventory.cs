@@ -18,36 +18,18 @@ public class Inventory : MonoBehaviour
     private List<IInteractable> items = new List<IInteractable>();
     private GameObject currentInteractable;
     private GameObject currentSoil;
-    private IInteractable selectedItem;
+    private int selectedItemIndex;
 
     private void Start()
     {
-        inventoryUI.PlayerInventory = this;
-        selectedItem = null;
+        selectedItemIndex = -1;
         plantingIndicator.Mask = plantBedMask;
     }
 
     public void SetInventoryUI(InventoryUI UI)
     {
         inventoryUI = UI;
-    }
-
-    public void SetSelectedItem(int index)
-    {
-        selectedItem = items[index];
-    }
-
-    public void OnInventory(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
-
-            if (inventoryUI.gameObject.activeSelf)
-            {
-                inventoryUI.FillUI(items);
-            }
-        }
+        inventoryUI.gameObject.SetActive(true);
     }
 
     public void ShowPlantingIndicator(Mushroom mushroom)
@@ -91,8 +73,8 @@ public class Inventory : MonoBehaviour
         if (planted)
         {
             items.Remove(mushroom);
-            selectedItem = null;
-            inventoryUI.HideSelected();
+            inventoryUI.RemoveItem(selectedItemIndex);
+            selectedItemIndex = -1;
         }
     }
 
@@ -118,12 +100,14 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
+        IInteractable selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
+
         if (context.started && selectedItem != null)
         {
             selectedItem.OnInteractionStarted(this);
         }
 
-        if (context.performed)
+        if (context.performed && selectedItem != null)
         {
             selectedItem.OnInteractionPerformed(this);
         }
@@ -145,6 +129,7 @@ public class Inventory : MonoBehaviour
             if (interactable.HasInstantPickUp)
             {
                 items.Add(interactable);
+                inventoryUI.AddItem(interactable);
                 interactable.PickUp();
                 currentInteractable = null;
             }
@@ -157,7 +142,40 @@ public class Inventory : MonoBehaviour
             IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
             items.Add(interactable);
             interactable.PickUp();
+            inventoryUI.AddItem(interactable);
             currentInteractable = null;
+        }
+
+        if (selectedItemIndex == -1 && items.Count > 0)
+        {
+            selectedItemIndex = 0;
+            inventoryUI.SelectItem(0);
+        }
+    }
+
+    public void OnNextItem(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (selectedItemIndex + 1 >= items.Count)
+            {
+                if (selectedItemIndex != -1 && selectedItemIndex < items.Count)
+                {
+                    inventoryUI.DeselectItem(selectedItemIndex);
+                }
+
+                selectedItemIndex = -1;
+            }
+            else
+            {
+                if (selectedItemIndex != -1 && selectedItemIndex < items.Count)
+                {
+                    inventoryUI.DeselectItem(selectedItemIndex);
+                }
+
+                selectedItemIndex += 1;
+                inventoryUI.SelectItem(selectedItemIndex);
+            }
         }
     }
 

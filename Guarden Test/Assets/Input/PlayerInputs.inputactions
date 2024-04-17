@@ -33,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Inventory",
+                    "name": "NextItem",
                     "type": "Button",
-                    "id": "fd50d3b8-f63f-4fcb-a846-a372ab17e6b5",
+                    "id": "1e3f15a0-3273-413d-a0a5-898e848e1bf7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -155,23 +155,23 @@
                 },
                 {
                     "name": "",
-                    "id": "b60e8615-eed3-4ef2-b412-892aa819cf9b",
-                    "path": "<Keyboard>/i",
+                    "id": "a4f0b960-c4ba-4bbe-8b51-db5baf8027d7",
+                    "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "NextItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "38eb51e0-9dc8-41c7-80d5-9188a981cb7e",
-                    "path": "<Gamepad>/start",
+                    "id": "7ab5cfdc-9516-4e95-b48f-2f47ca747489",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Inventory",
+                    "action": "NextItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

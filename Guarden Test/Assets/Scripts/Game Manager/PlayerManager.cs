@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -9,13 +10,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private InputSystemUIInputModule inputSystemUIInputModule;
     [SerializeField]
-    private InventoryUI inventoryUI;
+    private List<InventoryUI> inventoryUI;
 
     public void OnPlayerJoin(PlayerInput player)
     {
         player.camera = followCamera.Camera;
         player.uiInputModule = inputSystemUIInputModule;
-        player.GetComponent<Inventory>().SetInventoryUI(inventoryUI);
+        player.GetComponent<Inventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
         followCamera.AddTarget(player.transform);
     }
 
