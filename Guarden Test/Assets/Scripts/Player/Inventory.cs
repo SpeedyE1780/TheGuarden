@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     private float overlapRadius = 2.0f;
 
     private List<IInteractable> items = new List<IInteractable>();
-    private GameObject currentInteractable;
+    private GameObject currentPickUp;
     private GameObject currentSoil;
     private int selectedItemIndex;
 
@@ -120,37 +120,45 @@ public class Inventory : MonoBehaviour
 
     public void OnPickUp(InputAction.CallbackContext context)
     {
-        if (context.started && currentInteractable != null)
+        if(currentPickUp == null)
+        {
+            return;
+        }
+
+        if (context.started)
         {
             GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
 
-            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
+            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
 
-            if (interactable.HasInstantPickUp)
+            if (pickUp.HasInstantPickUp)
             {
-                items.Add(interactable);
-                inventoryUI.AddItem(interactable);
-                interactable.PickUp();
-                currentInteractable = null;
+                pickUp.PickUp();
+                currentPickUp = null;
+                AddItemToInventory(pickUp.GetInteractableObject());
             }
         }
 
-        if (context.performed && currentInteractable != null)
+        if (context.performed)
         {
             GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
 
-            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
-            items.Add(interactable);
-            interactable.PickUp();
-            inventoryUI.AddItem(interactable);
-            currentInteractable = null;
+            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
+            pickUp.PickUp();
+            currentPickUp = null;
+            AddItemToInventory(pickUp.GetInteractableObject());
+        }
+    }
+
+    private void AddItemToInventory(IInteractable interactable)
+    {
+        if(interactable == null)
+        {
+            return;
         }
 
-        if (selectedItemIndex == -1 && items.Count > 0)
-        {
-            selectedItemIndex = 0;
-            inventoryUI.SelectItem(0);
-        }
+        items.Add(interactable);
+        inventoryUI.AddItem(interactable);
     }
 
     public void OnNextItem(InputAction.CallbackContext context)
@@ -181,9 +189,9 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentInteractable == null)
+        if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
         {
-            currentInteractable = other.gameObject;
+            currentPickUp = other.gameObject;
             GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
         }
 
@@ -196,9 +204,9 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == currentInteractable)
+        if (other.gameObject == currentPickUp)
         {
-            currentInteractable = null;
+            currentPickUp = null;
             GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
         }
 

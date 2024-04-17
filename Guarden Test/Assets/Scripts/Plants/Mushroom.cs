@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mushroom : MonoBehaviour, IInteractable
+public class Mushroom : MonoBehaviour, IInteractable, IPickUp
 {
     [SerializeField]
     private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
@@ -24,7 +24,8 @@ public class Mushroom : MonoBehaviour, IInteractable
     public Material[] Materials => meshRenderer.materials;
 
 #if UNITY_EDITOR
-    [SerializeField] private Transform behaviorsParent;
+    [SerializeField]
+    private Transform behaviorsParent;
 #endif
 
     public float GrowthPercentage => growPlant.GrowthPercentage;
@@ -72,6 +73,12 @@ public class Mushroom : MonoBehaviour, IInteractable
         inventory.PlantMushroom(this);
     }
 
+    public IInteractable GetInteractableObject()
+    {
+        return this;
+    }
+
+#if UNITY_EDITOR
     private void OnValidate()
     {
         rb = GetComponent<Rigidbody>();
@@ -87,4 +94,5 @@ public class Mushroom : MonoBehaviour, IInteractable
             }
         }
     }
+#endif
 }
