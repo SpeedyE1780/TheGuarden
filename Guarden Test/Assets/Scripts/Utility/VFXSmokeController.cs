@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// VFXSmokeController is used to update the Visual Effect graph properties
+    /// </summary>
+    [RequireComponent(typeof(VisualEffect))]
     public class VFXSmokeController : MonoBehaviour
     {
-
-        [SerializeField]
+        [SerializeField, Tooltip("Visual Effect component")]
         private VisualEffect vfx;
-        [SerializeField]
+        [SerializeField, Tooltip("Velocity Param Name")]
         private string velocityParam;
-        [SerializeField]
+        [SerializeField, Tooltip("Spawn Param Name")]
         private string spawnParam;
-        [SerializeField]
+        [SerializeField, Tooltip("Rigidbody that Visual Effect is attached to")]
         private Rigidbody rb;
 
         void Update()
@@ -22,6 +23,5 @@ namespace TheGuarden.Utility
             vfx.SetVector3(velocityParam, -rb.velocity);
             vfx.SetBool(spawnParam, rb.velocity.sqrMagnitude > 1);
         }
-
-    } 
+    }
 }

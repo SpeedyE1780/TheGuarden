@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// Tags is used to replace string litteral with const variables
+    /// </summary>
     public static class Tags
     {
         public const string Plant = "Plant";
@@ -11,6 +14,12 @@ namespace TheGuarden.Utility
         public const string Bucket = "Bucket";
         public const string PlantBuff = "PlantBuff";
 
+        /// <summary>
+        /// Check if game object has any of the given tags
+        /// </summary>
+        /// <param name="gameObject">Game object who's tag is being checked</param>
+        /// <param name="tags">List of tags to check against</param>
+        /// <returns>True if game object has any of the given tags</returns>
         public static bool HasTag(GameObject gameObject, params string[] tags)
         {
             foreach (string tag in tags)
@@ -23,5 +32,5 @@ namespace TheGuarden.Utility
 
             return false;
         }
-    } 
+    }
 }

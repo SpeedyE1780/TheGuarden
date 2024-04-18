@@ -20,7 +20,7 @@ namespace TheGuarden.Utility
             All = -1
         }
 
-        [SerializeField]
+        [SerializeField, Tooltip("Active category that will be logged")]
         private LogCategory loggedCategory;
 
         private static LogCategory enabledCategories = LogCategory.All;
@@ -30,6 +30,12 @@ namespace TheGuarden.Utility
             enabledCategories = loggedCategory;
         }
 
+        /// <summary>
+        /// Logs info to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
         [System.Diagnostics.Conditional("GAME_LOGGER_LOG_INFO")]
         public static void LogInfo(string message, Object sender, LogCategory category)
         {
@@ -41,6 +47,12 @@ namespace TheGuarden.Utility
             Debug.Log($"<color=white>[INFO] {message}</color>", sender);
         }
 
+        /// <summary>
+        /// Logs warning to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
         [System.Diagnostics.Conditional("GAME_LOGGER_LOG_WARNING")]
         public static void LogWarning(string message, Object sender, LogCategory category)
         {
@@ -52,6 +64,12 @@ namespace TheGuarden.Utility
             Debug.LogWarning($"<color=yellow>[WARNING] {message}</color>", sender);
         }
 
+        /// <summary>
+        /// Logs error to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
         [System.Diagnostics.Conditional("GAME_LOGGER_LOG_ERROR")]
         public static void LogError(string message, Object sender, LogCategory category)
         {
@@ -62,5 +80,5 @@ namespace TheGuarden.Utility
 
             Debug.LogError($"<color=red>[ERROR] {message}</color>", sender);
         }
-    } 
+    }
 }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// EnemyNavMeshBaker bakes the enemy surface navmesh when force fields are added/removed to/from the scene
+    /// </summary>
+    [RequireComponent(typeof(NavMeshSurface))]
     public class EnemyNavMeshBaker : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("The Enemy NavmeshSurface")]
         private NavMeshSurface sceneSurface;
 
         private static NavMeshSurface surface;
@@ -17,14 +21,22 @@ namespace TheGuarden.Utility
             BakeNavMesh();
         }
 
+        /// <summary>
+        /// Bakes the navmesh again to take into account current changes
+        /// </summary>
         public static void BakeNavMesh()
         {
             //Run coroutine on scene object
             surface.StartCoroutine(BuildNavMesh());
         }
 
+        /// <summary>
+        /// Updates the enemy navmesh scene asynchronously
+        /// </summary>
+        /// <returns></returns>
         private static IEnumerator BuildNavMesh()
         {
+            //Wait one frame for scene to update
             yield return null;
 
             GameLogger.LogInfo("Building enemy surface nav mesh", null, GameLogger.LogCategory.Scene);
@@ -38,5 +50,5 @@ namespace TheGuarden.Utility
 
             surface.UpdateNavMesh(surface.navMeshData);
         }
-    } 
+    }
 }

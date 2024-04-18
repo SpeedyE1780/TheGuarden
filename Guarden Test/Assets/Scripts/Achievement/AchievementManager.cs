@@ -16,7 +16,7 @@ public class AchievementManager : MonoBehaviour
 
     private void Start()
     {
-        string json = FileManager.ReadFile(AchievementPath);
+        string json = FileUtility.ReadFile(AchievementPath);
         AchivementTrackerDictionary achievementsProgress = !string.IsNullOrWhiteSpace(json) ? 
             JsonConvert.DeserializeObject<AchivementTrackerDictionary>(json) :
             new AchivementTrackerDictionary();
@@ -38,6 +38,6 @@ public class AchievementManager : MonoBehaviour
 
         string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
 
-        FileManager.WriteFile(AchievementPath, achievementJSON);
+        FileUtility.WriteFile(AchievementPath, achievementJSON);
     }
 }

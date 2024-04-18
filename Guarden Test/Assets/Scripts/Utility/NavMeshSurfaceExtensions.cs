@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// Extension class that will return random point within navmesh surface bounds
+    /// </summary>
+    [RequireComponent(typeof(NavMeshSurface))]
     public class NavMeshSurfaceExtensions : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("The surface who's bounds are used")]
         private NavMeshSurface sceneSurface;
 
         private static NavMeshSurface surface;
@@ -15,6 +19,10 @@ namespace TheGuarden.Utility
             surface = sceneSurface;
         }
 
+        /// <summary>
+        /// Get a random point on the navmesh surface
+        /// </summary>
+        /// <returns>A random point on the navmesh surface</returns>
         public static Vector3 GetPointOnSurface()
         {
             Bounds surfaceBounds = surface.navMeshData.sourceBounds;
@@ -24,9 +32,11 @@ namespace TheGuarden.Utility
             return new Vector3(x, 0, z);
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             sceneSurface = GetComponent<NavMeshSurface>();
         }
-    } 
+#endif
+    }
 }
