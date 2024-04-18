@@ -19,6 +19,9 @@ namespace TheGuarden.NPC
         public float Length => Vector3.Distance(start.position, end.position);
 
 #if UNITY_EDITOR
+        public Transform Start => start;
+        public Transform End => end;
+
         private void OnValidate()
         {
             start = transform.Find("Start");
@@ -27,17 +30,6 @@ namespace TheGuarden.NPC
             if (start == null || end == null)
             {
                 GameLogger.LogWarning("Lane has missing start/end point", gameObject, GameLogger.LogCategory.Scene);
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            if (start != null && end != null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(start.position, 0.5f);
-                Gizmos.color = Color.green;
-                Gizmos.DrawWireSphere(end.position, 0.5f);
             }
         }
 #endif

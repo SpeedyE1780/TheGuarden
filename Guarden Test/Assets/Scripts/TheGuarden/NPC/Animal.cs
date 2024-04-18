@@ -116,12 +116,6 @@ namespace TheGuarden.NPC
             rb = GetComponent<Rigidbody>();
             animalCollider = GetComponent<Collider>();
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = InsideForceField ? Color.green : Color.red;
-            Gizmos.DrawWireSphere(transform.position, 1.5f);
-        }
 #endif
     }
 }
