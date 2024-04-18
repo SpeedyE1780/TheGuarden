@@ -52,12 +52,6 @@ namespace TheGuarden.PlantPowerUps
                 navMeshModifierCollider.radius = powerUpRange;
             }
         }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, powerUpRange);
-        }
 #endif
     }
 }

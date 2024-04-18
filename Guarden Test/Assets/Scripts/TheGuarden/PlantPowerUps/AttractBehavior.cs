@@ -12,6 +12,10 @@ namespace TheGuarden.PlantPowerUps
         [SerializeField]
         private float attractionAreaRadius = 5.0f;
 
+#if UNITY_EDITOR
+        internal float AttractionAreaRadius => attractionAreaRadius;
+#endif
+
         /// <summary>
         /// Attract animal towards plant
         /// </summary>
@@ -32,15 +36,5 @@ namespace TheGuarden.PlantPowerUps
             destination.y = 0;
             return destination;
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, powerUpRange);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, attractionAreaRadius);
-        }
-#endif
     }
 }

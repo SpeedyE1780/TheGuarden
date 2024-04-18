@@ -10,9 +10,14 @@ namespace TheGuarden.PlantPowerUps
     internal class RepelBehavior : PlantBehavior
     {
         [SerializeField, Tooltip("Max range animals are repelled")]
-        private float repelRange;
+        private float repelRange = 20.0f;
         [SerializeField, Tooltip("Minimum range animals are repelled")]
-        private float minimumRange;
+        private float minimumRange = 2.0f;
+
+#if UNITY_EDITOR
+        public float RepelRange => repelRange;
+        public float MinimumRange => minimumRange;
+#endif
 
         /// <summary>
         /// Repel animal from plant
@@ -34,16 +39,5 @@ namespace TheGuarden.PlantPowerUps
             Vector3 destination = direction.normalized * Random.Range(minimumRange, repelRange);
             return destination;
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, powerUpRange);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(transform.position, repelRange);
-            Gizmos.DrawWireSphere(transform.position, minimumRange + powerUpRange);
-        }
-#endif
     }
 }

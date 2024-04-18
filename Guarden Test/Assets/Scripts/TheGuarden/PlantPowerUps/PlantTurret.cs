@@ -18,6 +18,10 @@ namespace TheGuarden.PlantPowerUps
 
         private Transform targetEnemy;
 
+#if UNITY_EDITOR
+        public Transform TargetEnemy => targetEnemy;
+#endif
+
         private void OnTriggerStay(Collider other)
         {
             if (targetEnemy == null && other.CompareTag(Tags.Enemy))

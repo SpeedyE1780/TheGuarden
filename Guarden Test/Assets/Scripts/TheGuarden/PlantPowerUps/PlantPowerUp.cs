@@ -13,6 +13,8 @@ namespace TheGuarden.PlantPowerUps
         private SphereCollider powerUpCollider;
 
 #if UNITY_EDITOR
+        internal float PowerUpRange => powerUpRange;
+
         private void OnValidate()
         {
             powerUpCollider = GetComponent<SphereCollider>();
