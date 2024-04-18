@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Mushroom : MonoBehaviour, IInteractable, IPickUp
+public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
 {
     [SerializeField]
     private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
@@ -31,6 +31,7 @@ public class Mushroom : MonoBehaviour, IInteractable, IPickUp
     public float GrowthPercentage => growPlant.GrowthPercentage;
     public bool IsFullyGrown => growPlant.IsFullyGrown;
     public Rigidbody Rigidbody => rb;
+    public ItemUI ItemUI { get; set; }
 
     private void InitializePlantedState(Vector3 position, Quaternion rotation)
     {
@@ -73,7 +74,7 @@ public class Mushroom : MonoBehaviour, IInteractable, IPickUp
         inventory.PlantMushroom(this);
     }
 
-    public IInteractable GetInteractableObject()
+    public IInventoryItem GetInventoryItem()
     {
         return this;
     }

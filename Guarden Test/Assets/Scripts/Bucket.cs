@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bucket : MonoBehaviour, IInteractable, IPickUp
+public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
 {
     [SerializeField]
     private int maxUses = 3;
@@ -11,6 +11,7 @@ public class Bucket : MonoBehaviour, IInteractable, IPickUp
     public string Name => name;
     public bool HasInstantPickUp => true;
     public float UsabilityPercentage => remainingUses / (float)maxUses;
+    public ItemUI ItemUI { get; set; }
 
     public void AddWater()
     {
@@ -31,7 +32,7 @@ public class Bucket : MonoBehaviour, IInteractable, IPickUp
         gameObject.SetActive(false);
     }
 
-    public IInteractable GetInteractableObject()
+    public IInventoryItem GetInventoryItem()
     {
         return this;
     }

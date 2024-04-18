@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private float overlapRadius = 2.0f;
 
-    private List<IInteractable> items = new List<IInteractable>();
+    private List<IInventoryItem> items = new List<IInventoryItem>();
     private GameObject currentPickUp;
     private GameObject currentSoil;
     private int selectedItemIndex;
@@ -100,7 +100,7 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        IInteractable selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
+        IInventoryItem selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
 
         if (context.started && selectedItem != null)
         {
@@ -120,7 +120,7 @@ public class Inventory : MonoBehaviour
 
     public void OnPickUp(InputAction.CallbackContext context)
     {
-        if(currentPickUp == null)
+        if (currentPickUp == null)
         {
             return;
         }
@@ -133,9 +133,7 @@ public class Inventory : MonoBehaviour
 
             if (pickUp.HasInstantPickUp)
             {
-                pickUp.PickUp();
-                currentPickUp = null;
-                AddItemToInventory(pickUp.GetInteractableObject());
+                PickUp(pickUp);
             }
         }
 
@@ -143,22 +141,26 @@ public class Inventory : MonoBehaviour
         {
             GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
 
-            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
-            pickUp.PickUp();
-            currentPickUp = null;
-            AddItemToInventory(pickUp.GetInteractableObject());
+            PickUp(currentPickUp.GetComponent<IPickUp>());
         }
     }
 
-    private void AddItemToInventory(IInteractable interactable)
+    private void PickUp(IPickUp pickUp)
     {
-        if(interactable == null)
+        pickUp.PickUp();
+        currentPickUp = null;
+        AddItemToInventory(pickUp.GetInventoryItem());
+    }
+
+    private void AddItemToInventory(IInventoryItem inventoryItem)
+    {
+        if (inventoryItem == null)
         {
             return;
         }
 
-        items.Add(interactable);
-        inventoryUI.AddItem(interactable);
+        items.Add(inventoryItem);
+        inventoryItem.ItemUI = inventoryUI.AddItem(inventoryItem);
     }
 
     public void OnNextItem(InputAction.CallbackContext context)
