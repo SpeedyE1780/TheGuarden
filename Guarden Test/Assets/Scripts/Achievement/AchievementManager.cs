@@ -7,16 +7,22 @@ using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string
 
 namespace TheGuarden.Achievements
 {
+    /// <summary>
+    /// AchievementManager keeps track of active achievements in scene
+    /// </summary>
     public class AchievementManager : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Active achievements in scene")]
         private List<Achievement> achievements;
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled from achievements list. All active trackers in scene")]
         private List<AchievementTracker> achievementTrackers;
 
         private static readonly string AchievementDirectory = Application.streamingAssetsPath;
         private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
 
+        /// <summary>
+        /// Read save file and set tracker values to saved value or 0
+        /// </summary>
         private void Start()
         {
             string json = FileUtility.ReadFile(AchievementPath);
@@ -35,6 +41,9 @@ namespace TheGuarden.Achievements
             }
         }
 
+        /// <summary>
+        /// Read trackers value and save them to disk
+        /// </summary>
         private void OnDestroy()
         {
             AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
@@ -57,9 +66,14 @@ namespace TheGuarden.Achievements
 #if UNITY_EDITOR
         private void OnValidate()
         {
+            achievementTrackers.Clear();
+
             foreach (Achievement achievement in achievements)
             {
-                achievementTrackers.Add(achievement.tracker);
+                if (!achievementTrackers.Contains(achievement.tracker))
+                {
+                    achievementTrackers.Add(achievement.tracker); 
+                }
             }
         }
 #endif

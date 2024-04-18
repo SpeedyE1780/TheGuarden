@@ -5,6 +5,9 @@ using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string
 
 namespace TheGuarden.Achievements
 {
+    /// <summary>
+    /// AchievementTracker is used to keep track of an event count in game
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement Tracker")]
     internal class AchievementTracker : ScriptableObject
     {
@@ -13,16 +16,28 @@ namespace TheGuarden.Achievements
 
         internal event ValueChanged OnValueChanged;
 
+        /// <summary>
+        /// Initialize count from save file
+        /// </summary>
+        /// <param name="achievementsProgress">Dictionary containing all trackers saved values</param>
         internal void Initialize(AchivementTrackerDictionary achievementsProgress)
         {
             count = achievementsProgress.GetValueOrDefault(name, 0);
         }
 
+        /// <summary>
+        /// Save final count to save file
+        /// </summary>
+        /// <param name="achievementsProgress">Dictionary containing all trackers new values</param>
         internal void SaveProgress(AchivementTrackerDictionary achievementsProgress)
         {
             achievementsProgress.Add(name, count);
         }
 
+        /// <summary>
+        /// Increase tracker count after event occurs in game
+        /// </summary>
+        /// <param name="amount">Amount of time event occured</param>
         public void IncreaseCount(int amount)
         {
             count += amount;
@@ -32,5 +47,5 @@ namespace TheGuarden.Achievements
                 OnValueChanged?.Invoke(count);
             }
         }
-    } 
+    }
 }
