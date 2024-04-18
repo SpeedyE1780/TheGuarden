@@ -1,4 +1,5 @@
 using UnityEngine;
+using TheGuarden.Interactable;
 
 namespace TheGuarden.NPC
 {

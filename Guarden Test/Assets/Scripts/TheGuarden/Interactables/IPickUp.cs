@@ -1,21 +1,24 @@
 using UnityEngine;
 
-/// <summary>
-/// IPickUp represents an item that can be picked up
-/// </summary>
-public interface IPickUp
+namespace TheGuarden.Interactable
 {
-    public bool HasInstantPickUp { get; }
-
     /// <summary>
-    /// Pick up item from scene
+    /// IPickUp represents an item that can be picked up
     /// </summary>
-    /// <param name="parent">New item parent</param>
-    public void PickUp(Transform parent);
+    public interface IPickUp
+    {
+        public bool HasInstantPickUp { get; }
 
-    /// <summary>
-    /// Get inventory item received from picking up
-    /// </summary>
-    /// <returns>Inventory item received from picking up</returns>
-    public IInventoryItem GetInventoryItem();
+        /// <summary>
+        /// Pick up item from scene
+        /// </summary>
+        /// <param name="parent">New item parent</param>
+        public void PickUp(Transform parent);
+
+        /// <summary>
+        /// Get inventory item received from picking up
+        /// </summary>
+        /// <returns>Inventory item received from picking up</returns>
+        public IInventoryItem GetInventoryItem();
+    } 
 }

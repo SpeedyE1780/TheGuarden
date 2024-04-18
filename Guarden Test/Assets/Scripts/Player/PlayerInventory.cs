@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TheGuarden.Interactable;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 
