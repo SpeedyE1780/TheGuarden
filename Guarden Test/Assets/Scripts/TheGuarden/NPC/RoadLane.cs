@@ -3,16 +3,22 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.NPC
 {
-    public class RoadLane : MonoBehaviour
+    /// <summary>
+    /// RoadLane is a road representation where the trucks will start and end their delivery route
+    /// </summary>
+    internal class RoadLane : MonoBehaviour
     {
-        [SerializeField] private Transform start;
-        [SerializeField] private Transform end;
+        [SerializeField, Tooltip("Start of lane")]
+        private Transform start;
+        [SerializeField, Tooltip("End of lane")]
+        private Transform end;
 
         public Vector3 StartPosition => start.position;
         public Quaternion StartRotation => start.rotation;
         public Vector3 EndPosition => end.position;
         public float Length => Vector3.Distance(start.position, end.position);
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             start = transform.Find("Start");
@@ -34,5 +40,6 @@ namespace TheGuarden.NPC
                 Gizmos.DrawWireSphere(end.position, 0.5f);
             }
         }
-    } 
+#endif
+    }
 }

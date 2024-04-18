@@ -2,8 +2,14 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
-    public class AnimalDelivery : TruckDelivery<Animal>
+    /// <summary>
+    /// AnimalDelivery is a specialization of TruckDelivery that delivers animals
+    /// </summary>
+    internal class AnimalDelivery : TruckDelivery<Animal>
     {
+        /// <summary>
+        /// Spawn Animal and throw it out of truck
+        /// </summary>
         protected override void SpawnItem()
         {
             Animal animal = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
@@ -11,5 +17,5 @@ namespace TheGuarden.NPC
             animal.enabled = false;
             animal.Agent.enabled = false;
         }
-    } 
+    }
 }

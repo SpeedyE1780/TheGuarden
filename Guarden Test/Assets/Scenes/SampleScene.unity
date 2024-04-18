@@ -4376,7 +4376,7 @@ MonoBehaviour:
   spawningDelay: 30
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
-  gameTime: {fileID: 0}
+  gameTime: {fileID: 1303947125}
 --- !u!4 &1393084753
 Transform:
   m_ObjectHideFlags: 0
@@ -4707,18 +4707,19 @@ MonoBehaviour:
   - {fileID: 581709925}
   - {fileID: 250589736}
   speed: 10
-  mesh: {fileID: 95191905}
+  meshes: {fileID: 95191905}
   items:
   - {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940, type: 3}
   - {fileID: 107199097200948063, guid: 3d9748b4a5c87984e88452d98270b87e, type: 3}
   - {fileID: 8308161960401375895, guid: 2953b3026faceea47958fe9d27c1f290, type: 3}
   - {fileID: 4106183024406304078, guid: 7b531e2a219a0614c8e78a9f551b23ef, type: 3}
   deliveryItemCount: 2
-  gameTime: {fileID: 0}
+  gameTime: {fileID: 1303947125}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
   deliveryHours: 060000000c00000012000000
   daysBetweenDelivery: 0
+  travelledPercentageDelay: 0.4
   OnDelivery:
     m_PersistentCalls:
       m_Calls:
@@ -4902,15 +4903,16 @@ MonoBehaviour:
   - {fileID: 581709925}
   - {fileID: 250589736}
   speed: 5
-  mesh: {fileID: 1579760212}
+  meshes: {fileID: 1579760212}
   items:
   - {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
   deliveryItemCount: 1
-  gameTime: {fileID: 0}
+  gameTime: {fileID: 1303947125}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
   deliveryHours: 0d000000
   daysBetweenDelivery: 2
+  travelledPercentageDelay: 0.4
   OnDelivery:
     m_PersistentCalls:
       m_Calls: []

@@ -4,17 +4,20 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.NPC
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    /// <summary>
+    /// Animal represents the animals wandering around the scene
+    /// </summary>
+    [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
     public class Animal : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Animal Navmesh Agent")]
         private NavMeshAgent agent;
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Animal rigidbody")]
         private Rigidbody rb;
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Animal collider")]
         private Collider animalCollider;
-        [SerializeField]
-        private float stoppingDistance;
+        [SerializeField, Tooltip("Minimum distance before considering agent destination reached")]
+        private float stoppingDistance = 0.75f;
 
         public bool InsideForceField { get; set; }
 
@@ -29,7 +32,7 @@ namespace TheGuarden.NPC
 
         void Update()
         {
-            if (!agent.pathPending && agent.remainingDistance < stoppingDistance)
+            if (!agent.pathPending && agent.remainingDistance <= stoppingDistance)
             {
                 agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
             }
@@ -74,11 +77,18 @@ namespace TheGuarden.NPC
             }
         }
 
-        public void SetDestination(Vector3 destination)
+        /// <summary>
+        /// Set agent destination
+        /// </summary>
+        /// <param name="destination">Agent destination</param>
+        internal void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);
         }
 
+        /// <summary>
+        /// Pause Behavior when kidnapped by enemy
+        /// </summary>
         public void PauseBehavior()
         {
             animalCollider.enabled = false;
@@ -87,6 +97,9 @@ namespace TheGuarden.NPC
             rb.isKinematic = true;
         }
 
+        /// <summary>
+        /// Resume behavior when released by enemy
+        /// </summary>
         public void ResumeBehavior()
         {
             animalCollider.enabled = true;
@@ -95,6 +108,7 @@ namespace TheGuarden.NPC
             rb.isKinematic = false;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             agent = GetComponent<NavMeshAgent>();
@@ -107,5 +121,6 @@ namespace TheGuarden.NPC
             Gizmos.color = InsideForceField ? Color.green : Color.red;
             Gizmos.DrawWireSphere(transform.position, 1.5f);
         }
-    } 
+#endif
+    }
 }
