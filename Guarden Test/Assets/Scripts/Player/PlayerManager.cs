@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using TheGuarden.UI;
 using TheGuarden.Utility;
 
 public class PlayerManager : MonoBehaviour

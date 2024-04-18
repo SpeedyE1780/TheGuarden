@@ -1,35 +1,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : MonoBehaviour
+namespace TheGuarden.UI
 {
-    [SerializeField]
-    private ItemUI itemPrefab;
-    [SerializeField]
-    private Transform itemParents;
-
-    private List<ItemUI> items = new List<ItemUI>();
-
-    public ItemUI AddItem()
+    public class InventoryUI : MonoBehaviour
     {
-        ItemUI itemUI = Instantiate(itemPrefab, itemParents);
-        itemUI.SetParent(this);
-        items.Add(itemUI);
-        return itemUI;
-    }
+        [SerializeField, Tooltip("ItemUI prefab")]
+        private ItemUI itemPrefab;
+        [SerializeField, Tooltip("Parent containing all itemsUIs")]
+        private Transform itemParents;
 
-    public void SelectItem(int index)
-    {
-        items[index].Select();
-    }
+        private List<ItemUI> items = new List<ItemUI>();
 
-    public void DeselectItem(int index)
-    {
-        items[index].Deselect();
-    }
+        public ItemUI AddItem()
+        {
+            ItemUI itemUI = Instantiate(itemPrefab, itemParents);
+            itemUI.SetParent(this);
+            items.Add(itemUI);
+            return itemUI;
+        }
 
-    public void RemoveItem(ItemUI item)
-    {
-        items.Remove(item);
+        public void SelectItem(int index)
+        {
+            items[index].Select();
+        }
+
+        public void DeselectItem(int index)
+        {
+            items[index].Deselect();
+        }
+
+        public void RemoveItem(ItemUI item)
+        {
+            items.Remove(item);
+        }
     }
 }

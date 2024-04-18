@@ -1,6 +1,6 @@
 {
     "name": "TheGuarden.UI",
-    "rootNamespace": "",
+    "rootNamespace": "TheGuarden.UI",
     "references": [
         "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:eaadf552b7d9ab249807e6b2215a5f76"

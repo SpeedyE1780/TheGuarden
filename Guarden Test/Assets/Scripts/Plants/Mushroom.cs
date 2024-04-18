@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using TheGuarden.UI;
 using TheGuarden.Utility;
 
 public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem

@@ -1,3 +1,5 @@
+using TheGuarden.UI;
+
 public interface IInventoryItem
 {
     public string Name { get; }
