@@ -38,5 +38,5 @@ namespace TheGuarden.Interactable
         {
             dryWetRatio = Mathf.Clamp01(dryWetRatio + bucketRestoration);
         }
-    } 
+    }
 }

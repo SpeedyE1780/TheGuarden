@@ -20,5 +20,5 @@ namespace TheGuarden.Interactable
         /// </summary>
         /// <returns>Inventory item received from picking up</returns>
         public IInventoryItem GetInventoryItem();
-    } 
+    }
 }

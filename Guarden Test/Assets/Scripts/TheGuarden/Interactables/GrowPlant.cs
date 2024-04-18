@@ -48,15 +48,8 @@ namespace TheGuarden.Interactable
         private PlantSoil soil;
 
         public bool IsFullyGrown => transform.localScale == growingInfo.maxSize;
-        public float GrowthPercentage => InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
+        public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
         private bool IsGrowing => isGrowing && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
-
-        public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
-        {
-            Vector3 AB = b - a;
-            Vector3 AV = value - a;
-            return Vector3.Dot(AV, AB) / Vector3.Dot(AB, AB);
-        }
 
         void Update()
         {
@@ -140,5 +133,5 @@ namespace TheGuarden.Interactable
             }
         }
 #endif
-    } 
+    }
 }

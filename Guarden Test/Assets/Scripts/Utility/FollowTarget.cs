@@ -65,8 +65,7 @@ namespace TheGuarden.Utility
         private void LateUpdate()
         {
             CalculateCenter();
-            float frustrumHeight = boundsSize / Camera.aspect;
-            float offsetMultiplier = frustrumHeight * 0.5f / Mathf.Tan(Camera.fieldOfView * 0.5f * Mathf.Deg2Rad) + addedOffset;
+            float offsetMultiplier = MathExtensions.CalculateDistanceBasedOnFrustum(boundsSize, followCamera.aspect, followCamera.fieldOfView) + addedOffset;
             transform.position = center + (offset * offsetMultiplier);
         }
     }

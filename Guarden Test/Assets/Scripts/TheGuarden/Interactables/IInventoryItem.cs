@@ -58,5 +58,5 @@ namespace TheGuarden.Interactable
         /// Called when interaction with item is cancelled
         /// </summary>
         public void OnInteractionCancelled();
-    } 
+    }
 }
