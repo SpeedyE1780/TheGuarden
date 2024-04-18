@@ -93,7 +93,7 @@ public class Inventory : MonoBehaviour
         }
 
         items.Add(inventoryItem);
-        inventoryItem.ItemUI = inventoryUI.AddItem(inventoryItem);
+        inventoryItem.SetItemUI(inventoryUI.AddItem());
     }
 
     public void OnNextItem(InputAction.CallbackContext context)

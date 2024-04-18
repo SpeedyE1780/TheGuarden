@@ -9,16 +9,22 @@ public interface IInventoryItem
     {
         if (ItemUI != null)
         {
-            ItemUI.Select(); 
+            ItemUI.Select();
         }
     }
 
     public void Deselect()
     {
-        if(ItemUI != null)
+        if (ItemUI != null)
         {
             ItemUI.Deselect();
         }
+    }
+
+    public void SetItemUI(ItemUI itemUI)
+    {
+        ItemUI = itemUI;
+        itemUI.SetItem(Name, UsabilityPercentage);
     }
 
     public void OnInteractionStarted();

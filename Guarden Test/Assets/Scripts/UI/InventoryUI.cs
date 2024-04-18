@@ -10,10 +10,10 @@ public class InventoryUI : MonoBehaviour
 
     private List<ItemUI> items = new List<ItemUI>();
 
-    public ItemUI AddItem(IInventoryItem item)
+    public ItemUI AddItem()
     {
         ItemUI itemUI = Instantiate(itemPrefab, itemParents);
-        itemUI.SetItem(this, item.Name, item.UsabilityPercentage);
+        itemUI.SetParent(this);
         items.Add(itemUI);
         return itemUI;
     }

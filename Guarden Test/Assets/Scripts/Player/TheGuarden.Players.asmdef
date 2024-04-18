@@ -1,0 +1,19 @@
+{
+    "name": "TheGuarden.Players",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b48061cb228a1644e9c81d4580f5484f",
+        "GUID:eaadf552b7d9ab249807e6b2215a5f76",
+        "GUID:86fc5a17a2ccc0047a2666c830a53aaf",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

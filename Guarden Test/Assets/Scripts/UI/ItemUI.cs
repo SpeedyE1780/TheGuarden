@@ -10,11 +10,15 @@ public class ItemUI : MonoBehaviour
     private Slider progressSlider;
     private InventoryUI inventoryUI;
 
-    public void SetItem(InventoryUI container, string itemName, float progress)
+    public void SetParent(InventoryUI inventory)
+    {
+        inventoryUI = inventory;
+    }
+
+    public void SetItem(string itemName, float progress)
     {
         nameText.text = itemName;
         progressSlider.value = progress;
-        inventoryUI = container;
     }
 
     public void SetProgress(float progress)

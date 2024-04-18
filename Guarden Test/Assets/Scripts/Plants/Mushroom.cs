@@ -24,7 +24,7 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     public string Name => name;
     public bool HasInstantPickUp => GrowthPercentage == 0;
     public float UsabilityPercentage => GrowthPercentage;
-    public bool IsConsumedAfterInteraction { get; set; }
+    public bool IsConsumedAfterInteraction { get; private set; }
 
 #if UNITY_EDITOR
     [SerializeField]
