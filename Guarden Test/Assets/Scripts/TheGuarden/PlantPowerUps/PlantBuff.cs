@@ -1,3 +1,5 @@
+using TheGuarden.NPC;
+
 public abstract class PlantBuff : PlantPowerUp
 {
     public abstract void ApplyBuff(Animal animal);

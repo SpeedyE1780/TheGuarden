@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class MushroomDelivery : TruckDelivery<Mushroom>
+namespace TheGuarden.NPC
 {
-    protected override void SpawnItem()
+    public class MushroomDelivery : TruckDelivery<Mushroom>
     {
-        Mushroom mushroom = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
-        mushroom.Rigidbody.velocity = CalculateVelocity();
-    }
+        protected override void SpawnItem()
+        {
+            Mushroom mushroom = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
+            mushroom.Rigidbody.velocity = CalculateVelocity();
+        }
+    } 
 }

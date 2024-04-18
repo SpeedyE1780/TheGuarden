@@ -1,3 +1,4 @@
+using TheGuarden.NPC;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]

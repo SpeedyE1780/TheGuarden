@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using TheGuarden.NPC;
 
 namespace TheGuarden.Enemies
 {

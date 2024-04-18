@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class AnimalDelivery : TruckDelivery<Animal>
+namespace TheGuarden.NPC
 {
-    protected override void SpawnItem()
+    public class AnimalDelivery : TruckDelivery<Animal>
     {
-        Animal animal = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
-        animal.Rigidbody.velocity = CalculateVelocity();
-        animal.enabled = false;
-        animal.Agent.enabled = false;
-    }
+        protected override void SpawnItem()
+        {
+            Animal animal = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
+            animal.Rigidbody.velocity = CalculateVelocity();
+            animal.enabled = false;
+            animal.Agent.enabled = false;
+        }
+    } 
 }

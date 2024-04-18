@@ -1,5 +1,6 @@
 using UnityEngine;
 using TheGuarden.Utility;
+using TheGuarden.NPC;
 
 public class ForceFieldBehavior : PlantBuff
 {

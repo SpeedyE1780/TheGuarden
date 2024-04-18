@@ -1,35 +1,38 @@
 using UnityEngine;
 using TheGuarden.Utility;
 
-public class RoadLane : MonoBehaviour
+namespace TheGuarden.NPC
 {
-    [SerializeField] private Transform start;
-    [SerializeField] private Transform end;
-
-    public Vector3 StartPosition => start.position;
-    public Quaternion StartRotation => start.rotation;
-    public Vector3 EndPosition => end.position;
-    public float Length => Vector3.Distance(start.position, end.position);
-
-    private void OnValidate()
+    public class RoadLane : MonoBehaviour
     {
-        start = transform.Find("Start");
-        end = transform.Find("End");
+        [SerializeField] private Transform start;
+        [SerializeField] private Transform end;
 
-        if (start == null || end == null)
-        {
-            GameLogger.LogWarning("Lane has missing start/end point", gameObject, GameLogger.LogCategory.Scene);
-        }
-    }
+        public Vector3 StartPosition => start.position;
+        public Quaternion StartRotation => start.rotation;
+        public Vector3 EndPosition => end.position;
+        public float Length => Vector3.Distance(start.position, end.position);
 
-    private void OnDrawGizmos()
-    {
-        if (start != null && end != null)
+        private void OnValidate()
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(start.position, 0.5f);
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(end.position, 0.5f); 
+            start = transform.Find("Start");
+            end = transform.Find("End");
+
+            if (start == null || end == null)
+            {
+                GameLogger.LogWarning("Lane has missing start/end point", gameObject, GameLogger.LogCategory.Scene);
+            }
         }
-    }
+
+        private void OnDrawGizmos()
+        {
+            if (start != null && end != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(start.position, 0.5f);
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(end.position, 0.5f);
+            }
+        }
+    } 
 }
