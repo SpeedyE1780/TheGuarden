@@ -13,12 +13,8 @@ public class Inventory : MonoBehaviour
 
     private List<IInventoryItem> items = new List<IInventoryItem>();
     private GameObject currentPickUp;
-    private int selectedItemIndex;
-
-    private void Start()
-    {
-        selectedItemIndex = -1;
-    }
+    private int selectedItemIndex = -1;
+    private IInventoryItem selectedItem;
 
     public void SetInventoryUI(InventoryUI UI)
     {
@@ -28,8 +24,6 @@ public class Inventory : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        IInventoryItem selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
-
         if (context.started && selectedItem != null)
         {
             selectedItem.OnInteractionStarted();
@@ -43,6 +37,7 @@ public class Inventory : MonoBehaviour
             {
                 items.Remove(selectedItem);
                 selectedItemIndex = -1;
+                selectedItem = null;
             }
         }
 
@@ -101,24 +96,18 @@ public class Inventory : MonoBehaviour
     {
         if (context.performed)
         {
+            selectedItem?.Deselect();
+
             if (selectedItemIndex + 1 >= items.Count)
             {
-                if (selectedItemIndex != -1 && selectedItemIndex < items.Count)
-                {
-                    inventoryUI.DeselectItem(selectedItemIndex);
-                }
-
                 selectedItemIndex = -1;
+                selectedItem = null;
             }
             else
             {
-                if (selectedItemIndex != -1 && selectedItemIndex < items.Count)
-                {
-                    inventoryUI.DeselectItem(selectedItemIndex);
-                }
-
                 selectedItemIndex += 1;
-                inventoryUI.SelectItem(selectedItemIndex);
+                selectedItem = items[selectedItemIndex];
+                selectedItem.Select();
             }
         }
     }

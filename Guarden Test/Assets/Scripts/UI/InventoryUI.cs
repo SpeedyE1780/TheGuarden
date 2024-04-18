@@ -28,24 +28,6 @@ namespace TheGuarden.UI
         }
 
         /// <summary>
-        /// Select item based on index
-        /// </summary>
-        /// <param name="index">Item index</param>
-        public void SelectItem(int index)
-        {
-            items[index].Select();
-        }
-
-        /// <summary>
-        /// Deselect item based on index
-        /// </summary>
-        /// <param name="index">Item index</param>
-        public void DeselectItem(int index)
-        {
-            items[index].Deselect();
-        }
-
-        /// <summary>
         /// Remove item from ui and list once it's destroyed
         /// </summary>
         /// <param name="item">Destroyed item</param>

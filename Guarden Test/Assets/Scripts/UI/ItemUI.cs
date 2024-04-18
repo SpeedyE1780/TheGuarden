@@ -48,7 +48,7 @@ namespace TheGuarden.UI
         /// <summary>
         /// Highlight element on screen
         /// </summary>
-        internal void Select()
+        public void Select()
         {
             nameText.color = Color.yellow;
         }
@@ -56,7 +56,7 @@ namespace TheGuarden.UI
         /// <summary>
         /// Stop highlighting element on screen
         /// </summary>
-        internal void Deselect()
+        public void Deselect()
         {
             nameText.color = Color.white;
         }
