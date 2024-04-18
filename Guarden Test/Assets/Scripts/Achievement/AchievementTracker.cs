@@ -4,33 +4,21 @@ using UnityEngine;
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement Tracker")]
-public class AchievementTracker : ScriptableObject
+internal class AchievementTracker : ScriptableObject
 {
-    public delegate void ValueChanged(int value);
-    private int count = 0;
-    private bool initialized = false;
-    private bool saved = false;
+    internal delegate void ValueChanged(int value);
+    internal int count = 0;
 
-    public event ValueChanged OnValueChanged;
+    internal event ValueChanged OnValueChanged;
 
-    public int Count => count;
-
-    public void Initialize(AchivementTrackerDictionary achievementsProgress)
+    internal void Initialize(AchivementTrackerDictionary achievementsProgress)
     {
-        if (!initialized)
-        {
-            count = achievementsProgress.GetValueOrDefault(name, 0);
-            initialized = true;
-        }
+        count = achievementsProgress.GetValueOrDefault(name, 0);
     }
 
-    public void SaveProgress(AchivementTrackerDictionary achievementsProgress)
+    internal void SaveProgress(AchivementTrackerDictionary achievementsProgress)
     {
-        if (!saved)
-        {
-            achievementsProgress.Add(name, count);
-            saved = true;
-        }
+        achievementsProgress.Add(name, count);
     }
 
     public void IncreaseCount(int amount)
@@ -41,12 +29,5 @@ public class AchievementTracker : ScriptableObject
         {
             OnValueChanged?.Invoke(count);
         }
-    }
-
-    public void Reset()
-    {
-        count = 0;
-        initialized = false;
-        saved = false;
     }
 }
