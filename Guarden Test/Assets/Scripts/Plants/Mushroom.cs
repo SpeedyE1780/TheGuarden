@@ -120,6 +120,7 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
 
         if (IsConsumedAfterInteraction)
         {
+            transform.SetParent(null);
             Destroy(ItemUI.gameObject);
         }
         else
