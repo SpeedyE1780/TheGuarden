@@ -3382,7 +3382,6 @@ GameObject:
   m_Component:
   - component: {fileID: 797796854}
   - component: {fileID: 797796853}
-  - component: {fileID: 797796852}
   m_Layer: 0
   m_Name: EnemySurface
   m_TagString: Untagged
@@ -3390,19 +3389,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &797796852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797796851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a7dca65c071434bb0e23bad9937027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneSurface: {fileID: 797796853}
 --- !u!114 &797796853
 MonoBehaviour:
   m_ObjectHideFlags: 0
