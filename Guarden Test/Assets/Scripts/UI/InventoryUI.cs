@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -12,11 +10,12 @@ public class InventoryUI : MonoBehaviour
 
     private List<ItemUI> items = new List<ItemUI>();
 
-    public void AddItem(IInteractable item)
+    public ItemUI AddItem(IInventoryItem item)
     {
         ItemUI itemUI = Instantiate(itemPrefab, itemParents);
-        itemUI.SetItem(item.Name, item.UsabilityPercentage);
+        itemUI.SetItem(this, item.Name, item.UsabilityPercentage);
         items.Add(itemUI);
+        return itemUI;
     }
 
     public void SelectItem(int index)
@@ -29,9 +28,8 @@ public class InventoryUI : MonoBehaviour
         items[index].Deselect();
     }
 
-    public void RemoveItem(int index)
+    public void RemoveItem(ItemUI item)
     {
-        Destroy(items[index].gameObject);
-        items.RemoveAt(index);
+        items.Remove(item);
     }
 }

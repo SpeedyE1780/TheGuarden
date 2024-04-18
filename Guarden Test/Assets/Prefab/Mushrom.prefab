@@ -4998,6 +4998,7 @@ MonoBehaviour:
     offPeakGrowingRate: 1.001
     minimumDryWetRatio: 0.4
   gameTime: {fileID: 0}
+  growingParticles: {fileID: 8863964921418951005}
   behaviorParent: {fileID: 4781410716438576801}
   OnFullyGrown:
     m_PersistentCalls:
@@ -5032,6 +5033,10 @@ MonoBehaviour:
   navMeshObstacle: {fileID: 3846474154722925951}
   meshFilter: {fileID: 4099148780143447776}
   meshRenderer: {fileID: 2236016672227850794}
+  plantSoilMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  overlapRadius: 2
   behaviorsParent: {fileID: 4781410716438576801}
 --- !u!54 &7334000047881488347
 Rigidbody:

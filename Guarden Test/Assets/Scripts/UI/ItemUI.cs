@@ -8,10 +8,17 @@ public class ItemUI : MonoBehaviour
     private TMP_Text nameText;
     [SerializeField]
     private Slider progressSlider;
+    private InventoryUI inventoryUI;
 
-    public void SetItem(string itemName, float progress)
+    public void SetItem(InventoryUI container, string itemName, float progress)
     {
         nameText.text = itemName;
+        progressSlider.value = progress;
+        inventoryUI = container;
+    }
+
+    public void SetProgress(float progress)
+    {
         progressSlider.value = progress;
     }
 
@@ -23,5 +30,13 @@ public class ItemUI : MonoBehaviour
     public void Deselect()
     {
         nameText.color = Color.white;
+    }
+
+    private void OnDestroy()
+    {
+        if (inventoryUI != null)
+        {
+            inventoryUI.RemoveItem(this);
+        }
     }
 }

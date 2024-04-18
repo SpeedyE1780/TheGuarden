@@ -5,25 +5,17 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private PlantingIndicator plantingIndicator;
-    [SerializeField]
     private InventoryUI inventoryUI;
     [SerializeField]
-    private LayerMask plantBedMask;
-    [SerializeField]
-    private LayerMask lakeLayer;
-    [SerializeField]
-    private float overlapRadius = 2.0f;
+    private Transform inventoryPoint;
 
-    private List<IInteractable> items = new List<IInteractable>();
-    private GameObject currentInteractable;
-    private GameObject currentSoil;
+    private List<IInventoryItem> items = new List<IInventoryItem>();
+    private GameObject currentPickUp;
     private int selectedItemIndex;
 
     private void Start()
     {
         selectedItemIndex = -1;
-        plantingIndicator.Mask = plantBedMask;
     }
 
     public void SetInventoryUI(InventoryUI UI)
@@ -32,125 +24,75 @@ public class Inventory : MonoBehaviour
         inventoryUI.gameObject.SetActive(true);
     }
 
-    public void ShowPlantingIndicator(Mushroom mushroom)
-    {
-        plantingIndicator.gameObject.SetActive(true);
-        plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
-
-        if (!mushroom.IsFullyGrown && currentSoil != null)
-        {
-            plantingIndicator.transform.position = currentSoil.transform.position;
-            plantingIndicator.PlantingInSoil = true;
-        }
-    }
-
-    public void PlantMushroom(Mushroom mushroom)
-    {
-        plantingIndicator.gameObject.SetActive(false);
-        bool planted = false;
-
-        if (mushroom.IsFullyGrown)
-        {
-            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.Player);
-
-            if (Physics.CheckSphere(plantingIndicator.transform.position, overlapRadius, plantBedMask))
-            {
-                GameLogger.LogWarning("Can't plant in planting bed", gameObject, GameLogger.LogCategory.Player);
-                return;
-            }
-
-            mushroom.Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
-            planted = true;
-        }
-        else if (currentSoil != null)
-        {
-            GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.Player);
-            PlantSoil soil = currentSoil.GetComponent<PlantSoil>();
-            mushroom.PlantInSoil(soil, currentSoil.transform.position, currentSoil.transform.rotation);
-            planted = true;
-        }
-
-        if (planted)
-        {
-            items.Remove(mushroom);
-            inventoryUI.RemoveItem(selectedItemIndex);
-            selectedItemIndex = -1;
-        }
-    }
-
-    public void FillWaterBucket(Bucket bucket)
-    {
-        if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
-        {
-            bucket.AddWater();
-            GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.Player);
-        }
-    }
-
-    public void WaterPlantBed(Bucket bucket)
-    {
-        Collider[] plantBedsCollider = new Collider[1];
-        if (Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask) > 0)
-        {
-            PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
-            bucket.WaterPlantBed(plantBed);
-            GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.Player);
-        }
-    }
-
     public void OnInteract(InputAction.CallbackContext context)
     {
-        IInteractable selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
+        IInventoryItem selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;
 
         if (context.started && selectedItem != null)
         {
-            selectedItem.OnInteractionStarted(this);
+            selectedItem.OnInteractionStarted();
         }
 
         if (context.performed && selectedItem != null)
         {
-            selectedItem.OnInteractionPerformed(this);
+            selectedItem.OnInteractionPerformed();
+
+            if (selectedItem.IsConsumedAfterInteraction)
+            {
+                items.Remove(selectedItem);
+                selectedItemIndex = -1;
+            }
         }
 
-        if (context.canceled)
+        if (context.canceled && selectedItem != null)
         {
-            plantingIndicator.gameObject.SetActive(false);
+            selectedItem.OnInteractionCancelled();
         }
     }
 
     public void OnPickUp(InputAction.CallbackContext context)
     {
-        if (context.started && currentInteractable != null)
+        if (currentPickUp == null)
+        {
+            return;
+        }
+
+        if (context.started)
         {
             GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
 
-            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
+            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
 
-            if (interactable.HasInstantPickUp)
+            if (pickUp.HasInstantPickUp)
             {
-                items.Add(interactable);
-                inventoryUI.AddItem(interactable);
-                interactable.PickUp();
-                currentInteractable = null;
+                PickUp(pickUp);
             }
         }
 
-        if (context.performed && currentInteractable != null)
+        if (context.performed)
         {
             GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
 
-            IInteractable interactable = currentInteractable.GetComponent<IInteractable>();
-            items.Add(interactable);
-            interactable.PickUp();
-            inventoryUI.AddItem(interactable);
-            currentInteractable = null;
+            PickUp(currentPickUp.GetComponent<IPickUp>());
+        }
+    }
+
+    private void PickUp(IPickUp pickUp)
+    {
+        pickUp.PickUp(inventoryPoint);
+        currentPickUp = null;
+        AddItemToInventory(pickUp.GetInventoryItem());
+    }
+
+    private void AddItemToInventory(IInventoryItem inventoryItem)
+    {
+        if (inventoryItem == null)
+        {
+            return;
         }
 
-        if (selectedItemIndex == -1 && items.Count > 0)
-        {
-            selectedItemIndex = 0;
-            inventoryUI.SelectItem(0);
-        }
+        items.Add(inventoryItem);
+        inventoryItem.ItemUI = inventoryUI.AddItem(inventoryItem);
     }
 
     public void OnNextItem(InputAction.CallbackContext context)
@@ -181,31 +123,19 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentInteractable == null)
+        if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
         {
-            currentInteractable = other.gameObject;
+            currentPickUp = other.gameObject;
             GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
-        }
-
-        if (other.CompareTag(Tags.PlantSoil) && currentSoil == null)
-        {
-            currentSoil = other.gameObject;
-            GameLogger.LogInfo("ENTER SOIL", gameObject, GameLogger.LogCategory.Player);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == currentInteractable)
+        if (other.gameObject == currentPickUp)
         {
-            currentInteractable = null;
+            currentPickUp = null;
             GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
-        }
-
-        if (other.gameObject == currentSoil)
-        {
-            currentSoil = null;
-            GameLogger.LogInfo("EXIT SOIL", gameObject, GameLogger.LogCategory.Player);
         }
     }
 }
