@@ -4,36 +4,38 @@ using TheGuarden.NPC;
 
 namespace TheGuarden.PlantPowerUps
 {
-    public class RepelBehavior : PlantBehavior
+    /// <summary>
+    /// RepelBehavior repels animal from it
+    /// </summary>
+    internal class RepelBehavior : PlantBehavior
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Max range animals are repelled")]
         private float repelRange;
-        [SerializeField]
+        [SerializeField, Tooltip("Minimum range animals are repelled")]
         private float minimumRange;
 
-#if UNITY_EDITOR
-        Vector3 destinationDebug;
-#endif
-
+        /// <summary>
+        /// Repel animal from plant
+        /// </summary>
+        /// <param name="animal">Animal that entered trigger</param>
         public override void ApplyBehavior(Animal animal)
         {
             GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantBehaviour);
-
             animal.SetDestination(GetDestination(animal.transform.position));
         }
 
+        /// <summary>
+        /// Get position between [minimumRange, repelRange]
+        /// </summary>
+        /// <returns>Position between [minimumRange, repelRange]</returns>
         private Vector3 GetDestination(Vector3 animalPosition)
         {
             Vector3 direction = animalPosition - transform.position;
             Vector3 destination = direction.normalized * Random.Range(minimumRange, repelRange);
-
-#if UNITY_EDITOR
-            destinationDebug = destination;
-#endif
-
             return destination;
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
@@ -41,8 +43,7 @@ namespace TheGuarden.PlantPowerUps
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(transform.position, repelRange);
             Gizmos.DrawWireSphere(transform.position, minimumRange + powerUpRange);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(destinationDebug, 0.2f);
         }
+#endif
     }
 }

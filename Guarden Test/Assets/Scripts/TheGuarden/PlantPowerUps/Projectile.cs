@@ -2,9 +2,12 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {
-    public class Projectile : MonoBehaviour
+    /// <summary>
+    /// Projectile that follows targets and destroys it
+    /// </summary>
+    internal class Projectile : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Projectile speed")]
         private float speed;
 
         public Transform Target { get; set; }
@@ -18,7 +21,6 @@ namespace TheGuarden.PlantPowerUps
             }
 
             transform.forward = Target.position - transform.position;
-
             transform.position = Vector3.MoveTowards(transform.position, Target.position, speed * Time.deltaTime);
         }
 

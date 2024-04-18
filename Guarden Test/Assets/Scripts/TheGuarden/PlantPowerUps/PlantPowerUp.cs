@@ -2,17 +2,22 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {
-    public abstract class PlantPowerUp : MonoBehaviour
+    /// <summary>
+    /// Base class of all plant power ups
+    /// </summary>
+    internal abstract class PlantPowerUp : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Range of power up")]
         protected float powerUpRange;
-        [SerializeField]
+        [SerializeField, Tooltip("Collider used to check if animal entered/exited trigger")]
         private SphereCollider powerUpCollider;
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             powerUpCollider = GetComponent<SphereCollider>();
             powerUpCollider.radius = powerUpRange;
         }
-    } 
+#endif
+    }
 }

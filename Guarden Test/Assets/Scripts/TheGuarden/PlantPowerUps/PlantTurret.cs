@@ -4,13 +4,16 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.PlantPowerUps
 {
-    public class PlantTurret : PlantPowerUp
+    /// <summary>
+    /// Plant that can shoot projectiles at enemy in trigger
+    /// </summary>
+    internal class PlantTurret : PlantPowerUp
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Point where projectile will spawn")]
         private Transform shootPoint;
-        [SerializeField]
+        [SerializeField, Tooltip("Projectile prefab")]
         private Projectile projectilePrefab;
-        [SerializeField]
+        [SerializeField, Tooltip("Cooldown between projectiles")]
         private float cooldown;
 
         private Transform targetEnemy;
@@ -32,6 +35,10 @@ namespace TheGuarden.PlantPowerUps
             }
         }
 
+        /// <summary>
+        /// Shoot projectiles until enemy is out of range or destroyed
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator ShootTurret()
         {
             while (targetEnemy != null)
