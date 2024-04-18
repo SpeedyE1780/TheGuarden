@@ -5,25 +5,28 @@ using UnityEngine.InputSystem.UI;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 
-public class PlayerManager : MonoBehaviour
+namespace TheGuarden.Players
 {
-    [SerializeField]
-    private FollowTarget followCamera;
-    [SerializeField]
-    private InputSystemUIInputModule inputSystemUIInputModule;
-    [SerializeField]
-    private List<InventoryUI> inventoryUI;
-
-    public void OnPlayerJoin(PlayerInput player)
+    public class PlayerManager : MonoBehaviour
     {
-        player.camera = followCamera.Camera;
-        player.uiInputModule = inputSystemUIInputModule;
-        player.GetComponent<Inventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
-        followCamera.AddTarget(player.transform);
-    }
+        [SerializeField]
+        private FollowTarget followCamera;
+        [SerializeField]
+        private InputSystemUIInputModule inputSystemUIInputModule;
+        [SerializeField]
+        private List<InventoryUI> inventoryUI;
 
-    public void OnPlayerLeave(PlayerInput player)
-    {
-        followCamera.RemoveTarget(player.transform);
+        public void OnPlayerJoin(PlayerInput player)
+        {
+            player.camera = followCamera.Camera;
+            player.uiInputModule = inputSystemUIInputModule;
+            player.GetComponent<Inventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
+            followCamera.AddTarget(player.transform);
+        }
+
+        public void OnPlayerLeave(PlayerInput player)
+        {
+            followCamera.RemoveTarget(player.transform);
+        }
     }
 }

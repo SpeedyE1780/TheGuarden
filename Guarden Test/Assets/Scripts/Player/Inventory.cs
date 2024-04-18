@@ -4,129 +4,132 @@ using UnityEngine.InputSystem;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 
-public class Inventory : MonoBehaviour
+namespace TheGuarden.Players
 {
-    [SerializeField]
-    private InventoryUI inventoryUI;
-    [SerializeField]
-    private Transform inventoryPoint;
-
-    private List<IInventoryItem> items = new List<IInventoryItem>();
-    private GameObject currentPickUp;
-    private int selectedItemIndex = -1;
-    private IInventoryItem selectedItem;
-
-    public void SetInventoryUI(InventoryUI UI)
+    public class Inventory : MonoBehaviour
     {
-        inventoryUI = UI;
-        inventoryUI.gameObject.SetActive(true);
-    }
+        [SerializeField]
+        private InventoryUI inventoryUI;
+        [SerializeField]
+        private Transform inventoryPoint;
 
-    public void OnInteract(InputAction.CallbackContext context)
-    {
-        if (context.started && selectedItem != null)
+        private List<IInventoryItem> items = new List<IInventoryItem>();
+        private GameObject currentPickUp;
+        private int selectedItemIndex = -1;
+        private IInventoryItem selectedItem;
+
+        public void SetInventoryUI(InventoryUI UI)
         {
-            selectedItem.OnInteractionStarted();
+            inventoryUI = UI;
+            inventoryUI.gameObject.SetActive(true);
         }
 
-        if (context.performed && selectedItem != null)
+        public void OnInteract(InputAction.CallbackContext context)
         {
-            selectedItem.OnInteractionPerformed();
-
-            if (selectedItem.IsConsumedAfterInteraction)
+            if (context.started && selectedItem != null)
             {
-                items.Remove(selectedItem);
-                selectedItemIndex = -1;
-                selectedItem = null;
+                selectedItem.OnInteractionStarted();
+            }
+
+            if (context.performed && selectedItem != null)
+            {
+                selectedItem.OnInteractionPerformed();
+
+                if (selectedItem.IsConsumedAfterInteraction)
+                {
+                    items.Remove(selectedItem);
+                    selectedItemIndex = -1;
+                    selectedItem = null;
+                }
+            }
+
+            if (context.canceled && selectedItem != null)
+            {
+                selectedItem.OnInteractionCancelled();
             }
         }
 
-        if (context.canceled && selectedItem != null)
+        public void OnPickUp(InputAction.CallbackContext context)
         {
-            selectedItem.OnInteractionCancelled();
-        }
-    }
-
-    public void OnPickUp(InputAction.CallbackContext context)
-    {
-        if (currentPickUp == null)
-        {
-            return;
-        }
-
-        if (context.started)
-        {
-            GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
-
-            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
-
-            if (pickUp.HasInstantPickUp)
+            if (currentPickUp == null)
             {
-                PickUp(pickUp);
+                return;
+            }
+
+            if (context.started)
+            {
+                GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
+
+                IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
+
+                if (pickUp.HasInstantPickUp)
+                {
+                    PickUp(pickUp);
+                }
+            }
+
+            if (context.performed)
+            {
+                GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
+
+                PickUp(currentPickUp.GetComponent<IPickUp>());
             }
         }
 
-        if (context.performed)
+        private void PickUp(IPickUp pickUp)
         {
-            GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
-
-            PickUp(currentPickUp.GetComponent<IPickUp>());
-        }
-    }
-
-    private void PickUp(IPickUp pickUp)
-    {
-        pickUp.PickUp(inventoryPoint);
-        currentPickUp = null;
-        AddItemToInventory(pickUp.GetInventoryItem());
-    }
-
-    private void AddItemToInventory(IInventoryItem inventoryItem)
-    {
-        if (inventoryItem == null)
-        {
-            return;
-        }
-
-        items.Add(inventoryItem);
-        inventoryItem.SetItemUI(inventoryUI.AddItem());
-    }
-
-    public void OnNextItem(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            selectedItem?.Deselect();
-
-            if (selectedItemIndex + 1 >= items.Count)
-            {
-                selectedItemIndex = -1;
-                selectedItem = null;
-            }
-            else
-            {
-                selectedItemIndex += 1;
-                selectedItem = items[selectedItemIndex];
-                selectedItem.Select();
-            }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
-        {
-            currentPickUp = other.gameObject;
-            GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == currentPickUp)
-        {
+            pickUp.PickUp(inventoryPoint);
             currentPickUp = null;
-            GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
+            AddItemToInventory(pickUp.GetInventoryItem());
+        }
+
+        private void AddItemToInventory(IInventoryItem inventoryItem)
+        {
+            if (inventoryItem == null)
+            {
+                return;
+            }
+
+            items.Add(inventoryItem);
+            inventoryItem.SetItemUI(inventoryUI.AddItem());
+        }
+
+        public void OnNextItem(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                selectedItem?.Deselect();
+
+                if (selectedItemIndex + 1 >= items.Count)
+                {
+                    selectedItemIndex = -1;
+                    selectedItem = null;
+                }
+                else
+                {
+                    selectedItemIndex += 1;
+                    selectedItem = items[selectedItemIndex];
+                    selectedItem.Select();
+                }
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
+            {
+                currentPickUp = other.gameObject;
+                GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject == currentPickUp)
+            {
+                currentPickUp = null;
+                GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
+            }
         }
     }
 }
