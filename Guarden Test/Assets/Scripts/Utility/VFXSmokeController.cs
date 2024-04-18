@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class VFXSmokeController : MonoBehaviour
+namespace TheGuarden.Utility
 {
-
-    [SerializeField]
-    private VisualEffect vfx;
-    [SerializeField]
-    private string velocityParam;
-    [SerializeField]
-    private string spawnParam;
-    [SerializeField]
-     private Rigidbody rb;
-
-    void Update()
+    public class VFXSmokeController : MonoBehaviour
     {
-        vfx.SetVector3(velocityParam, -rb.velocity);        
-        vfx.SetBool(spawnParam, rb.velocity.sqrMagnitude > 1);
-    }
 
+        [SerializeField]
+        private VisualEffect vfx;
+        [SerializeField]
+        private string velocityParam;
+        [SerializeField]
+        private string spawnParam;
+        [SerializeField]
+        private Rigidbody rb;
+
+        void Update()
+        {
+            vfx.SetVector3(velocityParam, -rb.velocity);
+            vfx.SetBool(spawnParam, rb.velocity.sqrMagnitude > 1);
+        }
+
+    } 
 }

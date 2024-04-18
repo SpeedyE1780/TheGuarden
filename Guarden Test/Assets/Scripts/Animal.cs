@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using TheGuarden.Utility;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class Animal : MonoBehaviour

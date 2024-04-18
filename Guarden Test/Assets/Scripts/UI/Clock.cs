@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using TheGuarden.Utility;
 
 public class Clock : MonoBehaviour
 {

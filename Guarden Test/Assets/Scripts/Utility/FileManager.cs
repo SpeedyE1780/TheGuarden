@@ -1,35 +1,38 @@
 using System.IO;
 
-public static class FileManager
+namespace TheGuarden.Utility
 {
-    public static string ReadFile(string path, bool throwOnError = false)
+    public static class FileManager
     {
-        if (!File.Exists(path))
+        public static string ReadFile(string path, bool throwOnError = false)
         {
-            GameLogger.LogError($"File {path} does not exist", null, GameLogger.LogCategory.FileOperations);
-            return throwOnError ? throw new FileNotFoundException(path) : "";
-        }
-
-        return File.ReadAllText(path);
-    }
-
-    public static void WriteFile(string path, string content, bool throwOnError = false)
-    {
-        string directory = Path.GetDirectoryName(path);
-
-        if (!Directory.Exists(directory))
-        {
-            GameLogger.LogError($"Directory {directory} does not exist", null, GameLogger.LogCategory.FileOperations);
-
-            if (throwOnError)
+            if (!File.Exists(path))
             {
-                throw new DirectoryNotFoundException(path);
+                GameLogger.LogError($"File {path} does not exist", null, GameLogger.LogCategory.FileOperations);
+                return throwOnError ? throw new FileNotFoundException(path) : "";
             }
 
-            GameLogger.LogInfo($"Directory {directory} created", null, GameLogger.LogCategory.FileOperations);
-            Directory.CreateDirectory(directory);
+            return File.ReadAllText(path);
         }
 
-        File.WriteAllText(path, content);
-    }
+        public static void WriteFile(string path, string content, bool throwOnError = false)
+        {
+            string directory = Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(directory))
+            {
+                GameLogger.LogError($"Directory {directory} does not exist", null, GameLogger.LogCategory.FileOperations);
+
+                if (throwOnError)
+                {
+                    throw new DirectoryNotFoundException(path);
+                }
+
+                GameLogger.LogInfo($"Directory {directory} created", null, GameLogger.LogCategory.FileOperations);
+                Directory.CreateDirectory(directory);
+            }
+
+            File.WriteAllText(path, content);
+        }
+    } 
 }
