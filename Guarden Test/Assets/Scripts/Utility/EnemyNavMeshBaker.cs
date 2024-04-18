@@ -2,38 +2,53 @@ using System.Collections;
 using Unity.AI.Navigation;
 using UnityEngine;
 
-public class EnemyNavMeshBaker : MonoBehaviour
+namespace TheGuarden.Utility
 {
-    [SerializeField]
-    private NavMeshSurface sceneSurface;
-
-    private static NavMeshSurface surface;
-
-    private void Awake()
+    /// <summary>
+    /// EnemyNavMeshBaker bakes the enemy surface navmesh when force fields are added/removed to/from the scene
+    /// </summary>
+    [RequireComponent(typeof(NavMeshSurface))]
+    public class EnemyNavMeshBaker : MonoBehaviour
     {
-        surface = sceneSurface;
-        BakeNavMesh();
-    }
+        [SerializeField, Tooltip("The Enemy NavmeshSurface")]
+        private NavMeshSurface sceneSurface;
 
-    public static void BakeNavMesh()
-    {
-        //Run coroutine on scene object
-        surface.StartCoroutine(BuildNavMesh());
-    }
+        private static NavMeshSurface surface;
 
-    private static IEnumerator BuildNavMesh()
-    {
-        yield return null;
-
-        GameLogger.LogInfo("Building enemy surface nav mesh", null, GameLogger.LogCategory.Scene);
-
-        if (surface.navMeshData == null)
+        private void Awake()
         {
-            GameLogger.LogError("Enemy surface has no data", null, GameLogger.LogCategory.Scene);
-            surface.BuildNavMesh();
-            yield break;
+            surface = sceneSurface;
+            BakeNavMesh();
         }
 
-        surface.UpdateNavMesh(surface.navMeshData);
+        /// <summary>
+        /// Bakes the navmesh again to take into account current changes
+        /// </summary>
+        public static void BakeNavMesh()
+        {
+            //Run coroutine on scene object
+            surface.StartCoroutine(BuildNavMesh());
+        }
+
+        /// <summary>
+        /// Updates the enemy navmesh scene asynchronously
+        /// </summary>
+        /// <returns></returns>
+        private static IEnumerator BuildNavMesh()
+        {
+            //Wait one frame for scene to update
+            yield return null;
+
+            GameLogger.LogInfo("Building enemy surface nav mesh", null, GameLogger.LogCategory.Scene);
+
+            if (surface.navMeshData == null)
+            {
+                GameLogger.LogError("Enemy surface has no data", null, GameLogger.LogCategory.Scene);
+                surface.BuildNavMesh();
+                yield break;
+            }
+
+            surface.UpdateNavMesh(surface.navMeshData);
+        }
     }
 }

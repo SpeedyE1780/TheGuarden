@@ -4989,14 +4989,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec789c1f81e39904caa5995484e4656f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSize: {x: 0.25, y: 0.25, z: 0.25}
-  maxSize: {x: 2, y: 2, z: 2}
   growingInfo:
     startHour: 0
     endHour: 20
     peakGrowingRate: 1.1
     offPeakGrowingRate: 1.001
     minimumDryWetRatio: 0.4
+    startSize: {x: 0.25, y: 0.25, z: 0.25}
+    maxSize: {x: 2, y: 2, z: 2}
   gameTime: {fileID: 0}
   growingParticles: {fileID: 8863964921418951005}
   behaviorParent: {fileID: 4781410716438576801}

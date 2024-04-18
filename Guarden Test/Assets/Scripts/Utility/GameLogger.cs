@@ -1,63 +1,84 @@
 using UnityEngine;
 
-public class GameLogger : MonoBehaviour
+namespace TheGuarden.Utility
 {
-    [System.Flags]
-    public enum LogCategory
+    public class GameLogger : MonoBehaviour
     {
-        None = 0,
-        Achievements = 1,
-        Enemy = 1 << 1,
-        PlantBehaviour = 1 << 2,
-        Scene = 1 << 3,
-        Player = 1 << 4,
-        Plant = 1 << 5,
-        UI = 1 << 6,
-        FileOperations = 1 << 7,
-        InventoryItem = 1 << 8,
-        All = -1
-    }
-
-    [SerializeField]
-    private LogCategory loggedCategory;
-
-    private static LogCategory enabledCategories = LogCategory.All;
-
-    private void Awake()
-    {
-        enabledCategories = loggedCategory;
-    }
-
-    [System.Diagnostics.Conditional("GAME_LOGGER_LOG_INFO")]
-    public static void LogInfo(string message, Object sender, LogCategory category)
-    {
-        if ((category & enabledCategories) == 0)
+        [System.Flags]
+        public enum LogCategory
         {
-            return;
+            None = 0,
+            Achievements = 1,
+            Enemy = 1 << 1,
+            PlantBehaviour = 1 << 2,
+            Scene = 1 << 3,
+            Player = 1 << 4,
+            Plant = 1 << 5,
+            UI = 1 << 6,
+            FileOperations = 1 << 7,
+            InventoryItem = 1 << 8,
+            All = -1
         }
 
-        Debug.Log($"<color=white>[INFO] {message}</color>", sender);
-    }
+        [SerializeField, Tooltip("Active category that will be logged")]
+        private LogCategory loggedCategory;
 
-    [System.Diagnostics.Conditional("GAME_LOGGER_LOG_WARNING")]
-    public static void LogWarning(string message, Object sender, LogCategory category)
-    {
-        if ((category & enabledCategories) == 0)
+        private static LogCategory enabledCategories = LogCategory.All;
+
+        private void Awake()
         {
-            return;
+            enabledCategories = loggedCategory;
         }
 
-        Debug.LogWarning($"<color=yellow>[WARNING] {message}</color>", sender);
-    }
-
-    [System.Diagnostics.Conditional("GAME_LOGGER_LOG_ERROR")]
-    public static void LogError(string message, Object sender, LogCategory category)
-    {
-        if ((category & enabledCategories) == 0)
+        /// <summary>
+        /// Logs info to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
+        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_INFO")]
+        public static void LogInfo(string message, Object sender, LogCategory category)
         {
-            return;
+            if ((category & enabledCategories) == 0)
+            {
+                return;
+            }
+
+            Debug.Log($"<color=white>[INFO] {message}</color>", sender);
         }
 
-        Debug.LogError($"<color=red>[ERROR] {message}</color>", sender);
+        /// <summary>
+        /// Logs warning to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
+        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_WARNING")]
+        public static void LogWarning(string message, Object sender, LogCategory category)
+        {
+            if ((category & enabledCategories) == 0)
+            {
+                return;
+            }
+
+            Debug.LogWarning($"<color=yellow>[WARNING] {message}</color>", sender);
+        }
+
+        /// <summary>
+        /// Logs error to the console if category is active
+        /// </summary>
+        /// <param name="message">Message to log on console</param>
+        /// <param name="sender">Object logging the message</param>
+        /// <param name="category">Category of logged message</param>
+        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_ERROR")]
+        public static void LogError(string message, Object sender, LogCategory category)
+        {
+            if ((category & enabledCategories) == 0)
+            {
+                return;
+            }
+
+            Debug.LogError($"<color=red>[ERROR] {message}</color>", sender);
+        }
     }
 }

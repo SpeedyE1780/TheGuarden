@@ -1,24 +1,36 @@
 using UnityEngine;
 
-public static class Tags
+namespace TheGuarden.Utility
 {
-    public const string Plant = "Plant";
-    public const string PlantBehavior = "PlantBehavior";
-    public const string PlantSoil = "PlantSoil";
-    public const string Enemy = "Enemy";
-    public const string Bucket = "Bucket";
-    public const string PlantBuff = "PlantBuff";
-
-    public static bool HasTag(GameObject gameObject, params string[] tags)
+    /// <summary>
+    /// Tags is used to replace string litteral with const variables
+    /// </summary>
+    public static class Tags
     {
-        foreach (string tag in tags)
-        {
-            if (gameObject.CompareTag(tag))
-            {
-                return true;
-            }
-        }
+        public const string Plant = "Plant";
+        public const string PlantBehavior = "PlantBehavior";
+        public const string PlantSoil = "PlantSoil";
+        public const string Enemy = "Enemy";
+        public const string Bucket = "Bucket";
+        public const string PlantBuff = "PlantBuff";
 
-        return false;
+        /// <summary>
+        /// Check if game object has any of the given tags
+        /// </summary>
+        /// <param name="gameObject">Game object who's tag is being checked</param>
+        /// <param name="tags">List of tags to check against</param>
+        /// <returns>True if game object has any of the given tags</returns>
+        public static bool HasTag(GameObject gameObject, params string[] tags)
+        {
+            foreach (string tag in tags)
+            {
+                if (gameObject.CompareTag(tag))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

@@ -1,57 +1,67 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheGuarden.Utility;
 
-public class EnemySpawner : MonoBehaviour
+namespace TheGuarden.Enemies
 {
-    [SerializeField]
-    private Transform spawnPoint;
-    [SerializeField]
-    private List<EnemyPath> paths;
-    [SerializeField]
-    private float startTime;
-    [SerializeField]
-    private float endTime;
-    [SerializeField]
-    private float spawningDelay;
-    [SerializeField]
-    private Enemy enemyPrefab;
-    [SerializeField]
-    private GameTime gameTime;
-
-    private void Start()
+    /// <summary>
+    /// EnemySpawner spawns enemy during time period
+    /// </summary>
+    public class EnemySpawner : MonoBehaviour
     {
-        StartCoroutine(SpawnEnemy());
-    }
+        [SerializeField, Tooltip("Position where enemies will be spawned")]
+        private Transform spawnPoint;
+        [SerializeField, Tooltip("List of paths enemies can take")]
+        private List<EnemyPath> paths;
+        [SerializeField, Tooltip("Hour where enemies start spawning")]
+        private float startTime;
+        [SerializeField, Tooltip("Hour where enemies stop spawning")]
+        private float endTime;
+        [SerializeField, Tooltip("Delay between each enemy spawning")]
+        private float spawningDelay;
+        [SerializeField, Tooltip("Enemy Prefab")]
+        private Enemy enemyPrefab;
+        [SerializeField, Tooltip("Autofilled")]
+        private GameTime gameTime;
 
-    private bool ShouldSpawn()
-    {
-        return gameTime.Hour >= startTime && gameTime.Hour <= endTime;
-    }
+        private bool ShouldSpawn => gameTime.Hour >= startTime && gameTime.Hour <= endTime;
 
-    private IEnumerator SpawnEnemy()
-    {
-        while (true)
+        private void Start()
         {
-            yield return new WaitUntil(ShouldSpawn);
+            StartCoroutine(SpawnEnemy());
+        }
 
-            while (ShouldSpawn())
+        /// <summary>
+        /// Wait for spawning period to start and spawn enemies
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator SpawnEnemy()
+        {
+            while (true)
             {
-                Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                enemy.Path = paths[Random.Range(0, paths.Count)];
-                GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
-                yield return new WaitForSeconds(spawningDelay);
+                yield return new WaitUntil(() => ShouldSpawn);
+
+                while (ShouldSpawn)
+                {
+                    Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                    enemy.SetPath(paths[Random.Range(0, paths.Count)]);
+                    GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
+                    yield return new WaitForSeconds(spawningDelay);
+                }
             }
         }
-    }
 
-    private void OnValidate()
-    {
-        gameTime = FindObjectOfType<GameTime>();
-
-        if (gameTime == null)
+#if UNITY_EDITOR
+        private void OnValidate()
         {
-            GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
+            gameTime = FindObjectOfType<GameTime>();
+
+            if (gameTime == null)
+            {
+                GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
+            }
         }
+#endif
     }
 }

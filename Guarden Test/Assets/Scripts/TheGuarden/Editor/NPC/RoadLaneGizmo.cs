@@ -1,0 +1,20 @@
+using UnityEditor;
+using UnityEngine;
+
+namespace TheGuarden.NPC.Editor
+{
+    public class RoadLaneGizmo
+    {
+        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
+        internal static void DrawGizmo(RoadLane roadlane, GizmoType type)
+        {
+            if (roadlane.Start != null && roadlane.End != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireSphere(roadlane.Start.position, 0.5f);
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireSphere(roadlane.End.position, 0.5f);
+            }
+        }
+    }
+}

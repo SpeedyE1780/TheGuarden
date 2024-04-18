@@ -1,42 +1,81 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
-using System.IO;
+using TheGuarden.Utility;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
 
-public class AchievementManager : MonoBehaviour
+namespace TheGuarden.Achievements
 {
-    [SerializeField]
-    private List<Achievement> achievements;
-
-    private static readonly string AchievementDirectory = Application.streamingAssetsPath;
-    private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
-
-    private void Start()
+    /// <summary>
+    /// AchievementManager keeps track of active achievements in scene
+    /// </summary>
+    public class AchievementManager : MonoBehaviour
     {
-        string json = FileManager.ReadFile(AchievementPath);
-        AchivementTrackerDictionary achievementsProgress = !string.IsNullOrWhiteSpace(json) ? 
-            JsonConvert.DeserializeObject<AchivementTrackerDictionary>(json) :
-            new AchivementTrackerDictionary();
+        [SerializeField, Tooltip("Active achievements in scene")]
+        private List<Achievement> achievements;
+        [SerializeField, Tooltip("Autofilled from achievements list. All active trackers in scene")]
+        private List<AchievementTracker> achievementTrackers;
 
-        foreach (Achievement achievement in achievements)
+        private static readonly string AchievementDirectory = Application.streamingAssetsPath;
+        private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
+
+        /// <summary>
+        /// Read save file and set tracker values to saved value or 0
+        /// </summary>
+        private void Start()
         {
-            achievement.Initialize(achievementsProgress);
+            string json = FileUtility.ReadFile(AchievementPath);
+            AchivementTrackerDictionary achievementsProgress = !string.IsNullOrWhiteSpace(json) ?
+                JsonConvert.DeserializeObject<AchivementTrackerDictionary>(json) :
+                new AchivementTrackerDictionary();
+
+            foreach (AchievementTracker tracker in achievementTrackers)
+            {
+                tracker.Initialize(achievementsProgress);
+            }
+
+            foreach (Achievement achievement in achievements)
+            {
+                achievement.Initialize();
+            }
         }
-    }
 
-    private void OnDestroy()
-    {
-        AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
-
-        foreach (Achievement achievement in achievements)
+        /// <summary>
+        /// Read trackers value and save them to disk
+        /// </summary>
+        private void OnDestroy()
         {
-            achievement.Deinitialize(achievementsProgress);
+            AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
+
+            foreach (AchievementTracker tracker in achievementTrackers)
+            {
+                tracker.SaveProgress(achievementsProgress);
+            }
+
+            foreach (Achievement achievement in achievements)
+            {
+                achievement.Deinitialize();
+            }
+
+            string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
+
+            FileUtility.WriteFile(AchievementPath, achievementJSON);
         }
 
-        string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            achievementTrackers.Clear();
 
-        FileManager.WriteFile(AchievementPath, achievementJSON);
+            foreach (Achievement achievement in achievements)
+            {
+                if (!achievementTrackers.Contains(achievement.tracker))
+                {
+                    achievementTrackers.Add(achievement.tracker); 
+                }
+            }
+        }
+#endif
     }
 }

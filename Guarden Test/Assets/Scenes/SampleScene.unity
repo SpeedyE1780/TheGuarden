@@ -461,6 +461,9 @@ MonoBehaviour:
   achievements:
   - {fileID: 11400000, guid: 52f013c2550f8224ab9b29ad78ff84ac, type: 2}
   - {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
+  achievementTrackers:
+  - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
+  - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1176,7 +1179,6 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
@@ -1303,43 +1305,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f99265f67ac134bad289cd7f0788b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inspectorDayNames:
-  - Error
-  - Mungi
-  - Tulip
-  - Wetnessday
-  - Thawsday
-  - Fungay
-  - Saphoday
-  - Sunday
-  inspectorMonthNames:
-  - Error
-  - Genuary
-  - Feduberry
-  - Marsh
-  - Aphrill
-  - Hay
-  - Juniper
-  - Jelly
-  - Golddust
-  - Septum
-  - Bocktober
-  - Nocember
-  - Debtsember
-  timeScale: 1
-  clockScale: 1
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4188,6 +4153,73 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259285456}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1303947123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1303947124}
+  - component: {fileID: 1303947125}
+  m_Layer: 0
+  m_Name: GameTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1303947124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303947123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303947125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303947123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f99265f67ac134bad289cd7f0788b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  days:
+  - Mungi
+  - Tulip
+  - Wetnessday
+  - Thawsday
+  - Fungay
+  - Saphoday
+  - Sunday
+  months:
+  - Genuary
+  - Feduberry
+  - Marsh
+  - Aphrill
+  - Hay
+  - Juniper
+  - Jelly
+  - Golddust
+  - Septum
+  - Bocktober
+  - Nocember
+  - Debtsember
+  timeScale: 1
+  clockScale: 1
 --- !u!1 &1312539120
 GameObject:
   m_ObjectHideFlags: 0
@@ -4344,7 +4376,7 @@ MonoBehaviour:
   spawningDelay: 30
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
-  gameTime: {fileID: 330585548}
+  gameTime: {fileID: 1303947125}
 --- !u!4 &1393084753
 Transform:
   m_ObjectHideFlags: 0
@@ -4675,18 +4707,19 @@ MonoBehaviour:
   - {fileID: 581709925}
   - {fileID: 250589736}
   speed: 10
-  mesh: {fileID: 95191905}
+  meshes: {fileID: 95191905}
   items:
   - {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940, type: 3}
   - {fileID: 107199097200948063, guid: 3d9748b4a5c87984e88452d98270b87e, type: 3}
   - {fileID: 8308161960401375895, guid: 2953b3026faceea47958fe9d27c1f290, type: 3}
   - {fileID: 4106183024406304078, guid: 7b531e2a219a0614c8e78a9f551b23ef, type: 3}
   deliveryItemCount: 2
-  gameTime: {fileID: 330585548}
+  gameTime: {fileID: 1303947125}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
   deliveryHours: 060000000c00000012000000
   daysBetweenDelivery: 0
+  travelledPercentageDelay: 0.4
   OnDelivery:
     m_PersistentCalls:
       m_Calls:
@@ -4870,15 +4903,16 @@ MonoBehaviour:
   - {fileID: 581709925}
   - {fileID: 250589736}
   speed: 5
-  mesh: {fileID: 1579760212}
+  meshes: {fileID: 1579760212}
   items:
   - {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
   deliveryItemCount: 1
-  gameTime: {fileID: 330585548}
+  gameTime: {fileID: 1303947125}
   deliveryLocation: {fileID: 1410547781}
   deliveryInterval: 0.25
   deliveryHours: 0d000000
   daysBetweenDelivery: 2
+  travelledPercentageDelay: 0.4
   OnDelivery:
     m_PersistentCalls:
       m_Calls: []
@@ -6817,7 +6851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61280e38fe665d34b837dc3688697de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: {fileID: 330585548}
+  gameTime: {fileID: 0}
   minuteHand: {fileID: 8063717230609630851}
   hourHand: {fileID: 4351457351706994956}
   dateText: {fileID: 3544886965842692204}

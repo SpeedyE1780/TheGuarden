@@ -1,0 +1,18 @@
+{
+    "name": "TheGuarden.Editor",
+    "rootNamespace": "TheGuarden",
+    "references": [
+        "GUID:b48061cb228a1644e9c81d4580f5484f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
