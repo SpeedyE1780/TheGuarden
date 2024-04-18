@@ -6,11 +6,15 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.Players
 {
-    public class Inventory : MonoBehaviour
+    /// <summary>
+    /// PlayerInventory handles inventory and interaction with items
+    /// </summary>
+    [RequireComponent(typeof(PlayerInput))]
+    public class PlayerInventory : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("InventoryUI in scene")]
         private InventoryUI inventoryUI;
-        [SerializeField]
+        [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
 
         private List<IInventoryItem> items = new List<IInventoryItem>();
@@ -18,12 +22,20 @@ namespace TheGuarden.Players
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
 
-        public void SetInventoryUI(InventoryUI UI)
+        /// <summary>
+        /// Set and activate the player's inventory UI
+        /// </summary>
+        /// <param name="UI">The player's inventory UI</param>
+        internal void SetInventoryUI(InventoryUI UI)
         {
             inventoryUI = UI;
             inventoryUI.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Called from the PlayerInput component
+        /// </summary>
+        /// <param name="context">Input context</param>
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.started && selectedItem != null)
@@ -49,33 +61,30 @@ namespace TheGuarden.Players
             }
         }
 
+        /// <summary>
+        /// Called from the PlayerInput component
+        /// </summary>
+        /// <param name="context">Input context</param>
         public void OnPickUp(InputAction.CallbackContext context)
         {
-            if (currentPickUp == null)
+            if (currentPickUp == null || context.canceled)
             {
                 return;
             }
 
-            if (context.started)
+            GameLogger.LogInfo("STARTED/PERFORMED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
+            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
+
+            if ((context.started && pickUp.HasInstantPickUp) || context.performed)
             {
-                GameLogger.LogInfo("STARTED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
-
-                IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
-
-                if (pickUp.HasInstantPickUp)
-                {
-                    PickUp(pickUp);
-                }
-            }
-
-            if (context.performed)
-            {
-                GameLogger.LogInfo("PERFORMED PICKUP", gameObject, GameLogger.LogCategory.Player);
-
-                PickUp(currentPickUp.GetComponent<IPickUp>());
+                PickUp(pickUp);
             }
         }
 
+        /// <summary>
+        /// Pick up and add item to inventory
+        /// </summary>
+        /// <param name="pickUp">Picked up item</param>
         private void PickUp(IPickUp pickUp)
         {
             pickUp.PickUp(inventoryPoint);
@@ -83,6 +92,10 @@ namespace TheGuarden.Players
             AddItemToInventory(pickUp.GetInventoryItem());
         }
 
+        /// <summary>
+        /// Add picked up inventory item to inventory and UI
+        /// </summary>
+        /// <param name="inventoryItem">Picked up inventory item</param>
         private void AddItemToInventory(IInventoryItem inventoryItem)
         {
             if (inventoryItem == null)
@@ -94,23 +107,29 @@ namespace TheGuarden.Players
             inventoryItem.SetItemUI(inventoryUI.AddItem());
         }
 
+        /// <summary>
+        /// Called from PlayerInput component
+        /// </summary>
+        /// <param name="context"></param>
         public void OnNextItem(InputAction.CallbackContext context)
         {
-            if (context.performed)
+            if (!context.performed)
             {
-                selectedItem?.Deselect();
+                return;
+            }
 
-                if (selectedItemIndex + 1 >= items.Count)
-                {
-                    selectedItemIndex = -1;
-                    selectedItem = null;
-                }
-                else
-                {
-                    selectedItemIndex += 1;
-                    selectedItem = items[selectedItemIndex];
-                    selectedItem.Select();
-                }
+            selectedItem?.Deselect();
+
+            if (selectedItemIndex + 1 >= items.Count)
+            {
+                selectedItemIndex = -1;
+                selectedItem = null;
+            }
+            else
+            {
+                selectedItemIndex += 1;
+                selectedItem = items[selectedItemIndex];
+                selectedItem.Select();
             }
         }
 

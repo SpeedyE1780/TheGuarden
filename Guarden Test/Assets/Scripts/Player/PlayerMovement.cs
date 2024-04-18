@@ -3,17 +3,24 @@ using UnityEngine.InputSystem;
 
 namespace TheGuarden.Players
 {
-    [RequireComponent(typeof(Rigidbody))]
-    public class Movement : MonoBehaviour
+    /// <summary>
+    /// PlayerMovement handles player movement
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
+    internal class PlayerMovement : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Movement speed")]
         private float speed = 5f;
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Player rigidbody")]
         private Rigidbody rb;
 
         private Vector3 movement;
         private Vector3 velocity;
 
+        /// <summary>
+        /// Update movement x z variables on input
+        /// </summary>
+        /// <param name="context">Input context</param>
         public void OnMovement(InputAction.CallbackContext context)
         {
             movement.x = context.ReadValue<Vector2>().x;
@@ -33,9 +40,11 @@ namespace TheGuarden.Players
             rb.velocity = velocity;
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             rb = GetComponent<Rigidbody>();
         }
+#endif
     }
 }
