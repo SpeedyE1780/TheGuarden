@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps.Editor
 {
-    public class ForceFieldBehaviorGizmo
+    public class ForceFieldBuffGizmo
     {
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
-        internal static void DrawGizmo(ForceFieldBehavior forceFieldBehavior, GizmoType type)
+        internal static void DrawGizmo(ForceFieldBuff forceFieldBuff, GizmoType type)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(forceFieldBehavior.transform.position, forceFieldBehavior.PowerUpRange);
+            Gizmos.DrawWireSphere(forceFieldBuff.transform.position, forceFieldBuff.PowerUpRange);
         }
     }
 }

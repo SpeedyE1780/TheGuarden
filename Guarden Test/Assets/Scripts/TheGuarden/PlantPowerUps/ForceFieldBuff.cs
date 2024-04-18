@@ -5,9 +5,9 @@ using TheGuarden.NPC;
 namespace TheGuarden.PlantPowerUps
 {
     /// <summary>
-    /// ForceFieldBehavior applies protection buff to animal and prevents enemy from entering it
+    /// ForceFieldBuff applies protection buff to animal and prevents enemy from entering it
     /// </summary>
-    internal class ForceFieldBehavior : PlantBuff
+    internal class ForceFieldBuff : PlantBuff
     {
 #if UNITY_EDITOR
         [SerializeField]
