@@ -7,6 +7,16 @@ public class ForceFieldBehavior : PlantBuff
     private SphereCollider navMeshModifierCollider;
 #endif
 
+    private void OnEnable()
+    {
+        EnemyNavMeshBaker.BakeNavMesh();
+    }
+
+    private void OnDisable()
+    {
+        EnemyNavMeshBaker.BakeNavMesh();
+    }
+
     public override void ApplyBuff(Animal animal)
     {
         GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
@@ -26,7 +36,7 @@ public class ForceFieldBehavior : PlantBuff
         {
             navMeshModifierCollider.radius = powerUpRange;
         }
-    } 
+    }
 #endif
 
     private void OnDrawGizmos()
