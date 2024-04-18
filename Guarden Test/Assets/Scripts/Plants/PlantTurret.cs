@@ -12,7 +12,7 @@ public class PlantTurret : PlantPowerUp
 
     private Transform targetEnemy;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (targetEnemy == null && other.CompareTag(Tags.Enemy))
         {
