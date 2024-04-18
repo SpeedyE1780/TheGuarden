@@ -2,31 +2,42 @@ using UnityEngine;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 
-public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
+/// <summary>
+/// Bucket used to water plant bed
+/// </summary>
+internal class Bucket : MonoBehaviour, IPickUp, IInventoryItem
 {
-    [SerializeField]
+    [SerializeField, Tooltip("Uses before bucket needs to be filled again")]
     private int maxUses = 3;
-    [SerializeField]
+    [SerializeField, Tooltip("Percentage restored when watering plant bed")]
     private float bucketRestoration = 0.4f;
-    [SerializeField]
+    [SerializeField, Tooltip("Radius used to detect lake/plant bed")]
     private float overlapRadius = 2.0f;
-    [SerializeField]
+    [SerializeField, Tooltip("Lake layer mask")]
     private LayerMask lakeLayer;
-    [SerializeField]
+    [SerializeField, Tooltip("Plant bed layer mask")]
     private LayerMask plantBedMask;
+
     private int remainingUses = 0;
 
     public string Name => name;
-    public bool HasInstantPickUp => true;
     public float UsabilityPercentage => remainingUses / (float)maxUses;
     public ItemUI ItemUI { get; set; }
+    public bool HasInstantPickUp => true;
 
-    public void AddWater()
+    /// <summary>
+    /// Add water from lake
+    /// </summary>
+    private void AddWater()
     {
         remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
     }
 
-    public void WaterPlantBed(PlantBed plantBed)
+    /// <summary>
+    /// Water plant bed
+    /// </summary>
+    /// <param name="plantBed">Plant bed that will be watered</param>
+    private void WaterPlantBed(PlantBed plantBed)
     {
         if (remainingUses == 0)
         {
@@ -39,6 +50,10 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         ItemUI.SetProgress(UsabilityPercentage);
     }
 
+    /// <summary>
+    /// Pick up bucket and set it to follow parent
+    /// </summary>
+    /// <param name="parent">Parent of bucket transform</param>
     public void PickUp(Transform parent)
     {
         gameObject.SetActive(false);
@@ -46,11 +61,18 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
+    /// <summary>
+    /// Get item that needs to be added to player inventory
+    /// </summary>
+    /// <returns>The bucket itself</returns>
     public IInventoryItem GetInventoryItem()
     {
         return this;
     }
 
+    /// <summary>
+    /// Try to add water to bucket
+    /// </summary>
     public void OnInteractionStarted()
     {
         if (!Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
@@ -64,6 +86,9 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         ItemUI.SetProgress(UsabilityPercentage);
     }
 
+    /// <summary>
+    /// Try to water plant bed
+    /// </summary>
     public void OnInteractionPerformed()
     {
         Collider[] plantBedsCollider = new Collider[1];
@@ -80,6 +105,9 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.InventoryItem);
     }
 
+    /// <summary>
+    /// Hide bucket
+    /// </summary>
     public void OnInteractionCancelled()
     {
         gameObject.SetActive(false);

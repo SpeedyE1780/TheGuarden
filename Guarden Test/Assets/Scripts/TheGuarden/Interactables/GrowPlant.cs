@@ -2,30 +2,35 @@ using UnityEngine;
 using UnityEngine.Events;
 using TheGuarden.Utility;
 
-public class GrowPlant : MonoBehaviour
+internal class GrowPlant : MonoBehaviour
 {
+    /// <summary>
+    /// GrowingInfo has all info related to growing
+    /// </summary>
     [System.Serializable]
     private struct GrowingInfo
     {
-        [Range(0, 23)]
+        [Range(0, 23), Tooltip("Hour where peak growing starts")]
         public int startHour;
-        [Range(0, 23)]
+        [Range(0, 23), Tooltip("Hour where peak growing ends")]
         public int endHour;
+        [Tooltip("Peak rate at which plant grows")]
         public float peakGrowingRate;
+        [Tooltip("Off peak rate at which plant grows")]
         public float offPeakGrowingRate;
-        [Range(0, 1)]
+        [Range(0, 1), Tooltip("Minimum ratio needed to grow")]
         public float minimumDryWetRatio;
+        [Tooltip("Size when growing starts")]
+        public Vector3 startSize;
+        [Tooltip("Size when growing ends")]
+        public Vector3 maxSize;
     }
 
-    [SerializeField]
-    private Vector3 startSize;
-    [SerializeField]
-    private Vector3 maxSize;
-    [SerializeField]
+    [SerializeField, Tooltip("All growing related info")]
     private GrowingInfo growingInfo;
-    [SerializeField]
+    [SerializeField, Tooltip("Autofilled. GameTime in scene")]
     private GameTime gameTime;
-    [SerializeField]
+    [SerializeField, Tooltip("Particle system played while plant grows")]
     private ParticleSystem growingParticles;
 
 #if UNITY_EDITOR
@@ -40,8 +45,8 @@ public class GrowPlant : MonoBehaviour
     private bool isGrowing = false;
     private PlantSoil soil;
 
-    public bool IsFullyGrown => transform.localScale == maxSize;
-    public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
+    public bool IsFullyGrown => transform.localScale == growingInfo.maxSize;
+    public float GrowthPercentage => InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
     private bool IsGrowing => isGrowing && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
     public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
@@ -55,9 +60,9 @@ public class GrowPlant : MonoBehaviour
     {
         if (IsGrowing)
         {
-            targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, maxSize.x);
-            targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, maxSize.y);
-            targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, maxSize.z);
+            targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, growingInfo.maxSize.x);
+            targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, growingInfo.maxSize.y);
+            targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, growingInfo.maxSize.z);
 
             transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
         }
@@ -65,7 +70,6 @@ public class GrowPlant : MonoBehaviour
 
     private void LateUpdate()
     {
-
         growthRate = gameTime.Hour >= growingInfo.startHour && gameTime.Hour <= growingInfo.endHour ?
             growingInfo.peakGrowingRate :
             growingInfo.offPeakGrowingRate;
@@ -87,24 +91,32 @@ public class GrowPlant : MonoBehaviour
         }
     }
 
-    public void PickUp()
+    /// <summary>
+    /// Stop growing and reset scale
+    /// </summary>
+    public void ResetGrowing()
     {
         if (isGrowing)
         {
-            transform.localScale = startSize;
+            transform.localScale = growingInfo.startSize;
             isGrowing = false;
         }
     }
 
+    /// <summary>
+    /// Start growing
+    /// </summary>
+    /// <param name="plantSoil">Soil in which plant is planted</param>
     public void PlantInSoil(PlantSoil plantSoil)
     {
         isGrowing = true;
         soil = plantSoil;
     }
 
+#if UNITY_EDITOR
     private void OnValidate()
     {
-        transform.localScale = startSize;
+        transform.localScale = growingInfo.startSize;
 
         if (growingInfo.endHour < growingInfo.startHour)
         {
@@ -120,11 +132,10 @@ public class GrowPlant : MonoBehaviour
 
         growingParticles = GetComponentInChildren<ParticleSystem>();
 
-#if UNITY_EDITOR
         if (behaviorParent != null)
         {
-            behaviorParent.localScale = new Vector3(1 / maxSize.x, 1 / maxSize.y, 1 / maxSize.z);
+            behaviorParent.localScale = new Vector3(1 / growingInfo.maxSize.x, 1 / growingInfo.maxSize.y, 1 / growingInfo.maxSize.z);
         }
-#endif
     }
+#endif
 }

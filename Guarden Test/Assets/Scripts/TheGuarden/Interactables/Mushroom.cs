@@ -4,39 +4,46 @@ using UnityEngine.AI;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 
+/// <summary>
+/// Mushroom represent a plant tha can be planted and have power ups
+/// </summary>
+[RequireComponent(typeof(Rigidbody), typeof(NavMeshObstacle))]
 public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
 {
-    [SerializeField]
+    [SerializeField, Tooltip("Autofilled. List of active power ups")]
     private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
-    [SerializeField]
+    [SerializeField, Tooltip("Autofilled. Growing component")]
     private GrowPlant growPlant;
-    [SerializeField]
+    [SerializeField, Tooltip("Autofilled. Rigidbody component")]
     private Rigidbody rb;
-    [SerializeField]
+    [SerializeField, Tooltip("Autofilled. NavMeshObstacle component")]
     private NavMeshObstacle navMeshObstacle;
-    [SerializeField]
+    [SerializeField, Tooltip("Plant soil layer mask")]
     private LayerMask plantSoilMask;
-    [SerializeField]
+    [SerializeField, Tooltip("Radius used with overlap spheres")]
     private float overlapRadius = 2.0f;
-    [SerializeField]
+    [SerializeField, Tooltip("Plant bed layer mask")]
     private LayerMask plantBedMask;
+
     private PlantSoil plantSoil;
 
+    public Rigidbody Rigidbody => rb;
+    public float GrowthPercentage => growPlant.GrowthPercentage;
+    public bool IsFullyGrown => growPlant.IsFullyGrown;
     public string Name => name;
-    public bool HasInstantPickUp => GrowthPercentage == 0;
     public float UsabilityPercentage => GrowthPercentage;
+    public ItemUI ItemUI { get; set; }
     public bool IsConsumedAfterInteraction { get; private set; }
+    public bool HasInstantPickUp => GrowthPercentage == 0;
 
 #if UNITY_EDITOR
     [SerializeField]
     private Transform behaviorsParent;
 #endif
 
-    public float GrowthPercentage => growPlant.GrowthPercentage;
-    public bool IsFullyGrown => growPlant.IsFullyGrown;
-    public Rigidbody Rigidbody => rb;
-    public ItemUI ItemUI { get; set; }
-
+    /// <summary>
+    /// Enable navmesh carving and all plant behaviors
+    /// </summary>
     private void Plant()
     {
         navMeshObstacle.carving = true;
@@ -47,27 +54,28 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
-    private void PlantInSoil()
-    {
-        growPlant.PlantInSoil(plantSoil);
-        plantSoil.IsAvailable = false;
-    }
-
+    /// <summary>
+    /// Reset growing behavior, set mushroom as child of inventory and free plant soil
+    /// </summary>
+    /// <param name="parent"></param>
     public void PickUp(Transform parent)
     {
         gameObject.SetActive(false);
-        growPlant.PickUp();
+        growPlant.ResetGrowing();
         transform.SetParent(parent);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
-        if(plantSoil != null )
+        if (plantSoil != null)
         {
             plantSoil.IsAvailable = true;
             plantSoil = null;
         }
     }
 
+    /// <summary>
+    /// Indicate where mushroom will be planted if in soil or anywhere
+    /// </summary>
     public void OnInteractionStarted()
     {
         gameObject.SetActive(true);
@@ -97,28 +105,48 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
+    /// <summary>
+    /// Plant anywhere except on plant beds
+    /// </summary>
+    private void PlantAnywhere()
+    {
+        GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
+
+        if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
+        {
+            GameLogger.LogError("Can't plant in planting bed", gameObject, GameLogger.LogCategory.InventoryItem);
+            return;
+        }
+
+        Plant();
+        IsConsumedAfterInteraction = true;
+    }
+
+    /// <summary>
+    /// Start growing behavior and make soil unavailable for others
+    /// </summary>
+    private void PlantInSoil()
+    {
+        GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
+        growPlant.PlantInSoil(plantSoil);
+        plantSoil.IsAvailable = false;
+        IsConsumedAfterInteraction = true;
+    }
+
+    /// <summary>
+    /// Try to plant mushroom anywhere or in soil
+    /// </summary>
     public void OnInteractionPerformed()
     {
         IsConsumedAfterInteraction = false;
 
         if (IsFullyGrown)
         {
-            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
-
-            if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
-            {
-                GameLogger.LogError("Can't plant in planting bed", gameObject, GameLogger.LogCategory.InventoryItem);
-                return;
-            }
-
-            Plant();
-            IsConsumedAfterInteraction = true;
+            PlantAnywhere();
         }
         else if (plantSoil != null)
         {
-            GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
             PlantInSoil();
-            IsConsumedAfterInteraction = true;
         }
 
         if (IsConsumedAfterInteraction)
@@ -132,6 +160,9 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
+    /// <summary>
+    /// Hide mushroom and reset position if it was placed on a soil
+    /// </summary>
     public void OnInteractionCancelled()
     {
         gameObject.SetActive(false);
@@ -139,6 +170,10 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         transform.localPosition = Vector3.zero;
     }
 
+    /// <summary>
+    /// Get item that needs to be added to player inventory
+    /// </summary>
+    /// <returns>The mushroom itself</returns>
     public IInventoryItem GetInventoryItem()
     {
         return this;
