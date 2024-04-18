@@ -1,0 +1,16 @@
+{
+    "name": "TheGuarden.Achievements",
+    "rootNamespace": "TheGuarden.Achievements",
+    "references": [
+        "GUID:eaadf552b7d9ab249807e6b2215a5f76"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

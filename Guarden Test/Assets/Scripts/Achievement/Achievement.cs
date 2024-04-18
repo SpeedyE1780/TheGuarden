@@ -1,35 +1,38 @@
 using UnityEngine;
 using TheGuarden.Utility;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement")]
-public class Achievement : ScriptableObject
+namespace TheGuarden.Achievements
 {
-    [SerializeField]
-    private int threshold;
-    [SerializeField]
-    internal AchievementTracker tracker;
-
-    private bool isCompleted = false;
-
-    internal void Initialize()
+    [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement")]
+    public class Achievement : ScriptableObject
     {
-        isCompleted = tracker.count >= threshold;
-        GameLogger.LogInfo($"{name} is completed: {isCompleted}", this, GameLogger.LogCategory.Achievements);
+        [SerializeField]
+        private int threshold;
+        [SerializeField]
+        internal AchievementTracker tracker;
 
-        tracker.OnValueChanged += OnProgress;
-    }
+        private bool isCompleted = false;
 
-    internal void Deinitialize()
-    {
-        tracker.OnValueChanged -= OnProgress;
-    }
-
-    private void OnProgress(int value)
-    {
-        if (!isCompleted && value >= threshold)
+        internal void Initialize()
         {
-            isCompleted = true;
-            GameLogger.LogInfo($"{name} is Completed", this, GameLogger.LogCategory.Achievements);
+            isCompleted = tracker.count >= threshold;
+            GameLogger.LogInfo($"{name} is completed: {isCompleted}", this, GameLogger.LogCategory.Achievements);
+
+            tracker.OnValueChanged += OnProgress;
         }
-    }
+
+        internal void Deinitialize()
+        {
+            tracker.OnValueChanged -= OnProgress;
+        }
+
+        private void OnProgress(int value)
+        {
+            if (!isCompleted && value >= threshold)
+            {
+                isCompleted = true;
+                GameLogger.LogInfo($"{name} is Completed", this, GameLogger.LogCategory.Achievements);
+            }
+        }
+    } 
 }

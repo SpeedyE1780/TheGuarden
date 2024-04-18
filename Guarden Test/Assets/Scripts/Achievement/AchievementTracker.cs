@@ -3,31 +3,34 @@ using UnityEngine;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
 
-[CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement Tracker")]
-internal class AchievementTracker : ScriptableObject
+namespace TheGuarden.Achievements
 {
-    internal delegate void ValueChanged(int value);
-    internal int count = 0;
-
-    internal event ValueChanged OnValueChanged;
-
-    internal void Initialize(AchivementTrackerDictionary achievementsProgress)
+    [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement Tracker")]
+    internal class AchievementTracker : ScriptableObject
     {
-        count = achievementsProgress.GetValueOrDefault(name, 0);
-    }
+        internal delegate void ValueChanged(int value);
+        internal int count = 0;
 
-    internal void SaveProgress(AchivementTrackerDictionary achievementsProgress)
-    {
-        achievementsProgress.Add(name, count);
-    }
+        internal event ValueChanged OnValueChanged;
 
-    public void IncreaseCount(int amount)
-    {
-        count += amount;
-
-        if (amount > 0)
+        internal void Initialize(AchivementTrackerDictionary achievementsProgress)
         {
-            OnValueChanged?.Invoke(count);
+            count = achievementsProgress.GetValueOrDefault(name, 0);
         }
-    }
+
+        internal void SaveProgress(AchivementTrackerDictionary achievementsProgress)
+        {
+            achievementsProgress.Add(name, count);
+        }
+
+        public void IncreaseCount(int amount)
+        {
+            count += amount;
+
+            if (amount > 0)
+            {
+                OnValueChanged?.Invoke(count);
+            }
+        }
+    } 
 }
