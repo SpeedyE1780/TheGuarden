@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
     }
 
     private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
+    private bool CanGrabAnimal => targetAnimal != null && Vector3.Distance(transform.position, targetAnimal.transform.position) <= distanceThreshold;
 
     void Start()
     {
@@ -96,7 +97,9 @@ public class Enemy : MonoBehaviour
 
         while (targetAnimal != null && targetAnimal.Collider.enabled && !targetAnimal.InsideForceField)
         {
-            if (ReachedDestination)
+            //When animals are in a force field the path ends at the nearest possible point on the edge of the force field
+            //Prevent enemy from holding animal if it can't reach it and it reached the end of the path
+            if (ReachedDestination && CanGrabAnimal)
             {
                 StartCoroutine(HoldAnimal());
                 yield break;
