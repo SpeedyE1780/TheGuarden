@@ -11,9 +11,9 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private LayerMask plantBedMask;
     [SerializeField]
-    private LayerMask lakeLayer;
-    [SerializeField]
     private float overlapRadius = 2.0f;
+    [SerializeField]
+    private Transform inventoryPoint;
 
     private List<IInventoryItem> items = new List<IInventoryItem>();
     private GameObject currentPickUp;
@@ -78,15 +78,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void FillWaterBucket(Bucket bucket)
-    {
-        if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
-        {
-            bucket.AddWater();
-            GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.Player);
-        }
-    }
-
     public void WaterPlantBed(Bucket bucket)
     {
         Collider[] plantBedsCollider = new Collider[1];
@@ -147,7 +138,7 @@ public class Inventory : MonoBehaviour
 
     private void PickUp(IPickUp pickUp)
     {
-        pickUp.PickUp();
+        pickUp.PickUp(inventoryPoint);
         currentPickUp = null;
         AddItemToInventory(pickUp.GetInventoryItem());
     }

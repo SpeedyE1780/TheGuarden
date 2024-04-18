@@ -118,7 +118,6 @@ GameObject:
   - component: {fileID: 944405005728402152}
   - component: {fileID: 7073753798791069741}
   - component: {fileID: 7311159623633742718}
-  - component: {fileID: 3675258282795076973}
   - component: {fileID: 5947936827109940276}
   m_Layer: 0
   m_Name: PlantPoint
@@ -134,12 +133,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6437315266543416142}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.1, z: 2}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1993597853974932959}
+  m_Father: {fileID: 7284881402961356843}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7073753798791069741
@@ -192,27 +191,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3675258282795076973
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6437315266543416142}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5947936827109940276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +206,38 @@ MonoBehaviour:
   meshFilter: {fileID: 7073753798791069741}
   meshRenderer: {fileID: 7311159623633742718}
   localPosition: {x: 0, y: 0.1, z: 2}
+--- !u!1 &8624806574159695145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7284881402961356843}
+  m_Layer: 0
+  m_Name: InventoryPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7284881402961356843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8624806574159695145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 944405005728402152}
+  m_Father: {fileID: 1993597853974932959}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8754737690048248914
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +356,7 @@ Transform:
   m_Children:
   - {fileID: 6932402064575112508}
   - {fileID: 3015820215559826910}
-  - {fileID: 944405005728402152}
+  - {fileID: 7284881402961356843}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -394,10 +404,8 @@ MonoBehaviour:
   plantBedMask:
     serializedVersion: 2
     m_Bits: 128
-  lakeLayer:
-    serializedVersion: 2
-    m_Bits: 512
   overlapRadius: 2
+  inventoryPoint: {fileID: 7284881402961356843}
 --- !u!114 &8646316663285618983
 MonoBehaviour:
   m_ObjectHideFlags: 0

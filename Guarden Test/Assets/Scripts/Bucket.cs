@@ -6,6 +6,10 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
     private int maxUses = 3;
     [SerializeField]
     private float bucketRestoration = 0.4f;
+    [SerializeField]
+    private float overlapRadius = 2.0f;
+    [SerializeField]
+    private LayerMask lakeLayer;
     private int remainingUses = 0;
 
     public string Name => name;
@@ -23,13 +27,16 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         if (remainingUses > 0)
         {
             plantBed.Water(bucketRestoration);
-            remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses); 
+            remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
+            ItemUI.SetProgress(UsabilityPercentage);
         }
     }
 
-    public void PickUp()
+    public void PickUp(Transform parent)
     {
         gameObject.SetActive(false);
+        transform.SetParent(parent);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     public IInventoryItem GetInventoryItem()
@@ -39,7 +46,14 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
 
     public void OnInteractionStarted(Inventory inventory)
     {
-        inventory.FillWaterBucket(this);
+        if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
+        {
+            GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.InventoryItem);
+            AddWater();
+            ItemUI.SetProgress(UsabilityPercentage);
+        }
+
+        GameLogger.LogError("No lake near bucket", gameObject, GameLogger.LogCategory.InventoryItem);
     }
 
     public void OnInteractionPerformed(Inventory inventory)

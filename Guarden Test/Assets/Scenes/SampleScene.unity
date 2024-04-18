@@ -3281,6 +3281,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxUses: 3
   bucketRestoration: 0.4
+  overlapRadius: 2
+  lakeLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!54 &741116778
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6576,6 +6580,16 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 6437315266543416142, guid: 24b209ea5761e5e4bae9998a6f822ede,
+        type: 3}
+      propertyPath: m_Name
+      value: InventoryPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437315266543416142, guid: 24b209ea5761e5e4bae9998a6f822ede,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8220134511689740318, guid: 24b209ea5761e5e4bae9998a6f822ede,
         type: 3}
       propertyPath: inventoryUI

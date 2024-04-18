@@ -58,10 +58,12 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         growPlant.PlantInSoil(plantSoil);
     }
 
-    public void PickUp()
+    public void PickUp(Transform parent)
     {
         gameObject.SetActive(false);
         growPlant.PickUp();
+        transform.SetParent(parent);
+        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
     }
 
     public void OnInteractionStarted(Inventory inventory)

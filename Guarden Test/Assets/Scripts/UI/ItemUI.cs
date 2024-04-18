@@ -15,6 +15,11 @@ public class ItemUI : MonoBehaviour
         progressSlider.value = progress;
     }
 
+    public void SetProgress(float progress)
+    {
+        progressSlider.value = progress;
+    }
+
     public void Select()
     {
         nameText.color = Color.yellow;
