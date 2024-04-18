@@ -2,40 +2,43 @@ using UnityEngine;
 using TheGuarden.Utility;
 using TheGuarden.NPC;
 
-public class AttractBehavior : PlantBehavior
+namespace TheGuarden.PlantPowerUps
 {
-    [SerializeField]
-    private float attractionAreaRadius;
+    public class AttractBehavior : PlantBehavior
+    {
+        [SerializeField]
+        private float attractionAreaRadius;
 
 #if UNITY_EDITOR
-    Vector3 destinationDebug;
+        Vector3 destinationDebug;
 #endif
 
-    public override void ApplyBehavior(Animal animal)
-    {
-        GameLogger.LogInfo(animal.name + " Attracted", gameObject, GameLogger.LogCategory.PlantBehaviour);
-        animal.SetDestination(GetDestination());
-    }
+        public override void ApplyBehavior(Animal animal)
+        {
+            GameLogger.LogInfo(animal.name + " Attracted", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            animal.SetDestination(GetDestination());
+        }
 
-    private Vector3 GetDestination()
-    {
-        Vector3 destination = transform.position + Random.insideUnitSphere * attractionAreaRadius;
-        destination.y = 0;
+        private Vector3 GetDestination()
+        {
+            Vector3 destination = transform.position + Random.insideUnitSphere * attractionAreaRadius;
+            destination.y = 0;
 
 #if UNITY_EDITOR
-        destinationDebug = destination;
+            destinationDebug = destination;
 #endif
 
-        return destination;
-    }
+            return destination;
+        }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, powerUpRange);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, attractionAreaRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(destinationDebug, 0.2f);
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, powerUpRange);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(transform.position, attractionAreaRadius);
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(destinationDebug, 0.2f);
+        }
     }
 }

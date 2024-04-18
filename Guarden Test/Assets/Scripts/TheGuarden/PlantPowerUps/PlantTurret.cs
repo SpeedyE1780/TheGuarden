@@ -2,45 +2,48 @@ using System.Collections;
 using UnityEngine;
 using TheGuarden.Utility;
 
-public class PlantTurret : PlantPowerUp
+namespace TheGuarden.PlantPowerUps
 {
-    [SerializeField]
-    private Transform shootPoint;
-    [SerializeField]
-    private Projectile projectilePrefab;
-    [SerializeField]
-    private float cooldown;
-
-    private Transform targetEnemy;
-
-    private void OnTriggerStay(Collider other)
+    public class PlantTurret : PlantPowerUp
     {
-        if (targetEnemy == null && other.CompareTag(Tags.Enemy))
+        [SerializeField]
+        private Transform shootPoint;
+        [SerializeField]
+        private Projectile projectilePrefab;
+        [SerializeField]
+        private float cooldown;
+
+        private Transform targetEnemy;
+
+        private void OnTriggerStay(Collider other)
         {
-            targetEnemy = other.transform;
-            StartCoroutine(ShootTurret());
+            if (targetEnemy == null && other.CompareTag(Tags.Enemy))
+            {
+                targetEnemy = other.transform;
+                StartCoroutine(ShootTurret());
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform == targetEnemy)
+        private void OnTriggerExit(Collider other)
         {
-            targetEnemy = null;
-        }
-    }
-
-    private IEnumerator ShootTurret()
-    {
-        while (targetEnemy != null)
-        {
-            Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
-            projectile.Target = targetEnemy;
-            yield return new WaitForSeconds(cooldown);
-
-            if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > powerUpRange)
+            if (other.transform == targetEnemy)
             {
                 targetEnemy = null;
+            }
+        }
+
+        private IEnumerator ShootTurret()
+        {
+            while (targetEnemy != null)
+            {
+                Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+                projectile.Target = targetEnemy;
+                yield return new WaitForSeconds(cooldown);
+
+                if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > powerUpRange)
+                {
+                    targetEnemy = null;
+                }
             }
         }
     }

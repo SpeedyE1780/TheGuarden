@@ -1,31 +1,34 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace TheGuarden.PlantPowerUps
 {
-    [SerializeField]
-    private float speed;
-
-    public Transform Target { get; set; }
-
-    private void Update()
+    public class Projectile : MonoBehaviour
     {
-        if (Target == null)
+        [SerializeField]
+        private float speed;
+
+        public Transform Target { get; set; }
+
+        private void Update()
         {
-            Destroy(gameObject);
-            return;
+            if (Target == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            transform.forward = Target.position - transform.position;
+
+            transform.position = Vector3.MoveTowards(transform.position, Target.position, speed * Time.deltaTime);
         }
 
-        transform.forward = Target.position - transform.position;
-
-        transform.position = Vector3.MoveTowards(transform.position, Target.position, speed * Time.deltaTime);
-    }
-
-    private void LateUpdate()
-    {
-        if (transform.position == Target.position)
+        private void LateUpdate()
         {
-            Destroy(gameObject);
-            Destroy(Target.gameObject);
+            if (transform.position == Target.position)
+            {
+                Destroy(gameObject);
+                Destroy(Target.gameObject);
+            }
         }
     }
 }

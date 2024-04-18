@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
 
 namespace TheGuarden.NPC

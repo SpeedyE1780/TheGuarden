@@ -1,8 +1,11 @@
 using TheGuarden.NPC;
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
-public abstract class PlantBehavior : PlantPowerUp
+namespace TheGuarden.PlantPowerUps
 {
-    public abstract void ApplyBehavior(Animal animal);
+    [RequireComponent(typeof(SphereCollider))]
+    public abstract class PlantBehavior : PlantPowerUp
+    {
+        public abstract void ApplyBehavior(Animal animal);
+    }
 }

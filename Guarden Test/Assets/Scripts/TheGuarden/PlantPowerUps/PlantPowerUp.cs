@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public abstract class PlantPowerUp : MonoBehaviour
+namespace TheGuarden.PlantPowerUps
 {
-    [SerializeField]
-    protected float powerUpRange;
-    [SerializeField]
-    private SphereCollider powerUpCollider;
-
-    private void OnValidate()
+    public abstract class PlantPowerUp : MonoBehaviour
     {
-        powerUpCollider = GetComponent<SphereCollider>();
-        powerUpCollider.radius = powerUpRange;
-    }
+        [SerializeField]
+        protected float powerUpRange;
+        [SerializeField]
+        private SphereCollider powerUpCollider;
+
+        private void OnValidate()
+        {
+            powerUpCollider = GetComponent<SphereCollider>();
+            powerUpCollider.radius = powerUpRange;
+        }
+    } 
 }
