@@ -461,6 +461,9 @@ MonoBehaviour:
   achievements:
   - {fileID: 11400000, guid: 52f013c2550f8224ab9b29ad78ff84ac, type: 2}
   - {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
+  achievementTrackers:
+  - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
+  - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0

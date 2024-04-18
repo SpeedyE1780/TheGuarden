@@ -35,6 +35,11 @@ namespace TheGuarden.Enemies
         //Prevent enemy from holding animal if it can't reach it and it reached the end of the path
         private bool CanGrabAnimal => targetAnimal != null && Vector3.Distance(transform.position, targetAnimal.transform.position) <= distanceThreshold;
 
+#if UNITY_EDITOR
+        public float DetectionRadius => detectionRadius;
+        public Vector3 TargetPosition => targetAnimal != null ? targetAnimal.transform.position : transform.position;
+#endif
+
         void Start()
         {
             StartCoroutine(Patrol());
@@ -187,11 +192,6 @@ namespace TheGuarden.Enemies
             {
                 targetAnimal.ResumeBehavior();
             }
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.DrawWireSphere(transform.position, detectionRadius);
         }
     }
 }
