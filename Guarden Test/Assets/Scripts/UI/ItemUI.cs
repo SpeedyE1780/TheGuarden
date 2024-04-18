@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// ItemUI represents one item in the player's inventory on the screen
+    /// </summary>
     public class ItemUI : MonoBehaviour
     {
         [SerializeField, Tooltip("Item name text")]
@@ -13,28 +16,47 @@ namespace TheGuarden.UI
 
         private InventoryUI inventoryUI;
 
-        public void SetParent(InventoryUI inventory)
+        /// <summary>
+        /// Set InventoryUI containing this item
+        /// </summary>
+        /// <param name="inventory">InventoryUI containing this item</param>
+        internal void SetParent(InventoryUI inventory)
         {
             inventoryUI = inventory;
         }
 
+        /// <summary>
+        /// Set item on screen info
+        /// </summary>
+        /// <param name="itemName">Item Name</param>
+        /// <param name="progress">Item progress</param>
         public void SetItem(string itemName, float progress)
         {
             nameText.text = itemName;
             progressSlider.value = progress;
         }
 
+        /// <summary>
+        /// Set progress slider value
+        /// </summary>
+        /// <param name="progress">Progress slider value</param>
         public void SetProgress(float progress)
         {
             progressSlider.value = progress;
         }
 
-        public void Select()
+        /// <summary>
+        /// Highlight element on screen
+        /// </summary>
+        internal void Select()
         {
             nameText.color = Color.yellow;
         }
 
-        public void Deselect()
+        /// <summary>
+        /// Stop highlighting element on screen
+        /// </summary>
+        internal void Deselect()
         {
             nameText.color = Color.white;
         }

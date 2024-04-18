@@ -4,6 +4,9 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// Clock represents a UI analog clock on the canvas
+    /// </summary>
     internal class Clock : MonoBehaviour
     {
         [SerializeField, Tooltip("GameTime in scene")]
