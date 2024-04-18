@@ -4,38 +4,35 @@ using UnityEngine.AI;
 
 namespace TheGuarden.Enemies
 {
+    /// <summary>
+    /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
+    /// </summary>
+    [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : MonoBehaviour
     {
         [SerializeField]
         private NavMeshAgent agent;
-        [SerializeField]
+        [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
         private float patrolSpeed = 5.0f;
-        [SerializeField]
+        [SerializeField, Tooltip("Speed at which enemy chases animals")]
         private float chaseSpeed = 7.0f;
-        [SerializeField]
+        [SerializeField, Tooltip("Speed at which animal is picked up")]
+        private float pickUpSpeed = 2.0f;
+        [SerializeField, Tooltip("Minimum distance before destination is considered reached")]
         private float distanceThreshold = 3.0f;
-        [SerializeField]
-        private float detectionRadius = 3.0f;
-        [SerializeField]
+        [SerializeField, Tooltip("Radius used to look for animals")]
+        private float detectionRadius = 10.0f;
+        [SerializeField, Tooltip("Layer used for animal detection")]
         private LayerMask animalMask;
-        [SerializeField]
+        [SerializeField, Tooltip("Position where animal will be positioned when kidnapped")]
         private Transform holdingPoint;
+
         private EnemyPath path;
         private Animal targetAnimal;
 
-        public EnemyPath Path
-        {
-            get
-            {
-                return path;
-            }
-            set
-            {
-                path = value;
-            }
-        }
-
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
+        //When animals are in a force field the path ends at the nearest possible point on the edge of the force field
+        //Prevent enemy from holding animal if it can't reach it and it reached the end of the path
         private bool CanGrabAnimal => targetAnimal != null && Vector3.Distance(transform.position, targetAnimal.transform.position) <= distanceThreshold;
 
         void Start()
@@ -43,6 +40,29 @@ namespace TheGuarden.Enemies
             StartCoroutine(Patrol());
         }
 
+        /// <summary>
+        /// Set enemy patrol path
+        /// </summary>
+        /// <param name="patrolPath">Enemy patrol path</param>
+        internal void SetPath(EnemyPath patrolPath)
+        {
+            path = patrolPath;
+        }
+
+        /// <summary>
+        /// Checks that animal is not null / already kidnapped by other enemy / inside a force field
+        /// </summary>
+        /// <param name="target">Animal that enemy is trying to kidnap</param>
+        /// <returns></returns>
+        private bool CanKidnapAnimal(Animal target)
+        {
+            return target != null && target.Collider.enabled && !target.InsideForceField;
+        }
+
+        /// <summary>
+        /// Check if animal is within detection range and outside force field
+        /// </summary>
+        /// <returns>An animal that can be kidnapped or null</returns>
         private Animal DetectAnimal()
         {
             Collider[] animals = Physics.OverlapSphere(transform.position, detectionRadius, animalMask);
@@ -51,7 +71,7 @@ namespace TheGuarden.Enemies
             {
                 Animal animal = animalCollider.GetComponent<Animal>();
 
-                if (!animal.InsideForceField)
+                if (CanKidnapAnimal(animal))
                 {
                     return animal;
                 }
@@ -60,6 +80,10 @@ namespace TheGuarden.Enemies
             return null;
         }
 
+        /// <summary>
+        /// Patrol State
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Patrol()
         {
             agent.SetDestination(path.CurrentPosition);
@@ -92,18 +116,21 @@ namespace TheGuarden.Enemies
             }
         }
 
+        /// <summary>
+        /// Start Chase State
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Chase()
         {
             agent.speed = chaseSpeed;
             agent.SetDestination(targetAnimal.transform.position);
 
-            while (targetAnimal != null && targetAnimal.Collider.enabled && !targetAnimal.InsideForceField)
+            while (CanKidnapAnimal(targetAnimal))
             {
-                //When animals are in a force field the path ends at the nearest possible point on the edge of the force field
-                //Prevent enemy from holding animal if it can't reach it and it reached the end of the path
-                if (ReachedDestination && CanGrabAnimal)
+
+                if (CanGrabAnimal)
                 {
-                    StartCoroutine(HoldAnimal());
+                    StartCoroutine(PickUpTarget());
                     yield break;
                 }
 
@@ -114,20 +141,28 @@ namespace TheGuarden.Enemies
             StartCoroutine(Patrol());
         }
 
-        private IEnumerator HoldAnimal()
+        /// <summary>
+        /// Start Picking up and holding animal state
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator PickUpTarget()
         {
             targetAnimal.PauseBehavior();
             agent.SetDestination(transform.position);
 
             while (targetAnimal.transform.position != holdingPoint.position)
             {
-                targetAnimal.transform.position = Vector3.MoveTowards(targetAnimal.transform.position, holdingPoint.position, Time.deltaTime * 2);
+                targetAnimal.transform.position = Vector3.MoveTowards(targetAnimal.transform.position, holdingPoint.position, pickUpSpeed * Time.deltaTime);
                 yield return null;
             }
 
             StartCoroutine(Escape());
         }
 
+        /// <summary>
+        /// Start Escape State
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Escape()
         {
             agent.SetDestination(path.LastPosition);
@@ -159,5 +194,4 @@ namespace TheGuarden.Enemies
             Gizmos.DrawWireSphere(transform.position, detectionRadius);
         }
     }
-
 }
