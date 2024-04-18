@@ -1,6 +1,6 @@
 {
-    "name": "TheGuarden.Plants",
-    "rootNamespace": "",
+    "name": "TheGuarden",
+    "rootNamespace": "TheGuarden",
     "references": [
         "GUID:eaadf552b7d9ab249807e6b2215a5f76",
         "GUID:86fc5a17a2ccc0047a2666c830a53aaf"
