@@ -16,6 +16,11 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     private MeshFilter meshFilter;
     [SerializeField]
     private MeshRenderer meshRenderer;
+    [SerializeField]
+    private LayerMask plantSoilMask;
+    [SerializeField]
+    private float overlapRadius = 2.0f;
+    private Collider[] plantSoil = new Collider[1];
 
     public string Name => name;
     public bool HasInstantPickUp => GrowthPercentage == 0;
@@ -64,16 +69,42 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         growPlant.PickUp();
         transform.SetParent(parent);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 
-    public void OnInteractionStarted(Inventory inventory)
+    public void OnInteractionStarted()
     {
-        inventory.ShowPlantingIndicator(this);
+        gameObject.SetActive(true);
+
+        if (!IsFullyGrown)
+        {
+            int plantSoilCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantSoil, plantSoilMask);
+
+            if (plantSoilCount > 0)
+            {
+                transform.position = plantSoil[0].transform.position;
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (plantSoil[0] != null)
+        {
+            transform.position = plantSoil[0].transform.position;
+        }
     }
 
     public void OnInteractionPerformed(Inventory inventory)
     {
         inventory.PlantMushroom(this);
+    }
+
+    public void OnInteractionCancelled()
+    {
+        gameObject.SetActive(false);
+        plantSoil[0] = null;
+        transform.localPosition = Vector3.zero;
     }
 
     public IInventoryItem GetInventoryItem()

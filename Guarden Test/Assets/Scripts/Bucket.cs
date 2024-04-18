@@ -44,7 +44,7 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         return this;
     }
 
-    public void OnInteractionStarted(Inventory inventory)
+    public void OnInteractionStarted()
     {
         if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
         {
@@ -59,5 +59,10 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
     public void OnInteractionPerformed(Inventory inventory)
     {
         inventory.WaterPlantBed(this);
+    }
+
+    public void OnInteractionCancelled()
+    {
+        gameObject.SetActive(false);
     }
 }

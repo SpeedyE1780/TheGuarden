@@ -32,18 +32,6 @@ public class Inventory : MonoBehaviour
         inventoryUI.gameObject.SetActive(true);
     }
 
-    public void ShowPlantingIndicator(Mushroom mushroom)
-    {
-        plantingIndicator.gameObject.SetActive(true);
-        plantingIndicator.UpdateMesh(mushroom.Mesh, mushroom.Materials);
-
-        if (!mushroom.IsFullyGrown && currentSoil != null)
-        {
-            plantingIndicator.transform.position = currentSoil.transform.position;
-            plantingIndicator.PlantingInSoil = true;
-        }
-    }
-
     public void PlantMushroom(Mushroom mushroom)
     {
         plantingIndicator.gameObject.SetActive(false);
@@ -95,7 +83,7 @@ public class Inventory : MonoBehaviour
 
         if (context.started && selectedItem != null)
         {
-            selectedItem.OnInteractionStarted(this);
+            selectedItem.OnInteractionStarted();
         }
 
         if (context.performed && selectedItem != null)
@@ -105,7 +93,7 @@ public class Inventory : MonoBehaviour
 
         if (context.canceled)
         {
-            plantingIndicator.gameObject.SetActive(false);
+            selectedItem.OnInteractionCancelled();
         }
     }
 

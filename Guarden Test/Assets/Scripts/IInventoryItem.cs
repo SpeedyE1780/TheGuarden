@@ -20,6 +20,7 @@ public interface IInventoryItem
         }
     }
 
-    public void OnInteractionStarted(Inventory inventory);
+    public void OnInteractionStarted();
     public void OnInteractionPerformed(Inventory inventory);
+    public void OnInteractionCancelled();
 }
