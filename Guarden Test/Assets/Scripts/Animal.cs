@@ -43,7 +43,11 @@ public class Animal : MonoBehaviour
         {
             other.GetComponent<PlantBehavior>().ApplyBehavior(this);
         }
-        else if (other.CompareTag(Tags.PlantBuff))
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag(Tags.PlantBuff))
         {
             other.GetComponent<PlantBuff>().ApplyBuff(this);
         }

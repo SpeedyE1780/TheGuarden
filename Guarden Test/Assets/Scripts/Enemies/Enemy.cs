@@ -42,10 +42,19 @@ public class Enemy : MonoBehaviour
 
     private Animal DetectAnimal()
     {
-        Collider[] animals = new Collider[1];
-        Physics.OverlapSphereNonAlloc(transform.position, detectionRadius, animals, animalMask);
+        Collider[] animals = Physics.OverlapSphere(transform.position, detectionRadius, animalMask);
 
-        return animals[0] != null ? animals[0].GetComponent<Animal>() : null;
+        foreach (Collider animalCollider in animals)
+        {
+            Animal animal = animalCollider.GetComponent<Animal>();
+
+            if (!animal.InsideForceField)
+            {
+                return animal;
+            }
+        }
+
+        return null;
     }
 
     private IEnumerator Patrol()
@@ -85,7 +94,7 @@ public class Enemy : MonoBehaviour
         agent.speed = chaseSpeed;
         agent.SetDestination(targetAnimal.transform.position);
 
-        while (targetAnimal != null && targetAnimal.Collider.enabled)
+        while (targetAnimal != null && targetAnimal.Collider.enabled && !targetAnimal.InsideForceField)
         {
             if (ReachedDestination)
             {
