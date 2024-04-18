@@ -62,6 +62,7 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         if(plantSoil != null )
         {
             plantSoil.IsAvailable = true;
+            plantSoil = null;
         }
     }
 
