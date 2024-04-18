@@ -41,7 +41,7 @@ public class GrowPlant : MonoBehaviour
 
     public bool IsFullyGrown => transform.localScale == maxSize;
     public float GrowthPercentage => InverseLerp(startSize, maxSize, transform.localScale);
-    private bool IsGrowing => isGrowing && soil.DryWetRatio > growingInfo.minimumDryWetRatio;
+    private bool IsGrowing => isGrowing && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
     public static float InverseLerp(Vector3 a, Vector3 b, Vector3 value)
     {

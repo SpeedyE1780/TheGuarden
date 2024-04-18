@@ -5031,12 +5031,13 @@ MonoBehaviour:
   growPlant: {fileID: 5518996527343548638}
   rb: {fileID: 7334000047881488347}
   navMeshObstacle: {fileID: 3846474154722925951}
-  meshFilter: {fileID: 4099148780143447776}
-  meshRenderer: {fileID: 2236016672227850794}
   plantSoilMask:
     serializedVersion: 2
     m_Bits: 1024
   overlapRadius: 2
+  plantBedMask:
+    serializedVersion: 2
+    m_Bits: 128
   behaviorsParent: {fileID: 4781410716438576801}
 --- !u!54 &7334000047881488347
 Rigidbody:
@@ -5222,18 +5223,6 @@ PrefabInstance:
 --- !u!4 &1102468823084302661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b778d6fd047141841bae1798514eee67,
-    type: 3}
-  m_PrefabInstance: {fileID: 632325773392307886}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2236016672227850794 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b778d6fd047141841bae1798514eee67,
-    type: 3}
-  m_PrefabInstance: {fileID: 632325773392307886}
-  m_PrefabAsset: {fileID: 0}
---- !u!33 &4099148780143447776 stripped
-MeshFilter:
-  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: b778d6fd047141841bae1798514eee67,
     type: 3}
   m_PrefabInstance: {fileID: 632325773392307886}
   m_PrefabAsset: {fileID: 0}
