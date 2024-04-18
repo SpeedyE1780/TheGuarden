@@ -5,65 +5,23 @@ using UnityEngine.InputSystem;
 public class Inventory : MonoBehaviour
 {
     [SerializeField]
-    private PlantingIndicator plantingIndicator;
-    [SerializeField]
     private InventoryUI inventoryUI;
-    [SerializeField]
-    private LayerMask plantBedMask;
-    [SerializeField]
-    private float overlapRadius = 2.0f;
     [SerializeField]
     private Transform inventoryPoint;
 
     private List<IInventoryItem> items = new List<IInventoryItem>();
     private GameObject currentPickUp;
-    private GameObject currentSoil;
     private int selectedItemIndex;
 
     private void Start()
     {
         selectedItemIndex = -1;
-        plantingIndicator.Mask = plantBedMask;
     }
 
     public void SetInventoryUI(InventoryUI UI)
     {
         inventoryUI = UI;
         inventoryUI.gameObject.SetActive(true);
-    }
-
-    public void PlantMushroom(Mushroom mushroom)
-    {
-        plantingIndicator.gameObject.SetActive(false);
-        bool planted = false;
-
-        if (mushroom.IsFullyGrown)
-        {
-            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.Player);
-
-            if (Physics.CheckSphere(plantingIndicator.transform.position, overlapRadius, plantBedMask))
-            {
-                GameLogger.LogWarning("Can't plant in planting bed", gameObject, GameLogger.LogCategory.Player);
-                return;
-            }
-
-            mushroom.Plant(plantingIndicator.transform.position, plantingIndicator.transform.rotation);
-            planted = true;
-        }
-        else if (currentSoil != null)
-        {
-            GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.Player);
-            PlantSoil soil = currentSoil.GetComponent<PlantSoil>();
-            mushroom.PlantInSoil(soil, currentSoil.transform.position, currentSoil.transform.rotation);
-            planted = true;
-        }
-
-        if (planted)
-        {
-            items.Remove(mushroom);
-            inventoryUI.RemoveItem(selectedItemIndex);
-            selectedItemIndex = -1;
-        }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
@@ -77,10 +35,16 @@ public class Inventory : MonoBehaviour
 
         if (context.performed && selectedItem != null)
         {
-            selectedItem.OnInteractionPerformed(this);
+            selectedItem.OnInteractionPerformed();
+
+            if (selectedItem.IsConsumedAfterInteraction)
+            {
+                items.Remove(selectedItem);
+                selectedItemIndex = -1;
+            }
         }
 
-        if (context.canceled)
+        if (context.canceled && selectedItem != null)
         {
             selectedItem.OnInteractionCancelled();
         }
@@ -164,12 +128,6 @@ public class Inventory : MonoBehaviour
             currentPickUp = other.gameObject;
             GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
         }
-
-        if (other.CompareTag(Tags.PlantSoil) && currentSoil == null)
-        {
-            currentSoil = other.gameObject;
-            GameLogger.LogInfo("ENTER SOIL", gameObject, GameLogger.LogCategory.Player);
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -178,12 +136,6 @@ public class Inventory : MonoBehaviour
         {
             currentPickUp = null;
             GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
-        }
-
-        if (other.gameObject == currentSoil)
-        {
-            currentSoil = null;
-            GameLogger.LogInfo("EXIT SOIL", gameObject, GameLogger.LogCategory.Player);
         }
     }
 }

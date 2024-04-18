@@ -13,20 +13,17 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     [SerializeField]
     private NavMeshObstacle navMeshObstacle;
     [SerializeField]
-    private MeshFilter meshFilter;
-    [SerializeField]
-    private MeshRenderer meshRenderer;
-    [SerializeField]
     private LayerMask plantSoilMask;
     [SerializeField]
     private float overlapRadius = 2.0f;
+    [SerializeField]
+    private LayerMask plantBedMask;
     private Collider[] plantSoil = new Collider[1];
 
     public string Name => name;
     public bool HasInstantPickUp => GrowthPercentage == 0;
     public float UsabilityPercentage => GrowthPercentage;
-    public Mesh Mesh => meshFilter.mesh;
-    public Material[] Materials => meshRenderer.materials;
+    public bool IsConsumedAfterInteraction { get; set; }
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -38,17 +35,8 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     public Rigidbody Rigidbody => rb;
     public ItemUI ItemUI { get; set; }
 
-    private void InitializePlantedState(Vector3 position, Quaternion rotation)
+    private void Plant()
     {
-        transform.SetPositionAndRotation(position, rotation);
-        gameObject.SetActive(true);
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-    }
-
-    public void Plant(Vector3 position, Quaternion rotation)
-    {
-        InitializePlantedState(position, rotation);
-
         navMeshObstacle.carving = true;
 
         foreach (PlantPowerUp behavior in behaviors)
@@ -57,9 +45,8 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
-    public void PlantInSoil(PlantSoil plantSoil, Vector3 position, Quaternion rotation)
+    private void PlantInSoil(PlantSoil plantSoil)
     {
-        InitializePlantedState(position, rotation);
         growPlant.PlantInSoil(plantSoil);
     }
 
@@ -95,9 +82,39 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
-    public void OnInteractionPerformed(Inventory inventory)
+    public void OnInteractionPerformed()
     {
-        inventory.PlantMushroom(this);
+        IsConsumedAfterInteraction = false;
+
+        if (IsFullyGrown)
+        {
+            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
+
+            if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
+            {
+                GameLogger.LogError("Can't plant in planting bed", gameObject, GameLogger.LogCategory.InventoryItem);
+                return;
+            }
+
+            Plant();
+            IsConsumedAfterInteraction = true;
+        }
+        else if (plantSoil[0] != null)
+        {
+            GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
+            PlantSoil soil = plantSoil[0].GetComponent<PlantSoil>();
+            PlantInSoil(soil);
+            IsConsumedAfterInteraction = true;
+        }
+
+        if (IsConsumedAfterInteraction)
+        {
+            Destroy(ItemUI.gameObject);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnInteractionCancelled()

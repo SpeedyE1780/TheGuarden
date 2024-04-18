@@ -3,6 +3,7 @@ public interface IInventoryItem
     public string Name { get; }
     public float UsabilityPercentage { get; }
     public ItemUI ItemUI { get; set; }
+    public bool IsConsumedAfterInteraction => false;
 
     public void Select()
     {
@@ -21,6 +22,6 @@ public interface IInventoryItem
     }
 
     public void OnInteractionStarted();
-    public void OnInteractionPerformed(Inventory inventory);
+    public void OnInteractionPerformed();
     public void OnInteractionCancelled();
 }

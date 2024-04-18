@@ -62,7 +62,7 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
         ItemUI.SetProgress(UsabilityPercentage);
     }
 
-    public void OnInteractionPerformed(Inventory inventory)
+    public void OnInteractionPerformed()
     {
         Collider[] plantBedsCollider = new Collider[1];
         int plantBedCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask);
