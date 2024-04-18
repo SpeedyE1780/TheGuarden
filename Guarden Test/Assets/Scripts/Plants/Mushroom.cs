@@ -18,7 +18,7 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     private float overlapRadius = 2.0f;
     [SerializeField]
     private LayerMask plantBedMask;
-    private Collider[] plantSoil = new Collider[1];
+    private PlantSoil plantSoil;
 
     public string Name => name;
     public bool HasInstantPickUp => GrowthPercentage == 0;
@@ -45,9 +45,10 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         }
     }
 
-    private void PlantInSoil(PlantSoil plantSoil)
+    private void PlantInSoil()
     {
         growPlant.PlantInSoil(plantSoil);
+        plantSoil.IsAvailable = false;
     }
 
     public void PickUp(Transform parent)
@@ -57,6 +58,11 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
         transform.SetParent(parent);
         transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         rb.constraints = RigidbodyConstraints.FreezeAll;
+
+        if(plantSoil != null )
+        {
+            plantSoil.IsAvailable = true;
+        }
     }
 
     public void OnInteractionStarted()
@@ -65,20 +71,26 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
 
         if (!IsFullyGrown)
         {
-            int plantSoilCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantSoil, plantSoilMask);
+            Collider[] plantSoils = Physics.OverlapSphere(transform.position, overlapRadius, plantSoilMask);
 
-            if (plantSoilCount > 0)
+            foreach (Collider soilCollider in plantSoils)
             {
-                transform.position = plantSoil[0].transform.position;
+                PlantSoil soil = soilCollider.GetComponent<PlantSoil>();
+
+                if (soil != null && soil.IsAvailable)
+                {
+                    plantSoil = soil;
+                    transform.position = plantSoil.transform.position;
+                }
             }
         }
     }
 
     private void LateUpdate()
     {
-        if (plantSoil[0] != null)
+        if (plantSoil != null)
         {
-            transform.position = plantSoil[0].transform.position;
+            transform.position = plantSoil.transform.position;
         }
     }
 
@@ -99,11 +111,10 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
             Plant();
             IsConsumedAfterInteraction = true;
         }
-        else if (plantSoil[0] != null)
+        else if (plantSoil != null)
         {
             GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
-            PlantSoil soil = plantSoil[0].GetComponent<PlantSoil>();
-            PlantInSoil(soil);
+            PlantInSoil();
             IsConsumedAfterInteraction = true;
         }
 
@@ -120,7 +131,7 @@ public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
     public void OnInteractionCancelled()
     {
         gameObject.SetActive(false);
-        plantSoil[0] = null;
+        plantSoil = null;
         transform.localPosition = Vector3.zero;
     }
 
