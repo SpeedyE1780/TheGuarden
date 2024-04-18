@@ -3285,6 +3285,9 @@ MonoBehaviour:
   lakeLayer:
     serializedVersion: 2
     m_Bits: 512
+  plantBedMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!54 &741116778
 Rigidbody:
   m_ObjectHideFlags: 0

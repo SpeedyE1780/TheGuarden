@@ -66,17 +66,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void WaterPlantBed(Bucket bucket)
-    {
-        Collider[] plantBedsCollider = new Collider[1];
-        if (Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask) > 0)
-        {
-            PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
-            bucket.WaterPlantBed(plantBed);
-            GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.Player);
-        }
-    }
-
     public void OnInteract(InputAction.CallbackContext context)
     {
         IInventoryItem selectedItem = selectedItemIndex >= 0 && selectedItemIndex < items.Count ? items[selectedItemIndex] : null;

@@ -10,6 +10,8 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
     private float overlapRadius = 2.0f;
     [SerializeField]
     private LayerMask lakeLayer;
+    [SerializeField]
+    private LayerMask plantBedMask;
     private int remainingUses = 0;
 
     public string Name => name;
@@ -24,12 +26,15 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
 
     public void WaterPlantBed(PlantBed plantBed)
     {
-        if (remainingUses > 0)
+        if (remainingUses == 0)
         {
-            plantBed.Water(bucketRestoration);
-            remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
-            ItemUI.SetProgress(UsabilityPercentage);
+            GameLogger.LogError("Not enough water to water plant bed", gameObject, GameLogger.LogCategory.InventoryItem);
+            return;
         }
+
+        plantBed.Water(bucketRestoration);
+        remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
+        ItemUI.SetProgress(UsabilityPercentage);
     }
 
     public void PickUp(Transform parent)
@@ -46,19 +51,31 @@ public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
 
     public void OnInteractionStarted()
     {
-        if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
+        if (!Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
         {
-            GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.InventoryItem);
-            AddWater();
-            ItemUI.SetProgress(UsabilityPercentage);
+            GameLogger.LogError("No lake near bucket", gameObject, GameLogger.LogCategory.InventoryItem);
+            return;
         }
 
-        GameLogger.LogError("No lake near bucket", gameObject, GameLogger.LogCategory.InventoryItem);
+        GameLogger.LogInfo("Adding water to bucket", gameObject, GameLogger.LogCategory.InventoryItem);
+        AddWater();
+        ItemUI.SetProgress(UsabilityPercentage);
     }
 
     public void OnInteractionPerformed(Inventory inventory)
     {
-        inventory.WaterPlantBed(this);
+        Collider[] plantBedsCollider = new Collider[1];
+        int plantBedCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask);
+
+        if (plantBedCount == 0)
+        {
+            GameLogger.LogError("No plant bed near bucket", gameObject, GameLogger.LogCategory.InventoryItem);
+            return;
+        }
+
+        PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
+        WaterPlantBed(plantBed);
+        GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.InventoryItem);
     }
 
     public void OnInteractionCancelled()
