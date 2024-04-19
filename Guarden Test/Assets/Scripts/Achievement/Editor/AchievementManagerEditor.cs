@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 namespace TheGuarden.Achievements.Editor
 {
@@ -9,8 +9,7 @@ namespace TheGuarden.Achievements.Editor
         internal static void AutofillTrackers(MenuCommand command)
         {
             AchievementManager achievementManager = command.context as AchievementManager;
-            achievementManager.FillTrackers();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(achievementManager, $"Fill {achievementManager.name} active trackers", achievementManager.FillTrackers);
         }
     }
 }

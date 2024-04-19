@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.Interactable.Editor
@@ -10,16 +10,24 @@ namespace TheGuarden.Interactable.Editor
         internal static void AutofillVariables(MenuCommand command)
         {
             GrowPlant growPlant = command.context as GrowPlant;
-            growPlant.AutofillVariables();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(growPlant, $"Autofill {growPlant.name} GameTime", growPlant.AutofillVariables);
         }
 
         [MenuItem("CONTEXT/GrowPlant/Validate Variables")]
         internal static void ValidateVariables(MenuCommand command)
         {
             GrowPlant growPlant = command.context as GrowPlant;
-            growPlant.ValidateVariables();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(growPlant, $"Validate {growPlant.name} variables", growPlant .ValidateVariables);
+
+            Transform behaviorParent = growPlant.GetBehaviorParent();
+
+            if(behaviorParent != null )
+            {
+                RecordEditorHistory.RecordHistory(behaviorParent, $"Set {growPlant.name} behavior parent global scale to 1", () =>
+                {
+                    behaviorParent.localScale = new Vector3(1 / growPlant.MaxSize.x, 1 / growPlant.MaxSize.y, 1 / growPlant.MaxSize.z);
+                });
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.NPC.Editor
@@ -22,8 +22,7 @@ namespace TheGuarden.NPC.Editor
         internal static void AutofillVariables(MenuCommand command)
         {
             RoadLane road = command.context as RoadLane;
-            road.AutofillVariables();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(road, $"Autofill {road.name} variables", road.AutofillVariables);
         }
     }
 }

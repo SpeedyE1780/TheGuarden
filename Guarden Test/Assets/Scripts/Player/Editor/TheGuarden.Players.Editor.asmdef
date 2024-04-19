@@ -2,7 +2,8 @@
     "name": "TheGuarden.Players.Editor",
     "rootNamespace": "TheGuarden.Players.Editor",
     "references": [
-        "GUID:4235f39e3eee00c49b90255aa7974bc5"
+        "GUID:4235f39e3eee00c49b90255aa7974bc5",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

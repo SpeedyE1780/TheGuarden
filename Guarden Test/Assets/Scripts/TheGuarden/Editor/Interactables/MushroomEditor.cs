@@ -1,6 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
 
 namespace TheGuarden.Interactable.Editor
 {
@@ -10,8 +9,7 @@ namespace TheGuarden.Interactable.Editor
         internal static void AutofillVariables(MenuCommand command)
         {
             Mushroom mushroom = command.context as Mushroom;
-            mushroom.AutofillVariables();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(mushroom, $"Autofill {mushroom.name} variables", mushroom.AutofillVariables);
         }
     }
 }

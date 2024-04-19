@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 namespace TheGuarden.UI.Editor
 {
@@ -9,8 +9,7 @@ namespace TheGuarden.UI.Editor
         internal static void AutofillGameTime(MenuCommand command)
         {
             Clock clock = command.context as Clock;
-            clock.AutofillGameTime();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(clock, $"Set {clock.name} GameTime", clock.AutofillGameTime);
         }
     }
 }

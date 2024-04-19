@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 namespace TheGuarden.Players.Editor
 {
@@ -9,8 +9,7 @@ namespace TheGuarden.Players.Editor
         internal static void SetInputModule(MenuCommand command)
         {
             PlayerMovement movement = command.context as PlayerMovement;
-            movement.SetRigidBody();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(movement, $"Set {movement.name} RigidBoody", movement.SetRigidBody);
         }
     }
 }

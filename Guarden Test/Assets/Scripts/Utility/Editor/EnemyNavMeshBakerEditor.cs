@@ -1,5 +1,4 @@
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 namespace TheGuarden.Utility.Editor
 {
@@ -9,8 +8,7 @@ namespace TheGuarden.Utility.Editor
         internal static void AutofillNavMeshSurface(MenuCommand command)
         {
             EnemyNavMeshBaker enemyNavMeshBaker = command.context as EnemyNavMeshBaker;
-            enemyNavMeshBaker.AutofillSurface();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(enemyNavMeshBaker, $"Set {enemyNavMeshBaker.name} NavMeshSurface", enemyNavMeshBaker.AutofillSurface);
         }
     }
 }

@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps.Editor
@@ -10,12 +10,10 @@ namespace TheGuarden.PlantPowerUps.Editor
         internal static void UpdateSphereColliders(MenuCommand command)
         {
             PlantPowerUp powerUp = command.context as PlantPowerUp;
-            foreach(SphereCollider collider in powerUp.GetComponents<SphereCollider>())
+            foreach (SphereCollider collider in powerUp.GetComponents<SphereCollider>())
             {
-                collider.radius = powerUp.PowerUpRange;
+                RecordEditorHistory.RecordHistory(collider, $"Update {powerUp.name} SphereColliders Radius", () => collider.radius = powerUp.PowerUpRange);
             }
-
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

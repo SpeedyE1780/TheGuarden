@@ -2,7 +2,8 @@
     "name": "TheGuarden.Enemies.Editor",
     "rootNamespace": "TheGuarden.Enemies.Editor",
     "references": [
-        "GUID:ffb49313358df5b4586aa2b8bf4bccdb"
+        "GUID:ffb49313358df5b4586aa2b8bf4bccdb",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f"
     ],
     "includePlatforms": [
         "Editor"

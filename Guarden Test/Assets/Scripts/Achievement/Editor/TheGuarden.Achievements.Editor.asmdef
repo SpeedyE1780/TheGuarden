@@ -2,7 +2,8 @@
     "name": "TheGuarden.Achievements.Editor",
     "rootNamespace": "TheGuarden.Achievements.Editor",
     "references": [
-        "GUID:1d17c9149b350844eb1f48aeb71bfc44"
+        "GUID:1d17c9149b350844eb1f48aeb71bfc44",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f"
     ],
     "includePlatforms": [
         "Editor"

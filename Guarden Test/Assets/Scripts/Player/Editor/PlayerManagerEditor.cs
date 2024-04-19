@@ -1,16 +1,15 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 
 namespace TheGuarden.Players.Editor
 {
     internal class PlayerManagerEditor
     {
-        [MenuItem("CONTEXT/PlayerManager/Set Input Module")]
-        internal static void SetInputModule(MenuCommand command)
+        [MenuItem("CONTEXT/PlayerManager/Autofill Input Module")]
+        internal static void AutofillInputModule(MenuCommand command)
         {
             PlayerManager manager = command.context as PlayerManager;
-            manager.FillInputModule();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(manager, $"Autofill {manager.name} input module", manager.FillInputModule);
         }
     }
 }

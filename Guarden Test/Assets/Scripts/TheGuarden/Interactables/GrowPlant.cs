@@ -46,6 +46,10 @@ namespace TheGuarden.Interactable
         public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
         private bool IsGrowing => isGrowing && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
+#if UNITY_EDITOR
+        internal Vector3 MaxSize => growingInfo.maxSize;
+#endif
+
         void Update()
         {
             if (IsGrowing)
@@ -112,17 +116,18 @@ namespace TheGuarden.Interactable
             {
                 growingInfo.endHour = growingInfo.startHour;
             }
+        }
 
+        internal Transform GetBehaviorParent()
+        {
             Transform behaviorParent = transform.Find("Behaviors");
 
-            if (behaviorParent != null)
-            {
-                behaviorParent.localScale = new Vector3(1 / growingInfo.maxSize.x, 1 / growingInfo.maxSize.y, 1 / growingInfo.maxSize.z);
-            }
-            else
+            if (behaviorParent == null)
             {
                 GameLogger.LogError("GrowPlant doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
             }
+
+            return behaviorParent;
         }
 
         internal void AutofillVariables()

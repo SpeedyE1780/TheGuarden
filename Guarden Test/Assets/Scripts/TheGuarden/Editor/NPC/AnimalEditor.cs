@@ -1,5 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.NPC.Editor
@@ -13,12 +13,11 @@ namespace TheGuarden.NPC.Editor
             Gizmos.DrawWireSphere(animal.transform.position, 1.5f);
         }
 
-        [MenuItem("CONTEXT/Animal/Autofill components")]
+        [MenuItem("CONTEXT/Animal/Autofill variables")]
         internal static void AutofillComponents(MenuCommand command)
         {
             Animal animal = command.context as Animal;
-            animal.AutofillComponents();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(animal, $"Autofill {animal.name} variables", animal.AutofillComponents);
         }
     }
 }

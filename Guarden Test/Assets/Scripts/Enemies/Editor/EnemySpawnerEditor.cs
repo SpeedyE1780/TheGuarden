@@ -1,6 +1,5 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
 
 namespace TheGuarden.Enemies.Editor
 {
@@ -10,8 +9,7 @@ namespace TheGuarden.Enemies.Editor
         internal static void AutofillGameTime(MenuCommand command)
         {
             EnemySpawner spawner = command.context as EnemySpawner;
-            spawner.AutofillGameTime();
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            RecordEditorHistory.RecordHistory(spawner, $"Set {spawner.name} GameTime", spawner.AutofillGameTime);
         }
     }
 }
