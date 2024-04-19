@@ -17,6 +17,8 @@ namespace TheGuarden.Utility
         private Vector3 offset;
         [SerializeField, Tooltip("Minimum distance between the camera and the targets")]
         private float addedOffset = 15;
+        [SerializeField, Tooltip("Default Target that camera should aim at when there are no players in the scene")]
+        private Transform defaultTarget;
 
         private Vector3 center;
         private float boundsSize;
@@ -51,15 +53,25 @@ namespace TheGuarden.Utility
         /// </summary>
         private void CalculateCenter()
         {
-            Bounds bounds = new Bounds(targets[0].position, Vector3.zero);
-
-            foreach (Transform target in targets)
+            if (targets.Count == 0)
             {
-                bounds.Encapsulate(target.position);
+                center = defaultTarget.position;
+                boundsSize = 0.0f;
+                return;
             }
 
-            center = bounds.center;
-            boundsSize = bounds.size.magnitude;
+            if (targets.Count > 0)
+            {
+                Bounds bounds = new Bounds(targets[0].position, Vector3.zero);
+
+                foreach (Transform target in targets)
+                {
+                    bounds.Encapsulate(target.position);
+                }
+
+                center = bounds.center;
+                boundsSize = bounds.size.magnitude;
+            }
         }
 
         private void LateUpdate()
