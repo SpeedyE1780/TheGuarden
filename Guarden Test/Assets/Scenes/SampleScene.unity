@@ -6851,7 +6851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61280e38fe665d34b837dc3688697de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: {fileID: 1303947125}
+  gameTime: {fileID: 0}
   minuteHand: {fileID: 8063717230609630851}
   hourHand: {fileID: 4351457351706994956}
   dateText: {fileID: 3544886965842692204}

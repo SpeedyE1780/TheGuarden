@@ -32,13 +32,8 @@ namespace TheGuarden.Interactable
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. GameTime in scene")]
         private GameTime gameTime;
-        [SerializeField, Tooltip("Particle system played while plant grows")]
+        [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private ParticleSystem growingParticles;
-
-#if UNITY_EDITOR
-        [SerializeField]
-        private Transform behaviorParent;
-#endif
 
         public UnityEvent OnFullyGrown;
 
@@ -109,7 +104,7 @@ namespace TheGuarden.Interactable
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void ValidateVariables()
         {
             transform.localScale = growingInfo.startSize;
 
@@ -118,6 +113,20 @@ namespace TheGuarden.Interactable
                 growingInfo.endHour = growingInfo.startHour;
             }
 
+            Transform behaviorParent = transform.Find("Behaviors");
+
+            if (behaviorParent != null)
+            {
+                behaviorParent.localScale = new Vector3(1 / growingInfo.maxSize.x, 1 / growingInfo.maxSize.y, 1 / growingInfo.maxSize.z);
+            }
+            else
+            {
+                GameLogger.LogError("GrowPlant doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
+            }
+        }
+
+        internal void AutofillVariables()
+        {
             gameTime = FindObjectOfType<GameTime>();
 
             if (gameTime == null)
@@ -126,11 +135,6 @@ namespace TheGuarden.Interactable
             }
 
             growingParticles = GetComponentInChildren<ParticleSystem>();
-
-            if (behaviorParent != null)
-            {
-                behaviorParent.localScale = new Vector3(1 / growingInfo.maxSize.x, 1 / growingInfo.maxSize.y, 1 / growingInfo.maxSize.z);
-            }
         }
 #endif
     }
