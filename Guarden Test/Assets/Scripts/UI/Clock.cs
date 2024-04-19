@@ -9,7 +9,7 @@ namespace TheGuarden.UI
     /// </summary>
     internal class Clock : MonoBehaviour
     {
-        [SerializeField, Tooltip("GameTime in scene")]
+        [SerializeField, Tooltip("Autofilled. GameTime in scene")]
         private GameTime gameTime;
         [SerializeField, Tooltip("Minute hand of clock")]
         private GameObject minuteHand;
@@ -42,7 +42,7 @@ namespace TheGuarden.UI
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void AutofillGameTime()
         {
             gameTime = FindObjectOfType<GameTime>();
 
