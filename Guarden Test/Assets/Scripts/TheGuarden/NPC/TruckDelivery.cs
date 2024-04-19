@@ -136,7 +136,7 @@ namespace TheGuarden.NPC
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void AutofillGameTime()
         {
             gameTime = FindObjectOfType<GameTime>();
 

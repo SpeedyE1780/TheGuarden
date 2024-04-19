@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps.Editor
 {
-    public class RepelBehaviorGizmo
+    public class RepelBehaviorEditor
     {
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(RepelBehavior repelBehavior, GizmoType type)

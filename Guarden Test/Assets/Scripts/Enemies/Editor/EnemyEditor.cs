@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace TheGuarden.Enemies.Editor
 {
-    public class EnemyGizmo
+    internal class EnemyEditor
     {
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
-        public static void DrawGizmo(Enemy enemy, GizmoType type)
+        internal static void DrawGizmo(Enemy enemy, GizmoType type)
         {
             if(type == GizmoType.InSelectionHierarchy)
             {

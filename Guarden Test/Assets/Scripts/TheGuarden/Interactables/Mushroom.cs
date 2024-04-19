@@ -39,11 +39,6 @@ namespace TheGuarden.Interactable
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage == 0;
 
-#if UNITY_EDITOR
-        [SerializeField]
-        private Transform behaviorsParent;
-#endif
-
         /// <summary>
         /// Enable navmesh carving and all plant behaviors
         /// </summary>
@@ -183,10 +178,13 @@ namespace TheGuarden.Interactable
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void AutofillVariables()
         {
             rb = GetComponent<Rigidbody>();
             navMeshObstacle = GetComponent<NavMeshObstacle>();
+            growPlant = GetComponent<GrowPlant>();
+
+            Transform behaviorsParent = transform.Find("Behaviors");
 
             if (behaviorsParent != null)
             {
@@ -196,6 +194,10 @@ namespace TheGuarden.Interactable
                 {
                     behaviors.Add(behavior.GetComponent<PlantPowerUp>());
                 }
+            }
+            else
+            {
+                GameLogger.LogError("Mushroom doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
             }
         }
 #endif

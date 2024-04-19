@@ -8,9 +8,9 @@ namespace TheGuarden.NPC
     /// </summary>
     internal class RoadLane : MonoBehaviour
     {
-        [SerializeField, Tooltip("Start of lane")]
+        [SerializeField, Tooltip("Autofilled. Start of lane")]
         private Transform start;
-        [SerializeField, Tooltip("End of lane")]
+        [SerializeField, Tooltip("Autofilled. End of lane")]
         private Transform end;
 
         public Vector3 StartPosition => start.position;
@@ -22,7 +22,7 @@ namespace TheGuarden.NPC
         public Transform Start => start;
         public Transform End => end;
 
-        private void OnValidate()
+        internal void AutofillVariables()
         {
             start = transform.Find("Start");
             end = transform.Find("End");

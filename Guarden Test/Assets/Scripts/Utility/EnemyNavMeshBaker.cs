@@ -10,7 +10,7 @@ namespace TheGuarden.Utility
     [RequireComponent(typeof(NavMeshSurface))]
     public class EnemyNavMeshBaker : MonoBehaviour
     {
-        [SerializeField, Tooltip("The Enemy NavmeshSurface")]
+        [SerializeField, Tooltip("Autofilled. The Enemy NavmeshSurface")]
         private NavMeshSurface sceneSurface;
 
         private static NavMeshSurface surface;
@@ -50,5 +50,12 @@ namespace TheGuarden.Utility
 
             surface.UpdateNavMesh(surface.navMeshData);
         }
+
+#if UNITY_EDITOR
+        internal void AutofillSurface()
+        {
+            sceneSurface = GetComponent<NavMeshSurface>();
+        }
+#endif
     }
 }

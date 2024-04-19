@@ -1,12 +1,10 @@
 using TheGuarden.NPC;
-using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {
     /// <summary>
     /// Parent class of plants that alter behavior once animal enters them
     /// </summary>
-    [RequireComponent(typeof(SphereCollider))]
     internal abstract class PlantBehavior : PlantPowerUp
     {
         /// <summary>
