@@ -64,7 +64,7 @@ namespace TheGuarden.Achievements
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void FillTrackers()
         {
             achievementTrackers.Clear();
 
