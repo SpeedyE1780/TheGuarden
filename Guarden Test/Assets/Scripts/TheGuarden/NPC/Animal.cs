@@ -110,7 +110,7 @@ namespace TheGuarden.NPC
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void AutofillComponents()
         {
             agent = GetComponent<NavMeshAgent>();
             rb = GetComponent<Rigidbody>();

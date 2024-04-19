@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheGuarden.NPC.Editor
 {
-    public class RoadLaneGizmo
+    internal class RoadLaneEditor
     {
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(RoadLane roadlane, GizmoType type)
@@ -15,6 +15,13 @@ namespace TheGuarden.NPC.Editor
                 Gizmos.color = Color.green;
                 Gizmos.DrawWireSphere(roadlane.End.position, 0.5f);
             }
+        }
+
+        [MenuItem("CONTEXT/RoadLane/Autofill Variables")]
+        internal static void AutofillVariables(MenuCommand command)
+        {
+            RoadLane road = command.context as RoadLane;
+            road.AutofillVariables();
         }
     }
 }
