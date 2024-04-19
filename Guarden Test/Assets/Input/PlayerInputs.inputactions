@@ -2,7 +2,7 @@
     "name": "PlayerInputs",
     "maps": [
         {
-            "name": "Keyboard",
+            "name": "PlayerActions",
             "id": "48fdc679-e771-418e-90ad-a3ee3ffaee03",
             "actions": [
                 {
@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DropOut",
+                    "type": "Button",
+                    "id": "4815eb26-a484-4fc9-84db-84af3866fd5a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -60,7 +69,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -71,7 +80,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -82,7 +91,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -93,7 +102,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -104,7 +113,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -115,7 +124,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -126,7 +135,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "PickUp",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -137,7 +146,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -148,7 +157,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -159,7 +168,7 @@
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "NextItem",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -170,8 +179,30 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "NextItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c7110e77-4f6c-406d-a645-49cef793c459",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "DropOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "770c5ca1-ecff-443d-9f7b-0d4e1c88a020",
+                    "path": "<Gamepad>/start",
+                    "interactions": "Hold(duration=1.5)",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "DropOut",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

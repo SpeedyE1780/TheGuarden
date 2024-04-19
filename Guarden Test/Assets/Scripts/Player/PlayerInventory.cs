@@ -134,6 +134,17 @@ namespace TheGuarden.Players
             }
         }
 
+        /// <summary>
+        /// Called from PlayerInput component
+        /// </summary>
+        public void OnDropOut(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
@@ -149,6 +160,14 @@ namespace TheGuarden.Players
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            if (inventoryUI != null)
+            {
+                inventoryUI.gameObject.SetActive(false); 
             }
         }
     }
