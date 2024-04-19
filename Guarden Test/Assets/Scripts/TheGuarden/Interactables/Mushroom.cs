@@ -177,6 +177,15 @@ namespace TheGuarden.Interactable
             return this;
         }
 
+        /// <summary>
+        /// Set game time used to grow
+        /// </summary>
+        /// <param name="time">Game time used to grow</param>
+        internal void SetGameTime(GameTime time)
+        {
+            growPlant.SetGameTime(time);
+        }
+
 #if UNITY_EDITOR
         internal void AutofillVariables()
         {

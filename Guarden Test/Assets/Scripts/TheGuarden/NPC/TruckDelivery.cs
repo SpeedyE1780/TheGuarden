@@ -23,7 +23,7 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Number of items delivered on each delivery")]
         private int deliveryItemCount = 2;
         [SerializeField, Tooltip("Autofilled. GameTime in scene")]
-        private GameTime gameTime;
+        protected GameTime gameTime;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
         protected Transform deliveryLocation;
         [SerializeField, Tooltip("Interval between delivering each item")]
@@ -115,6 +115,7 @@ namespace TheGuarden.NPC
             for (int i = 0; i < deliveryItemCount; i++)
             {
                 SpawnItem();
+                GameLogger.LogInfo($"{name} delivered item", this, GameLogger.LogCategory.Scene);
                 yield return new WaitForSeconds(deliveryInterval);
             }
         }

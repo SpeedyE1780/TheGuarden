@@ -86,6 +86,15 @@ namespace TheGuarden.Interactable
         }
 
         /// <summary>
+        /// Set game time used to grow
+        /// </summary>
+        /// <param name="time">Game time used to grow</param>
+        internal void SetGameTime(GameTime time)
+        {
+            gameTime = time;
+        }
+
+        /// <summary>
         /// Stop growing and reset scale
         /// </summary>
         public void ResetGrowing()

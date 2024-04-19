@@ -17,6 +17,7 @@ namespace TheGuarden.NPC
         {
             Mushroom mushroom = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
             mushroom.Rigidbody.velocity = CalculateVelocity();
+            mushroom.SetGameTime(gameTime);
         }
     }
 }
