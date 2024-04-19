@@ -41,7 +41,7 @@ namespace TheGuarden.Players
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void SetRigidBody()
         {
             rb = GetComponent<Rigidbody>();
         }

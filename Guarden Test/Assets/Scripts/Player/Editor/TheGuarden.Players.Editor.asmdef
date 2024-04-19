@@ -1,0 +1,16 @@
+{
+    "name": "TheGuarden.Players.Editor",
+    "rootNamespace": "TheGuarden.Players.Editor",
+    "references": [
+        "GUID:4235f39e3eee00c49b90255aa7974bc5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
