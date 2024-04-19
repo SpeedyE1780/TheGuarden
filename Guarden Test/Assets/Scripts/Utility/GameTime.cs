@@ -8,17 +8,12 @@ namespace TheGuarden.Utility
     /// </summary>
     public class GameTime : MonoBehaviour
     {
+        private const int MinutesInDay = 24 * 60;
+
         public delegate void DayEnded();
 
-        private float second = 0;
-        private int minute = 0;
-        private int hour = 0;
-        private int day = 1;
-        private int week = 1;
-        private int month = 1;
-        private int year = 2024;
-        private int dayOfTheMonth = 1;
-
+        [SerializeField, Range(0, 23), Tooltip("Hour when level starts")]
+        private int startingHour = 12;
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
         [SerializeField, Tooltip("Months of the year")]
@@ -28,10 +23,16 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Clock time scale that makes time go faster")]
         private float clockScale = 1f;
 
-        public int Minute => minute;
-        public int Hour => hour;
+        private float minutes = 0;
+        private int day = 1;
+        private int month = 1;
+        private int year = 2024;
+        public event DayEnded OnDayEnded;
+
+        public int Minute => (int)minutes % 60;
+        public int Hour => (int)minutes / 60;
         private int Year => year;
-        private string DayName => days[day - 1];
+        private string DayName => days[(day - 1) % 7];
         private string MonthName => months[month - 1];
         private string DayOfMonth
         {
@@ -39,72 +40,53 @@ namespace TheGuarden.Utility
             {
                 string suffix = "th";
 
-                if (dayOfTheMonth == 1 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 1))
+                if (day == 1 || (day > 20 && day % 10 == 1))
                 {
                     suffix = "st";
                 }
-                else if (dayOfTheMonth == 2 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 2))
+                else if (day == 2 || (day > 20 && day % 10 == 2))
                 {
                     suffix = "nd";
                 }
-                else if (dayOfTheMonth == 3 || (dayOfTheMonth > 20 && dayOfTheMonth % 10 == 3))
+                else if (day == 3 || (day > 20 && day % 10 == 3))
                 {
                     suffix = "rd";
                 }
 
-                return $"{dayOfTheMonth}{suffix}";
+                return $"{day}{suffix}";
             }
         }
         public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
+        public float DayEndProgress => minutes / MinutesInDay;
 
-        public event DayEnded OnDayEnded;
+        private void Awake()
+        {
+            minutes = startingHour * 60;
+        }
 
         void Update()
         {
             Time.timeScale = timeScale;
-            second += Time.deltaTime * 60.0f * clockScale;
+            minutes += Time.deltaTime * clockScale;
 
-            // Check if a minute has passed
-            if (second >= 60)
+            // Reset minutes if it reaches MinutesInDay (end of day)
+            if (minutes > MinutesInDay)
             {
-                minute += Mathf.FloorToInt(second / 60.0f);
-                second %= 60.0f;
+                day += 1;
+                minutes = 0;
+                OnDayEnded?.Invoke();
 
-                // Check if an hour has passed
-                if (minute >= 60)
+                // Check if a month has passed
+                if (day > 28)
                 {
-                    hour += minute / 60;
-                    minute %= 60;
+                    day = 1;
+                    month += 1;
 
-                    // Reset hour if it reaches 24 (end of day)
-                    if (hour >= 24)
+                    // Check if a year has passed
+                    if (month > 12)
                     {
-                        day += hour / 24;
-                        dayOfTheMonth += hour / 24;
-                        hour %= 24;
-                        OnDayEnded?.Invoke();
-
-                        // Check if a week has passed
-                        if (day > 7)
-                        {
-                            week += day / 7;
-                            day %= 7;
-
-                            // Check if a month has passed
-                            if (week > 4)
-                            {
-                                month += week / 4;
-                                week %= 4;
-                                dayOfTheMonth = day;
-
-                                // Check if a year has passed
-                                if (month > 12)
-                                {
-                                    year += month / 12;
-                                    month %= 12;
-                                }
-                            }
-                        }
+                        year += 1;
+                        month = 1;
                     }
                 }
             }
