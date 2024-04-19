@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.NPC.Editor
@@ -22,6 +23,7 @@ namespace TheGuarden.NPC.Editor
         {
             RoadLane road = command.context as RoadLane;
             road.AutofillVariables();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

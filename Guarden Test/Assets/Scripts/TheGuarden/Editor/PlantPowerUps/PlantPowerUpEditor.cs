@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps.Editor
@@ -13,6 +14,8 @@ namespace TheGuarden.PlantPowerUps.Editor
             {
                 collider.radius = powerUp.PowerUpRange;
             }
+
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

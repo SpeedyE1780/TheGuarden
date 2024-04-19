@@ -1,5 +1,5 @@
 using UnityEditor;
-using UnityEngine;
+using UnityEditor.SceneManagement;
 
 namespace TheGuarden.NPC.Editor
 {
@@ -8,6 +8,7 @@ namespace TheGuarden.NPC.Editor
         private static void AutofillGameTime<T>(TruckDelivery<T> truckDelivery)
         {
             truckDelivery.AutofillGameTime();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         [MenuItem("CONTEXT/AnimalDelivery/Autofill GameTime")]

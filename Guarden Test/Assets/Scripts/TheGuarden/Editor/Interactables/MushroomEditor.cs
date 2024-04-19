@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.Interactable.Editor
@@ -10,6 +11,7 @@ namespace TheGuarden.Interactable.Editor
         {
             Mushroom mushroom = command.context as Mushroom;
             mushroom.AutofillVariables();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.Interactable.Editor
@@ -10,6 +11,7 @@ namespace TheGuarden.Interactable.Editor
         {
             GrowPlant growPlant = command.context as GrowPlant;
             growPlant.AutofillVariables();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         [MenuItem("CONTEXT/GrowPlant/Validate Variables")]
@@ -17,6 +19,7 @@ namespace TheGuarden.Interactable.Editor
         {
             GrowPlant growPlant = command.context as GrowPlant;
             growPlant.ValidateVariables();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }

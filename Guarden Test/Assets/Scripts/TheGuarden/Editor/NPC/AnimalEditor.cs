@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace TheGuarden.NPC.Editor
@@ -17,6 +18,7 @@ namespace TheGuarden.NPC.Editor
         {
             Animal animal = command.context as Animal;
             animal.AutofillComponents();
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
     }
 }
