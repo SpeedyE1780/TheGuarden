@@ -134,17 +134,6 @@ namespace TheGuarden.Players
             }
         }
 
-        /// <summary>
-        /// Called from PlayerInput component
-        /// </summary>
-        public void OnDropOut(InputAction.CallbackContext context)
-        {
-            if(context.performed)
-            {
-                Destroy(gameObject);
-            }
-        }
-
         private void OnTriggerStay(Collider other)
         {
             if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)

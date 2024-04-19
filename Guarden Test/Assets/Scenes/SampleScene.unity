@@ -1167,6 +1167,9 @@ MonoBehaviour:
   inventoryUI:
   - {fileID: 1969506209979049900}
   - {fileID: 40999176}
+  playerColors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0

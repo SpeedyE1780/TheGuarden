@@ -19,6 +19,8 @@ namespace TheGuarden.Players
         private InputSystemUIInputModule inputSystemUIInputModule;
         [SerializeField, Tooltip("List of each player's inventory UI")]
         private List<InventoryUI> inventoryUI;
+        [SerializeField, Tooltip("List of colors for each player")]
+        private List<Color> playerColors;
 
         /// <summary>
         /// OnPlayerJoin is called from the PlayerInputManager component
@@ -29,6 +31,7 @@ namespace TheGuarden.Players
             player.camera = followCamera.Camera;
             player.uiInputModule = inputSystemUIInputModule;
             player.GetComponent<PlayerInventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
+            player.GetComponent<PlayerController>().SetColor(playerColors[player.playerIndex]);
             followCamera.AddTarget(player.transform);
         }
 

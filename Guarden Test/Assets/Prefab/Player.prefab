@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 5394329849608207086}
   - component: {fileID: 8220134511689740318}
   - component: {fileID: 8646316663285618983}
+  - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
   m_Layer: 0
   m_Name: Player
@@ -443,6 +444,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rb: {fileID: 5394329849608207086}
+--- !u!114 &7332446620996662355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62744dd6c347c0a4086057c8c1a56bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRenderer: {fileID: 9172935641007748065}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,8 +549,8 @@ MonoBehaviour:
     m_ActionName: Keyboard/NextItem[/Keyboard/tab]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8220134511689740318}
-        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerInventory, TheGuarden.Players
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
         m_MethodName: OnDropOut
         m_Mode: 0
         m_Arguments:
