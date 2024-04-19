@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps.Editor
 {
-    public class ForceFieldBuffGizmo
+    public class ForceFieldBuffEditor
     {
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(ForceFieldBuff forceFieldBuff, GizmoType type)

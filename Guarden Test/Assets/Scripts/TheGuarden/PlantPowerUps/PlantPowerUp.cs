@@ -5,6 +5,7 @@ namespace TheGuarden.PlantPowerUps
     /// <summary>
     /// Base class of all plant power ups
     /// </summary>
+    [RequireComponent(typeof(SphereCollider))]
     internal abstract class PlantPowerUp : MonoBehaviour
     {
         [SerializeField, Tooltip("Range of power up")]

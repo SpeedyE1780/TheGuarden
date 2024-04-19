@@ -1,4 +1,3 @@
-using UnityEngine;
 using TheGuarden.Utility;
 using TheGuarden.NPC;
 
@@ -9,11 +8,6 @@ namespace TheGuarden.PlantPowerUps
     /// </summary>
     internal class ForceFieldBuff : PlantBuff
     {
-#if UNITY_EDITOR
-        [SerializeField]
-        private SphereCollider navMeshModifierCollider;
-#endif
-
         private void OnEnable()
         {
             EnemyNavMeshBaker.BakeNavMesh();
@@ -43,15 +37,5 @@ namespace TheGuarden.PlantPowerUps
             GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
             animal.InsideForceField = false;
         }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (navMeshModifierCollider != null)
-            {
-                navMeshModifierCollider.radius = powerUpRange;
-            }
-        }
-#endif
     }
 }
