@@ -1325,6 +1325,9 @@ MonoBehaviour:
   offset: {x: 0, y: 0.635297, z: -0.77226794}
   addedOffset: 15
   defaultTarget: {fileID: 1001226897}
+  movementSpeed: 5
+  snapToPosition: 1
+  test: 1
 --- !u!1 &373785037
 GameObject:
   m_ObjectHideFlags: 0

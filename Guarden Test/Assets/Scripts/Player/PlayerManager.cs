@@ -41,7 +41,10 @@ namespace TheGuarden.Players
         /// <param name="player">Player who left the game</param>
         public void OnPlayerLeave(PlayerInput player)
         {
-            followCamera.RemoveTarget(player.transform);
+            if (followCamera != null)
+            {
+                followCamera.RemoveTarget(player.transform); 
+            }
         }
 
 #if UNITY_EDITOR

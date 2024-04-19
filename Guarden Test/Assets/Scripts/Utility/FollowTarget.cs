@@ -19,6 +19,10 @@ namespace TheGuarden.Utility
         private float addedOffset = 15;
         [SerializeField, Tooltip("Default Target that camera should aim at when there are no players in the scene")]
         private Transform defaultTarget;
+        [SerializeField, Tooltip("Maximum follow movement speed")]
+        private float movementSpeed = 5.0f;
+        [SerializeField, Tooltip("Snap to desired position when player joins/leaves")]
+        private bool snapToPosition = true;
 
         private Vector3 center;
         private float boundsSize;
@@ -28,24 +32,6 @@ namespace TheGuarden.Utility
         private void Awake()
         {
             offset = offset.normalized;
-        }
-
-        /// <summary>
-        /// Add target to camera
-        /// </summary>
-        /// <param name="player">Target camera needs to follow</param>
-        public void AddTarget(Transform target)
-        {
-            targets.Add(target);
-        }
-
-        /// <summary>
-        /// Remove target from camera
-        /// </summary>
-        /// <param name="target">Target camera is no longer following</param>
-        public void RemoveTarget(Transform target)
-        {
-            targets.Remove(target);
         }
 
         /// <summary>
@@ -74,11 +60,52 @@ namespace TheGuarden.Utility
             }
         }
 
-        private void LateUpdate()
+        /// <summary>
+        /// Calculate the desired camera position
+        /// </summary>
+        /// <returns>Return the desired camera position</returns>
+        private Vector3 CalculateDesiredPosition()
         {
             CalculateCenter();
             float offsetMultiplier = MathExtensions.CalculateDistanceBasedOnFrustum(boundsSize, followCamera.aspect, followCamera.fieldOfView) + addedOffset;
-            transform.position = center + (offset * offsetMultiplier);
+            return center + (offset * offsetMultiplier);
+        }
+
+        /// <summary>
+        /// Snap camera to desired position
+        /// </summary>
+        private void SnapToPosition()
+        {
+            if (snapToPosition && targets.Count != 0)
+            {
+                transform.position = CalculateDesiredPosition();
+            }
+        }
+
+        /// <summary>
+        /// Add target to camera and snap to new position
+        /// </summary>
+        /// <param name="player">Target camera needs to follow</param>
+        public void AddTarget(Transform target)
+        {
+            targets.Add(target);
+            SnapToPosition();
+        }
+
+        /// <summary>
+        /// Remove target from camera and snap to new position
+        /// </summary>
+        /// <param name="target">Target camera is no longer following</param>
+        public void RemoveTarget(Transform target)
+        {
+            targets.Remove(target);
+            SnapToPosition();
+        }
+
+        private void FixedUpdate()
+        {
+            Vector3 desiredPosition = CalculateDesiredPosition();
+            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, movementSpeed * Time.deltaTime);
         }
     }
 }
