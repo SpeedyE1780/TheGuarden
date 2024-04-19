@@ -9,7 +9,7 @@ namespace TheGuarden.Utility
     [RequireComponent(typeof(NavMeshSurface))]
     public class NavMeshSurfaceExtensions : MonoBehaviour
     {
-        [SerializeField, Tooltip("The surface who's bounds are used")]
+        [SerializeField, Tooltip("Autofilled. The surface who's bounds are used")]
         private NavMeshSurface sceneSurface;
 
         private static NavMeshSurface surface;
@@ -33,7 +33,7 @@ namespace TheGuarden.Utility
         }
 
 #if UNITY_EDITOR
-        private void OnValidate()
+        internal void AutofillSurface()
         {
             sceneSurface = GetComponent<NavMeshSurface>();
         }
