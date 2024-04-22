@@ -18,6 +18,7 @@ namespace TheGuarden.Utility
             FileOperations = 1 << 7,
             InventoryItem = 1 << 8,
             Audio = 1 << 9,
+            Editor = 1 << 10,
             All = -1
         }
 
