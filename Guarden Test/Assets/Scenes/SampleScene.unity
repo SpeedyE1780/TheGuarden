@@ -1536,7 +1536,7 @@ MonoBehaviour:
   followCamera: {fileID: 330585545}
   targets: []
   offset: {x: 0, y: 12, z: -14}
-  addedOffset: 14
+  addedOffset: 18.439089
   defaultTarget: {fileID: 1001226897}
   movementSpeed: 5
   snapToPosition: 1
@@ -5604,8 +5604,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
   gameTime: {fileID: 1303947125}
+  ufoTransform: {fileID: 0}
   ufo: {fileID: 253102361}
-  parentUFO: {fileID: 117974719}
   ufoSpeed: 75
   enemyCount: 3
 --- !u!4 &1393084753

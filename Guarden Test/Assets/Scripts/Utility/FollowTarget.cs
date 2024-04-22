@@ -29,6 +29,10 @@ namespace TheGuarden.Utility
 
         public Camera Camera => followCamera;
 
+#if UNITY_EDITOR
+        internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
+#endif
+
         private void Awake()
         {
             offset = offset.normalized;
@@ -107,5 +111,13 @@ namespace TheGuarden.Utility
             Vector3 desiredPosition = CalculateDesiredPosition();
             transform.position = Vector3.MoveTowards(transform.position, desiredPosition, movementSpeed * Time.deltaTime);
         }
+
+#if UNITY_EDITOR
+        internal void UpdateOffset(Vector3 calculatedOffset)
+        {
+            offset = calculatedOffset;
+            addedOffset = calculatedOffset.magnitude;
+        }
+#endif
     }
 }
