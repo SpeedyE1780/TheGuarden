@@ -795,7 +795,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Standalone: GAME_LOGGER_LOG_INFO;GAME_LOGGER_LOG_WARNING;GAME_LOGGER_LOG_ERROR
+    Standalone: THE_GUARDEN_GAME_LOGGER_LOG_INFO;THE_GUARDEN_GAME_LOGGER_LOG_WARNING;THE_GUARDEN_GAME_LOGGER_LOG_ERROR
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

@@ -36,7 +36,7 @@ namespace TheGuarden.Utility
         /// <param name="message">Message to log on console</param>
         /// <param name="sender">Object logging the message</param>
         /// <param name="category">Category of logged message</param>
-        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_INFO")]
+        [System.Diagnostics.Conditional("THE_GUARDEN_GAME_LOGGER_LOG_INFO")]
         public static void LogInfo(string message, Object sender, LogCategory category)
         {
             if ((category & enabledCategories) == 0)
@@ -53,7 +53,7 @@ namespace TheGuarden.Utility
         /// <param name="message">Message to log on console</param>
         /// <param name="sender">Object logging the message</param>
         /// <param name="category">Category of logged message</param>
-        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_WARNING")]
+        [System.Diagnostics.Conditional("THE_GUARDEN_GAME_LOGGER_LOG_WARNING")]
         public static void LogWarning(string message, Object sender, LogCategory category)
         {
             if ((category & enabledCategories) == 0)
@@ -70,7 +70,7 @@ namespace TheGuarden.Utility
         /// <param name="message">Message to log on console</param>
         /// <param name="sender">Object logging the message</param>
         /// <param name="category">Category of logged message</param>
-        [System.Diagnostics.Conditional("GAME_LOGGER_LOG_ERROR")]
+        [System.Diagnostics.Conditional("THE_GUARDEN_GAME_LOGGER_LOG_ERROR")]
         public static void LogError(string message, Object sender, LogCategory category)
         {
             if ((category & enabledCategories) == 0)
