@@ -16,9 +16,18 @@ namespace TheGuarden.Utility.Editor
                 return;
             }
 
-            NavMeshSurface target = selectedObject.GetComponent<NavMeshSurface>() ?? selectedObject.AddComponent<NavMeshSurface>();
-            target.center = source.center;
-            target.size = source.size;
+            NavMeshSurface target = selectedObject.GetComponent<NavMeshSurface>();
+
+            if (target == null)
+            {
+                RecordEditorHistory.RecordHistory(selectedObject.transform, $"Add NavMeshSurface to {selectedObject.name}", () => target = selectedObject.AddComponent<NavMeshSurface>());
+            }
+
+            RecordEditorHistory.RecordHistory(target, "Update NavMeshSurface dimension", () =>
+            {
+                target.center = source.center;
+                target.size = source.size;
+            });
         }
 
         private static void ApplyBoxPropertiesFromNavMeshSurface(GameObject selectedObject)
@@ -31,9 +40,18 @@ namespace TheGuarden.Utility.Editor
                 return;
             }
 
-            BoxCollider target = selectedObject.GetComponent<BoxCollider>() ?? selectedObject.AddComponent<BoxCollider>();
-            target.center = source.center;
-            target.size = source.size;
+            BoxCollider target = selectedObject.GetComponent<BoxCollider>();
+
+            if (target == null)
+            {
+                RecordEditorHistory.RecordHistory(selectedObject.transform, $"Add BoxCollider to {selectedObject.name}", () => target = selectedObject.AddComponent<BoxCollider>());
+            }
+
+            RecordEditorHistory.RecordHistory(target, "Update BoxCollider dimension", () =>
+            {
+                target.center = source.center;
+                target.size = source.size;
+            });
         }
 
         [MenuItem("The Guarden/Tools/Add Box Collider from Nav Mesh Surface")]
