@@ -29,7 +29,6 @@ namespace TheGuarden.Players
         public void OnPlayerJoin(PlayerInput player)
         {
             player.camera = followCamera.Camera;
-            player.uiInputModule = inputSystemUIInputModule;
             player.GetComponent<PlayerInventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
             player.GetComponent<PlayerController>().SetColor(playerColors[player.playerIndex]);
             followCamera.AddTarget(player.transform);
