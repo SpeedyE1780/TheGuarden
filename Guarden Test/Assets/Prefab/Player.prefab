@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7876268953037135404}
   - component: {fileID: 9172935641007748065}
   - component: {fileID: 3166741089131319481}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 4011078326277615359}
   - component: {fileID: 1782186965211853875}
   - component: {fileID: 6789031856632385007}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7284881402961356843}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InventoryPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 6932402064575112508}
   - component: {fileID: 1515103683472439721}
   - component: {fileID: 3548325356804898423}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 8646316663285618983}
   - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
