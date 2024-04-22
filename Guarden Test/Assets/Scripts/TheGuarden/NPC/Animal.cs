@@ -19,8 +19,10 @@ namespace TheGuarden.NPC
         private Collider animalCollider;
         [SerializeField, Tooltip("Minimum distance before considering agent destination reached")]
         private float stoppingDistance = 0.75f;
+        [SerializeField, Tooltip("Force Field gameobject activated when inside force field")]
+        private GameObject forceField;
 
-        public bool InsideForceField { get; set; }
+        public bool InsideForceField { get; private set; }
 
         public Rigidbody Rigidbody => rb;
         public NavMeshAgent Agent => agent;
@@ -107,6 +109,16 @@ namespace TheGuarden.NPC
             agent.enabled = true;
             enabled = true;
             rb.isKinematic = false;
+        }
+
+        /// <summary>
+        /// Set if the animal is in a force field or no
+        /// </summary>
+        /// <param name="active">True if inside force field</param>
+        public void ToggleForceField(bool active)
+        {
+            InsideForceField = active;
+            forceField.SetActive(active);
         }
 
 #if UNITY_EDITOR
