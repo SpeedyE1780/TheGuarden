@@ -1,6 +1,7 @@
 using UnityEngine;
 using TheGuarden.UI;
 using TheGuarden.Utility;
+using UnityEngine.VFX;
 
 namespace TheGuarden.Interactable
 {
@@ -19,6 +20,8 @@ namespace TheGuarden.Interactable
         private LayerMask lakeLayer;
         [SerializeField, Tooltip("Plant bed layer mask")]
         private LayerMask plantBedMask;
+        [SerializeField, Tooltip("Splash VFX played when adding water or watering plant bed")]
+        private VisualEffect splash;
 
         private int remainingUses = 0;
 
@@ -28,18 +31,31 @@ namespace TheGuarden.Interactable
         public bool HasInstantPickUp => true;
 
         /// <summary>
+        /// Move splash vfx to position and play it
+        /// </summary>
+        /// <param name="position">Splash position</param>
+        private void PlaySplashVFX(Vector3 position)
+        {
+            splash.transform.position = position;
+            splash.Play();
+        }
+
+        /// <summary>
         /// Add water from lake
         /// </summary>
         private void AddWater()
         {
             remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
+            Collider[] lake = Physics.OverlapSphere(transform.position, overlapRadius, lakeLayer);
+            PlaySplashVFX(lake[0].ClosestPoint(transform.position));
         }
 
         /// <summary>
         /// Water plant bed
         /// </summary>
         /// <param name="plantBed">Plant bed that will be watered</param>
-        private void WaterPlantBed(PlantBed plantBed)
+        /// <param name="closestPoint">Closest point on plant bed collider where splash vfx is positioned</param>
+        private void WaterPlantBed(PlantBed plantBed, Vector3 closestPoint)
         {
             if (remainingUses == 0)
             {
@@ -47,6 +63,7 @@ namespace TheGuarden.Interactable
                 return;
             }
 
+            PlaySplashVFX(closestPoint);
             plantBed.Water(bucketRestoration);
             remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
             ItemUI.SetProgress(UsabilityPercentage);
@@ -103,7 +120,7 @@ namespace TheGuarden.Interactable
             }
 
             PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
-            WaterPlantBed(plantBed);
+            WaterPlantBed(plantBed, plantBedsCollider[0].ClosestPoint(transform.position));
             GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.InventoryItem);
         }
 

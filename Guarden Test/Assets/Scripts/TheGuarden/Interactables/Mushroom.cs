@@ -27,6 +27,8 @@ namespace TheGuarden.Interactable
         private float overlapRadius = 2.0f;
         [SerializeField, Tooltip("Plant bed layer mask")]
         private LayerMask plantBedMask;
+        [SerializeField, Tooltip("Player layer mask")]
+        private LayerMask playerMask;
 
         private PlantSoil plantSoil;
 
@@ -38,6 +40,15 @@ namespace TheGuarden.Interactable
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage == 0;
+
+        /// <summary>
+        /// Add/Remove player layer mask from the rb exclude layers
+        /// </summary>
+        /// <param name="active">Whether player collision is active or no</param>
+        private void ToggleCollisionsWithPlayer(bool active)
+        {
+            rb.excludeLayers = active ? rb.excludeLayers & ~playerMask : rb.excludeLayers | playerMask;
+        }
 
         /// <summary>
         /// Enable navmesh carving and all plant behaviors
@@ -63,6 +74,7 @@ namespace TheGuarden.Interactable
             transform.SetParent(parent);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
+            ToggleCollisionsWithPlayer(false);
 
             if (plantSoil != null)
             {
@@ -117,6 +129,7 @@ namespace TheGuarden.Interactable
             }
 
             Plant();
+            ToggleCollisionsWithPlayer(true);
             IsConsumedAfterInteraction = true;
         }
 
@@ -127,6 +140,7 @@ namespace TheGuarden.Interactable
         {
             GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
             growPlant.PlantInSoil(plantSoil);
+            ToggleCollisionsWithPlayer(true);
             plantSoil.IsAvailable = false;
             IsConsumedAfterInteraction = true;
         }

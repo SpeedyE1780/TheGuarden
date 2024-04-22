@@ -35,5 +35,13 @@ namespace TheGuarden.UI
         {
             items.Remove(item);
         }
+
+        private void OnDisable()
+        {
+            for (int i = itemParents.childCount - 1; i >= 0; --i)
+            {
+                Destroy(itemParents.GetChild(i).gameObject);
+            }
+        }
     }
 }
