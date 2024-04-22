@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8396959614143823326
+--- !u!114 &-7941124674175701713
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Simple MAt
-  m_Shader: {fileID: -6465566751694194690, guid: b905e10b9b0d018438101cf6d2ef07d7,
+  m_Name: Highlight Shader
+  m_Shader: {fileID: -6465566751694194690, guid: 8a9f6583e24febd43941387ad3546f33,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -77,14 +77,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_1224401e32df47429cba0441e18d6432_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 6cfc09e7f7d903747b1237d1a5f41e82, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_1972845c6cd64295823da18fa0649a99_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 95e8704e337d94b4299e5430e4330ca4, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -135,10 +127,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.754717, g: 0, b: 0, a: 1}
-    - _Color: {r: 0.75471693, g: 0, b: 0, a: 1}
-    - _Color_of_shader: {r: 1.5450981, g: 1.1755263, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Bg_color: {r: 0, g: 0.8396226, b: 0.015516479, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Foreground_color: {r: 1, g: 0.25, b: 0.25, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Temp_Color: {r: 0.5398475, g: 0.745283, b: 0, a: 0}
   m_BuildTextureStacks: []

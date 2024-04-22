@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water Splash base
-  m_Shader: {fileID: -6465566751694194690, guid: 23500b6f9404f2a469b0778205ce6560,
+  m_Shader: {fileID: -6465566751694194690, guid: fabe85577bbd9b84c9c0e2cd8415179f,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -64,6 +64,14 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5752654e80714178894cdb79f8b69027_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 79392387b0c81e04289fa033a3789456, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c818d8e7b69844e0bddcdaa86398b6c7_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 79392387b0c81e04289fa033a3789456, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -93,9 +101,13 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Distortion_Intensity: 0.92
+    - _Distortion_intensity: 0.1
+    - _Distortion_level: 0.43
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _Erosion: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -105,6 +117,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Slider: 0.163
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -116,8 +129,15 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Dist_Offset: {r: 2.93, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Scrolling_intensity: {r: 0, g: -0.4, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Splash_height: {r: 1, g: 1, b: 0, a: 0}
+    - _Water_Color_2: {r: 0, g: 0, b: 0, a: 0}
+    - _Water_Color_Deep: {r: 0, g: 0.2539623, b: 0.5754717, a: 0}
+    - _Water_Color_Shallow: {r: 0.2311321, g: 1, b: 1, a: 0}
+    - _Water_color: {r: 0.34433958, g: 0.8282501, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6562944594655405012
 MonoBehaviour:

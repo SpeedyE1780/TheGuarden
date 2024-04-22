@@ -144,21 +144,21 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Float: 0
-    - _Foam_Amount: 4
-    - _Foam_Cutoff: 18.8
+    - _Foam_Amount: 10.32
+    - _Foam_Cutoff: 1.4
     - _Foam_Depth: 1.21
     - _Foam_Noise_Scale: 4.34
     - _Foam_Ripple_Speed: 0.4
-    - _Foam_Scale: 34.1
+    - _Foam_Scale: 16.38
     - _Foam_Size: 3.74
-    - _Foam_Speed: 1.55
+    - _Foam_Speed: 1.1
     - _Foam_cutoff: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Intensity: 0.02
+    - _Intensity: 0.42
     - _Metallic: 0
-    - _Normal_Intensity: 0.01
+    - _Normal_Intensity: 1.31
     - _OcclusionStrength: 1
     - _Offset: 0
     - _Parallax: 0.005
@@ -174,7 +174,7 @@ Material:
     - _SrcBlend: 5
     - _SrcBlendAlpha: 1
     - _Surface: 1
-    - _Water_Depth: 0.7
+    - _Water_Depth: 6.2
     - _Water_Scrolling_intensity: 0.13
     - _Water_caustic_Intensity: 0.05
     - _WorkflowMode: 1
