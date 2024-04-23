@@ -5037,6 +5037,9 @@ MonoBehaviour:
   plantBedMask:
     serializedVersion: 2
     m_Bits: 128
+  plantableAreaMask:
+    serializedVersion: 2
+    m_Bits: 2048
   playerMask:
     serializedVersion: 2
     m_Bits: 8

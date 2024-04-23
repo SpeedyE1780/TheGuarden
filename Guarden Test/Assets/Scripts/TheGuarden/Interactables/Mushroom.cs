@@ -27,6 +27,8 @@ namespace TheGuarden.Interactable
         private float overlapRadius = 2.0f;
         [SerializeField, Tooltip("Plant bed layer mask")]
         private LayerMask plantBedMask;
+        [SerializeField, Tooltip("Plant area layer mask")]
+        private LayerMask plantableAreaMask;
         [SerializeField, Tooltip("Player layer mask")]
         private LayerMask playerMask;
 
@@ -122,9 +124,9 @@ namespace TheGuarden.Interactable
         {
             GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
 
-            if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
+            if (!Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                GameLogger.LogError("Can't plant in planting bed", gameObject, GameLogger.LogCategory.InventoryItem);
+                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.InventoryItem);
                 return;
             }
 
