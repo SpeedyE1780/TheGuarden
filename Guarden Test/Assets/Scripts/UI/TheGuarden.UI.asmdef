@@ -3,7 +3,8 @@
     "rootNamespace": "TheGuarden.UI",
     "references": [
         "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:eaadf552b7d9ab249807e6b2215a5f76"
+        "GUID:eaadf552b7d9ab249807e6b2215a5f76",
+        "GUID:1d17c9149b350844eb1f48aeb71bfc44"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
