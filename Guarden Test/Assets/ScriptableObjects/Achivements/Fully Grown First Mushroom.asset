@@ -9,6 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436c4b89cda0a43468ce40dc9ab94457, type: 3}
-  m_Name: Mushrooms Planted
+  m_Script: {fileID: 11500000, guid: 4e8d33575f3eff54f827de581ab32960, type: 3}
+  m_Name: Fully Grown First Mushroom
   m_EditorClassIdentifier: 
+  threshold: 1
+  tracker: {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}

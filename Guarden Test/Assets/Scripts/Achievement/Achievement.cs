@@ -1,5 +1,6 @@
 using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine.Events;
 
 namespace TheGuarden.Achievements
 {
@@ -17,16 +18,18 @@ namespace TheGuarden.Achievements
         internal AchievementTracker tracker;
 
         private bool isCompleted = false;
+        private UnityEvent<Achievement> onCompletedCallback;
 
         public string Description => description;
 
         /// <summary>
         /// Check if achievement is completed and subscribe to tracker's value changed
         /// </summary>
-        internal void Initialize()
+        internal void Initialize(UnityEvent<Achievement> onCompleted)
         {
             isCompleted = tracker.count >= threshold;
             GameLogger.LogInfo($"{name} is completed: {isCompleted}", this, GameLogger.LogCategory.Achievements);
+            onCompletedCallback = onCompleted;
 
             if (!isCompleted)
             {
@@ -51,6 +54,7 @@ namespace TheGuarden.Achievements
             if (!isCompleted && value >= threshold)
             {
                 isCompleted = true;
+                onCompletedCallback.Invoke(this);
                 GameLogger.LogInfo($"{name} is Completed", this, GameLogger.LogCategory.Achievements);
                 tracker.OnValueChanged -= OnProgress;
             }
