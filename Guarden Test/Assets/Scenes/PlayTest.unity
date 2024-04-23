@@ -6845,7 +6845,7 @@ MonoBehaviour:
     - {fileID: 682121120}
     - {fileID: 1407478063}
     - {fileID: 1543077054}
-  spawnTime: 15
+  spawnHours: 0f0000001300000017000000
   spawningDelay: 2
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
