@@ -54,9 +54,9 @@ namespace TheGuarden.Interactable
         {
             if (IsGrowing)
             {
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x * growthRate, 0, growingInfo.maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y * growthRate, 0, growingInfo.maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z * growthRate, 0, growingInfo.maxSize.z);
+                targetGrowth.x = Mathf.Clamp(transform.localScale.x + (growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
+                targetGrowth.y = Mathf.Clamp(transform.localScale.y + (growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
+                targetGrowth.z = Mathf.Clamp(transform.localScale.z + (growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
 
                 transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
             }
