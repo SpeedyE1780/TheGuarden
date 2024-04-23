@@ -564,6 +564,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4815eb26-a484-4fc9-84db-84af3866fd5a
     m_ActionName: PlayerActions/DropOut[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8220134511689740318}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerInventory, TheGuarden.Players
+        m_MethodName: OnPreviousItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 09eae8b4-5f38-46c1-87cb-35cffcec63c5
+    m_ActionName: PlayerActions/PreviousItem[/Keyboard/leftShift,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions

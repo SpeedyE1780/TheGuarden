@@ -134,6 +134,32 @@ namespace TheGuarden.Players
             }
         }
 
+        /// <summary>
+        /// Called from PlayerInput component
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnPreviousItem(InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+            {
+                return;
+            }
+
+            selectedItem?.Deselect();
+
+            if (selectedItemIndex - 1 < 0)
+            {
+                selectedItemIndex = -1;
+                selectedItem = null;
+            }
+            else
+            {
+                selectedItemIndex -= 1;
+                selectedItem = items[selectedItemIndex];
+                selectedItem.Select();
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
@@ -156,7 +182,7 @@ namespace TheGuarden.Players
         {
             if (inventoryUI != null)
             {
-                inventoryUI.gameObject.SetActive(false); 
+                inventoryUI.gameObject.SetActive(false);
             }
         }
     }
