@@ -767,38 +767,6 @@ Transform:
   m_Father: {fileID: 2017331788}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &117974718
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 117974719}
-  m_Layer: 0
-  m_Name: UFO drop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &117974719
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117974718}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 253102360}
-  m_Father: {fileID: 1393084753}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &130213907
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,7 +1130,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 117974719}
+    m_TransformParent: {fileID: 1393084753}
     m_Modifications:
     - target: {fileID: 5062282556306361820, guid: 655cb73bae1c00c43a9c978247c9ee99,
         type: 3}
@@ -1192,7 +1160,7 @@ PrefabInstance:
     - target: {fileID: 5551539235288012646, guid: 655cb73bae1c00c43a9c978247c9ee99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 5551539235288012646, guid: 655cb73bae1c00c43a9c978247c9ee99,
         type: 3}
@@ -1242,7 +1210,7 @@ PrefabInstance:
     - target: {fileID: 8813450786191998185, guid: 655cb73bae1c00c43a9c978247c9ee99,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5577,7 +5545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1393084752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5604,7 +5572,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
   gameTime: {fileID: 1303947125}
-  ufoTransform: {fileID: 117974719}
+  followCamera: {fileID: 330585549}
+  ufoTransform: {fileID: 253102360}
   ufo: {fileID: 253102361}
   ufoSpeed: 75
   enemyCount: 3
@@ -5621,8 +5590,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2017331788}
+  - {fileID: 253102360}
   - {fileID: 1952502907}
-  - {fileID: 117974719}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

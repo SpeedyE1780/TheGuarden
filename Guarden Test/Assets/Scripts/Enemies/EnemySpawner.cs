@@ -25,6 +25,8 @@ namespace TheGuarden.Enemies
         private Enemy enemyPrefab;
         [SerializeField, Tooltip("Autofilled")]
         private GameTime gameTime;
+        [SerializeField, Tooltip("Autofilled. Camera following players")]
+        private FollowTarget followCamera;
         [SerializeField, Tooltip("UFO transform that moves it in the scene")]
         private Transform ufoTransform;
         [SerializeField, Tooltip("UFO Visual effect that will drop enemy")]
@@ -48,6 +50,9 @@ namespace TheGuarden.Enemies
         /// <returns></returns>
         private IEnumerator MoveUFO(Vector3 targetPosition)
         {
+            //Keep UFO at same height
+            targetPosition.y = ufoTransform.position.y;
+
             while (ufoTransform.position != targetPosition)
             {
                 ufoTransform.position = Vector3.MoveTowards(ufoTransform.position, targetPosition, Time.deltaTime * ufoSpeed);
@@ -70,6 +75,7 @@ namespace TheGuarden.Enemies
                     Vector3 startPosition = ufoTransform.position;
                     Vector3 endPosition = spawnPoint.position - startPosition;
                     ufoTransform.gameObject.SetActive(true);
+                    followCamera.AddTarget(ufoTransform);
                     ufo.Stop();
 
                     yield return MoveUFO(spawnPoint.position);
@@ -78,12 +84,13 @@ namespace TheGuarden.Enemies
 
                     for (int i = 0; i < enemyCount; i++)
                     {
-                        yield return new WaitForSeconds(spawningDelay); 
+                        yield return new WaitForSeconds(spawningDelay);
                         Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
                         enemy.SetPath(paths[Random.Range(0, paths.Count)]);
                         GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
                     }
 
+                    followCamera.RemoveTarget(ufoTransform);
                     yield return MoveUFO(endPosition);
 
                     ufo.Stop();
@@ -93,13 +100,20 @@ namespace TheGuarden.Enemies
         }
 
 #if UNITY_EDITOR
-        internal void AutofillGameTime()
+        internal void AutofillVariables()
         {
             gameTime = FindObjectOfType<GameTime>();
 
             if (gameTime == null)
             {
                 GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
+            }
+
+            followCamera = FindObjectOfType<FollowTarget>();
+
+            if (followCamera == null)
+            {
+                GameLogger.LogWarning("Follow Camera not available in scene", gameObject, GameLogger.LogCategory.Scene);
             }
         }
 #endif
