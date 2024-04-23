@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 8646316663285618983}
   - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
+  - component: {fileID: 2445950737267009821}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -568,3 +569,19 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerActions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!208 &2445950737267009821
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1, z: 0}
+  m_TimeToStationary: 0.5
