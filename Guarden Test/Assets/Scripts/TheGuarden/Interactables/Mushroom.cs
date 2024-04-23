@@ -202,6 +202,20 @@ namespace TheGuarden.Interactable
             growPlant.SetGameTime(time);
         }
 
+        /// <summary>
+        /// Stop highlighting item in inventory and cancel interaction if started
+        /// </summary>
+        public void Deselect()
+        {
+            if (ItemUI != null)
+            {
+                ItemUI.Deselect();
+            }
+
+            //If mushroom was deselected while interaction was active cancel the interaction
+            OnInteractionCancelled();
+        }
+
 #if UNITY_EDITOR
         internal void AutofillVariables()
         {
