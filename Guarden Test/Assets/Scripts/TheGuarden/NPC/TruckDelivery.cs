@@ -24,6 +24,8 @@ namespace TheGuarden.NPC
         private int deliveryItemCount = 2;
         [SerializeField, Tooltip("Autofilled. GameTime in scene")]
         protected GameTime gameTime;
+        [SerializeField, Tooltip("Autofilled. Camera following players")]
+        private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
         protected Transform deliveryLocation;
         [SerializeField, Tooltip("Interval between delivering each item")]
@@ -87,6 +89,8 @@ namespace TheGuarden.NPC
                 RoadLane lane = roads[Random.Range(0, roads.Count)];
                 transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
                 float distanceThreshold = lane.Length * travelledPercentageDelay;
+                followCamera.AddTarget(transform);
+                followCamera.AddTarget(deliveryLocation);
 
                 while (transform.position != lane.EndPosition)
                 {
@@ -103,6 +107,8 @@ namespace TheGuarden.NPC
                 }
 
                 meshes.SetActive(false);
+                followCamera.RemoveTarget(transform);
+                followCamera.RemoveTarget(deliveryLocation);
             }
         }
 
@@ -137,13 +143,20 @@ namespace TheGuarden.NPC
         }
 
 #if UNITY_EDITOR
-        internal void AutofillGameTime()
+        internal void AutofillVariables()
         {
             gameTime = FindObjectOfType<GameTime>();
 
             if (gameTime == null)
             {
                 GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
+            }
+
+            followCamera = FindObjectOfType<FollowTarget>();
+
+            if(followCamera == null)
+            {
+                GameLogger.LogWarning("Follow Camera not available in scene", gameObject, GameLogger.LogCategory.Scene);
             }
         }
 #endif

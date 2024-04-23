@@ -5,21 +5,21 @@ namespace TheGuarden.NPC.Editor
 {
     internal class TruckDeliveryEditor
     {
-        private static void AutofillGameTime<T>(TruckDelivery<T> truckDelivery)
+        private static void AutofillVariables<T>(TruckDelivery<T> truckDelivery)
         {
-            RecordEditorHistory.RecordHistory(truckDelivery, $"Autofill {truckDelivery.name} GameTime", truckDelivery.AutofillGameTime);
+            RecordEditorHistory.RecordHistory(truckDelivery, $"Autofill {truckDelivery.name} GameTime", truckDelivery.AutofillVariables);
         }
 
-        [MenuItem("CONTEXT/AnimalDelivery/Autofill GameTime")]
-        internal static void AnimalAutofillGameTime(MenuCommand command)
+        [MenuItem("CONTEXT/AnimalDelivery/Autofill Variables")]
+        internal static void AnimalAutofillVariables(MenuCommand command)
         {
-            AutofillGameTime(command.context as AnimalDelivery);
+            AutofillVariables(command.context as AnimalDelivery);
         }
 
-        [MenuItem("CONTEXT/MushroomDelivery/Autofill GameTime")]
-        internal static void MushroomAutofillGameTime(MenuCommand command)
+        [MenuItem("CONTEXT/MushroomDelivery/Autofill Variables")]
+        internal static void MushroomAutofillVariables(MenuCommand command)
         {
-            AutofillGameTime(command.context as MushroomDelivery);
+            AutofillVariables(command.context as MushroomDelivery);
         }
     }
 }
