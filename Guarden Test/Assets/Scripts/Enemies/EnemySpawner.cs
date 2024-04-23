@@ -16,9 +16,7 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("List of paths enemies can take")]
         private List<EnemyPath> paths;
         [SerializeField, Tooltip("Hour where enemies start spawning")]
-        private float startTime;
-        [SerializeField, Tooltip("Hour where enemies stop spawning")]
-        private float endTime;
+        private float spawnTime;
         [SerializeField, Tooltip("Delay between each enemy spawning")]
         private float spawningDelay;
         [SerializeField, Tooltip("Enemy Prefab")]
@@ -36,9 +34,23 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
         private int enemyCount = 3;
 
-        private bool ShouldSpawn => gameTime.Hour >= startTime && gameTime.Hour <= endTime;
 
         private void Start()
+        {
+            StartCoroutine(SpawnEnemy());
+        }
+
+        private void OnEnable()
+        {
+            gameTime.OnDayEnded += QueueSpawn;
+        }
+
+        private void OnDisable()
+        {
+            gameTime.OnDayEnded -= QueueSpawn;
+        }
+
+        private void QueueSpawn()
         {
             StartCoroutine(SpawnEnemy());
         }
@@ -66,37 +78,31 @@ namespace TheGuarden.Enemies
         /// <returns></returns>
         private IEnumerator SpawnEnemy()
         {
-            while (true)
+            yield return new WaitUntil(() => gameTime.Hour >= spawnTime);
+
+            Vector3 startPosition = ufoTransform.position;
+            Vector3 endPosition = spawnPoint.position - startPosition;
+            ufoTransform.gameObject.SetActive(true);
+            followCamera.AddTarget(ufoTransform);
+            ufo.Stop();
+
+            yield return MoveUFO(spawnPoint.position);
+
+            ufo.Play();
+
+            for (int i = 0; i < enemyCount; i++)
             {
-                yield return new WaitUntil(() => ShouldSpawn);
-
-                while (ShouldSpawn)
-                {
-                    Vector3 startPosition = ufoTransform.position;
-                    Vector3 endPosition = spawnPoint.position - startPosition;
-                    ufoTransform.gameObject.SetActive(true);
-                    followCamera.AddTarget(ufoTransform);
-                    ufo.Stop();
-
-                    yield return MoveUFO(spawnPoint.position);
-
-                    ufo.Play();
-
-                    for (int i = 0; i < enemyCount; i++)
-                    {
-                        yield return new WaitForSeconds(spawningDelay);
-                        Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                        enemy.SetPath(paths[Random.Range(0, paths.Count)]);
-                        GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
-                    }
-
-                    followCamera.RemoveTarget(ufoTransform);
-                    yield return MoveUFO(endPosition);
-
-                    ufo.Stop();
-                    ufoTransform.gameObject.SetActive(false);
-                }
+                yield return new WaitForSeconds(spawningDelay);
+                Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                enemy.SetPath(paths[Random.Range(0, paths.Count)]);
+                GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
             }
+
+            followCamera.RemoveTarget(ufoTransform);
+            yield return MoveUFO(endPosition);
+
+            ufo.Stop();
+            ufoTransform.gameObject.SetActive(false);
         }
 
 #if UNITY_EDITOR

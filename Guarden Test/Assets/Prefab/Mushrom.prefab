@@ -4990,13 +4990,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growingInfo:
-    startHour: 0
-    endHour: 20
-    peakGrowingRate: 1.1
-    offPeakGrowingRate: 1.001
-    minimumDryWetRatio: 0.4
+    startHour: 6
+    endHour: 14
+    peakGrowingRate: 0.25
+    offPeakGrowingRate: 0.05
+    minimumDryWetRatio: 0.293
     startSize: {x: 0.25, y: 0.25, z: 0.25}
-    maxSize: {x: 2, y: 2, z: 2}
+    maxSize: {x: 1.5, y: 1.5, z: 1.5}
   gameTime: {fileID: 0}
   growingParticles: {fileID: 8863964921418951005}
   OnFullyGrown:
