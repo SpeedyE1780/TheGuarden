@@ -7727,6 +7727,7 @@ MonoBehaviour:
   achievementName: {fileID: 1569343831}
   speed: 200
   duration: 2
+  delay: 1
 --- !u!1 &2017331787
 GameObject:
   m_ObjectHideFlags: 0
