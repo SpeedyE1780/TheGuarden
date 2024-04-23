@@ -464,6 +464,21 @@ MonoBehaviour:
   achievementTrackers:
   - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
   - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
+  OnAchievementCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1996169535}
+        m_TargetAssemblyTypeName: TheGuarden.UI.AchievementPopUp, TheGuarden.UI
+        m_MethodName: OnAchievementCompleted
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1225,7 @@ PrefabInstance:
     - target: {fileID: 8813450786191998185, guid: 655cb73bae1c00c43a9c978247c9ee99,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5681,7 +5696,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1393084752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6011,7 +6026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1490191151
 Transform:
   m_ObjectHideFlags: 0
@@ -6208,7 +6223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1543669414
 Transform:
   m_ObjectHideFlags: 0
@@ -6646,7 +6661,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -20}
-  m_SizeDelta: {x: 0, y: 60}
+  m_SizeDelta: {x: -20, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1569343831
 MonoBehaviour:
@@ -7289,7 +7304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1886517783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7712,7 +7727,6 @@ MonoBehaviour:
   achievementName: {fileID: 1569343831}
   speed: 200
   duration: 2
-  test: {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
 --- !u!1 &2017331787
 GameObject:
   m_ObjectHideFlags: 0

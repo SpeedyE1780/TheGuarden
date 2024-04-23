@@ -16,20 +16,27 @@ namespace TheGuarden.UI
         private float speed = 200.0f;
         [SerializeField, Tooltip("Pop up duration on screen")]
         private float duration = 2.0f;
-        public Achievement test;
 
+        /// <summary>
+        /// Called from AchievementManager event
+        /// </summary>
+        /// <param name="achievement">Completed Achievement</param>
         public void OnAchievementCompleted(Achievement achievement)
         {
             achievementName.text = achievement.name;
             StartCoroutine(Popup());
         }
 
+        /// <summary>
+        /// Pop up achievement window
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator Popup()
         {
             popUpWindow.gameObject.SetActive(true);
             Vector2 startPosition = popUpWindow.anchoredPosition;
 
-            while(popUpWindow.anchoredPosition != Vector2.zero)
+            while (popUpWindow.anchoredPosition != Vector2.zero)
             {
                 popUpWindow.anchoredPosition = Vector2.MoveTowards(popUpWindow.anchoredPosition, Vector2.zero, speed * Time.deltaTime);
                 yield return null;
@@ -44,14 +51,6 @@ namespace TheGuarden.UI
             }
 
             popUpWindow.gameObject.SetActive(false);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                OnAchievementCompleted(test);
-            }
         }
     }
 }
