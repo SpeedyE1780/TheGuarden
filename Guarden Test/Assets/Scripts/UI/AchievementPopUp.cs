@@ -12,6 +12,8 @@ namespace TheGuarden.UI
         private RectTransform popUpWindow;
         [SerializeField, Tooltip("Achievement Name")]
         private TextMeshProUGUI achievementName;
+        [SerializeField, Tooltip("Achievement Description")]
+        private TextMeshProUGUI achievementDescription;
         [SerializeField, Tooltip("Pop up speed")]
         private float speed = 200.0f;
         [SerializeField, Tooltip("Pop up duration on screen")]
@@ -60,6 +62,7 @@ namespace TheGuarden.UI
         private IEnumerator PopUp(Achievement achievement)
         {
             achievementName.text = achievement.name;
+            achievementDescription.text = achievement.Description;
             popUpWindow.gameObject.SetActive(true);
             Vector2 startPosition = popUpWindow.anchoredPosition;
 

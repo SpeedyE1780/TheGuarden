@@ -36,6 +36,8 @@ namespace TheGuarden.NPC
         private int daysBetweenDelivery = 0;
         [SerializeField, Range(0.1f, 0.9f), Tooltip("Percentage of road travelled before items are delivered")]
         private float travelledPercentageDelay = 0.4f;
+        [SerializeField, Tooltip("Audio Source played when items are delivered")]
+        private AudioSource deliverySource;
 
         public UnityEvent<int> OnDelivery;
 
@@ -99,6 +101,7 @@ namespace TheGuarden.NPC
                     if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= distanceThreshold)
                     {
                         delivered = true;
+                        deliverySource.Play();
                         StartCoroutine(DeliverItems());
                         OnDelivery?.Invoke(deliveryItemCount);
                     }
@@ -157,6 +160,13 @@ namespace TheGuarden.NPC
             if(followCamera == null)
             {
                 GameLogger.LogWarning("Follow Camera not available in scene", gameObject, GameLogger.LogCategory.Scene);
+            }
+
+            deliverySource = GetComponent<AudioSource>();
+
+            if(deliverySource == null)
+            {
+                GameLogger.LogWarning($"{name} has no audio source component", gameObject, GameLogger.LogCategory.Scene);
             }
         }
 #endif
