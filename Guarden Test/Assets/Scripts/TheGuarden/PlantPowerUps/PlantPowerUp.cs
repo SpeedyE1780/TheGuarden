@@ -12,6 +12,14 @@ namespace TheGuarden.PlantPowerUps
         protected float powerUpRange;
         [SerializeField, Tooltip("Collider used to check if animal entered/exited trigger")]
         private SphereCollider powerUpCollider;
+        [SerializeField, Tooltip("Layers affected by power up")]
+        private LayerMask powerUpMask;
+
+        private void Start()
+        {
+            powerUpCollider.includeLayers = powerUpMask;
+            powerUpCollider.excludeLayers = ~powerUpMask;
+        }
 
 #if UNITY_EDITOR
         internal float PowerUpRange => powerUpRange;
