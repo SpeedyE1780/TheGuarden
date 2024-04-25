@@ -31,7 +31,6 @@ namespace TheGuarden.Utility
 
         public int Minute => (int)minutes % 60;
         public int Hour => (int)minutes / 60;
-        private int Year => year;
         private string DayName => days[(day - 1) % 7];
         private string MonthName => months[month - 1];
         private string DayOfMonth
@@ -56,8 +55,20 @@ namespace TheGuarden.Utility
                 return $"{day}{suffix}";
             }
         }
-        public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
+        public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {year}";
         public float DayEndProgress => minutes / MinutesInDay;
+
+        public bool HasPeriodStarted(int start, int end)
+        {
+            if (start <= end)
+            {
+                return Hour >= start && Hour <= end;
+            }
+            else
+            {
+                return (Hour >= start && Hour <= (end + 24)) || ((Hour + 24) >= start && Hour <= end);
+            }
+        }
 
         private void Awake()
         {
