@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PreviousItem",
+                    "type": "Button",
+                    "id": "09eae8b4-5f38-46c1-87cb-35cffcec63c5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DropOut",
                     "type": "Button",
                     "id": "4815eb26-a484-4fc9-84db-84af3866fd5a",
@@ -205,6 +214,50 @@
                     "action": "DropOut",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80acf0cb-81cd-490d-9c35-affc4eb05dd6",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "PreviousItem",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Shift Tab",
+                    "id": "98609652-878d-4a93-911d-fad22f2c2ade",
+                    "path": "ButtonWithOneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PreviousItem",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Modifier",
+                    "id": "187d950e-08c0-451f-8546-26f0d9dce35a",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "PreviousItem",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Button",
+                    "id": "059e8197-e336-43f0-8c0b-558ea5c29722",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard/Mouse",
+                    "action": "PreviousItem",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

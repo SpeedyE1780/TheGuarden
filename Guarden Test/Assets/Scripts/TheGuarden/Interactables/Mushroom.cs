@@ -27,8 +27,8 @@ namespace TheGuarden.Interactable
         private float overlapRadius = 2.0f;
         [SerializeField, Tooltip("Plant bed layer mask")]
         private LayerMask plantBedMask;
-        [SerializeField, Tooltip("Player layer mask")]
-        private LayerMask playerMask;
+        [SerializeField, Tooltip("Plant area layer mask")]
+        private LayerMask plantableAreaMask;
 
         private PlantSoil plantSoil;
 
@@ -42,12 +42,12 @@ namespace TheGuarden.Interactable
         public bool HasInstantPickUp => GrowthPercentage == 0;
 
         /// <summary>
-        /// Add/Remove player layer mask from the rb exclude layers
+        /// Ignore collisions
         /// </summary>
-        /// <param name="active">Whether player collision is active or no</param>
-        private void ToggleCollisionsWithPlayer(bool active)
+        /// <param name="active">Whether collisions are active or no</param>
+        private void ToggleCollisions(bool active)
         {
-            rb.excludeLayers = active ? rb.excludeLayers & ~playerMask : rb.excludeLayers | playerMask;
+            rb.excludeLayers = active ? 0 : ~0;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace TheGuarden.Interactable
             transform.SetParent(parent);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            ToggleCollisionsWithPlayer(false);
+            ToggleCollisions(false);
 
             if (plantSoil != null)
             {
@@ -122,14 +122,14 @@ namespace TheGuarden.Interactable
         {
             GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
 
-            if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
+            if (!Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                GameLogger.LogError("Can't plant in planting bed", gameObject, GameLogger.LogCategory.InventoryItem);
+                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.InventoryItem);
                 return;
             }
 
             Plant();
-            ToggleCollisionsWithPlayer(true);
+            ToggleCollisions(true);
             IsConsumedAfterInteraction = true;
         }
 
@@ -140,7 +140,7 @@ namespace TheGuarden.Interactable
         {
             GameLogger.LogInfo("Plant in soil", gameObject, GameLogger.LogCategory.InventoryItem);
             growPlant.PlantInSoil(plantSoil);
-            ToggleCollisionsWithPlayer(true);
+            ToggleCollisions(true);
             plantSoil.IsAvailable = false;
             IsConsumedAfterInteraction = true;
         }
@@ -198,6 +198,20 @@ namespace TheGuarden.Interactable
         internal void SetGameTime(GameTime time)
         {
             growPlant.SetGameTime(time);
+        }
+
+        /// <summary>
+        /// Stop highlighting item in inventory and cancel interaction if started
+        /// </summary>
+        public void Deselect()
+        {
+            if (ItemUI != null)
+            {
+                ItemUI.Deselect();
+            }
+
+            //If mushroom was deselected while interaction was active cancel the interaction
+            OnInteractionCancelled();
         }
 
 #if UNITY_EDITOR

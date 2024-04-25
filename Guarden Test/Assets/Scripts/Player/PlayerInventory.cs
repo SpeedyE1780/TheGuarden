@@ -51,8 +51,16 @@ namespace TheGuarden.Players
                 if (selectedItem.IsConsumedAfterInteraction)
                 {
                     items.Remove(selectedItem);
-                    selectedItemIndex = -1;
-                    selectedItem = null;
+
+                    if (items.Count == 0)
+                    {
+                        selectedItemIndex = -1;
+                        selectedItem = null;
+                    }
+                    else
+                    {
+                        SelectItem(0);
+                    }
                 }
             }
 
@@ -106,6 +114,22 @@ namespace TheGuarden.Players
 
             items.Add(inventoryItem);
             inventoryItem.SetItemUI(inventoryUI.AddItem());
+
+            if (items.Count == 1)
+            {
+                SelectItem(0);
+            }
+        }
+
+        /// <summary>
+        /// Select item at index in inventory
+        /// </summary>
+        /// <param name="index">Item index in inventory</param>
+        private void SelectItem(int index)
+        {
+            selectedItemIndex = index;
+            selectedItem = items[index];
+            selectedItem.Select();
         }
 
         /// <summary>
@@ -114,24 +138,30 @@ namespace TheGuarden.Players
         /// <param name="context"></param>
         public void OnNextItem(InputAction.CallbackContext context)
         {
-            if (!context.performed)
+            if (!context.performed || items.Count == 0)
             {
                 return;
             }
 
             selectedItem?.Deselect();
+            int newItemIndex = selectedItemIndex + 1 >= items.Count ? 0 : selectedItemIndex + 1;
+            SelectItem(newItemIndex);
+        }
 
-            if (selectedItemIndex + 1 >= items.Count)
+        /// <summary>
+        /// Called from PlayerInput component
+        /// </summary>
+        /// <param name="context"></param>
+        public void OnPreviousItem(InputAction.CallbackContext context)
+        {
+            if (!context.performed || items.Count == 0)
             {
-                selectedItemIndex = -1;
-                selectedItem = null;
+                return;
             }
-            else
-            {
-                selectedItemIndex += 1;
-                selectedItem = items[selectedItemIndex];
-                selectedItem.Select();
-            }
+
+            selectedItem?.Deselect();
+            int newIndex = selectedItemIndex - 1 < 0 ? items.Count - 1 : selectedItemIndex - 1;
+            SelectItem(newIndex);
         }
 
         private void OnTriggerStay(Collider other)
@@ -156,7 +186,7 @@ namespace TheGuarden.Players
         {
             if (inventoryUI != null)
             {
-                inventoryUI.gameObject.SetActive(false); 
+                inventoryUI.gameObject.SetActive(false);
             }
         }
     }

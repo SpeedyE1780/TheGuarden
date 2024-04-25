@@ -363,6 +363,7 @@ GameObject:
   - component: {fileID: 8646316663285618983}
   - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
+  - component: {fileID: 2445950737267009821}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -563,8 +564,40 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 4815eb26-a484-4fc9-84db-84af3866fd5a
     m_ActionName: PlayerActions/DropOut[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8220134511689740318}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerInventory, TheGuarden.Players
+        m_MethodName: OnPreviousItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 09eae8b4-5f38-46c1-87cb-35cffcec63c5
+    m_ActionName: PlayerActions/PreviousItem[/Keyboard/leftShift,/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!208 &2445950737267009821
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1, z: 0}
+  m_TimeToStationary: 0.5
