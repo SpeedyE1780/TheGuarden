@@ -20,9 +20,9 @@ namespace TheGuarden.PlantPowerUps
         /// Attract animal towards plant
         /// </summary>
         /// <param name="animal">Animal that entered trigger</param>
-        public override void ApplyBehavior(Animal animal)
+        protected override void ApplyBehavior(Animal animal)
         {
-            GameLogger.LogInfo(animal.name + " Attracted", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            GameLogger.LogInfo(animal.name + " Attracted", gameObject, GameLogger.LogCategory.PlantPowerUp);
             animal.SetDestination(GetDestination());
         }
 

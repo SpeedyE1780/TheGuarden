@@ -46,14 +46,6 @@ namespace TheGuarden.NPC
             rb.velocity = agent.velocity;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(Tags.PlantBehavior))
-            {
-                other.GetComponent<PlantBehavior>().ApplyBehavior(this);
-            }
-        }
-
         private void OnTriggerStay(Collider other)
         {
             if (other.CompareTag(Tags.PlantBuff))

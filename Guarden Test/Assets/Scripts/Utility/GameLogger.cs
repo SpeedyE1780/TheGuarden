@@ -10,7 +10,7 @@ namespace TheGuarden.Utility
             None = 0,
             Achievements = 1,
             Enemy = 1 << 1,
-            PlantBehaviour = 1 << 2,
+            PlantPowerUp = 1 << 2,
             Scene = 1 << 3,
             Player = 1 << 4,
             Plant = 1 << 5,

@@ -23,9 +23,9 @@ namespace TheGuarden.PlantPowerUps
         /// Repel animal from plant
         /// </summary>
         /// <param name="animal">Animal that entered trigger</param>
-        public override void ApplyBehavior(Animal animal)
+        protected override void ApplyBehavior(Animal animal)
         {
-            GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantPowerUp);
             animal.SetDestination(GetDestination(animal.transform.position));
         }
 
