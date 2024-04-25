@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3744185325282018352}
   - component: {fileID: 3380905506472732822}
   - component: {fileID: 219852099375238453}
+  - component: {fileID: 2469370035290940513}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
@@ -186,6 +187,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   holdingPoint: {fileID: 8399841673533735529}
+--- !u!114 &2469370035290940513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2867677283546017762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1beb4631a58f6bf4590d028b31382f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
 --- !u!1 &3250563017146211101
 GameObject:
   m_ObjectHideFlags: 0

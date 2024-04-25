@@ -45,6 +45,8 @@ namespace TheGuarden.PlantPowerUps
         /// <returns></returns>
         private IEnumerator ShootTurret()
         {
+            GameLogger.LogInfo($"{name} targeting {targetEnemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
+
             while (targetEnemy != null)
             {
                 Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
