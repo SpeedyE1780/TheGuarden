@@ -9,11 +9,14 @@ namespace TheGuarden.PlantPowerUps
     /// </summary>
     internal class AttractBehavior : PlantBehavior
     {
-        [SerializeField]
-        private float attractionAreaRadius = 5.0f;
+        [SerializeField, Tooltip("Closest point to mushroom")]
+        private float minimumRange = 5.0f;
+        [SerializeField, Tooltip("Furthest point from mushroom")]
+        private float maximumRange = 7.5f;
 
 #if UNITY_EDITOR
-        internal float AttractionAreaRadius => attractionAreaRadius;
+        internal float MinimumRange => minimumRange;
+        internal float MaximumRange => maximumRange;
 #endif
 
         /// <summary>
@@ -23,18 +26,18 @@ namespace TheGuarden.PlantPowerUps
         protected override void ApplyBehavior(Animal animal)
         {
             GameLogger.LogInfo(animal.name + " Attracted", gameObject, GameLogger.LogCategory.PlantPowerUp);
-            animal.SetDestination(GetDestination());
+            animal.SetDestination(GetDestination(animal.transform.position));
         }
 
         /// <summary>
-        /// Get position inside attraction radius
+        /// Get position between [minimumRange, maximumRange]
         /// </summary>
-        /// <returns>Position inside attraction radius</returns>
-        private Vector3 GetDestination()
+        /// <returns>Position between [minimumRange, maximumRange]</returns>
+        private Vector3 GetDestination(Vector3 animalPosition)
         {
-            Vector3 destination = transform.position + Random.insideUnitSphere * attractionAreaRadius;
-            destination.y = 0;
-            return destination;
+            Vector3 direction = transform.position - animalPosition;
+            Vector3 attractionVector = direction.normalized * Random.Range(minimumRange, maximumRange);
+            return animalPosition + attractionVector;
         }
     }
 }
