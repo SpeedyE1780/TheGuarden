@@ -64,7 +64,7 @@ namespace TheGuarden.Interactable
 
         private void LateUpdate()
         {
-            growthRate = gameTime.Hour >= growingInfo.startHour && gameTime.Hour <= growingInfo.endHour ?
+            growthRate = gameTime.HasPeriodStarted(growingInfo.startHour, growingInfo.endHour) ?
                 growingInfo.peakGrowingRate :
                 growingInfo.offPeakGrowingRate;
 

@@ -9,35 +9,35 @@ namespace TheGuarden.PlantPowerUps
     /// </summary>
     internal class RepelBehavior : PlantBehavior
     {
-        [SerializeField, Tooltip("Max range animals are repelled")]
-        private float repelRange = 20.0f;
         [SerializeField, Tooltip("Minimum range animals are repelled")]
         private float minimumRange = 2.0f;
+        [SerializeField, Tooltip("Maximum range animals are repelled")]
+        private float maximumRange = 20.0f;
 
 #if UNITY_EDITOR
-        public float RepelRange => repelRange;
-        public float MinimumRange => minimumRange;
+        internal float MinimumRange => minimumRange;
+        internal float MaximumRange => maximumRange;
 #endif
 
         /// <summary>
         /// Repel animal from plant
         /// </summary>
         /// <param name="animal">Animal that entered trigger</param>
-        public override void ApplyBehavior(Animal animal)
+        protected override void ApplyBehavior(Animal animal)
         {
-            GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            GameLogger.LogInfo(animal.name + " Repeled", gameObject, GameLogger.LogCategory.PlantPowerUp);
             animal.SetDestination(GetDestination(animal.transform.position));
         }
 
         /// <summary>
-        /// Get position between [minimumRange, repelRange]
+        /// Get position between [minimumRange, maximumRange]
         /// </summary>
-        /// <returns>Position between [minimumRange, repelRange]</returns>
+        /// <returns>Position between [minimumRange, maximumRange]</returns>
         private Vector3 GetDestination(Vector3 animalPosition)
         {
             Vector3 direction = animalPosition - transform.position;
-            Vector3 destination = direction.normalized * Random.Range(minimumRange, repelRange);
-            return destination;
+            Vector3 repelVector = direction.normalized * Random.Range(minimumRange, maximumRange);
+            return animalPosition + repelVector;
         }
     }
 }
