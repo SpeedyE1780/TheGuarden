@@ -7,7 +7,7 @@ namespace TheGuarden.Utility
     /// </summary>
     public static class Tags
     {
-        public const string PickUp = "Pick";
+        public const string PickUp = "PickUp";
         public const string Enemy = "Enemy";
 
         /// <summary>
