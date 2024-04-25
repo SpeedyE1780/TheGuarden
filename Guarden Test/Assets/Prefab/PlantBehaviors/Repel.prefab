@@ -68,5 +68,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpRange: 5
   powerUpCollider: {fileID: 5981522035217783445}
+  powerUpMask:
+    serializedVersion: 2
+    m_Bits: 64
   repelRange: 20
   minimumRange: 2

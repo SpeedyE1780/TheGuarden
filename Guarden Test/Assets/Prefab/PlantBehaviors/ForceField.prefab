@@ -71,6 +71,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpRange: 15
   powerUpCollider: {fileID: 5370522783277312676}
+  powerUpMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!135 &5049460915733664866
 SphereCollider:
   m_ObjectHideFlags: 0

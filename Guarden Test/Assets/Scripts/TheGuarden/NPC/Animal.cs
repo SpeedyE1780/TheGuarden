@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
 
 namespace TheGuarden.NPC
@@ -44,30 +43,6 @@ namespace TheGuarden.NPC
         private void LateUpdate()
         {
             rb.velocity = agent.velocity;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(Tags.PlantBehavior))
-            {
-                other.GetComponent<PlantBehavior>().ApplyBehavior(this);
-            }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag(Tags.PlantBuff))
-            {
-                other.GetComponent<PlantBuff>().ApplyBuff(this);
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag(Tags.PlantBuff))
-            {
-                other.GetComponent<PlantBuff>().RemoveBuff(this);
-            }
         }
 
         private void OnCollisionEnter(Collision collision)
