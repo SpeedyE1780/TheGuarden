@@ -50,6 +50,15 @@ namespace TheGuarden.Interactable
         internal Vector3 MaxSize => growingInfo.maxSize;
 #endif
 
+        private void Start()
+        {
+            if (gameTime == null)
+            {
+                GameLogger.LogWarning($"{name} gameTime not set", this, GameLogger.LogCategory.Plant);
+                gameTime = FindObjectOfType<GameTime>();
+            }
+        }
+
         void Update()
         {
             if (IsGrowing)

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157280910f17403479911d9b0ca962d9, type: 3}
+  m_Name: Growing Instructions
+  m_EditorClassIdentifier: 
+  instructions:
+  - When the soil is watered enough you can see particles near the mushroom
+  - These particles indicate that the mushroom is growing
+  - Mushroom has two growth rate a peak rate and an off peak rate
+  - This mushroom is currently not growing because it's off peak rate was set to
+    0
+  - At 12 the peak rate will start and this mushroom will grow
+  ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}

@@ -70,6 +70,11 @@ namespace TheGuarden.Utility
             }
         }
 
+        public void SetClockScale(float scale)
+        {
+            clockScale = scale;
+        }
+
         private void Awake()
         {
             minutes = startingHour * 60;

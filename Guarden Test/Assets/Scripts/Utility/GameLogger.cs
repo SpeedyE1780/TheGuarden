@@ -19,6 +19,7 @@ namespace TheGuarden.Utility
             InventoryItem = 1 << 8,
             Audio = 1 << 9,
             Editor = 1 << 10,
+            Tutorial = 1 << 11,
             All = -1
         }
 
