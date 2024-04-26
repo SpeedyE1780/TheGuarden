@@ -412,7 +412,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
   OnAchievementCompleted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1889519151}
+        m_TargetAssemblyTypeName: TheGuarden.UI.AchievementPopUp, TheGuarden.UI
+        m_MethodName: OnAchievementCompleted
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,7 +2028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dryColor: {r: 1, g: 0.66336644, b: 0.33663374, a: 1}
   wetColor: {r: 0.39607844, g: 0.2627451, b: 0.13333334, a: 1}
-  dryingSpeed: 0.01
+  dryingSpeed: 0.000001
 --- !u!1 &650908587
 GameObject:
   m_ObjectHideFlags: 0
@@ -3219,7 +3231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97f99265f67ac134bad289cd7f0788b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHour: 12
+  startingHour: 11
   days:
   - Mungi
   - Tulip
@@ -3887,6 +3899,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb504bfc487302b41a7e8c78d9474d88, type: 2}
   - {fileID: 11400000, guid: 3bf8f7d0fe7211346bced0abe123f575, type: 2}
   - {fileID: 11400000, guid: 0a2ea7d0abc0c3b47ae938c18a2fc430, type: 2}
+  - {fileID: 11400000, guid: fd7343e9f3176294ba71fd6f90d1f317, type: 2}
+--- !u!114 &1889519151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5332605470150999020, guid: 28d90b06c8c068a4e8cb4fa032044638,
+    type: 3}
+  m_PrefabInstance: {fileID: 1637527498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b743f4f9ecd3017468bb7c0b047d7cf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1937143795
 GameObject:
   m_ObjectHideFlags: 0
