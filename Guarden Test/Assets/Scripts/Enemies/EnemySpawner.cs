@@ -34,6 +34,9 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
         private int enemyCount = 3;
 
+#if UNITY_EDITOR
+        internal List<EnemyPath> Paths => paths;
+#endif
 
         private void Start()
         {
