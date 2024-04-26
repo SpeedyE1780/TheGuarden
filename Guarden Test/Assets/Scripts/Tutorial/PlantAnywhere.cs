@@ -5,9 +5,16 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorial/Plant Anywhere")]
+    /// <summary>
+    /// PlantAnywhere waits until spawned mushroom is fully grown
+    /// </summary>
+    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Plant Anywhere")]
     internal class PlantAnywhere : ObjectTutorial
     {
+        /// <summary>
+        /// Wait until spawned mushroom is fully grown
+        /// </summary>
+        /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
             Mushroom mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();

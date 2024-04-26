@@ -4,7 +4,10 @@ using UnityEngine;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorial/Instructions")]
+    /// <summary>
+    /// Instructions is a list of instructions to show on screen
+    /// </summary>
+    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Instructions")]
     internal class Instructions : Tutorial
     {
         [SerializeField, Multiline, Tooltip("List of instructions")]
@@ -12,6 +15,10 @@ namespace TheGuarden.Tutorial
         [SerializeField, Tooltip("This tutorial's UI")]
         private InstructionUI ui;
 
+        /// <summary>
+        /// Show instructions one by one
+        /// </summary>
+        /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
             InstructionUI instructionUI = Instantiate(ui);

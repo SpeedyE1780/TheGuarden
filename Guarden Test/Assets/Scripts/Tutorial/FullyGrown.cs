@@ -6,9 +6,16 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorial/Fully Grown")]
+    /// <summary>
+    /// FullyGrown waits until spawned mushroom is fully grown
+    /// </summary>
+    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fully Grown")]
     internal class FullyGrown : ObjectTutorial
     {
+        /// <summary>
+        /// Wait until spawned mushroom is fully grown
+        /// </summary>
+        /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
             GameTime gameTime = FindObjectOfType<GameTime>();

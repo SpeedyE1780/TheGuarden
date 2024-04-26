@@ -5,9 +5,16 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName ="Scriptable Objects/Tutorial/Fill Bucket")]
+    /// <summary>
+    /// FillBucket waits until the spawned bucket is filled
+    /// </summary>
+    [CreateAssetMenu(menuName ="Scriptable Objects/Tutorials/Fill Bucket")]
     internal class FillBucket : ObjectTutorial
     {
+        /// <summary>
+        /// Waits until the spawned bucket is filled
+        /// </summary>
+        /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
             Bucket bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();

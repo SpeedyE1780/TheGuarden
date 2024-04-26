@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
+    /// <summary>
+    /// TutorialManager component added on object to run all tutorials
+    /// </summary>
     internal class TutorialManager : MonoBehaviour
     {
         [SerializeField, Tooltip("List of tutorials")]
@@ -18,6 +21,10 @@ namespace TheGuarden.Tutorial
             StartCoroutine(RunTutorials());
         }
 
+        /// <summary>
+        /// Run all added tutorials
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RunTutorials()
         {
             foreach (Tutorial tutorial in tutorials)

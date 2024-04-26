@@ -5,9 +5,16 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName ="Scriptable Objects/Tutorial/Water Plant Bed")]
+    /// <summary>
+    /// WaterPlantBed waits until plant bed is watered
+    /// </summary>
+    [CreateAssetMenu(menuName ="Scriptable Objects/Tutorials/Water Plant Bed")]
     internal class WaterPlantBed : ObjectTutorial
     {
+        /// <summary>
+        /// Wait until plant bed is watered
+        /// </summary>
+        /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
             Bucket bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();

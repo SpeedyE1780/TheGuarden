@@ -3,7 +3,10 @@ using UnityEngine;
 
 namespace TheGuarden.Tutorial
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorial/Spawn Object")]
+    /// <summary>
+    /// ObjectSpawner spawns an object in the scene and allows other tutorials to access it
+    /// </summary>
+    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Object Spawner")]
     internal class ObjectSpawner : ScriptableObject
     {
         [SerializeField, Tooltip("Object that needs to be spawned in the scene")]
