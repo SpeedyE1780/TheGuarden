@@ -4008,12 +4008,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9, y: 1, z: 6.14}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!2083052967 &516049405 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 730003662931886121, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2014264789}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &516903893
 GameObject:
   m_ObjectHideFlags: 0
@@ -4601,7 +4595,7 @@ Transform:
   - {fileID: 270089113}
   - {fileID: 391976455}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &577681894
 GameObject:
@@ -8747,7 +8741,14 @@ MonoBehaviour:
   plantBedMask:
     serializedVersion: 2
     m_Bits: 128
-  splash: {fileID: 516049405}
+  splashPrefab: {fileID: 730003662931886121, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
+    type: 3}
+  OnWaterAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlantBedWatered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &1103547941
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14718,7 +14719,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d412389f4b6bfc6468faf0d337858700,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d412389f4b6bfc6468faf0d337858700,
         type: 3}
@@ -15686,79 +15687,6 @@ RectTransform:
   m_AnchoredPosition: {x: 150, y: -150}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &2014264789
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 762515587457809338, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2198813868818453299, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
-        type: 3}
-      propertyPath: m_Name
-      value: Water Splash
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 21b2983f7d8dbae4bb9569ae3ea5350e, type: 3}
 --- !u!1 &2028740194
 GameObject:
   m_ObjectHideFlags: 0
