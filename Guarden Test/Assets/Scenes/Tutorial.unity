@@ -3242,7 +3242,7 @@ MonoBehaviour:
   - Nocember
   - Debtsember
   timeScale: 1
-  clockScale: 1
+  clockScale: 0
 --- !u!1 &1333457574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3886,6 +3886,7 @@ MonoBehaviour:
   tutorials:
   - {fileID: 11400000, guid: fb504bfc487302b41a7e8c78d9474d88, type: 2}
   - {fileID: 11400000, guid: 3bf8f7d0fe7211346bced0abe123f575, type: 2}
+  - {fileID: 11400000, guid: 0a2ea7d0abc0c3b47ae938c18a2fc430, type: 2}
 --- !u!1 &1937143795
 GameObject:
   m_ObjectHideFlags: 0
