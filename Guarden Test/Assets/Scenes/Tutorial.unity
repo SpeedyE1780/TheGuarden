@@ -407,9 +407,11 @@ MonoBehaviour:
   achievements:
   - {fileID: 11400000, guid: 52f013c2550f8224ab9b29ad78ff84ac, type: 2}
   - {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
+  - {fileID: 11400000, guid: 6c1744523b0f00d4b803025aac5609aa, type: 2}
   achievementTrackers:
   - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
   - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
+  - {fileID: 11400000, guid: 6f1cdcda59ad2c848bc8786c909fe3f0, type: 2}
   OnAchievementCompleted:
     m_PersistentCalls:
       m_Calls:
@@ -3902,6 +3904,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fd7343e9f3176294ba71fd6f90d1f317, type: 2}
   - {fileID: 11400000, guid: 57e70573b90c63e46b0b348b722ea4e2, type: 2}
   - {fileID: 11400000, guid: 44bc71562c2bfc046ab1c42c5c7821b2, type: 2}
+  OnTutorialCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 6f1cdcda59ad2c848bc8786c909fe3f0, type: 2}
+        m_TargetAssemblyTypeName: TheGuarden.Achievements.AchievementTracker, TheGuarden.Achievements
+        m_MethodName: IncreaseCount
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1889519151 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5332605470150999020, guid: 28d90b06c8c068a4e8cb4fa032044638,
