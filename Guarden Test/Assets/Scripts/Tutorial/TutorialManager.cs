@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheGuarden.Utility;
 using UnityEngine;
 
 namespace TheGuarden.Tutorial
 {
-    public class TutorialManager : MonoBehaviour
+    internal class TutorialManager : MonoBehaviour
     {
         [SerializeField, Tooltip("List of tutorials")]
         private List<Tutorial> tutorials = new List<Tutorial>();
@@ -19,6 +20,7 @@ namespace TheGuarden.Tutorial
             foreach (Tutorial tutorial in tutorials)
             {
                 yield return tutorial.StartTutorial();
+                GameLogger.LogInfo($"{tutorial.name} completed", this, GameLogger.LogCategory.Tutorial);
             }
         }
     }

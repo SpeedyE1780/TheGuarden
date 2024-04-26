@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18483a733ac9200479eb31a3547ac2ef, type: 3}
+  m_Name: Plant In Soil
+  m_EditorClassIdentifier: 
+  tutorials:
+  - {fileID: 11400000, guid: 16517e6ff856ff645834656be530bf0b, type: 2}
+  - {fileID: 11400000, guid: 6d1d9b10380247d4db402dd5dd61c51a, type: 2}
+  - {fileID: 11400000, guid: 2c8cf1e4a7b78eb458a975dae360159b, type: 2}
+  - {fileID: 11400000, guid: 0bb1cbc651a24d24088e5157d2d08af6, type: 2}

@@ -19,8 +19,8 @@ namespace TheGuarden.Tutorial
             foreach (var instruction in instructions)
             {
                 instructionUI.SetText(instruction);
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
                 yield return null;
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
             }
 
             Destroy(instructionUI.gameObject);

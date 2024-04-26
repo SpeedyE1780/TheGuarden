@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheGuarden.Utility;
 using UnityEngine;
 
 namespace TheGuarden.Tutorial
@@ -15,6 +16,7 @@ namespace TheGuarden.Tutorial
             foreach (Tutorial tutorial in tutorials)
             {
                 yield return tutorial.StartTutorial();
+                GameLogger.LogInfo($"{name}:{tutorial.name} completed", this, GameLogger.LogCategory.Tutorial);
             }
         }
     }
