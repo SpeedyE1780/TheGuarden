@@ -3043,7 +3043,7 @@ GameObject:
   - component: {fileID: 1140615941}
   - component: {fileID: 1140615940}
   - component: {fileID: 1140615944}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3900,6 +3900,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3bf8f7d0fe7211346bced0abe123f575, type: 2}
   - {fileID: 11400000, guid: 0a2ea7d0abc0c3b47ae938c18a2fc430, type: 2}
   - {fileID: 11400000, guid: fd7343e9f3176294ba71fd6f90d1f317, type: 2}
+  - {fileID: 11400000, guid: 57e70573b90c63e46b0b348b722ea4e2, type: 2}
+  - {fileID: 11400000, guid: 44bc71562c2bfc046ab1c42c5c7821b2, type: 2}
 --- !u!114 &1889519151 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5332605470150999020, guid: 28d90b06c8c068a4e8cb4fa032044638,

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157280910f17403479911d9b0ca962d9, type: 3}
+  m_Name: Plant Anywhere Instructions
+  m_EditorClassIdentifier: 
+  instructions:
+  - Now that the mushroom is fully grown pick it up by holding space
+  - And plant it anywhere by holding E
+  ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}
