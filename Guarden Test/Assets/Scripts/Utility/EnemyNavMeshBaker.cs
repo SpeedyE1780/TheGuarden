@@ -27,7 +27,10 @@ namespace TheGuarden.Utility
         public static void BakeNavMesh()
         {
             //Run coroutine on scene object
-            surface.StartCoroutine(BuildNavMesh());
+            if (surface != null)
+            {
+                surface.StartCoroutine(BuildNavMesh()); 
+            }
         }
 
         /// <summary>

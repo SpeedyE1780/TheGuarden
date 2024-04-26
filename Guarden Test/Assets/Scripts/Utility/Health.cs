@@ -17,6 +17,10 @@ namespace TheGuarden.Utility
             health = maxHealth;
         }
 
+        /// <summary>
+        /// Damage player and destroy if health <= 0
+        /// </summary>
+        /// <param name="damage">Damage received</param>
         public void Damage(int damage)
         {
             health -= damage;
@@ -27,6 +31,10 @@ namespace TheGuarden.Utility
             }
         }
 
+        /// <summary>
+        /// Heal player
+        /// </summary>
+        /// <param name="heal">Health received</param>
         public void Heal(int heal)
         {
             health = Mathf.Clamp(health + heal, 0, maxHealth);

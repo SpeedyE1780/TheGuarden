@@ -26,6 +26,7 @@ namespace TheGuarden.Utility
 
         private Vector3 center;
         private float boundsSize;
+        private Bounds bounds;
 
         public Camera Camera => followCamera;
 
@@ -36,6 +37,7 @@ namespace TheGuarden.Utility
         private void Awake()
         {
             offset = offset.normalized;
+            bounds = new Bounds();
         }
 
         /// <summary>
@@ -52,7 +54,8 @@ namespace TheGuarden.Utility
 
             if (targets.Count > 0)
             {
-                Bounds bounds = new Bounds(targets[0].position, Vector3.zero);
+                bounds.center = targets[0].position;
+                bounds.size = Vector3.zero;
 
                 foreach (Transform target in targets)
                 {

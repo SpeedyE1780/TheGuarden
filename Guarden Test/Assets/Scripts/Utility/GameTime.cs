@@ -58,6 +58,12 @@ namespace TheGuarden.Utility
         public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {year}";
         public float DayEndProgress => minutes / MinutesInDay;
 
+        /// <summary>
+        /// Check if Hour is between start and end
+        /// </summary>
+        /// <param name="start">Starting hourtime</param>
+        /// <param name="end">Ending hour</param>
+        /// <returns>True if hour between start and end</returns>
         public bool HasPeriodStarted(int start, int end)
         {
             if (start <= end)
@@ -70,6 +76,10 @@ namespace TheGuarden.Utility
             }
         }
 
+        /// <summary>
+        /// Set clock scale
+        /// </summary>
+        /// <param name="scale">New clock scale</param>
         public void SetClockScale(float scale)
         {
             clockScale = scale;
