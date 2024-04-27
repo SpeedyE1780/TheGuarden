@@ -18,16 +18,14 @@ namespace TheGuarden.NPC
         private float speed;
         [SerializeField, Tooltip("Meshes parent")]
         private GameObject meshes;
-        [SerializeField, Tooltip("List of possible items that can be delivered")]
-        protected List<Item> items;
-        [SerializeField, Tooltip("Number of items delivered on each delivery")]
-        private int deliveryItemCount = 2;
+        [SerializeField, Tooltip("Items Scriptable Objects")]
+        private DeliveryItems items;
         [SerializeField, Tooltip("Autofilled. GameTime in scene")]
         protected GameTime gameTime;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
-        protected Transform deliveryLocation;
+        private Transform deliveryLocation;
         [SerializeField, Tooltip("Delivery Configuration Scriptable Object")]
         private DeliveryConfiguration configuration;
         [SerializeField, Range(0.1f, 0.9f), Tooltip("Percentage of road travelled before items are delivered")]
@@ -40,7 +38,7 @@ namespace TheGuarden.NPC
         private bool delivered = false;
         private int deliveryCooldown = 0;
 
-        protected Vector3 SpawnPoint => transform.position + Vector3.up;
+        private Vector3 SpawnPoint => transform.position + Vector3.up;
 
         private void Start()
         {
@@ -110,14 +108,12 @@ namespace TheGuarden.NPC
 
                         if (configuration.stopForDelivery)
                         {
-                            yield return DeliverItems(); 
+                            yield return DeliverItems();
                         }
                         else
                         {
                             StartCoroutine(DeliverItems());
                         }
-                        
-                        OnDelivery?.Invoke(deliveryItemCount);
                     }
 
                     yield return null;
@@ -135,18 +131,34 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator DeliverItems()
         {
-            for (int i = 0; i < deliveryItemCount; i++)
+            foreach (GameObject guaranteed in items.guaranteed)
             {
-                SpawnItem();
-                GameLogger.LogInfo($"{name} delivered item", this, GameLogger.LogCategory.Scene);
-                yield return new WaitForSeconds(configuration.itemsInterval);
+                yield return SpawnAndConfigureItem(guaranteed);
+            }
+
+            for (int i = 0; i < items.count; i++)
+            {
+                yield return SpawnAndConfigureItem(items.RandomItem);
             }
         }
 
         /// <summary>
-        /// Spawn and throw item out of truck
+        /// Spawn and Configure Item and wait
         /// </summary>
-        protected abstract void SpawnItem();
+        /// <param name="prefab">Item to spawn</param>
+        /// <returns></returns>
+        private IEnumerator SpawnAndConfigureItem(GameObject prefab)
+        {
+            GameObject go = Instantiate(prefab, SpawnPoint, Quaternion.identity);
+            Item item = go.GetComponent<Item>();
+            ConfigureItem(item);
+            yield return new WaitForSeconds(configuration.itemsInterval);
+        }
+
+        /// <summary>
+        /// Configure spawned item
+        /// </summary>
+        protected abstract void ConfigureItem(Item item);
 
         /// <summary>
         /// Calculated needed velocity to reach deliveryLocation and add an arc

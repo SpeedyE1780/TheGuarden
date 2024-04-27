@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace TheGuarden.NPC
 {
     /// <summary>
@@ -10,9 +8,8 @@ namespace TheGuarden.NPC
         /// <summary>
         /// Spawn Animal and throw it out of truck
         /// </summary>
-        protected override void SpawnItem()
+        protected override void ConfigureItem(Animal animal)
         {
-            Animal animal = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
             animal.Rigidbody.velocity = CalculateVelocity();
             animal.enabled = false;
             animal.Agent.enabled = false;

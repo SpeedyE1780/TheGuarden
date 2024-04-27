@@ -3928,9 +3928,7 @@ MonoBehaviour:
   - {fileID: 1386089206}
   speed: 5
   meshes: {fileID: 1791833141}
-  items:
-  - {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
-  deliveryItemCount: 1
+  items: {fileID: 11400000, guid: bcde58c668c85d147bd8d362ad45d875, type: 2}
   gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}
@@ -14571,12 +14569,7 @@ MonoBehaviour:
   - {fileID: 1386089206}
   speed: 10
   meshes: {fileID: 1631699457}
-  items:
-  - {fileID: 107199097200948063, guid: 3d9748b4a5c87984e88452d98270b87e, type: 3}
-  - {fileID: 8308161960401375895, guid: 2953b3026faceea47958fe9d27c1f290, type: 3}
-  - {fileID: 4106183024406304078, guid: 7b531e2a219a0614c8e78a9f551b23ef, type: 3}
-  - {fileID: 7540150721077411389, guid: 6754599a479a3f540bef4056422bd7b9, type: 3}
-  deliveryItemCount: 2
+  items: {fileID: 11400000, guid: d926cbdeb9f1bc04f91ec8f5113c7b01, type: 2}
   gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}

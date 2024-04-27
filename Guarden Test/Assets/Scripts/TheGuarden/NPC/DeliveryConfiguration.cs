@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheGuarden
+namespace TheGuarden.NPC
 {
     [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Configuration")]
     internal class DeliveryConfiguration : ScriptableObject

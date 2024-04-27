@@ -1,4 +1,3 @@
-using UnityEngine;
 using TheGuarden.Interactable;
 
 namespace TheGuarden.NPC
@@ -9,13 +8,10 @@ namespace TheGuarden.NPC
     internal class MushroomDelivery : TruckDelivery<Mushroom>
     {
         /// <summary>
-        /// /// <summary>
         /// Spawn Mushroom and throw it out of truck
         /// </summary>
-        /// </summary>
-        protected override void SpawnItem()
+        protected override void ConfigureItem(Mushroom mushroom)
         {
-            Mushroom mushroom = Instantiate(items[Random.Range(0, items.Count)], SpawnPoint, Quaternion.identity);
             mushroom.Rigidbody.velocity = CalculateVelocity();
             mushroom.SetGameTime(gameTime);
         }
