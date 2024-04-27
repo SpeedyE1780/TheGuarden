@@ -34,6 +34,8 @@ namespace TheGuarden.NPC
         private List<int> deliveryHours;
         [SerializeField, Tooltip("Number of days before next delivery")]
         private int daysBetweenDelivery = 0;
+        [SerializeField, Tooltip("If true deliver items on first day")]
+        private bool dayOneDelivery = true;
         [SerializeField, Range(0.1f, 0.9f), Tooltip("Percentage of road travelled before items are delivered")]
         private float travelledPercentageDelay = 0.4f;
         [SerializeField, Tooltip("Audio Source played when items are delivered")]
@@ -48,7 +50,14 @@ namespace TheGuarden.NPC
 
         private void Start()
         {
-            QueueDelivery();
+            if (dayOneDelivery)
+            {
+                QueueDelivery();
+            }
+            else
+            {
+                deliveryCooldown = daysBetweenDelivery;
+            }
         }
 
         private void OnEnable()
@@ -157,14 +166,14 @@ namespace TheGuarden.NPC
 
             followCamera = FindObjectOfType<FollowTarget>();
 
-            if(followCamera == null)
+            if (followCamera == null)
             {
                 GameLogger.LogWarning("Follow Camera not available in scene", gameObject, GameLogger.LogCategory.Scene);
             }
 
             deliverySource = GetComponent<AudioSource>();
 
-            if(deliverySource == null)
+            if (deliverySource == null)
             {
                 GameLogger.LogWarning($"{name} has no audio source component", gameObject, GameLogger.LogCategory.Scene);
             }

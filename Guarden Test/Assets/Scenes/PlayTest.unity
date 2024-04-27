@@ -3937,6 +3937,7 @@ MonoBehaviour:
   deliveryInterval: 0.25
   deliveryHours: 0d000000
   daysBetweenDelivery: 2
+  dayOneDelivery: 1
   travelledPercentageDelay: 0.4
   deliverySource: {fileID: 555015752}
   OnDelivery:
@@ -14585,6 +14586,7 @@ MonoBehaviour:
   deliveryInterval: 0.25
   deliveryHours: 060000000c00000012000000
   daysBetweenDelivery: 0
+  dayOneDelivery: 1
   travelledPercentageDelay: 0.4
   deliverySource: {fileID: 2043076424}
   OnDelivery:
