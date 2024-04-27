@@ -8,7 +8,7 @@ namespace TheGuarden.NPC
     internal class MushroomDelivery : TruckDelivery<Mushroom>
     {
         /// <summary>
-        /// Spawn Mushroom and throw it out of truck
+        /// Throw Mushroom out of truck
         /// </summary>
         protected override void ConfigureItem(Mushroom mushroom)
         {

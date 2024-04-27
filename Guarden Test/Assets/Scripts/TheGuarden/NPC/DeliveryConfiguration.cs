@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
+    /// <summary>
+    /// Configuration of delivery truck
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Configuration")]
     internal class DeliveryConfiguration : ScriptableObject
     {

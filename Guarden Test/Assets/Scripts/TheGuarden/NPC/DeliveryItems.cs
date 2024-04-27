@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
+    /// <summary>
+    /// List of items that truck should spawn
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Items List")]
     internal class DeliveryItems : ScriptableObject
     {
@@ -20,6 +23,12 @@ namespace TheGuarden.NPC
         internal List<GameObject> Guaranteed => unlockedGuaranteed;
         internal List<GameObject> Random => unlockedRandom;
 
+        /// <summary>
+        /// Add item to unlocked list if unlocked
+        /// </summary>
+        /// <param name="deliveryItem">Item that's being added</param>
+        /// <param name="unlocked">List of unlocked items</param>
+        /// <returns>True if item was added</returns>
         private bool TryAddItem(DeliveryItem deliveryItem, List<GameObject> unlocked)
         {
             deliveryItem.OnDayEnded();
@@ -34,25 +43,37 @@ namespace TheGuarden.NPC
             return false;
         }
 
-        internal void OnDayEnded()
+        /// <summary>
+        /// Add unlocked items to list
+        /// </summary>
+        /// <param name="source">Source of items</param>
+        /// <param name="unlocked">List of unlocked items</param>
+        private void AddUnlockedItems(List<DeliveryItem> source, List<GameObject> unlocked)
         {
-            for (int i = guaranteed.Count - 1; i >= 0; --i)
+            for (int i = source.Count - 1; i >= 0; --i)
             {
-                if (TryAddItem(guaranteed[i], unlockedGuaranteed))
+                if (TryAddItem(source[i], unlocked))
                 {
-                    guaranteed.RemoveAt(i);
-                }
-            }
-
-            for (int i = random.Count - 1; i >= 0; --i)
-            {
-                if (TryAddItem(random[i], unlockedRandom))
-                {
-                    random.RemoveAt(i);
+                    source.RemoveAt(i);
                 }
             }
         }
 
+        /// <summary>
+        /// Called when day ends and unlock items
+        /// </summary>
+        internal void OnDayEnded()
+        {
+            AddUnlockedItems(guaranteed, unlockedGuaranteed);
+            AddUnlockedItems(random, unlockedRandom);
+        }
+        
+        /// <summary>
+        /// Clone delivery items and add them to destination/unlocked
+        /// </summary>
+        /// <param name="source">Source of items to clone</param>
+        /// <param name="destination">Destination where items should be added if not unlocked</param>
+        /// <param name="unlocked">List of unlocked items</param>
         private void CloneDeliveryItems(List<DeliveryItem> source, List<DeliveryItem> destination, List<GameObject> unlocked)
         {
             foreach (DeliveryItem item in source)
@@ -71,6 +92,10 @@ namespace TheGuarden.NPC
             }
         }
 
+        /// <summary>
+        /// Clone current instance
+        /// </summary>
+        /// <returns>A deep copy clone of this class</returns>
         internal DeliveryItems Clone()
         {
             DeliveryItems clone = CreateInstance<DeliveryItems>();

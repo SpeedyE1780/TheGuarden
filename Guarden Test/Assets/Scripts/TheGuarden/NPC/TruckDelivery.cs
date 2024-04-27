@@ -80,6 +80,9 @@ namespace TheGuarden.NPC
             items.OnDayEnded();
         }
 
+        /// <summary>
+        /// Start coroutine and reset cooldown
+        /// </summary>
         private void StartDelivery()
         {
             StartCoroutine(Delivery());

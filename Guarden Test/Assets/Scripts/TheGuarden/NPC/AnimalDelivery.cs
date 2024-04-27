@@ -6,7 +6,7 @@ namespace TheGuarden.NPC
     internal class AnimalDelivery : TruckDelivery<Animal>
     {
         /// <summary>
-        /// Spawn Animal and throw it out of truck
+        /// Disable animal behavior and throw it out of truck
         /// </summary>
         protected override void ConfigureItem(Animal animal)
         {

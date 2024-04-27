@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
+    /// <summary>
+    /// DeliveryItem wraps gameobject to spawn and determine when its unlocked
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Item")]
     internal class DeliveryItem : ScriptableObject
     {
@@ -12,6 +15,9 @@ namespace TheGuarden.NPC
 
         internal bool IsUnlocked => daysToUnlock <= 0;
 
+        /// <summary>
+        /// Decrement daysToUnlock
+        /// </summary>
         internal void OnDayEnded()
         {
             daysToUnlock -= 1;

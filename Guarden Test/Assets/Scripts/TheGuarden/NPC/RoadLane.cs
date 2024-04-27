@@ -13,14 +13,14 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Autofilled. End of lane")]
         private Transform end;
 
-        public Vector3 StartPosition => start.position;
-        public Quaternion StartRotation => start.rotation;
-        public Vector3 EndPosition => end.position;
-        public float Length => Vector3.Distance(start.position, end.position);
+        internal Vector3 StartPosition => start.position;
+        internal Quaternion StartRotation => start.rotation;
+        internal Vector3 EndPosition => end.position;
+        internal float Length => Vector3.Distance(start.position, end.position);
 
 #if UNITY_EDITOR
-        public Transform Start => start;
-        public Transform End => end;
+        internal Transform Start => start;
+        internal Transform End => end;
 
         internal void AutofillVariables()
         {
