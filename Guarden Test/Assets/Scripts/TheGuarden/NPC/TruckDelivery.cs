@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TheGuarden.Utility;
+using System.Runtime.CompilerServices;
 
 namespace TheGuarden.NPC
 {
@@ -44,7 +45,7 @@ namespace TheGuarden.NPC
         {
             if (configuration.dayOneDelivery)
             {
-                QueueDelivery();
+                StartDelivery();
             }
             else
             {
@@ -52,31 +53,38 @@ namespace TheGuarden.NPC
             }
 
             deliverySource.clip = configuration.audioClip;
+            items = items.Clone();
         }
 
         private void OnEnable()
         {
-            gameTime.OnDayEnded += QueueDelivery;
+            gameTime.OnDayEnded += OnDayEnded;
         }
 
         private void OnDisable()
         {
-            gameTime.OnDayEnded -= QueueDelivery;
+            gameTime.OnDayEnded -= OnDayEnded;
         }
 
         /// <summary>
         /// Check if a delivery will occur today if not decrement cooldown
         /// </summary>
-        private void QueueDelivery()
+        private void OnDayEnded()
         {
             if (deliveryCooldown <= 0)
             {
-                StartCoroutine(Delivery());
-                //Add one to cancel this day's ending contribution
-                deliveryCooldown = configuration.daysBetweenDelivery + 1;
+                StartDelivery();
             }
 
             deliveryCooldown -= 1;
+            items.OnDayEnded();
+        }
+
+        private void StartDelivery()
+        {
+            StartCoroutine(Delivery());
+            //Add one to cancel this day's ending contribution
+            deliveryCooldown = configuration.daysBetweenDelivery + 1;
         }
 
         /// <summary>
@@ -131,14 +139,18 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator DeliverItems()
         {
-            foreach (GameObject guaranteed in items.guaranteed)
+            foreach (GameObject guaranteed in items.Guaranteed)
             {
                 yield return SpawnAndConfigureItem(guaranteed);
             }
 
-            for (int i = 0; i < items.count; i++)
+            if (items.Random.Count > 0)
             {
-                yield return SpawnAndConfigureItem(items.random.GetRandomItem());
+                GameLogger.LogInfo("RANDOM DELIVERY", this, GameLogger.LogCategory.Plant);
+                for (int i = 0; i < items.count; i++)
+                {
+                    yield return SpawnAndConfigureItem(items.Random.GetRandomItem());
+                }
             }
         }
 

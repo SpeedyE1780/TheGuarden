@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58d78c5a7afe2774b889d218512a213d, type: 3}
-  m_Name: Animals
+  m_Script: {fileID: 11500000, guid: 5b07772dd157dfe4caf7f2bc1cdb6e9e, type: 3}
+  m_Name: Cow
   m_EditorClassIdentifier: 
-  guaranteed:
-  - {fileID: 11400000, guid: 6feb7d7c793c04b459a017655f3c74ea, type: 2}
-  random: []
-  count: 0
+  item: {fileID: 559024786017051505, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
+  daysToUnlock: 0
