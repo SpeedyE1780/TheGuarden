@@ -14,6 +14,8 @@ namespace TheGuarden.Utility
 
         [SerializeField, Range(0, 23), Tooltip("Hour when level starts")]
         private int startingHour = 12;
+        [SerializeField, Range(0, 59), Tooltip("Minute when level starts")]
+        private int startingMinutes = 0;
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
         [SerializeField, Tooltip("Months of the year")]
@@ -87,7 +89,7 @@ namespace TheGuarden.Utility
 
         private void Awake()
         {
-            minutes = startingHour * 60;
+            minutes = startingHour * 60 + startingMinutes;
         }
 
         void Update()
