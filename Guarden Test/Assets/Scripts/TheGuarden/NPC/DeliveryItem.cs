@@ -14,12 +14,20 @@ namespace TheGuarden.NPC
         private int daysToUnlock = 0;
 
         internal bool IsUnlocked => daysToUnlock <= 0;
+        private int lastFrame = 0;
 
         /// <summary>
         /// Decrement daysToUnlock
         /// </summary>
         internal void OnDayEnded()
         {
+            //Prevent decrementing twice in same frame
+            if (Time.frameCount == lastFrame)
+            {
+                return;
+            }
+
+            lastFrame = Time.frameCount;
             daysToUnlock -= 1;
         }
     }
