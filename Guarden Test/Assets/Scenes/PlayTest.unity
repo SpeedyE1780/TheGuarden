@@ -503,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: {fileID: 302937536}
 --- !u!1 &40370949
 GameObject:
   m_ObjectHideFlags: 0
@@ -2284,6 +2283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHour: 12
+  startingMinutes: 0
   days:
   - Mungi
   - Tulip
@@ -3929,7 +3929,6 @@ MonoBehaviour:
   speed: 5
   meshes: {fileID: 1791833141}
   items: {fileID: 11400000, guid: bcde58c668c85d147bd8d362ad45d875, type: 2}
-  gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}
   configuration: {fileID: 11400000, guid: 32778e1c5073d96469ccc78c3d43c5fb, type: 2}
@@ -9653,7 +9652,6 @@ MonoBehaviour:
   spawningDelay: 2
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
-  gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   ufoTransform: {fileID: 904827024}
   ufo: {fileID: 904827025}
@@ -10406,7 +10404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61280e38fe665d34b837dc3688697de2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: {fileID: 302937536}
   minuteHand: {fileID: 823777698}
   hourHand: {fileID: 1826865119}
   dateText: {fileID: 679533736}
@@ -14570,7 +14567,6 @@ MonoBehaviour:
   speed: 10
   meshes: {fileID: 1631699457}
   items: {fileID: 11400000, guid: d926cbdeb9f1bc04f91ec8f5113c7b01, type: 2}
-  gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}
   configuration: {fileID: 11400000, guid: 38d685ebfb66576439f32eedea498c43, type: 2}

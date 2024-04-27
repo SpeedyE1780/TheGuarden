@@ -21,8 +21,6 @@ namespace TheGuarden.NPC
         private GameObject meshes;
         [SerializeField, Tooltip("Items Scriptable Objects")]
         private DeliveryItems items;
-        [SerializeField, Tooltip("Autofilled. GameTime in scene")]
-        protected GameTime gameTime;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
@@ -58,12 +56,12 @@ namespace TheGuarden.NPC
 
         private void OnEnable()
         {
-            gameTime.OnDayEnded += OnDayEnded;
+            GameTime.OnDayEnded += OnDayEnded;
         }
 
         private void OnDisable()
         {
-            gameTime.OnDayEnded -= OnDayEnded;
+            GameTime.OnDayEnded -= OnDayEnded;
         }
 
         /// <summary>
@@ -98,7 +96,7 @@ namespace TheGuarden.NPC
         {
             foreach (int deliveryHour in configuration.hours)
             {
-                yield return new WaitUntil(() => gameTime.Hour >= deliveryHour);
+                yield return new WaitUntil(() => GameTime.Hour >= deliveryHour);
 
                 delivered = false;
                 meshes.SetActive(true);
@@ -189,13 +187,6 @@ namespace TheGuarden.NPC
 #if UNITY_EDITOR
         internal void AutofillVariables()
         {
-            gameTime = FindObjectOfType<GameTime>();
-
-            if (gameTime == null)
-            {
-                GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
-            }
-
             followCamera = FindObjectOfType<FollowTarget>();
 
             if (followCamera == null)

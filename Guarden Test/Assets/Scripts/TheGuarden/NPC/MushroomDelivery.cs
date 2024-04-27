@@ -13,7 +13,6 @@ namespace TheGuarden.NPC
         protected override void ConfigureItem(Mushroom mushroom)
         {
             mushroom.Rigidbody.velocity = CalculateVelocity();
-            mushroom.SetGameTime(gameTime);
         }
     }
 }

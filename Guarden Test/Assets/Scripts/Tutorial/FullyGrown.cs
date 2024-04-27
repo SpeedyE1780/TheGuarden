@@ -12,7 +12,6 @@ namespace TheGuarden.Tutorial
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fully Grown")]
     internal class FullyGrown : ObjectTutorial
     {
-        private GameTime gameTime;
         private GrowPlant grow;
         private bool fullyGrown = false;
 
@@ -30,7 +29,6 @@ namespace TheGuarden.Tutorial
         internal override void Setup()
         {
             fullyGrown = false;
-            gameTime = FindObjectOfType<GameTime>();
             grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
             grow.OnFullyGrown.AddListener(OnFullyGrown);
         }
@@ -41,7 +39,7 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            gameTime.SetClockScale(1f);
+            GameTime.SetClockScale(1f);
             yield return new WaitUntil(() => fullyGrown);
             grow.OnFullyGrown.RemoveListener(OnFullyGrown);
         }

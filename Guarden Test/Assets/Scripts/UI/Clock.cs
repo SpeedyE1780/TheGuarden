@@ -9,8 +9,6 @@ namespace TheGuarden.UI
     /// </summary>
     internal class Clock : MonoBehaviour
     {
-        [SerializeField, Tooltip("Autofilled. GameTime in scene")]
-        private GameTime gameTime;
         [SerializeField, Tooltip("Minute hand of clock")]
         private GameObject minuteHand;
         [SerializeField, Tooltip("Hour hand of clock")]
@@ -27,8 +25,8 @@ namespace TheGuarden.UI
             // Calculate the target angles
             float currentMinuteAngle = -minuteHand.transform.localEulerAngles.z;
             float currentHourAngle = -hourHand.transform.localEulerAngles.z;
-            targetMinuteAngle = 360f * (gameTime.Minute / 60f);
-            targetHourAngle = 360f * (gameTime.Hour % 12) / 12f + (gameTime.Minute / 60f) * 30f; // Include minute contribution
+            targetMinuteAngle = 360f * (GameTime.Minute / 60f);
+            targetHourAngle = 360f * (GameTime.Hour % 12) / 12f + (GameTime.Minute / 60f) * 30f; // Include minute contribution
 
             // Smoothly interpolate between current and target angles
             float newMinuteAngle = Mathf.LerpAngle(currentMinuteAngle, targetMinuteAngle, smoothSpeed * Time.deltaTime);
@@ -38,19 +36,7 @@ namespace TheGuarden.UI
             minuteHand.transform.localRotation = Quaternion.Euler(0, 0, -newMinuteAngle);
             hourHand.transform.localRotation = Quaternion.Euler(0, 0, -newHourAngle);
 
-            dateText.text = gameTime.DateText;
+            dateText.text = GameTime.DateText;
         }
-
-#if UNITY_EDITOR
-        internal void AutofillGameTime()
-        {
-            gameTime = FindObjectOfType<GameTime>();
-
-            if (gameTime == null)
-            {
-                GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
-            }
-        }
-#endif
     }
 }

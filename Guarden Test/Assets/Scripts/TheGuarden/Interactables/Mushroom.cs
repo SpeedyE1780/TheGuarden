@@ -198,15 +198,6 @@ namespace TheGuarden.Interactable
         }
 
         /// <summary>
-        /// Set game time used to grow
-        /// </summary>
-        /// <param name="time">Game time used to grow</param>
-        internal void SetGameTime(GameTime time)
-        {
-            growPlant.SetGameTime(time);
-        }
-
-        /// <summary>
         /// Stop highlighting item in inventory and cancel interaction if started
         /// </summary>
         public void Deselect()

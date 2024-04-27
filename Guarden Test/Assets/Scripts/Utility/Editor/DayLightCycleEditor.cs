@@ -8,8 +8,8 @@ namespace TheGuarden.Utility.Editor
         [MenuItem("CONTEXT/DayLightCycle/Autofill GameTime")]
         internal static void AutofillGameTime(MenuCommand command)
         {
-            DayLightCycle dayLightCycle = command.context as DayLightCycle;
-            RecordEditorHistory.RecordHistory(dayLightCycle, $"Set {dayLightCycle.name} GameTime", dayLightCycle.AutofillGameTime);
+            //DayLightCycle dayLightCycle = command.context as DayLightCycle;
+            //RecordEditorHistory.RecordHistory(dayLightCycle, $"Set {dayLightCycle.name} GameTime", dayLightCycle.AutofillGameTime);
         }
     }
 }
