@@ -3234,6 +3234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHour: 11
+  startingMinutes: 50
   days:
   - Mungi
   - Tulip

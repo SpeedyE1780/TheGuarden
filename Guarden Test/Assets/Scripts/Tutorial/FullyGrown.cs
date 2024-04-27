@@ -29,6 +29,7 @@ namespace TheGuarden.Tutorial
         /// </summary>
         internal override void Setup()
         {
+            fullyGrown = false;
             gameTime = FindObjectOfType<GameTime>();
             grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
             grow.OnFullyGrown.AddListener(OnFullyGrown);

@@ -26,6 +26,7 @@ namespace TheGuarden.Tutorial
         /// </summary>
         internal override void Setup()
         {
+            watered = false;
             bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();
             bucket.OnPlantBedWatered.AddListener(OnPlantWatered);
         }

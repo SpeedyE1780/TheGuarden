@@ -26,6 +26,7 @@ namespace TheGuarden.Tutorial
         /// </summary>
         internal override void Setup()
         {
+            planted = false;
             mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();
             mushroom.OnPlant.AddListener(OnPlanted);
         }
