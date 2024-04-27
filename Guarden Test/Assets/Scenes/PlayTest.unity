@@ -3934,10 +3934,7 @@ MonoBehaviour:
   gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}
-  deliveryInterval: 0.25
-  deliveryHours: 0d000000
-  daysBetweenDelivery: 2
-  dayOneDelivery: 1
+  configuration: {fileID: 11400000, guid: 32778e1c5073d96469ccc78c3d43c5fb, type: 2}
   travelledPercentageDelay: 0.4
   deliverySource: {fileID: 555015752}
   OnDelivery:
@@ -4634,7 +4631,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -6827,7 +6824,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -7678,7 +7675,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -8722,7 +8719,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -14583,10 +14580,7 @@ MonoBehaviour:
   gameTime: {fileID: 302937536}
   followCamera: {fileID: 1164040281}
   deliveryLocation: {fileID: 202273868}
-  deliveryInterval: 0.25
-  deliveryHours: 060000000c00000012000000
-  daysBetweenDelivery: 0
-  dayOneDelivery: 1
+  configuration: {fileID: 11400000, guid: 38d685ebfb66576439f32eedea498c43, type: 2}
   travelledPercentageDelay: 0.4
   deliverySource: {fileID: 2043076424}
   OnDelivery:

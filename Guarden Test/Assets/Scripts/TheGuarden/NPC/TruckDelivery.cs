@@ -28,14 +28,8 @@ namespace TheGuarden.NPC
         private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
         protected Transform deliveryLocation;
-        [SerializeField, Tooltip("Interval between delivering each item")]
-        private float deliveryInterval = 0.25f;
-        [SerializeField, Tooltip("List of hours that truck should spawn and deliver items")]
-        private List<int> deliveryHours;
-        [SerializeField, Tooltip("Number of days before next delivery")]
-        private int daysBetweenDelivery = 0;
-        [SerializeField, Tooltip("If true deliver items on first day")]
-        private bool dayOneDelivery = true;
+        [SerializeField, Tooltip("Delivery Configuration Scriptable Object")]
+        private DeliveryConfiguration configuration;
         [SerializeField, Range(0.1f, 0.9f), Tooltip("Percentage of road travelled before items are delivered")]
         private float travelledPercentageDelay = 0.4f;
         [SerializeField, Tooltip("Audio Source played when items are delivered")]
@@ -50,14 +44,16 @@ namespace TheGuarden.NPC
 
         private void Start()
         {
-            if (dayOneDelivery)
+            if (configuration.dayOneDelivery)
             {
                 QueueDelivery();
             }
             else
             {
-                deliveryCooldown = daysBetweenDelivery;
+                deliveryCooldown = configuration.daysBetweenDelivery;
             }
+
+            deliverySource.clip = configuration.audioClip;
         }
 
         private void OnEnable()
@@ -79,7 +75,7 @@ namespace TheGuarden.NPC
             {
                 StartCoroutine(Delivery());
                 //Add one to cancel this day's ending contribution
-                deliveryCooldown = daysBetweenDelivery + 1;
+                deliveryCooldown = configuration.daysBetweenDelivery + 1;
             }
 
             deliveryCooldown -= 1;
@@ -91,7 +87,7 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator Delivery()
         {
-            foreach (int deliveryHour in deliveryHours)
+            foreach (int deliveryHour in configuration.hours)
             {
                 yield return new WaitUntil(() => gameTime.Hour >= deliveryHour);
 
@@ -111,7 +107,16 @@ namespace TheGuarden.NPC
                     {
                         delivered = true;
                         deliverySource.Play();
-                        StartCoroutine(DeliverItems());
+
+                        if (configuration.stopForDelivery)
+                        {
+                            yield return DeliverItems(); 
+                        }
+                        else
+                        {
+                            StartCoroutine(DeliverItems());
+                        }
+                        
                         OnDelivery?.Invoke(deliveryItemCount);
                     }
 
@@ -134,7 +139,7 @@ namespace TheGuarden.NPC
             {
                 SpawnItem();
                 GameLogger.LogInfo($"{name} delivered item", this, GameLogger.LogCategory.Scene);
-                yield return new WaitForSeconds(deliveryInterval);
+                yield return new WaitForSeconds(configuration.itemsInterval);
             }
         }
 
