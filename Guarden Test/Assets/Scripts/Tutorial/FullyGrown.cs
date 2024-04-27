@@ -12,20 +12,37 @@ namespace TheGuarden.Tutorial
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fully Grown")]
     internal class FullyGrown : ObjectTutorial
     {
+        private GameTime gameTime;
+        private GrowPlant grow;
+        private bool fullyGrown = false;
+
+        /// <summary>
+        /// Called when mushroom is fully grown
+        /// </summary>
+        private void OnFullyGrown()
+        {
+            fullyGrown = true;
+        }
+
+        /// <summary>
+        /// Get gametime and grow and listen to OnFullyGrown
+        /// </summary>
+        internal override void Setup()
+        {
+            gameTime = FindObjectOfType<GameTime>();
+            grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
+            grow.OnFullyGrown.AddListener(OnFullyGrown);
+        }
+
         /// <summary>
         /// Wait until spawned mushroom is fully grown
         /// </summary>
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            GameTime gameTime = FindObjectOfType<GameTime>();
             gameTime.SetClockScale(1f);
-            GrowPlant grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
-            bool fullyGrown = false;
-            UnityAction onFullyGrown = () => fullyGrown = true;
-            grow.OnFullyGrown.AddListener(onFullyGrown);
             yield return new WaitUntil(() => fullyGrown);
-            grow.OnFullyGrown.RemoveListener(onFullyGrown);
+            grow.OnFullyGrown.RemoveListener(OnFullyGrown);
         }
     }
 }

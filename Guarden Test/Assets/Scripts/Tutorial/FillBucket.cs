@@ -1,28 +1,45 @@
 using System.Collections;
 using TheGuarden.Interactable;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
     /// <summary>
     /// FillBucket waits until the spawned bucket is filled
     /// </summary>
-    [CreateAssetMenu(menuName ="Scriptable Objects/Tutorials/Fill Bucket")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fill Bucket")]
     internal class FillBucket : ObjectTutorial
     {
+        private Bucket bucket;
+        private bool filled = false;
+
+        /// <summary>
+        /// Called when water is added to bucket
+        /// </summary>
+        /// <param name="full">True if bucket is filled</param>
+        private void OnAddWater(bool full)
+        {
+            filled = full;
+        }
+
+        /// <summary>
+        /// Get bucket and listen to OnWaterAdded
+        /// </summary>
+        internal override void Setup()
+        {
+            bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();
+            bucket.OnWaterAdded.AddListener(OnAddWater);
+        }
+
         /// <summary>
         /// Waits until the spawned bucket is filled
         /// </summary>
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            Bucket bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();
-            bool filled = false;
-            UnityAction<bool> onWaterAdded = (bool full) => filled = full;
-            bucket.OnWaterAdded.AddListener(onWaterAdded);
+
             yield return new WaitUntil(() => filled);
-            bucket.OnWaterAdded.RemoveListener(onWaterAdded);
+            bucket.OnWaterAdded.RemoveListener(OnAddWater);
         }
     }
 }

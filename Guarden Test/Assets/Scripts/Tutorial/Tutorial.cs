@@ -9,6 +9,11 @@ namespace TheGuarden.Tutorial
     internal abstract class Tutorial : ScriptableObject
     {
         /// <summary>
+        /// Do any necessary setup for the tutorial
+        /// </summary>
+        abstract internal void Setup();
+
+        /// <summary>
         /// Start tutorial and wait until completed
         /// </summary>
         /// <returns></returns>

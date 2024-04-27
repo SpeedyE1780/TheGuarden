@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using TheGuarden.Interactable;
-using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
@@ -11,18 +10,35 @@ namespace TheGuarden.Tutorial
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Plant In Soil")]
     internal class PlantInSoil : ObjectTutorial
     {
+        private Mushroom mushroom;
+        private bool planted = false;
+
+        /// <summary>
+        /// Called when mushroom planted in soil
+        /// </summary>
+        private void OnPlantedInSoil()
+        {
+            planted = true;
+        }
+
+        /// <summary>
+        /// Get mushroom and listen to OnPlantInSoil
+        /// </summary>
+        internal override void Setup()
+        {
+            mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();
+            mushroom.OnPlantInSoil.AddListener(OnPlantedInSoil);
+        }
+
         /// <summary>
         /// Wait until mushroom is planted in soil
         /// </summary>
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            Mushroom mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();
-            bool planted = false;
-            UnityAction OnPlantInSoil = () => planted = true;
-            mushroom.OnPlantInSoil.AddListener(OnPlantInSoil);
+            
             yield return new WaitUntil(() => planted);
-            mushroom.OnPlantInSoil.RemoveListener(OnPlantInSoil);
+            mushroom.OnPlantInSoil.RemoveListener(OnPlantedInSoil);
         }
     }
 }

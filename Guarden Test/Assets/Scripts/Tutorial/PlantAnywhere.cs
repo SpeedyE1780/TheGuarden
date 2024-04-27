@@ -1,7 +1,6 @@
 using System.Collections;
 using TheGuarden.Interactable;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
@@ -11,18 +10,34 @@ namespace TheGuarden.Tutorial
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Plant Anywhere")]
     internal class PlantAnywhere : ObjectTutorial
     {
+        private Mushroom mushroom;
+        private bool planted = false;
+
+        /// <summary>
+        /// Called when mushroom is planted anywhere
+        /// </summary>
+        private void OnPlanted()
+        {
+            planted = true;
+        }
+
+        /// <summary>
+        /// Get Mushroom and listen to OnPlant
+        /// </summary>
+        internal override void Setup()
+        {
+            mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();
+            mushroom.OnPlant.AddListener(OnPlanted);
+        }
+
         /// <summary>
         /// Wait until spawned mushroom is fully grown
         /// </summary>
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            Mushroom mushroom = objectSpawner.SpawnedObject.GetComponent<Mushroom>();
-            bool planted = false;
-            UnityAction onPlantedAnywhere = () => planted = true;
-            mushroom.OnPlant.AddListener(onPlantedAnywhere);
             yield return new WaitUntil(() => planted);
-            mushroom.OnPlant.RemoveListener(onPlantedAnywhere);
+            mushroom.OnPlant.RemoveListener(OnPlanted);
         }
     }
 }

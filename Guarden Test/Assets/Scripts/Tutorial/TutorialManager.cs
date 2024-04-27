@@ -18,6 +18,11 @@ namespace TheGuarden.Tutorial
 
         private void Start()
         {
+            foreach (Tutorial tutorial in tutorials)
+            {
+                tutorial.Setup();
+            }
+
             StartCoroutine(RunTutorials());
         }
 
