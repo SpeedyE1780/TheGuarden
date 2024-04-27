@@ -12,7 +12,5 @@ namespace TheGuarden.NPC
         internal List<GameObject> random;
         [SerializeField, Tooltip("Random item count")]
         internal int count;
-
-        internal GameObject RandomItem => random[Random.Range(0, random.Count)];
     }
 }

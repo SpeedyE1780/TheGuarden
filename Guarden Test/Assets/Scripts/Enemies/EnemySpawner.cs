@@ -102,7 +102,7 @@ namespace TheGuarden.Enemies
                 {
                     yield return new WaitForSeconds(spawningDelay);
                     Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                    enemy.SetPath(paths[Random.Range(0, paths.Count)]);
+                    enemy.SetPath(paths.GetRandomItem());
                     GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
                 }
 

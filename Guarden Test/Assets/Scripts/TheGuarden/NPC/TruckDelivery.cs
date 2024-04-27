@@ -138,7 +138,7 @@ namespace TheGuarden.NPC
 
             for (int i = 0; i < items.count; i++)
             {
-                yield return SpawnAndConfigureItem(items.RandomItem);
+                yield return SpawnAndConfigureItem(items.random.GetRandomItem());
             }
         }
 
