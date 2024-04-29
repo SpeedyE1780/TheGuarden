@@ -5,16 +5,10 @@ namespace TheGuarden.Enemies.Editor
 {
     internal class EnemyEditor
     {
-        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
+        [DrawGizmo(GizmoType.InSelectionHierarchy)]
         internal static void DrawGizmo(Enemy enemy, GizmoType type)
         {
-            if(type == GizmoType.InSelectionHierarchy)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawLine(enemy.transform.position, enemy.TargetPosition);
-            }
-
-            Gizmos.DrawWireSphere(enemy.transform.position, enemy.DetectionRadius);
+            Gizmos.DrawLine(enemy.transform.position, enemy.Agent.destination);
         }
     }
 }
