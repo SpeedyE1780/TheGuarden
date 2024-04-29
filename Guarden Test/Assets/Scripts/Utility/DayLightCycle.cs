@@ -16,12 +16,19 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Angle Curve")]
         internal AnimationCurve curve;
 
+        private bool enemyWavedEnded = false;
+
         public UnityEvent OnDayStarted;
         public UnityEvent OnNightStarted;
 
         private void Start()
         {
             StartCoroutine(RunCycle());
+        }
+
+        public void OnEnemyWaveEnded()
+        {
+            enemyWavedEnded = true;
         }
 
         internal void UpdateLight(float progress)
@@ -33,6 +40,7 @@ namespace TheGuarden.Utility
         private IEnumerator UpdateLight(int offset = 0)
         {
             float time = 0;
+
             while (time < transitionDuration)
             {
                 time += Time.deltaTime;
@@ -51,10 +59,11 @@ namespace TheGuarden.Utility
 
                 yield return UpdateLight();
 
+                enemyWavedEnded = false;
                 OnNightStarted.Invoke();
                 GameLogger.LogInfo("Night Started", this, GameLogger.LogCategory.Scene);
 
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Numlock));
+                yield return new WaitUntil(() => enemyWavedEnded);
 
                 yield return UpdateLight(1);
             }

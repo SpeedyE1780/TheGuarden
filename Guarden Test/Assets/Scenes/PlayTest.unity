@@ -535,7 +535,19 @@ MonoBehaviour:
       m_Calls: []
   OnNightStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1300012553}
+        m_TargetAssemblyTypeName: TheGuarden.Enemies.EnemySpawner, TheGuarden.Enemies
+        m_MethodName: StartSpawning
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &40370949
 GameObject:
   m_ObjectHideFlags: 0
@@ -9799,7 +9811,6 @@ MonoBehaviour:
     - {fileID: 1672259918}
     - {fileID: 1504187425}
     - {fileID: 2108123662}
-  spawnHours: 0f0000001300000017000000
   spawningDelay: 2
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
@@ -9808,6 +9819,21 @@ MonoBehaviour:
   ufo: {fileID: 904827025}
   ufoSpeed: 75
   enemyCount: 3
+  OnWaveCompleted:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 29766628}
+        m_TargetAssemblyTypeName: TheGuarden.Utility.DayLightCycle, TheGuarden.Utility
+        m_MethodName: OnEnemyWaveEnded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1322648803
 GameObject:
   m_ObjectHideFlags: 0

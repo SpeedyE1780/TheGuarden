@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
+using UnityEngine.Events;
 
 namespace TheGuarden.Enemies
 {
@@ -15,8 +16,6 @@ namespace TheGuarden.Enemies
         private Transform spawnPoint;
         [SerializeField, Tooltip("List of paths enemies can take")]
         private List<EnemyPath> paths;
-        [SerializeField, Tooltip("Hours where enemies will spawn")]
-        private List<int> spawnHours;
         [SerializeField, Tooltip("Delay between each enemy spawning")]
         private float spawningDelay;
         [SerializeField, Tooltip("Enemy Prefab")]
@@ -32,31 +31,20 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
         private int enemyCount = 3;
 
+        private List<GameObject> spawnedEnemies = new List<GameObject>();
+
+        public UnityEvent OnWaveCompleted;
+
 #if UNITY_EDITOR
         internal List<EnemyPath> Paths => paths;
 #endif
 
-        private void Start()
-        {
-            StartCoroutine(SpawnEnemy());
-        }
-
-        private void OnEnable()
-        {
-            GameTime.OnDayEnded += QueueSpawn;
-        }
-
-        private void OnDisable()
-        {
-            GameTime.OnDayEnded -= QueueSpawn;
-        }
-
         /// <summary>
         /// Start Spawning coroutine
         /// </summary>
-        private void QueueSpawn()
+        public void StartSpawning()
         {
-            StartCoroutine(SpawnEnemy());
+            StartCoroutine(SpawnEnemies());
         }
 
         /// <summary>
@@ -76,40 +64,45 @@ namespace TheGuarden.Enemies
             }
         }
 
+        private void SpawnEnemy()
+        {
+            Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            enemy.SetPath(paths.GetRandomItem());
+            enemy.OnPathEnded = (enemyObject) => spawnedEnemies.Remove(enemyObject);
+            spawnedEnemies.Add(enemy.gameObject);
+            GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
+        }
+
         /// <summary>
-        /// Wait for spawning period to start and spawn enemies
+        /// Spawn Enemies
         /// </summary>
         /// <returns></returns>
-        private IEnumerator SpawnEnemy()
+        private IEnumerator SpawnEnemies()
         {
-            foreach (int spawnHour in spawnHours)
+            Vector3 startPosition = ufoTransform.position;
+            Vector3 endPosition = spawnPoint.position - startPosition;
+            ufoTransform.gameObject.SetActive(true);
+            followCamera.AddTarget(ufoTransform);
+
+            yield return MoveUFO(spawnPoint.position);
+            ufo.Play();
+            ufo.SendEvent("OnSucking");
+
+            for (int i = 0; i < enemyCount; i++)
             {
-                yield return new WaitUntil(() => GameTime.Hour >= spawnHour);
-
-                Vector3 startPosition = ufoTransform.position;
-                Vector3 endPosition = spawnPoint.position - startPosition;
-                ufoTransform.gameObject.SetActive(true);
-                followCamera.AddTarget(ufoTransform);
-                ufo.Stop();
-
-                yield return MoveUFO(spawnPoint.position);
-
-                ufo.Play();
-
-                for (int i = 0; i < enemyCount; i++)
-                {
-                    yield return new WaitForSeconds(spawningDelay);
-                    Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                    enemy.SetPath(paths.GetRandomItem());
-                    GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
-                }
-
-                followCamera.RemoveTarget(ufoTransform);
-                yield return MoveUFO(endPosition);
-
-                ufo.Stop();
-                ufoTransform.gameObject.SetActive(false);
+                yield return new WaitForSeconds(spawningDelay);
+                SpawnEnemy();
             }
+
+            ufo.SendEvent("OnFinishSucking");
+            followCamera.RemoveTarget(ufoTransform);
+            yield return MoveUFO(endPosition);
+
+            ufo.Stop();
+            ufoTransform.gameObject.SetActive(false);
+
+            yield return new WaitUntil(() => spawnedEnemies.Count == 0);
+            OnWaveCompleted.Invoke();
         }
 
 #if UNITY_EDITOR

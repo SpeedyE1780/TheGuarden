@@ -10,6 +10,8 @@ namespace TheGuarden.Enemies
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : MonoBehaviour
     {
+        internal delegate void OnPathEndedCallback(GameObject gameObject);
+
         [SerializeField]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
@@ -18,6 +20,7 @@ namespace TheGuarden.Enemies
         private float distanceThreshold = 3.0f;
 
         private EnemyPath path;
+        internal OnPathEndedCallback OnPathEnded { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
 
@@ -56,6 +59,7 @@ namespace TheGuarden.Enemies
 
                     if (path.ReachedEndOfPath)
                     {
+                        OnPathEnded(gameObject);
                         Destroy(gameObject);
                         yield break;
                     }
