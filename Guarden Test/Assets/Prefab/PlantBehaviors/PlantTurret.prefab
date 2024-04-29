@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7226121430090450693}
   m_Layer: 0
   m_Name: PlantTurret
-  m_TagString: PlantBehavior
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,6 +68,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpRange: 10
   powerUpCollider: {fileID: 4011249984743938871}
+  powerUpMask:
+    serializedVersion: 2
+    m_Bits: 256
   shootPoint: {fileID: 0}
   projectilePrefab: {fileID: 1128421392708083397, guid: 28be5fc6adb526e41a1adc4649d4d61f,
     type: 3}

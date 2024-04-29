@@ -4,12 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Plant
-  - PlantBehavior
-  - PlantSoil
+  - PickUp
   - Enemy
-  - Bucket
-  - PlantBuff
   layers:
   - Default
   - TransparentFX

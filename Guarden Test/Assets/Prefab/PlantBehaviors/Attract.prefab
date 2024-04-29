@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6471973795848142613}
   m_Layer: 0
   m_Name: Attract
-  m_TagString: PlantBehavior
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -68,4 +68,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpRange: 20
   powerUpCollider: {fileID: 3614132450077183374}
-  attractionAreaRadius: 5
+  powerUpMask:
+    serializedVersion: 2
+    m_Bits: 64
+  minimumRange: 5
+  maximumRange: 7.5

@@ -1,3 +1,4 @@
+using TheGuarden.Utility;
 using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
@@ -9,6 +10,8 @@ namespace TheGuarden.PlantPowerUps
     {
         [SerializeField, Tooltip("Projectile speed")]
         private float speed;
+        [SerializeField, Tooltip("Damage dealt to target")]
+        private int damage = 1;
 
         public Transform Target { get; set; }
 
@@ -29,7 +32,16 @@ namespace TheGuarden.PlantPowerUps
             if (transform.position == Target.position)
             {
                 Destroy(gameObject);
-                Destroy(Target.gameObject);
+
+                Health targetHealth = Target.GetComponent<Health>();
+
+                if (targetHealth == null)
+                {
+                    GameLogger.LogError($"{Target.name} has no health component and can't be damaged", this, GameLogger.LogCategory.PlantPowerUp);
+                    return;
+                }
+
+                targetHealth.Damage(damage);
             }
         }
     }

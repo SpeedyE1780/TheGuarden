@@ -30,8 +30,6 @@ namespace TheGuarden.Interactable
 
         [SerializeField, Tooltip("All growing related info")]
         private GrowingInfo growingInfo;
-        [SerializeField, Tooltip("Autofilled. GameTime in scene")]
-        private GameTime gameTime;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private ParticleSystem growingParticles;
 
@@ -64,7 +62,7 @@ namespace TheGuarden.Interactable
 
         private void LateUpdate()
         {
-            growthRate = gameTime.Hour >= growingInfo.startHour && gameTime.Hour <= growingInfo.endHour ?
+            growthRate = GameTime.HasPeriodStarted(growingInfo.startHour, growingInfo.endHour) ?
                 growingInfo.peakGrowingRate :
                 growingInfo.offPeakGrowingRate;
 
@@ -83,15 +81,6 @@ namespace TheGuarden.Interactable
                 growingParticles.Stop();
                 OnFullyGrown?.Invoke();
             }
-        }
-
-        /// <summary>
-        /// Set game time used to grow
-        /// </summary>
-        /// <param name="time">Game time used to grow</param>
-        internal void SetGameTime(GameTime time)
-        {
-            gameTime = time;
         }
 
         /// <summary>
@@ -141,13 +130,6 @@ namespace TheGuarden.Interactable
 
         internal void AutofillVariables()
         {
-            gameTime = FindObjectOfType<GameTime>();
-
-            if (gameTime == null)
-            {
-                GameLogger.LogWarning("GameTime not available in scene", gameObject, GameLogger.LogCategory.Plant);
-            }
-
             growingParticles = GetComponentInChildren<ParticleSystem>();
         }
 #endif

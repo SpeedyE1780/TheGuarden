@@ -10,10 +10,14 @@ namespace TheGuarden.Utility
     {
         private const int MinutesInDay = 24 * 60;
 
+        private static GameTime instance;
+
         public delegate void DayEnded();
 
         [SerializeField, Range(0, 23), Tooltip("Hour when level starts")]
         private int startingHour = 12;
+        [SerializeField, Range(0, 59), Tooltip("Minute when level starts")]
+        private int startingMinutes = 0;
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
         [SerializeField, Tooltip("Months of the year")]
@@ -27,41 +31,68 @@ namespace TheGuarden.Utility
         private int day = 1;
         private int month = 1;
         private int year = 2024;
-        public event DayEnded OnDayEnded;
+        public static event DayEnded OnDayEnded;
 
-        public int Minute => (int)minutes % 60;
-        public int Hour => (int)minutes / 60;
-        private int Year => year;
-        private string DayName => days[(day - 1) % 7];
-        private string MonthName => months[month - 1];
-        private string DayOfMonth
+        public static int Minute => (int)instance.minutes % 60;
+        public static int Hour => (int)instance.minutes / 60;
+        private static string DayName => instance.days[(instance.day - 1) % 7];
+        private static string MonthName => instance.months[instance.month - 1];
+        private static string DayOfMonth
         {
             get
             {
                 string suffix = "th";
 
-                if (day == 1 || (day > 20 && day % 10 == 1))
+                if (instance.day == 1 || (instance.day > 20 && instance.day % 10 == 1))
                 {
                     suffix = "st";
                 }
-                else if (day == 2 || (day > 20 && day % 10 == 2))
+                else if (instance.day == 2 || (instance.day > 20 && instance.day % 10 == 2))
                 {
                     suffix = "nd";
                 }
-                else if (day == 3 || (day > 20 && day % 10 == 3))
+                else if (instance.day == 3 || (instance.day > 20 && instance.day % 10 == 3))
                 {
                     suffix = "rd";
                 }
 
-                return $"{day}{suffix}";
+                return $"{instance.day}{suffix}";
             }
         }
-        public string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {Year}";
-        public float DayEndProgress => minutes / MinutesInDay;
+        public static string DateText => $"{DayName}, The {DayOfMonth} Of {MonthName}, {instance.year}";
+        public static float DayEndProgress => instance.minutes / MinutesInDay;
+
+        /// <summary>
+        /// Check if Hour is between start and end
+        /// </summary>
+        /// <param name="start">Starting hourtime</param>
+        /// <param name="end">Ending hour</param>
+        /// <returns>True if hour between start and end</returns>
+        public static bool HasPeriodStarted(int start, int end)
+        {
+            if (start <= end)
+            {
+                return Hour >= start && Hour <= end;
+            }
+            else
+            {
+                return (Hour >= start && Hour <= (end + 24)) || ((Hour + 24) >= start && Hour <= end);
+            }
+        }
+
+        /// <summary>
+        /// Set clock scale
+        /// </summary>
+        /// <param name="scale">New clock scale</param>
+        public static void SetClockScale(float scale)
+        {
+            instance.clockScale = scale;
+        }
 
         private void Awake()
         {
-            minutes = startingHour * 60;
+            instance = this;
+            minutes = startingHour * 60 + startingMinutes;
         }
 
         void Update()

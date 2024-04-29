@@ -21,8 +21,6 @@ namespace TheGuarden.Enemies
         private float spawningDelay;
         [SerializeField, Tooltip("Enemy Prefab")]
         private Enemy enemyPrefab;
-        [SerializeField, Tooltip("Autofilled")]
-        private GameTime gameTime;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("UFO transform that moves it in the scene")]
@@ -34,6 +32,9 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
         private int enemyCount = 3;
 
+#if UNITY_EDITOR
+        internal List<EnemyPath> Paths => paths;
+#endif
 
         private void Start()
         {
@@ -42,12 +43,12 @@ namespace TheGuarden.Enemies
 
         private void OnEnable()
         {
-            gameTime.OnDayEnded += QueueSpawn;
+            GameTime.OnDayEnded += QueueSpawn;
         }
 
         private void OnDisable()
         {
-            gameTime.OnDayEnded -= QueueSpawn;
+            GameTime.OnDayEnded -= QueueSpawn;
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace TheGuarden.Enemies
         {
             foreach (int spawnHour in spawnHours)
             {
-                yield return new WaitUntil(() => gameTime.Hour >= spawnHour);
+                yield return new WaitUntil(() => GameTime.Hour >= spawnHour);
 
                 Vector3 startPosition = ufoTransform.position;
                 Vector3 endPosition = spawnPoint.position - startPosition;
@@ -99,7 +100,7 @@ namespace TheGuarden.Enemies
                 {
                     yield return new WaitForSeconds(spawningDelay);
                     Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                    enemy.SetPath(paths[Random.Range(0, paths.Count)]);
+                    enemy.SetPath(paths.GetRandomItem());
                     GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
                 }
 
@@ -114,13 +115,6 @@ namespace TheGuarden.Enemies
 #if UNITY_EDITOR
         internal void AutofillVariables()
         {
-            gameTime = FindObjectOfType<GameTime>();
-
-            if (gameTime == null)
-            {
-                GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
-            }
-
             followCamera = FindObjectOfType<FollowTarget>();
 
             if (followCamera == null)

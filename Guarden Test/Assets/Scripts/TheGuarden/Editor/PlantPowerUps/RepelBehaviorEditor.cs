@@ -11,8 +11,8 @@ namespace TheGuarden.PlantPowerUps.Editor
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(repelBehavior.transform.position, repelBehavior.PowerUpRange);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(repelBehavior.transform.position, repelBehavior.RepelRange);
-            Gizmos.DrawWireSphere(repelBehavior.transform.position, repelBehavior.MinimumRange + repelBehavior.PowerUpRange);
+            Gizmos.DrawWireSphere(repelBehavior.transform.position, repelBehavior.MaximumRange);
+            Gizmos.DrawWireSphere(repelBehavior.transform.position, repelBehavior.MinimumRange);
         }
     }
 }

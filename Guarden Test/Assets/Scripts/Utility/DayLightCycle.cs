@@ -5,27 +5,20 @@ namespace TheGuarden.Utility
     /// <summary>
     /// DayLightCycle rotates the directional light to give a day and night cycle
     /// </summary>
-    public class DayLightCycle : MonoBehaviour
+    internal class DayLightCycle : MonoBehaviour
     {
-        [SerializeField, Tooltip("Autofilled. GameTime in scene")]
-        private GameTime gameTime;
+        [SerializeField, Tooltip("Angle Curve")]
+        internal AnimationCurve curve;
+
+        internal void UpdateLight(float progress)
+        {
+            float angle = curve.Evaluate(progress);
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
 
         void LateUpdate()
         {
-            float zAngle = Mathf.Lerp(180, -180, gameTime.DayEndProgress);
-            transform.rotation = Quaternion.Euler(0, 0, zAngle);
+            UpdateLight(GameTime.DayEndProgress);
         }
-
-#if UNITY_EDITOR
-        internal void AutofillGameTime()
-        {
-            gameTime = FindObjectOfType<GameTime>();
-
-            if (gameTime == null)
-            {
-                GameLogger.LogWarning("Game Time not available in scene", gameObject, GameLogger.LogCategory.Scene);
-            }
-        }
-#endif
     }
 }

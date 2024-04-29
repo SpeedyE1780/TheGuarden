@@ -47,5 +47,28 @@ namespace TheGuarden.Achievements
                 OnValueChanged?.Invoke(count);
             }
         }
+
+        /// <summary>
+        /// Decrease tracker count after event occurs in game
+        /// </summary>
+        /// <param name="amount">Amount of time event occured</param>
+        public void DecreaseCount(int amount)
+        {
+            count -= amount;
+
+            if (amount > 0)
+            {
+                OnValueChanged?.Invoke(count);
+            }
+        }
+
+        /// <summary>
+        /// Reset tracker count after event occurs in game
+        /// </summary>
+        public void ResetCount()
+        {
+            count = 0;
+            OnValueChanged?.Invoke(count);
+        }
     }
 }

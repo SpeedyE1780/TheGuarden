@@ -24,6 +24,10 @@ namespace TheGuarden.UI
             GetComponent<Slider>().value = value;
         }
 
+        /// <summary>
+        /// Called from UI Slider and updates the value of the audio mixer parameter
+        /// </summary>
+        /// <param name="value">New param value</param>
         public void UpdateParameter(float value)
         {
             bool modified = audioMixer.SetFloat(paramName, value);

@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.UI;
 using TheGuarden.Utility;
+using UnityEngine.Events;
 
 namespace TheGuarden.Interactable
 {
@@ -31,6 +32,9 @@ namespace TheGuarden.Interactable
         private LayerMask plantableAreaMask;
 
         private PlantSoil plantSoil;
+
+        public UnityEvent OnPlantInSoil;
+        public UnityEvent OnPlant;
 
         public Rigidbody Rigidbody => rb;
         public float GrowthPercentage => growPlant.GrowthPercentage;
@@ -131,6 +135,7 @@ namespace TheGuarden.Interactable
             Plant();
             ToggleCollisions(true);
             IsConsumedAfterInteraction = true;
+            OnPlant.Invoke();
         }
 
         /// <summary>
@@ -143,6 +148,7 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
             plantSoil.IsAvailable = false;
             IsConsumedAfterInteraction = true;
+            OnPlantInSoil.Invoke();
         }
 
         /// <summary>
@@ -189,15 +195,6 @@ namespace TheGuarden.Interactable
         public IInventoryItem GetInventoryItem()
         {
             return this;
-        }
-
-        /// <summary>
-        /// Set game time used to grow
-        /// </summary>
-        /// <param name="time">Game time used to grow</param>
-        internal void SetGameTime(GameTime time)
-        {
-            growPlant.SetGameTime(time);
         }
 
         /// <summary>

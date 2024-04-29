@@ -7,12 +7,8 @@ namespace TheGuarden.Utility
     /// </summary>
     public static class Tags
     {
-        public const string Plant = "Plant";
-        public const string PlantBehavior = "PlantBehavior";
-        public const string PlantSoil = "PlantSoil";
+        public const string PickUp = "PickUp";
         public const string Enemy = "Enemy";
-        public const string Bucket = "Bucket";
-        public const string PlantBuff = "PlantBuff";
 
         /// <summary>
         /// Check if game object has any of the given tags

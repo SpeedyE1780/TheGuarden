@@ -4954,7 +4954,7 @@ GameObject:
   - component: {fileID: 3846474154722925951}
   m_Layer: 0
   m_Name: Mushrom
-  m_TagString: Plant
+  m_TagString: PickUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5040,9 +5040,6 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

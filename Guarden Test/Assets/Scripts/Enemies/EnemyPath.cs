@@ -15,5 +15,9 @@ namespace TheGuarden.Enemies
         public readonly Vector3 CurrentPosition => points[CurrentIndex].position;
         public readonly Vector3 LastPosition => points[^1].position;
         public readonly bool ReachedEndOfPath => CurrentIndex >= points.Count;
+
+#if UNITY_EDITOR
+        public List<Transform> Points => points;
+#endif
     }
 }

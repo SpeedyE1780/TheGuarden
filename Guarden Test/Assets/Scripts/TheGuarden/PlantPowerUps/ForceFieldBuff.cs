@@ -13,8 +13,9 @@ namespace TheGuarden.PlantPowerUps
             EnemyNavMeshBaker.BakeNavMesh();
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
             EnemyNavMeshBaker.BakeNavMesh();
         }
 
@@ -22,9 +23,9 @@ namespace TheGuarden.PlantPowerUps
         /// Set animal inside force field
         /// </summary>
         /// <param name="animal">Animal inside force field</param>
-        public override void ApplyBuff(Animal animal)
+        protected override void ApplyBuff(Animal animal)
         {
-            GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantPowerUp);
             animal.ToggleForceField(true);
         }
 
@@ -32,9 +33,9 @@ namespace TheGuarden.PlantPowerUps
         /// Set animal outside force field
         /// </summary>
         /// <param name="animal">Animal outside force field</param>
-        public override void RemoveBuff(Animal animal)
+        protected override void RemoveBuff(Animal animal)
         {
-            GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantBehaviour);
+            GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantPowerUp);
             animal.ToggleForceField(false);
         }
     }

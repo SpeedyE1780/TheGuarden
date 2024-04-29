@@ -3,7 +3,8 @@
     "rootNamespace": "TheGuarden.Utility.Editor",
     "references": [
         "GUID:eaadf552b7d9ab249807e6b2215a5f76",
-        "GUID:8c4dd21966739024fbd72155091d199e"
+        "GUID:8c4dd21966739024fbd72155091d199e",
+        "GUID:478a2357cc57436488a56e564b08d223"
     ],
     "includePlatforms": [
         "Editor"

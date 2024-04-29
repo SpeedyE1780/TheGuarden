@@ -166,10 +166,10 @@ namespace TheGuarden.Players
 
         private void OnTriggerStay(Collider other)
         {
-            if (Tags.HasTag(other.gameObject, Tags.Plant, Tags.Bucket) && currentPickUp == null)
+            if (currentPickUp == null && other.CompareTag(Tags.PickUp))
             {
                 currentPickUp = other.gameObject;
-                GameLogger.LogInfo("ENTER PLANT", gameObject, GameLogger.LogCategory.Player);
+                GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
             }
         }
 
@@ -178,7 +178,7 @@ namespace TheGuarden.Players
             if (other.gameObject == currentPickUp)
             {
                 currentPickUp = null;
-                GameLogger.LogInfo("EXIT PLANT", gameObject, GameLogger.LogCategory.Player);
+                GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
             }
         }
 
