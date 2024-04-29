@@ -3027,6 +3027,9 @@ VisualEffect:
       - m_Value: -1.25
         m_Name: Pivot point
         m_Overridden: 1
+      - m_Value: 8
+        m_Name: Ring size
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -3590,7 +3593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1729534998}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.37854, y: 0.45325089, z: -1.8739014}
+  m_LocalPosition: {x: 11.079, y: 0.45325089, z: -3.914}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
