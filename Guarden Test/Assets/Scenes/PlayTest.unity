@@ -504,23 +504,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dayDuration: 10
+  transitionDuration: 3
   curve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 180
-      inSlope: -360
-      outSlope: -360
+      value: 0
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: -180
-      inSlope: -360
-      outSlope: -360
+      time: 2
+      value: -360
+      inSlope: -180
+      outSlope: -180
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -528,6 +530,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  OnDayStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  OnNightStarted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &40370949
 GameObject:
   m_ObjectHideFlags: 0
