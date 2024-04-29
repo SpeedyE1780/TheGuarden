@@ -39,6 +39,18 @@ namespace TheGuarden.Enemies
         internal List<EnemyPath> Paths => paths;
 #endif
 
+        private void OnEnable()
+        {
+            DayLightCycle.OnNightStarted += StartSpawning;
+            DayLightCycle.OnWaveEnded += OnWaveCompleted.Invoke;
+        }
+
+        private void OnDisable()
+        {
+            DayLightCycle.OnNightStarted -= StartSpawning;
+            DayLightCycle.OnWaveEnded -= OnWaveCompleted.Invoke;
+        }
+
         /// <summary>
         /// Start Spawning coroutine
         /// </summary>
@@ -102,7 +114,7 @@ namespace TheGuarden.Enemies
             ufoTransform.gameObject.SetActive(false);
 
             yield return new WaitUntil(() => spawnedEnemies.Count == 0);
-            OnWaveCompleted.Invoke();
+            DayLightCycle.EnemyWaveEnded();
         }
 
 #if UNITY_EDITOR

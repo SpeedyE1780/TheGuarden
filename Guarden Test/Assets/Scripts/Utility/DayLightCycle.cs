@@ -7,8 +7,12 @@ namespace TheGuarden.Utility
     /// <summary>
     /// DayLightCycle rotates the directional light to give a day and night cycle
     /// </summary>
-    internal class DayLightCycle : MonoBehaviour
+    public class DayLightCycle : MonoBehaviour
     {
+        public delegate void DayStarted();
+        public delegate void NightStarted();
+        public delegate void WaveEnded();
+
         [SerializeField, Tooltip("Day Duration")]
         private float dayDuration = 180.0f;
         [SerializeField, Tooltip("Day Night Transition Duration")]
@@ -17,16 +21,38 @@ namespace TheGuarden.Utility
         internal AnimationCurve curve;
 
         private bool enemyWavedEnded = false;
+        public UnityEvent OnDayStartedEvent;
+        public UnityEvent OnNightStartedEvent;
 
-        public UnityEvent OnDayStarted;
-        public UnityEvent OnNightStarted;
+        public static event DayStarted OnDayStarted;
+        public static event NightStarted OnNightStarted;
+        public static event WaveEnded OnWaveEnded;
+
+        public static void EnemyWaveEnded()
+        {
+            OnWaveEnded?.Invoke();
+        }
 
         private void Start()
         {
             StartCoroutine(RunCycle());
         }
 
-        public void OnEnemyWaveEnded()
+        private void OnEnable()
+        {
+            OnWaveEnded += OnEnemyWaveEnded;
+            OnDayStarted += OnDayStartedEvent.Invoke;
+            OnNightStarted += OnNightStartedEvent.Invoke;
+        }
+
+        private void OnDisable()
+        {
+            OnWaveEnded -= OnEnemyWaveEnded;
+            OnDayStarted -= OnDayStartedEvent.Invoke;
+            OnNightStarted -= OnNightStartedEvent.Invoke;
+        }
+
+        private void OnEnemyWaveEnded()
         {
             enemyWavedEnded = true;
         }
