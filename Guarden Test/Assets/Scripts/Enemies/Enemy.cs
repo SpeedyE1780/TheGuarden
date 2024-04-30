@@ -1,4 +1,5 @@
 using System.Collections;
+using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,16 +10,18 @@ namespace TheGuarden.Enemies
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour, IBehavior
+    public class Enemy : MonoBehaviour, IBehavior, IBuff
     {
         internal delegate void OnDestroyedCallback(GameObject gameObject);
 
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
         private float agentSpeed = 5.0f;
         [SerializeField, Tooltip("Minimum distance before destination is considered reached")]
         private float distanceThreshold = 3.0f;
+        [SerializeField, Tooltip("Autofilled. Enemy Health component")]
+        Health health;
 
         private EnemyPath path;
         private bool rewinding = false;
@@ -27,6 +30,7 @@ namespace TheGuarden.Enemies
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
+        public Health Health => health;
 
 #if UNITY_EDITOR
         internal bool Rewinding => rewinding;

@@ -178,15 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 3380905506472732822}
-  patrolSpeed: 5
-  chaseSpeed: 7
-  pickUpSpeed: 2
+  agentSpeed: 5
   distanceThreshold: 3
-  detectionRadius: 10
-  animalMask:
-    serializedVersion: 2
-    m_Bits: 64
-  holdingPoint: {fileID: 8399841673533735529}
+  health: {fileID: 2469370035290940513}
 --- !u!114 &2469370035290940513
 MonoBehaviour:
   m_ObjectHideFlags: 0

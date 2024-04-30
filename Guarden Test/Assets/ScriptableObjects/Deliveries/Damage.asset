@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b07772dd157dfe4caf7f2bc1cdb6e9e, type: 3}
-  m_Name: ForceField
+  m_Name: Damage
   m_EditorClassIdentifier: 
   item: {fileID: 214192724819043548, guid: 7b531e2a219a0614c8e78a9f551b23ef, type: 3}
-  daysToUnlock: 3
+  daysToUnlock: 0

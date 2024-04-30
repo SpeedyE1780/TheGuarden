@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace TheGuarden
+namespace TheGuarden.PlantPowerUps
 {
     public interface IBehavior
     {
