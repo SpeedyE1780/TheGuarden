@@ -19,7 +19,7 @@ namespace TheGuarden.NPC
         /// <summary>
         /// Decrement daysToUnlock
         /// </summary>
-        internal void OnDayEnded()
+        internal void OnDayStarted()
         {
             //Prevent decrementing twice in same frame
             if (Time.frameCount == lastFrame)

@@ -77,12 +77,14 @@ namespace TheGuarden.Utility
 
         private IEnumerator RunCycle()
         {
+            //Wait one frame so all objects start passed
+            yield return null;
+
             while (true)
             {
                 OnDayStarted.Invoke();
                 GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
                 yield return new WaitForSeconds(dayDuration);
-
                 yield return UpdateLight();
 
                 enemyWavedEnded = false;
@@ -90,7 +92,6 @@ namespace TheGuarden.Utility
                 GameLogger.LogInfo("Night Started", this, GameLogger.LogCategory.Scene);
 
                 yield return new WaitUntil(() => enemyWavedEnded);
-
                 yield return UpdateLight(1);
             }
         }

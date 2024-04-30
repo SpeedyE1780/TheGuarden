@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheGuarden.NPC
@@ -9,8 +8,6 @@ namespace TheGuarden.NPC
     [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Configuration")]
     internal class DeliveryConfiguration : ScriptableObject
     {
-        [SerializeField, Tooltip("List of hours that truck should spawn and deliver items")]
-        internal List<int> hours;
         [SerializeField, Tooltip("Interval between delivering each item")]
         internal float itemsInterval = 0.25f;
         [SerializeField, Tooltip("Number of days before next delivery")]

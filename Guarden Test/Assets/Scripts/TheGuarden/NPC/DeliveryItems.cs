@@ -31,7 +31,7 @@ namespace TheGuarden.NPC
         /// <returns>True if item was added</returns>
         private bool TryAddItem(DeliveryItem deliveryItem, List<GameObject> unlocked)
         {
-            deliveryItem.OnDayEnded();
+            deliveryItem.OnDayStarted();
 
             if (deliveryItem.IsUnlocked)
             {
@@ -62,12 +62,12 @@ namespace TheGuarden.NPC
         /// <summary>
         /// Called when day ends and unlock items
         /// </summary>
-        internal void OnDayEnded()
+        internal void OnDayStarted()
         {
             AddUnlockedItems(guaranteed, unlockedGuaranteed);
             AddUnlockedItems(random, unlockedRandom);
         }
-        
+
         /// <summary>
         /// Clone delivery items and add them to destination/unlocked
         /// </summary>
