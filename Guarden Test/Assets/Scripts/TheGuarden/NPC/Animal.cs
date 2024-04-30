@@ -18,14 +18,10 @@ namespace TheGuarden.NPC
         private Rigidbody rb;
         [SerializeField, Tooltip("Minimum distance before considering agent destination reached")]
         private float stoppingDistance = 0.75f;
-        [SerializeField, Tooltip("Force Field gameobject activated when inside force field")]
-        private GameObject forceField;
         [SerializeField, Tooltip("List of all spawned animals")]
         private AnimalSet spawnedAnimals;
 
         private bool hiding = false;
-
-        public bool InsideForceField { get; private set; }
 
         void Start()
         {
@@ -78,16 +74,6 @@ namespace TheGuarden.NPC
         internal void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);
-        }
-
-        /// <summary>
-        /// Set if the animal is in a force field or no
-        /// </summary>
-        /// <param name="active">True if inside force field</param>
-        public void ToggleForceField(bool active)
-        {
-            InsideForceField = active;
-            forceField.SetActive(active);
         }
 
 #if UNITY_EDITOR
