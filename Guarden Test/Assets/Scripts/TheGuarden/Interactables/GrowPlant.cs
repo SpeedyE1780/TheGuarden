@@ -49,6 +49,7 @@ namespace TheGuarden.Interactable
         {
             if (isGrowing && IsFullyGrown)
             {
+                isGrowing = false;
                 growingParticles.SendEvent(StopGrowing);
                 growingParticles.SendEvent(FullyGrown);
                 OnFullyGrown?.Invoke();
