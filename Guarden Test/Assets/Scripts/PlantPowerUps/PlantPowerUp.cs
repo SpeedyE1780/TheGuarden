@@ -6,7 +6,7 @@ namespace TheGuarden.PlantPowerUps
     /// Base class of all plant power ups
     /// </summary>
     [RequireComponent(typeof(SphereCollider))]
-    internal abstract class PlantPowerUp : MonoBehaviour
+    public abstract class PlantPowerUp : MonoBehaviour
     {
         [SerializeField, Tooltip("Power up configuration")]
         private PowerUpConfiguration configuration;

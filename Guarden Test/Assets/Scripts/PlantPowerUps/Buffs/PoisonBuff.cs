@@ -21,10 +21,7 @@ namespace TheGuarden.PlantPowerUps
 
         internal override void RemoveBuff(IBuff buff)
         {
-            if (buff != null)
-            {
-                buff.StopCoroutine(poisonDamageRoutine); 
-            }
+            buff.StopCoroutine(poisonDamageRoutine);
         }
 
         private IEnumerator PoisonDamage(IBuff buff)

@@ -12,7 +12,7 @@ namespace TheGuarden.PlantPowerUps
             buffed.Add(buff);
             ApplyBuff(buff);
         }
-        
+
         internal void RemoveAndRemoveBuff(IBuff buff)
         {
             buffed.Remove(buff);
@@ -26,7 +26,10 @@ namespace TheGuarden.PlantPowerUps
         {
             foreach (IBuff buff in buffed)
             {
-                RemoveBuff(buff);
+                if (buff != null)
+                {
+                    RemoveBuff(buff);
+                }
             }
 
             buffed.Clear();
