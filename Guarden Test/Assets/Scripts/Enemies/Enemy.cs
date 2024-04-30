@@ -9,7 +9,7 @@ namespace TheGuarden.Enemies
     /// <summary>
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
     public class Enemy : MonoBehaviour, IBehavior, IBuff
     {
         internal delegate void OnDestroyedCallback(GameObject gameObject);
@@ -21,7 +21,7 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Minimum distance before destination is considered reached")]
         private float distanceThreshold = 3.0f;
         [SerializeField, Tooltip("Autofilled. Enemy Health component")]
-        Health health;
+        private Health health;
 
         private EnemyPath path;
         private bool rewinding = false;
@@ -134,5 +134,13 @@ namespace TheGuarden.Enemies
 
             StartCoroutine(Patrol());
         }
+
+#if UNITY_EDITOR
+        internal void AutofillComponents()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            health = GetComponent<Health>();
+        }
+#endif
     }
 }
