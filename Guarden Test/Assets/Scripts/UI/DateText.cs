@@ -11,7 +11,7 @@ namespace TheGuarden.UI
     internal class DateText : MonoBehaviour
     {
         [SerializeField, Tooltip("Date text on screen")]
-        private TMP_Text dateText;
+        internal TMP_Text dateText;
 
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
