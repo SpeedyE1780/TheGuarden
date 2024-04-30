@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771868150802311041}
   - component: {fileID: 3614132450077183374}
-  - component: {fileID: 6471973795848142613}
+  - component: {fileID: -6758951738174010302}
   m_Layer: 0
   m_Name: Attract
   m_TagString: Untagged
@@ -54,7 +54,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6471973795848142613
+--- !u!114 &-6758951738174010302
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,10 +63,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4081531029084331613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 163308879f31c6946904f7e4d6a8fdda, type: 3}
+  m_Script: {fileID: 11500000, guid: 060ca8af303ea2146b9013ffcd94c9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   configuration: {fileID: 11400000, guid: 4c613f1d188c62740beb925fe57186b3, type: 2}
   powerUpCollider: {fileID: 3614132450077183374}
-  minimumRange: 5
-  maximumRange: 7.5
+  modifier: {fileID: 0}

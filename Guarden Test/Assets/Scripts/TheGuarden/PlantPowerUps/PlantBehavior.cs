@@ -1,30 +1,36 @@
 using UnityEngine;
-using TheGuarden.NPC;
 using TheGuarden.Utility;
 
 namespace TheGuarden.PlantPowerUps
 {
     /// <summary>
-    /// Parent class of plants that alter behavior once animal enters them
+    /// Parent class of plants that alter behavior once IBehavior enters them
     /// </summary>
-    internal abstract class PlantBehavior : PlantPowerUp
+    internal sealed class PlantBehavior : PlantPowerUp
     {
+        [SerializeField, Tooltip("Behavior Modifier")]
+        private BehaviorModifier modifier;
+
         /// <summary>
-        /// Apply plant behavior to animal
+        /// Apply plant behavior to IBehavior
         /// </summary>
-        /// <param name="animal">Animal who entered plant trigger</param>
-        protected abstract void ApplyBehavior(Animal animal);
+        /// <param name="IBehavior">IBehavior who entered plant trigger</param>
+        private void ApplyBehavior(IBehavior behavior)
+        {
+            modifier.ApplyBehavior(behavior);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            Animal animal = other.GetComponent<Animal>();
+            IBehavior behavior = other.GetComponent<IBehavior>();
 
-            if (animal == null)
+            if (behavior == null)
             {
-                GameLogger.LogError($"{other.name} has no animal component", this, GameLogger.LogCategory.PlantPowerUp);
+                GameLogger.LogWarning($"{other.name} has no IBehavior component", this, GameLogger.LogCategory.PlantPowerUp);
+                return;
             }
 
-            ApplyBehavior(animal);
+            ApplyBehavior(behavior);
         }
     }
 }
