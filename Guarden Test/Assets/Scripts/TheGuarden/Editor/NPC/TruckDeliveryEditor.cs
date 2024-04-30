@@ -10,12 +10,6 @@ namespace TheGuarden.NPC.Editor
             RecordEditorHistory.RecordHistory(truckDelivery, $"Autofill {truckDelivery.name} GameTime", truckDelivery.AutofillVariables);
         }
 
-        [MenuItem("CONTEXT/AnimalDelivery/Autofill Variables")]
-        internal static void AnimalAutofillVariables(MenuCommand command)
-        {
-            AutofillVariables(command.context as AnimalDelivery);
-        }
-
         [MenuItem("CONTEXT/MushroomDelivery/Autofill Variables")]
         internal static void MushroomAutofillVariables(MenuCommand command)
         {

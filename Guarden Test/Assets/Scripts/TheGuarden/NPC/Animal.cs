@@ -10,6 +10,8 @@ namespace TheGuarden.NPC
     [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
     public class Animal : MonoBehaviour
     {
+        private static GameObject shed;
+
         [SerializeField, Tooltip("Autofilled. Animal Navmesh Agent")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Autofilled. Animal rigidbody")]
@@ -21,20 +23,42 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Force Field gameobject activated when inside force field")]
         private GameObject forceField;
 
+        private bool hiding = false;
+
         public bool InsideForceField { get; private set; }
 
         public Rigidbody Rigidbody => rb;
         public NavMeshAgent Agent => agent;
         public Collider Collider => animalCollider;
 
+        private void Awake()
+        {
+            if (shed == null)
+            {
+                shed = GameObject.FindGameObjectWithTag(Tags.Shed);
+            }
+        }
+
         void Start()
         {
             agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
         }
 
+        private void OnEnable()
+        {
+            DayLightCycle.OnDayStarted += ExitShed;
+            DayLightCycle.OnNightStarted += HideInShed;
+        }
+
+        private void OnDisable()
+        {
+            DayLightCycle.OnDayStarted -= ExitShed;
+            DayLightCycle.OnNightStarted -= HideInShed;
+        }
+
         void Update()
         {
-            if (!agent.pathPending && agent.remainingDistance <= stoppingDistance)
+            if (!agent.pathPending && agent.remainingDistance <= stoppingDistance && !hiding)
             {
                 agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
             }
@@ -55,6 +79,17 @@ namespace TheGuarden.NPC
             }
         }
 
+        private void ExitShed()
+        {
+            hiding = false;
+        }
+
+        private void HideInShed()
+        {
+            SetDestination(shed.transform.position);
+            hiding = true;
+        }
+
         /// <summary>
         /// Set agent destination
         /// </summary>
@@ -62,28 +97,6 @@ namespace TheGuarden.NPC
         internal void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);
-        }
-
-        /// <summary>
-        /// Pause Behavior when kidnapped by enemy
-        /// </summary>
-        public void PauseBehavior()
-        {
-            animalCollider.enabled = false;
-            agent.enabled = false;
-            enabled = false;
-            rb.isKinematic = true;
-        }
-
-        /// <summary>
-        /// Resume behavior when released by enemy
-        /// </summary>
-        public void ResumeBehavior()
-        {
-            animalCollider.enabled = true;
-            agent.enabled = true;
-            enabled = true;
-            rb.isKinematic = false;
         }
 
         /// <summary>

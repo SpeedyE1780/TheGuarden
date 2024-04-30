@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TheGuarden.Utility;
-using System.Runtime.CompilerServices;
 
 namespace TheGuarden.NPC
 {
@@ -41,33 +40,37 @@ namespace TheGuarden.NPC
 
         private void Start()
         {
-            if (configuration.dayOneDelivery)
+            items = items.Clone();
+
+            //If no delivery on first day update cooldown to prevent delivery
+            if (!configuration.dayOneDelivery)
             {
-                StartDelivery();
-            }
-            else
-            {
-                deliveryCooldown = configuration.daysBetweenDelivery;
+                SetDeliveryCooldown(configuration.daysBetweenDelivery);
             }
 
             deliverySource.clip = configuration.audioClip;
-            items = items.Clone();
         }
 
         private void OnEnable()
         {
-            GameTime.OnDayEnded += OnDayEnded;
+            DayLightCycle.OnDayStarted += OnDayStarted;
         }
 
         private void OnDisable()
         {
-            GameTime.OnDayEnded -= OnDayEnded;
+            DayLightCycle.OnDayStarted -= OnDayStarted;
+        }
+
+        private void SetDeliveryCooldown(int value)
+        {
+            //Add one to cancel this day's ending contribution
+            deliveryCooldown = value + 1;
         }
 
         /// <summary>
         /// Check if a delivery will occur today if not decrement cooldown
         /// </summary>
-        private void OnDayEnded()
+        private void OnDayStarted()
         {
             if (deliveryCooldown <= 0)
             {
@@ -75,7 +78,7 @@ namespace TheGuarden.NPC
             }
 
             deliveryCooldown -= 1;
-            items.OnDayEnded();
+            items.OnDayStarted();
         }
 
         /// <summary>
@@ -84,8 +87,7 @@ namespace TheGuarden.NPC
         private void StartDelivery()
         {
             StartCoroutine(Delivery());
-            //Add one to cancel this day's ending contribution
-            deliveryCooldown = configuration.daysBetweenDelivery + 1;
+            SetDeliveryCooldown(configuration.daysBetweenDelivery);
         }
 
         /// <summary>
@@ -94,44 +96,40 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator Delivery()
         {
-            foreach (int deliveryHour in configuration.hours)
+            GameLogger.LogInfo($"{name} delivering items", this, GameLogger.LogCategory.InventoryItem);
+            delivered = false;
+            meshes.SetActive(true);
+            RoadLane lane = roads[Random.Range(0, roads.Count)];
+            transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
+            float distanceThreshold = lane.Length * travelledPercentageDelay;
+            followCamera.AddTarget(transform);
+            followCamera.AddTarget(deliveryLocation);
+
+            while (transform.position != lane.EndPosition)
             {
-                yield return new WaitUntil(() => GameTime.Hour >= deliveryHour);
+                transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
 
-                delivered = false;
-                meshes.SetActive(true);
-                RoadLane lane = roads[Random.Range(0, roads.Count)];
-                transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
-                float distanceThreshold = lane.Length * travelledPercentageDelay;
-                followCamera.AddTarget(transform);
-                followCamera.AddTarget(deliveryLocation);
-
-                while (transform.position != lane.EndPosition)
+                if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= distanceThreshold)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
+                    delivered = true;
+                    deliverySource.Play();
 
-                    if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= distanceThreshold)
+                    if (configuration.stopForDelivery)
                     {
-                        delivered = true;
-                        deliverySource.Play();
-
-                        if (configuration.stopForDelivery)
-                        {
-                            yield return DeliverItems();
-                        }
-                        else
-                        {
-                            StartCoroutine(DeliverItems());
-                        }
+                        yield return DeliverItems();
                     }
-
-                    yield return null;
+                    else
+                    {
+                        StartCoroutine(DeliverItems());
+                    }
                 }
 
-                meshes.SetActive(false);
-                followCamera.RemoveTarget(transform);
-                followCamera.RemoveTarget(deliveryLocation);
+                yield return null;
             }
+
+            meshes.SetActive(false);
+            followCamera.RemoveTarget(transform);
+            followCamera.RemoveTarget(deliveryLocation);
         }
 
         /// <summary>

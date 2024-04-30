@@ -30,6 +30,7 @@ namespace TheGuarden.Tutorial
         {
             fullyGrown = false;
             grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
+            grow.enabled = false;
             grow.OnFullyGrown.AddListener(OnFullyGrown);
         }
 
@@ -39,7 +40,7 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            GameTime.SetClockScale(1f);
+            grow.enabled = true;
             yield return new WaitUntil(() => fullyGrown);
             grow.OnFullyGrown.RemoveListener(OnFullyGrown);
         }

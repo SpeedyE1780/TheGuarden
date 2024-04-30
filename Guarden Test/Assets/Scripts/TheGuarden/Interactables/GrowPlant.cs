@@ -4,6 +4,9 @@ using TheGuarden.Utility;
 
 namespace TheGuarden.Interactable
 {
+    /// <summary>
+    /// GrowPlant controls the mushroom growing speed
+    /// </summary>
     internal class GrowPlant : MonoBehaviour
     {
         /// <summary>
@@ -12,10 +15,6 @@ namespace TheGuarden.Interactable
         [System.Serializable]
         private struct GrowingInfo
         {
-            [Range(0, 23), Tooltip("Hour where peak growing starts")]
-            public int startHour;
-            [Range(0, 23), Tooltip("Hour where peak growing ends")]
-            public int endHour;
             [Tooltip("Peak rate at which plant grows")]
             public float peakGrowingRate;
             [Tooltip("Off peak rate at which plant grows")]
@@ -48,6 +47,23 @@ namespace TheGuarden.Interactable
         internal Vector3 MaxSize => growingInfo.maxSize;
 #endif
 
+        private void Awake()
+        {
+            growthRate = growingInfo.peakGrowingRate;
+        }
+
+        private void OnEnable()
+        {
+            DayLightCycle.OnDayStarted += UsePeakRate;
+            DayLightCycle.OnNightStarted += UseOffPeakRate;
+        }
+
+        private void OnDisable()
+        {
+            DayLightCycle.OnDayStarted -= UsePeakRate;
+            DayLightCycle.OnNightStarted -= UseOffPeakRate;
+        }
+
         void Update()
         {
             if (IsGrowing)
@@ -62,10 +78,6 @@ namespace TheGuarden.Interactable
 
         private void LateUpdate()
         {
-            growthRate = GameTime.HasPeriodStarted(growingInfo.startHour, growingInfo.endHour) ?
-                growingInfo.peakGrowingRate :
-                growingInfo.offPeakGrowingRate;
-
             if (IsGrowing && growingParticles.isStopped)
             {
                 growingParticles.Play();
@@ -81,6 +93,16 @@ namespace TheGuarden.Interactable
                 growingParticles.Stop();
                 OnFullyGrown?.Invoke();
             }
+        }
+
+        private void UsePeakRate()
+        {
+            growthRate = growingInfo.peakGrowingRate;
+        }
+
+        private void UseOffPeakRate()
+        {
+            growthRate = growingInfo.offPeakGrowingRate;
         }
 
         /// <summary>
@@ -106,16 +128,6 @@ namespace TheGuarden.Interactable
         }
 
 #if UNITY_EDITOR
-        internal void ValidateVariables()
-        {
-            transform.localScale = growingInfo.startSize;
-
-            if (growingInfo.endHour < growingInfo.startHour)
-            {
-                growingInfo.endHour = growingInfo.startHour;
-            }
-        }
-
         internal Transform GetBehaviorParent()
         {
             Transform behaviorParent = transform.Find("Behaviors");

@@ -13,11 +13,10 @@ namespace TheGuarden.Interactable.Editor
             RecordEditorHistory.RecordHistory(growPlant, $"Autofill {growPlant.name} GameTime", growPlant.AutofillVariables);
         }
 
-        [MenuItem("CONTEXT/GrowPlant/Validate Variables")]
-        internal static void ValidateVariables(MenuCommand command)
+        [MenuItem("CONTEXT/GrowPlant/Fix Behavior Scale")]
+        internal static void FixScale(MenuCommand command)
         {
             GrowPlant growPlant = command.context as GrowPlant;
-            RecordEditorHistory.RecordHistory(growPlant, $"Validate {growPlant.name} variables", growPlant .ValidateVariables);
 
             Transform behaviorParent = growPlant.GetBehaviorParent();
 

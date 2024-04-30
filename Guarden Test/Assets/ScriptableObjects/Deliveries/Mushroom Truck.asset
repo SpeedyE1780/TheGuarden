@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15eaf5a0ed1449448a4cd9eca3f11e19, type: 3}
   m_Name: Mushroom Truck
   m_EditorClassIdentifier: 
-  hours: 060000000c00000012000000
   itemsInterval: 0.25
   daysBetweenDelivery: 0
   dayOneDelivery: 1
