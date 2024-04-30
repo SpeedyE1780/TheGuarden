@@ -1,13 +1,14 @@
 {
-    "name": "TheGuarden",
-    "rootNamespace": "TheGuarden",
+    "name": "TheGuarden.NPC.Editor",
+    "rootNamespace": "TheGuarden.NPC.Editor",
     "references": [
-        "GUID:eaadf552b7d9ab249807e6b2215a5f76",
-        "GUID:86fc5a17a2ccc0047a2666c830a53aaf",
-        "GUID:1e6ef3025147d1c4fabd0c53831b758e",
+        "GUID:b48061cb228a1644e9c81d4580f5484f",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f",
         "GUID:bfe26ced4962770498501e7f2b9ec513"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
