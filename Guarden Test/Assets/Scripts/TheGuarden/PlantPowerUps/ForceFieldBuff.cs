@@ -8,17 +8,6 @@ namespace TheGuarden.PlantPowerUps
     /// </summary>
     internal class ForceFieldBuff : PlantBuff
     {
-        private void OnEnable()
-        {
-            EnemyNavMeshBaker.BakeNavMesh();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-            EnemyNavMeshBaker.BakeNavMesh();
-        }
-
         /// <summary>
         /// Set animal inside force field
         /// </summary>

@@ -77,7 +77,7 @@ namespace TheGuarden.PlantPowerUps
             buffedAnimals.Remove(animal);
         }
 
-        protected virtual void OnDisable()
+        protected void OnDisable()
         {
             GameLogger.LogInfo($"{name} picked up removing buff from affected objects", this, GameLogger.LogCategory.PlantPowerUp);
 
