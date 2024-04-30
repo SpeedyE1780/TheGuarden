@@ -1877,7 +1877,6 @@ GameObject:
   m_Component:
   - component: {fileID: 207304614}
   - component: {fileID: 207304617}
-  - component: {fileID: 207304616}
   - component: {fileID: 207304615}
   m_Layer: 0
   m_Name: TowerDefenceCamera
@@ -1945,14 +1944,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &207304616
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 207304613}
-  m_Enabled: 1
 --- !u!20 &207304617
 Camera:
   m_ObjectHideFlags: 0
@@ -8397,9 +8388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1164040285}
   - component: {fileID: 1164040282}
-  - component: {fileID: 1164040284}
   - component: {fileID: 1164040283}
-  - component: {fileID: 1164040281}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8407,26 +8396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1164040281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164040280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35151fb2cecedd34ea5c1c05b03cd564, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followCamera: {fileID: 1164040282}
-  towerDefenceCamera: {fileID: 207304617}
-  targets: []
-  offset: {x: 0, y: 0.635297, z: -0.77226794}
-  addedOffset: 15
-  defaultTarget: {fileID: 1813824480}
-  movementSpeed: 5
-  snapToPosition: 0
 --- !u!20 &1164040282
 Camera:
   m_ObjectHideFlags: 0
@@ -8522,14 +8491,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &1164040284
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1164040280}
-  m_Enabled: 1
 --- !u!4 &1164040285
 Transform:
   m_ObjectHideFlags: 0
@@ -9232,7 +9193,7 @@ MonoBehaviour:
   spawningDelay: 2
   enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
     type: 3}
-  followCamera: {fileID: 1164040281}
+  followCamera: {fileID: 1912071954}
   ufoTransform: {fileID: 904827024}
   ufo: {fileID: 904827025}
   ufoSpeed: 75
@@ -10328,7 +10289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97e05f6402e6c6b4f8231b21991743ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followCamera: {fileID: 1164040281}
+  followCamera: {fileID: 1912071954}
   inputSystemUIInputModule: {fileID: 1563650752}
   inventoryUI:
   - {fileID: 2012401046}
@@ -13210,6 +13171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1912071953}
   - component: {fileID: 1912071954}
+  - component: {fileID: 1912071955}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -13249,11 +13211,19 @@ MonoBehaviour:
   followCamera: {fileID: 1164040282}
   towerDefenceCamera: {fileID: 207304617}
   targets: []
-  offset: {x: 0, y: 9.529455, z: -11.584019}
+  offset: {x: 0, y: 10, z: -12}
   addedOffset: 15
   defaultTarget: {fileID: 1813824480}
   movementSpeed: 5
   snapToPosition: 0
+--- !u!81 &1912071955
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912071952}
+  m_Enabled: 1
 --- !u!1 &1920860016
 GameObject:
   m_ObjectHideFlags: 0
@@ -13983,7 +13953,7 @@ MonoBehaviour:
   speed: 10
   meshes: {fileID: 1631699457}
   items: {fileID: 11400000, guid: d926cbdeb9f1bc04f91ec8f5113c7b01, type: 2}
-  followCamera: {fileID: 1164040281}
+  followCamera: {fileID: 1912071954}
   deliveryLocation: {fileID: 202273868}
   configuration: {fileID: 11400000, guid: 38d685ebfb66576439f32eedea498c43, type: 2}
   travelledPercentageDelay: 0.4
