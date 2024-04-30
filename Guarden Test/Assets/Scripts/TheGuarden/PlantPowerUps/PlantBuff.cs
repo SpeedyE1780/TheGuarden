@@ -1,97 +1,62 @@
 using UnityEngine;
-using TheGuarden.NPC;
-using System.Collections.Generic;
 using TheGuarden.Utility;
 
 namespace TheGuarden.PlantPowerUps
 {
     /// <summary>
-    /// Parent class of plants that apply buff to animals inside trigger
+    /// Parent class of plants that apply buff to buffs inside trigger
     /// </summary>
-    internal abstract class PlantBuff : PlantPowerUp
+    internal sealed class PlantBuff : PlantPowerUp
     {
-        private List<Animal> buffedAnimals = new List<Animal>();
+        [SerializeField, Tooltip("Buff Modifier applied to IBuff")]
+        private BuffModifier modifier;
 
         /// <summary>
-        /// Apply buff to animal
-        /// </summary>
-        /// <param name="animal">Animal staying in trigger</param>
-        protected abstract void ApplyBuff(Animal animal);
-        /// <summary>
-        /// Remove buff to animal
-        /// </summary>
-        /// <param name="animal">Animal leaving trigger</param>
-        protected abstract void RemoveBuff(Animal animal);
-
-        /// <summary>
-        /// Get animal from collider
+        /// Get buff from collider
         /// </summary>
         /// <param name="other">Object that entered power up trigger</param>
         /// <returns></returns>
-        private Animal GetAnimal(Collider other)
+        private IBuff GetIBuff(Collider other)
         {
-            Animal animal = other.GetComponent<Animal>();
+            IBuff buff = other.GetComponent<IBuff>();
 
-            if (animal == null)
+            if (buff == null)
             {
-                GameLogger.LogError($"{other.name} has no animal collider", this, GameLogger.LogCategory.PlantPowerUp);
+                GameLogger.LogError($"{other.name} has no buff component", this, GameLogger.LogCategory.PlantPowerUp);
             }
 
-            return animal;
+            return buff;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            Animal animal = GetAnimal(other);
+            IBuff buff = GetIBuff(other);
 
-            if (animal == null)
+            if (buff == null)
             {
                 return;
             }
 
-            buffedAnimals.Add(animal);
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            Animal animal = GetAnimal(other);
-
-            if (animal == null)
-            {
-                return;
-            }
-
-            ApplyBuff(animal);
+            modifier.AddAndApplyBuff(buff);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            Animal animal = GetAnimal(other);
+            IBuff buff = GetIBuff(other);
 
-            if (animal == null)
+            if (buff == null)
             {
                 return;
             }
 
-            RemoveBuff(animal);
-            buffedAnimals.Remove(animal);
+            modifier.RemoveAndRemoveBuff(buff);
         }
 
-        protected void OnDisable()
+        private void OnDisable()
         {
             GameLogger.LogInfo($"{name} picked up removing buff from affected objects", this, GameLogger.LogCategory.PlantPowerUp);
 
-            foreach (Animal animal in buffedAnimals)
-            {
-                if (animal == null)
-                {
-                    continue;
-                }
-
-                RemoveBuff(animal);
-            }
-
-            buffedAnimals.Clear();
+            modifier.RemoveAllBuff();
         }
     }
 }
