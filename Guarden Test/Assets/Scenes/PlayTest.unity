@@ -4440,6 +4440,7 @@ MonoBehaviour:
   animalPrefab: {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64,
     type: 3}
   spawnCount: 2
+  animalSet: {fileID: 11400000, guid: c8dad965b3954224cab07eaf36caf8d0, type: 2}
 --- !u!1 &611425643
 GameObject:
   m_ObjectHideFlags: 0
@@ -9201,6 +9202,21 @@ MonoBehaviour:
   OnWaveCompleted:
     m_PersistentCalls:
       m_Calls: []
+  OnEnemyReachedShed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 609680991}
+        m_TargetAssemblyTypeName: TheGuarden.NPC.AnimalSpawner, TheGuarden
+        m_MethodName: RemoveAnimal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1322648803
 GameObject:
   m_ObjectHideFlags: 0
