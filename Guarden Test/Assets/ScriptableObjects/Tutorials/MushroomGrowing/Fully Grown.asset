@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: Fully Grown
   m_EditorClassIdentifier: 
   objectSpawner: {fileID: 11400000, guid: 98e6855562fead64ba5fd4375d68e289, type: 2}
+  tutorialGrowingInfo: {fileID: 11400000, guid: b38e9a6ae4f0f7146afd8c42147596a0,
+    type: 2}

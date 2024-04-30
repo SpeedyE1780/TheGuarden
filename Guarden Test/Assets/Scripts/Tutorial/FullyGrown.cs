@@ -14,6 +14,8 @@ namespace TheGuarden.Tutorial
     {
         private GrowPlant grow;
         private bool fullyGrown = false;
+        [SerializeField]
+        private GrowingInfo tutorialGrowingInfo;
 
         /// <summary>
         /// Called when mushroom is fully grown
@@ -41,6 +43,7 @@ namespace TheGuarden.Tutorial
         internal override IEnumerator StartTutorial()
         {
             grow.enabled = true;
+            tutorialGrowingInfo.OnDayStarted();
             yield return new WaitUntil(() => fullyGrown);
             grow.OnFullyGrown.RemoveListener(OnFullyGrown);
         }
