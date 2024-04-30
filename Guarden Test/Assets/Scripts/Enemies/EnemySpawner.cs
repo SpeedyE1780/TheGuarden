@@ -80,7 +80,7 @@ namespace TheGuarden.Enemies
         {
             Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
             enemy.SetPath(paths.GetRandomItem());
-            enemy.OnPathEnded = (enemyObject) => spawnedEnemies.Remove(enemyObject);
+            enemy.OnDestroyed = (enemyObject) => spawnedEnemies.Remove(enemyObject);
             spawnedEnemies.Add(enemy.gameObject);
             GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
         }
