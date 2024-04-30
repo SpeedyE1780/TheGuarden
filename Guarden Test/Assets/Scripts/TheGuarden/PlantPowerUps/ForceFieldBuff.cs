@@ -15,7 +15,6 @@ namespace TheGuarden.PlantPowerUps
         protected override void ApplyBuff(Animal animal)
         {
             GameLogger.LogInfo(animal.name + " in force field", gameObject, GameLogger.LogCategory.PlantPowerUp);
-            animal.ToggleForceField(true);
         }
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace TheGuarden.PlantPowerUps
         protected override void RemoveBuff(Animal animal)
         {
             GameLogger.LogInfo(animal.name + " out of force field", gameObject, GameLogger.LogCategory.PlantPowerUp);
-            animal.ToggleForceField(false);
         }
     }
 }
