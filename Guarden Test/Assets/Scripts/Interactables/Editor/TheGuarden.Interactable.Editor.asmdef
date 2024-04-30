@@ -1,10 +1,9 @@
 {
-    "name": "TheGuarden.Editor",
-    "rootNamespace": "TheGuarden",
+    "name": "TheGuarden.Interactable.Editor",
+    "rootNamespace": "TheGuarden.Interactable.Editor",
     "references": [
-        "GUID:b48061cb228a1644e9c81d4580f5484f",
-        "GUID:b2acc1a911a7cbe48a5efea29268b62f",
-        "GUID:bfe26ced4962770498501e7f2b9ec513"
+        "GUID:bfe26ced4962770498501e7f2b9ec513",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f"
     ],
     "includePlatforms": [
         "Editor"
