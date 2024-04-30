@@ -6,11 +6,12 @@ namespace TheGuarden.Utility
     /// <summary>
     /// FollowTarget makes sure the Camera follows and has all targets in view
     /// </summary>
-    [RequireComponent(typeof(Camera))]
     public class FollowTarget : MonoBehaviour
     {
         [SerializeField, Tooltip("Camera following the targets")]
         private Camera followCamera;
+        [SerializeField, Tooltip("Tower Defence Camera")]
+        private Camera towerDefenceCamera;
         [SerializeField, Tooltip("Targets that need to stay in camera view")]
         private List<Transform> targets;
         [SerializeField, Tooltip("Offset between the camera and the targets")]
@@ -38,6 +39,32 @@ namespace TheGuarden.Utility
         {
             offset = offset.normalized;
             bounds = new Bounds();
+        }
+
+        private void OnEnable()
+        {
+            DayLightCycle.OnDayStarted += SwitchToFollowCamera;
+            DayLightCycle.OnNightStarted += SwitchToTowerDefenceCamera;
+        }
+
+        private void OnDisable()
+        {
+            DayLightCycle.OnDayStarted -= SwitchToFollowCamera;
+            DayLightCycle.OnNightStarted -= SwitchToTowerDefenceCamera;
+        }
+
+        private void SwitchToFollowCamera()
+        {
+            GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
+            followCamera.gameObject.SetActive(true);
+            towerDefenceCamera.gameObject.SetActive(false);
+        }
+
+        private void SwitchToTowerDefenceCamera()
+        {
+            GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
+            towerDefenceCamera.gameObject.SetActive(true);
+            followCamera.gameObject.SetActive(false);
         }
 
         /// <summary>
