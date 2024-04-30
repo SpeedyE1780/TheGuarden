@@ -16,7 +16,7 @@ PrefabInstance:
     - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_Name
-      value: Mushrom Repel Variant
+      value: Freeze Mushroom
       objectReference: {fileID: 0}
     - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
@@ -32,7 +32,7 @@ PrefabInstance:
         type: 3}
       propertyPath: behaviors.Array.data[0]
       value: 
-      objectReference: {fileID: 5880219717503955556}
+      objectReference: {fileID: 8960460591079928594}
     - target: {fileID: 8670486904953502129, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_RootOrder
@@ -169,7 +169,7 @@ PrefabInstance:
     - target: {fileID: 7358100774690515844, guid: bd6a5109c29789c4684a3e12fbc3eb36,
         type: 3}
       propertyPath: m_Name
-      value: Repel
+      value: Freeze
       objectReference: {fileID: 0}
     - target: {fileID: 7358100774690515844, guid: bd6a5109c29789c4684a3e12fbc3eb36,
         type: 3}
@@ -187,15 +187,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7495620414478263255}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5880219717503955556 stripped
+--- !u!114 &8960460591079928594 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4152168910926811571, guid: bd6a5109c29789c4684a3e12fbc3eb36,
+  m_CorrespondingSourceObject: {fileID: 1467109578265071813, guid: bd6a5109c29789c4684a3e12fbc3eb36,
     type: 3}
   m_PrefabInstance: {fileID: 7495620414478263255}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e002995ec082f4c980d6e2c0bf4235, type: 3}
+  m_Script: {fileID: 11500000, guid: 060ca8af303ea2146b9013ffcd94c9a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

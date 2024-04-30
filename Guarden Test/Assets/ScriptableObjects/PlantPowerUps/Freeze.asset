@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b07772dd157dfe4caf7f2bc1cdb6e9e, type: 3}
-  m_Name: Repel
+  m_Script: {fileID: 11500000, guid: 93ab9162b8ee16445b4416c6ea51319b, type: 3}
+  m_Name: Freeze
   m_EditorClassIdentifier: 
-  item: {fileID: 5280582548560732933, guid: 2953b3026faceea47958fe9d27c1f290, type: 3}
-  daysToUnlock: 2
+  duration: 3

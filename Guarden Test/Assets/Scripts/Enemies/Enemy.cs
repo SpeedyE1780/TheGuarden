@@ -8,7 +8,7 @@ namespace TheGuarden.Enemies
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IBehavior
     {
         internal delegate void OnDestroyedCallback(GameObject gameObject);
 
@@ -24,9 +24,7 @@ namespace TheGuarden.Enemies
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
 
-#if UNITY_EDITOR
-        internal NavMeshAgent Agent => agent;
-#endif
+        public NavMeshAgent Agent => agent;
 
         void Start()
         {

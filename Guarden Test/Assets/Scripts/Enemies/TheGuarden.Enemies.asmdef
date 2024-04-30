@@ -2,7 +2,8 @@
     "name": "TheGuarden.Enemies",
     "rootNamespace": "TheGuarden.Enemies",
     "references": [
-        "GUID:eaadf552b7d9ab249807e6b2215a5f76"
+        "GUID:eaadf552b7d9ab249807e6b2215a5f76",
+        "GUID:b48061cb228a1644e9c81d4580f5484f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

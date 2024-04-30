@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5981522035217783445}
   - component: {fileID: 1467109578265071813}
   m_Layer: 0
-  m_Name: Repel
+  m_Name: Freeze
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,4 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configuration: {fileID: 11400000, guid: 4c613f1d188c62740beb925fe57186b3, type: 2}
   powerUpCollider: {fileID: 5981522035217783445}
-  modifier: {fileID: 0}
+  modifier: {fileID: 11400000, guid: c1f092cea5f738c4d88c492e26d52735, type: 2}
