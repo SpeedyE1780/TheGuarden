@@ -43,7 +43,7 @@ namespace TheGuarden.Interactable
         public float UsabilityPercentage => GrowthPercentage;
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
-        public bool HasInstantPickUp => GrowthPercentage == 0;
+        public bool HasInstantPickUp => GrowthPercentage == 0 || GrowthPercentage == 1;
 
         /// <summary>
         /// Ignore collisions
