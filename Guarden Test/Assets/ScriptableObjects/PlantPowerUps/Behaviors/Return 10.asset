@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b07772dd157dfe4caf7f2bc1cdb6e9e, type: 3}
-  m_Name: Attract
+  m_Script: {fileID: 11500000, guid: bc4351289467cd4479f304edf8e6d92f, type: 3}
+  m_Name: Return 10
   m_EditorClassIdentifier: 
-  item: {fileID: 4285238352066790093, guid: 3d9748b4a5c87984e88452d98270b87e, type: 3}
-  daysToUnlock: 1
+  count: 10

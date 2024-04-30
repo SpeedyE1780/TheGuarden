@@ -7,6 +7,7 @@ namespace TheGuarden
     public interface IBehavior
     {
         Coroutine StartCoroutine(IEnumerator coroutine);
+        void RewindPathProgress(int waypoints);
         NavMeshAgent Agent { get; }
     }
 }

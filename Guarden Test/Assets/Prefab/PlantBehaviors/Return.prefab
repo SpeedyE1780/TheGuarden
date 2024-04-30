@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3614132450077183374}
   - component: {fileID: -6758951738174010302}
   m_Layer: 0
-  m_Name: Attract
+  m_Name: Return
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,4 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   configuration: {fileID: 11400000, guid: 4c613f1d188c62740beb925fe57186b3, type: 2}
   powerUpCollider: {fileID: 3614132450077183374}
-  modifier: {fileID: 0}
+  modifier: {fileID: 11400000, guid: e786382e3202a0a45b24c67ad346f6a1, type: 2}

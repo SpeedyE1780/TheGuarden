@@ -15,6 +15,7 @@ MonoBehaviour:
   guaranteed:
   - {fileID: 11400000, guid: 8dbaa375b320b0e4380894ff3524f1ff, type: 2}
   - {fileID: 11400000, guid: ef8723c79d97120499f05f928de5d787, type: 2}
+  - {fileID: 11400000, guid: 8094ba5be381e5f4abe586b3d7848e38, type: 2}
   random:
   - {fileID: 11400000, guid: 8094ba5be381e5f4abe586b3d7848e38, type: 2}
   - {fileID: 11400000, guid: ef8723c79d97120499f05f928de5d787, type: 2}

@@ -1,4 +1,5 @@
 using System.Collections;
+using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,11 +21,16 @@ namespace TheGuarden.Enemies
         private float distanceThreshold = 3.0f;
 
         private EnemyPath path;
+        private bool rewinding = false;
+        private bool rewindComplete = false;
         internal OnDestroyedCallback OnDestroyed { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
-
         public NavMeshAgent Agent => agent;
+
+#if UNITY_EDITOR
+        internal bool Rewinding => rewinding;
+#endif
 
         void Start()
         {
@@ -51,6 +57,11 @@ namespace TheGuarden.Enemies
 
             while (true)
             {
+                if (rewinding)
+                {
+                    yield break;
+                }
+
                 if (ReachedDestination)
                 {
                     path.CurrentIndex += 1;
@@ -71,6 +82,53 @@ namespace TheGuarden.Enemies
         private void OnDestroy()
         {
             OnDestroyed(gameObject);
+        }
+
+        public void RewindPathProgress(int waypoints)
+        {
+            if (rewindComplete)
+            {
+                GameLogger.LogInfo($"{name} already rewinded path", this, GameLogger.LogCategory.Enemy);
+                return;
+            }
+
+            GameLogger.LogInfo($"{name} rewinded by {waypoints} waypoints", this, GameLogger.LogCategory.Enemy);
+            StartCoroutine(RewindPath(waypoints));
+        }
+
+        private IEnumerator RewindPath(int waypoints)
+        {
+            rewinding = true;
+            path.CurrentIndex -= 1;
+            agent.SetDestination(path.CurrentPosition);
+
+            while (waypoints > 0)
+            {
+                if (ReachedDestination)
+                {
+                    GameLogger.LogInfo($"{name} rewinded stop remaining {waypoints}", this, GameLogger.LogCategory.Enemy);
+                    path.CurrentIndex -= 1;
+                    waypoints -= 1;
+
+                    if (path.CurrentIndex < 0)
+                    {
+                        path.CurrentIndex = 0;
+                        GameLogger.LogInfo("Early break path index is less than 0", this, GameLogger.LogCategory.Enemy);
+                        break;
+                    }
+
+                    agent.SetDestination(path.CurrentPosition);
+                }
+
+                yield return null;
+            }
+
+            GameLogger.LogInfo($"{name} completed rewind", this, GameLogger.LogCategory.Enemy);
+            yield return new WaitUntil(() => ReachedDestination);
+            rewindComplete = true;
+            rewinding = false;
+
+            StartCoroutine(Patrol());
         }
     }
 }
