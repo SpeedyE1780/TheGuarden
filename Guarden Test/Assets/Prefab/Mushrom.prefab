@@ -4989,15 +4989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec789c1f81e39904caa5995484e4656f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growingInfo:
-    startHour: 6
-    endHour: 14
-    peakGrowingRate: 0.25
-    offPeakGrowingRate: 0.05
-    minimumDryWetRatio: 0.293
-    startSize: {x: 0.25, y: 0.25, z: 0.25}
-    maxSize: {x: 1.5, y: 1.5, z: 1.5}
-  gameTime: {fileID: 0}
+  growingInfo: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
   growingParticles: {fileID: 8863964921418951005}
   OnFullyGrown:
     m_PersistentCalls:
@@ -5040,6 +5032,12 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
+  OnPlantInSoil:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlant:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

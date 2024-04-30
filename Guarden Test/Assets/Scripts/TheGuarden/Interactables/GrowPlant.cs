@@ -9,24 +9,6 @@ namespace TheGuarden.Interactable
     /// </summary>
     internal class GrowPlant : MonoBehaviour
     {
-        /// <summary>
-        /// GrowingInfo has all info related to growing
-        /// </summary>
-        [System.Serializable]
-        private struct GrowingInfo
-        {
-            [Tooltip("Peak rate at which plant grows")]
-            public float peakGrowingRate;
-            [Tooltip("Off peak rate at which plant grows")]
-            public float offPeakGrowingRate;
-            [Range(0, 1), Tooltip("Minimum ratio needed to grow")]
-            public float minimumDryWetRatio;
-            [Tooltip("Size when growing starts")]
-            public Vector3 startSize;
-            [Tooltip("Size when growing ends")]
-            public Vector3 maxSize;
-        }
-
         [SerializeField, Tooltip("All growing related info")]
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
@@ -34,7 +16,6 @@ namespace TheGuarden.Interactable
 
         public UnityEvent OnFullyGrown;
 
-        private float growthRate = 1.1f;
         private Vector3 targetGrowth = Vector3.zero;
         private bool isGrowing = false;
         private PlantSoil soil;
@@ -47,32 +28,15 @@ namespace TheGuarden.Interactable
         internal Vector3 MaxSize => growingInfo.maxSize;
 #endif
 
-        private void Awake()
-        {
-            growthRate = growingInfo.peakGrowingRate;
-        }
-
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += UsePeakRate;
-            DayLightCycle.OnNightStarted += UseOffPeakRate;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= UsePeakRate;
-            DayLightCycle.OnNightStarted -= UseOffPeakRate;
-        }
-
         void Update()
         {
             if (IsGrowing)
             {
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x + (growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y + (growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z + (growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
+                targetGrowth.x = Mathf.Clamp(transform.localScale.x + (growingInfo.growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
+                targetGrowth.y = Mathf.Clamp(transform.localScale.y + (growingInfo.growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
+                targetGrowth.z = Mathf.Clamp(transform.localScale.z + (growingInfo.growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
 
-                transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growthRate);
+                transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growingInfo.growthRate);
             }
         }
 
@@ -93,16 +57,6 @@ namespace TheGuarden.Interactable
                 growingParticles.Stop();
                 OnFullyGrown?.Invoke();
             }
-        }
-
-        private void UsePeakRate()
-        {
-            growthRate = growingInfo.peakGrowingRate;
-        }
-
-        private void UseOffPeakRate()
-        {
-            growthRate = growingInfo.offPeakGrowingRate;
         }
 
         /// <summary>
