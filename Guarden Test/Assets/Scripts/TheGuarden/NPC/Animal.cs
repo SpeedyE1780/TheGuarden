@@ -10,14 +10,12 @@ namespace TheGuarden.NPC
     [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
     public class Animal : MonoBehaviour
     {
-        private static GameObject shed;
+        internal static Transform Shed { get; set; }
 
         [SerializeField, Tooltip("Autofilled. Animal Navmesh Agent")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Autofilled. Animal rigidbody")]
         private Rigidbody rb;
-        [SerializeField, Tooltip("Autofilled. Animal collider")]
-        private Collider animalCollider;
         [SerializeField, Tooltip("Minimum distance before considering agent destination reached")]
         private float stoppingDistance = 0.75f;
         [SerializeField, Tooltip("Force Field gameobject activated when inside force field")]
@@ -27,21 +25,10 @@ namespace TheGuarden.NPC
 
         public bool InsideForceField { get; private set; }
 
-        public Rigidbody Rigidbody => rb;
-        public NavMeshAgent Agent => agent;
-        public Collider Collider => animalCollider;
-
-        private void Awake()
-        {
-            if (shed == null)
-            {
-                shed = GameObject.FindGameObjectWithTag(Tags.Shed);
-            }
-        }
-
         void Start()
         {
             agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
+            agent.stoppingDistance = stoppingDistance;
         }
 
         private void OnEnable()
@@ -69,16 +56,6 @@ namespace TheGuarden.NPC
             rb.velocity = agent.velocity;
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (!enabled || !agent.enabled)
-            {
-                enabled = true;
-                agent.enabled = true;
-                agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
-            }
-        }
-
         private void ExitShed()
         {
             hiding = false;
@@ -86,7 +63,7 @@ namespace TheGuarden.NPC
 
         private void HideInShed()
         {
-            SetDestination(shed.transform.position);
+            SetDestination(Shed.position);
             hiding = true;
         }
 
@@ -114,7 +91,6 @@ namespace TheGuarden.NPC
         {
             agent = GetComponent<NavMeshAgent>();
             rb = GetComponent<Rigidbody>();
-            animalCollider = GetComponent<Collider>();
         }
 #endif
     }
