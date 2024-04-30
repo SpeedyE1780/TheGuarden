@@ -56,15 +56,15 @@ namespace TheGuarden.Utility
         private void SwitchToFollowCamera()
         {
             GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
-            followCamera.gameObject.SetActive(true);
             towerDefenceCamera.gameObject.SetActive(false);
+            followCamera.gameObject.SetActive(true);
         }
 
         private void SwitchToTowerDefenceCamera()
         {
             GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
-            towerDefenceCamera.gameObject.SetActive(true);
             followCamera.gameObject.SetActive(false);
+            towerDefenceCamera.gameObject.SetActive(true);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using TheGuarden.Utility;
+using UnityEngine.VFX;
 
 namespace TheGuarden.Interactable
 {
@@ -9,10 +10,14 @@ namespace TheGuarden.Interactable
     /// </summary>
     internal class GrowPlant : MonoBehaviour
     {
+        private static readonly int Growing = Shader.PropertyToID("OnGrowing");
+        private static readonly int StopGrowing = Shader.PropertyToID("OnStopGrowing");
+        private static readonly int FullyGrown = Shader.PropertyToID("OnFullyGrown");
+
         [SerializeField, Tooltip("All growing related info")]
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
-        private ParticleSystem growingParticles;
+        private VisualEffect growingParticles;
 
         public UnityEvent OnFullyGrown;
 
@@ -22,7 +27,7 @@ namespace TheGuarden.Interactable
 
         public bool IsFullyGrown => transform.localScale == growingInfo.maxSize;
         public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
-        private bool IsGrowing => isGrowing && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
+        private bool IsGrowing => !IsFullyGrown && soil != null && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
 #if UNITY_EDITOR
         internal Vector3 MaxSize => growingInfo.maxSize;
@@ -42,20 +47,22 @@ namespace TheGuarden.Interactable
 
         private void LateUpdate()
         {
-            if (IsGrowing && growingParticles.isStopped)
-            {
-                growingParticles.Play();
-            }
-            else if (!IsGrowing && growingParticles.isPlaying)
-            {
-                growingParticles.Stop();
-            }
-
             if (isGrowing && IsFullyGrown)
             {
-                isGrowing = false;
-                growingParticles.Stop();
+                growingParticles.SendEvent(StopGrowing);
+                growingParticles.SendEvent(FullyGrown);
                 OnFullyGrown?.Invoke();
+            }
+
+            if (IsGrowing && !isGrowing)
+            {
+                isGrowing = true;
+                growingParticles.SendEvent(Growing);
+            }
+            else if (!IsGrowing && isGrowing)
+            {
+                isGrowing = false;
+                growingParticles.SendEvent(StopGrowing);
             }
         }
 
@@ -66,9 +73,12 @@ namespace TheGuarden.Interactable
         {
             if (isGrowing)
             {
+                growingParticles.Stop();
                 transform.localScale = growingInfo.startSize;
                 isGrowing = false;
             }
+
+            soil = null;
         }
 
         /// <summary>
@@ -79,6 +89,7 @@ namespace TheGuarden.Interactable
         {
             isGrowing = true;
             soil = plantSoil;
+            growingParticles.Play();
         }
 
 #if UNITY_EDITOR
@@ -96,7 +107,7 @@ namespace TheGuarden.Interactable
 
         internal void AutofillVariables()
         {
-            growingParticles = GetComponentInChildren<ParticleSystem>();
+            growingParticles = GetComponentInChildren<VisualEffect>();
         }
 #endif
     }

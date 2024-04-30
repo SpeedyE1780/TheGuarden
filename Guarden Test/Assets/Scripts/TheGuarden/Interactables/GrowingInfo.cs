@@ -8,15 +8,15 @@ namespace TheGuarden
     [CreateAssetMenu(menuName = "Scriptable Objects/Mushrooms/Growing Info")]
     internal class GrowingInfo : ScriptableObject
     {
-        [Tooltip("Peak rate at which plant grows")]
+        [SerializeField, Tooltip("Peak rate at which plant grows")]
         internal float peakGrowingRate;
-        [Tooltip("Off peak rate at which plant grows")]
+        [SerializeField, Tooltip("Off peak rate at which plant grows")]
         internal float offPeakGrowingRate;
-        [Range(0, 1), Tooltip("Minimum ratio needed to grow")]
+        [SerializeField, Range(0, 1), Tooltip("Minimum ratio needed to grow")]
         internal float minimumDryWetRatio;
-        [Tooltip("Size when growing starts")]
+        [SerializeField, Tooltip("Size when growing starts")]
         internal Vector3 startSize;
-        [Tooltip("Size when growing ends")]
+        [SerializeField, Tooltip("Size when growing ends")]
         internal Vector3 maxSize;
 
         internal float growthRate = 0;
