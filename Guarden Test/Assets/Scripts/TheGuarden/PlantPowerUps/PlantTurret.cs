@@ -53,7 +53,7 @@ namespace TheGuarden.PlantPowerUps
                 projectile.Target = targetEnemy;
                 yield return new WaitForSeconds(cooldown);
 
-                if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > powerUpRange)
+                if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > Range)
                 {
                     targetEnemy = null;
                 }

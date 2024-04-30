@@ -8,21 +8,22 @@ namespace TheGuarden.PlantPowerUps
     [RequireComponent(typeof(SphereCollider))]
     internal abstract class PlantPowerUp : MonoBehaviour
     {
-        [SerializeField, Tooltip("Range of power up")]
-        protected float powerUpRange;
+        [SerializeField, Tooltip("Power up configuration")]
+        private PowerUpConfiguration configuration;
         [SerializeField, Tooltip("Collider used to check if animal entered/exited trigger")]
         private SphereCollider powerUpCollider;
-        [SerializeField, Tooltip("Layers affected by power up")]
-        private LayerMask powerUpMask;
+
+        protected float Range => configuration.powerUpRange;
 
         private void Start()
         {
-            powerUpCollider.includeLayers = powerUpMask;
-            powerUpCollider.excludeLayers = ~powerUpMask;
+            powerUpCollider.includeLayers = configuration.powerUpMask;
+            powerUpCollider.excludeLayers = ~configuration.powerUpMask;
+            powerUpCollider.radius = configuration.powerUpRange;
         }
 
 #if UNITY_EDITOR
-        internal float PowerUpRange => powerUpRange;
+        internal float PowerUpRange => configuration.powerUpRange;
 #endif
     }
 }

@@ -69,11 +69,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b092d32c356fb6345987d05d220b8b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpRange: 15
+  configuration: {fileID: 11400000, guid: 4c613f1d188c62740beb925fe57186b3, type: 2}
   powerUpCollider: {fileID: 5370522783277312676}
-  powerUpMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!135 &5049460915733664866
 SphereCollider:
   m_ObjectHideFlags: 0

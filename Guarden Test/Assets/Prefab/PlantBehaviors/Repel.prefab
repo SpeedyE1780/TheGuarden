@@ -66,10 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e002995ec082f4c980d6e2c0bf4235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerUpRange: 5
+  configuration: {fileID: 11400000, guid: 4c613f1d188c62740beb925fe57186b3, type: 2}
   powerUpCollider: {fileID: 5981522035217783445}
-  powerUpMask:
-    serializedVersion: 2
-    m_Bits: 64
   minimumRange: 2
   maximumRange: 20
