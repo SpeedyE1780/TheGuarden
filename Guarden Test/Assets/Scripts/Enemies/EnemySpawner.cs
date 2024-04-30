@@ -34,6 +34,7 @@ namespace TheGuarden.Enemies
         private List<GameObject> spawnedEnemies = new List<GameObject>();
 
         public UnityEvent OnWaveCompleted;
+        public UnityEvent OnEnemyReachedShed;
 
 #if UNITY_EDITOR
         internal List<EnemyPath> Paths => paths;
@@ -80,7 +81,11 @@ namespace TheGuarden.Enemies
         {
             Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
             enemy.SetPath(paths.GetRandomItem());
-            enemy.OnDestroyed = (enemyObject) => spawnedEnemies.Remove(enemyObject);
+            enemy.OnDestroyed = (enemyObject) =>
+            {
+                spawnedEnemies.Remove(enemyObject);
+                OnEnemyReachedShed.Invoke();
+            };
             spawnedEnemies.Add(enemy.gameObject);
             GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
         }

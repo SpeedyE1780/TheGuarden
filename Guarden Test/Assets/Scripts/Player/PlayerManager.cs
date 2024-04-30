@@ -47,8 +47,15 @@ namespace TheGuarden.Players
         }
 
 #if UNITY_EDITOR
-        internal void FillInputModule()
+        internal void AutofillVariables()
         {
+            followCamera = FindObjectOfType<FollowTarget>();
+
+            if(followCamera == null)
+            {
+                GameLogger.LogError("No FollowTarget in scene", gameObject, GameLogger.LogCategory.Scene);
+            }
+
             inputSystemUIInputModule = FindObjectOfType<InputSystemUIInputModule>();
 
             if (inputSystemUIInputModule == null)

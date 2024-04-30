@@ -20,6 +20,8 @@ namespace TheGuarden.NPC
         private float stoppingDistance = 0.75f;
         [SerializeField, Tooltip("Force Field gameobject activated when inside force field")]
         private GameObject forceField;
+        [SerializeField, Tooltip("List of all spawned animals")]
+        private AnimalSet spawnedAnimals;
 
         private bool hiding = false;
 
@@ -35,12 +37,14 @@ namespace TheGuarden.NPC
         {
             DayLightCycle.OnDayStarted += ExitShed;
             DayLightCycle.OnNightStarted += HideInShed;
+            spawnedAnimals.Add(this);
         }
 
         private void OnDisable()
         {
             DayLightCycle.OnDayStarted -= ExitShed;
             DayLightCycle.OnNightStarted -= HideInShed;
+            spawnedAnimals.Remove(this);
         }
 
         void Update()
