@@ -112,7 +112,7 @@ namespace TheGuarden.Utility
         {
             if (snapToPosition && targets.Count != 0)
             {
-                transform.position = CalculateDesiredPosition();
+                followCamera.transform.position = CalculateDesiredPosition();
             }
         }
 
@@ -139,7 +139,7 @@ namespace TheGuarden.Utility
         private void FixedUpdate()
         {
             Vector3 desiredPosition = CalculateDesiredPosition();
-            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, movementSpeed * Time.deltaTime);
+            followCamera.transform.position = Vector3.MoveTowards(followCamera.transform.position, desiredPosition, movementSpeed * Time.deltaTime);
         }
 
 #if UNITY_EDITOR
