@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab39bdfa2689c544b0f8cb41b7dfb35, type: 3}
-  m_Name: Bucket Spawner
+  m_Script: {fileID: 11500000, guid: 8042ad6db4000804881786aecb36d4b8, type: 3}
+  m_Name: OnTutorialWaterAdded
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 8993444753751721491, guid: c581cedb8357df346b472af244e97c24,
-    type: 3}
+  soListeners: {fileID: 11400000, guid: 98724100f73a724408dfeb460e96bbd5, type: 2}

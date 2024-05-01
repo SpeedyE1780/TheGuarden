@@ -3,6 +3,7 @@ using TheGuarden.UI;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
 using UnityEngine.Events;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
 {
@@ -23,11 +24,12 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Splash VFX played when adding water or watering plant bed")]
         private VisualEffect splashPrefab;
+        [SerializeField]
+        private BoolGameEvent onWaterAdded;
 
         private int remainingUses = 0;
         private VisualEffect splash;
 
-        public UnityEvent<bool> OnWaterAdded;
         public UnityEvent OnPlantBedWatered;
 
         public string Name => name;
@@ -58,7 +60,7 @@ namespace TheGuarden.Interactable
             remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
             Collider[] lake = Physics.OverlapSphere(transform.position, overlapRadius, lakeLayer);
             PlaySplashVFX(lake[0].ClosestPoint(transform.position));
-            OnWaterAdded.Invoke(remainingUses == maxUses);
+            onWaterAdded.Raise(remainingUses == maxUses);
         }
 
         /// <summary>

@@ -85,9 +85,7 @@ MonoBehaviour:
     m_Bits: 128
   splashPrefab: {fileID: 730003662931886121, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
     type: 3}
-  OnWaterAdded:
-    m_PersistentCalls:
-      m_Calls: []
+  onWaterAdded: {fileID: 11400000, guid: 3e9b924a2276d5e4a93ce05e3ac27638, type: 2}
   OnPlantBedWatered:
     m_PersistentCalls:
       m_Calls: []
