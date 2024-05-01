@@ -51,16 +51,6 @@ namespace TheGuarden.NPC
             deliverySource.clip = configuration.audioClip;
         }
 
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += OnDayStarted;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= OnDayStarted;
-        }
-
         private void SetDeliveryCooldown(int value)
         {
             //Add one to cancel this day's ending contribution
@@ -70,7 +60,7 @@ namespace TheGuarden.NPC
         /// <summary>
         /// Check if a delivery will occur today if not decrement cooldown
         /// </summary>
-        private void OnDayStarted()
+        public void OnDayStarted()
         {
             if (deliveryCooldown <= 0)
             {

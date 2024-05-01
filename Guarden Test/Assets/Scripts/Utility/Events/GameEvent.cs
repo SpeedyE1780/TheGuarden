@@ -4,7 +4,7 @@ using UnityEngine;
 namespace TheGuarden.Utility.Events
 {
     [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Game Event<void>")]
-    internal class GameEvent : ScriptableObject
+    public class GameEvent : ScriptableObject
     {
         private readonly List<GameEventListener> eventListeners =
             new List<GameEventListener>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine.VFX;
 using UnityEngine.Events;
 
@@ -28,25 +29,12 @@ namespace TheGuarden.Enemies
         private Wave wave;
         [SerializeField, Tooltip("List of all enemies in scene")]
         private EnemySet enemySet;
-
-        public UnityEvent OnWaveCompleted;
-        public UnityEvent OnEnemyReachedShed;
+        [SerializeField]
+        private GameEvent onWaveEnded;
 
 #if UNITY_EDITOR
         internal List<EnemyPath> Paths => paths;
 #endif
-
-        private void OnEnable()
-        {
-            DayLightCycle.OnNightStarted += StartSpawning;
-            DayLightCycle.OnWaveEnded += OnWaveCompleted.Invoke;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnNightStarted -= StartSpawning;
-            DayLightCycle.OnWaveEnded -= OnWaveCompleted.Invoke;
-        }
 
         /// <summary>
         /// Start Spawning coroutine
@@ -93,7 +81,6 @@ namespace TheGuarden.Enemies
                 paths = paths,
                 position = spawnPoint.position,
                 rotation = spawnPoint.rotation,
-                OnReachShed = OnEnemyReachedShed.Invoke
             };
 
             yield return wave.SpawnWave(configuration);
@@ -106,7 +93,7 @@ namespace TheGuarden.Enemies
             ufoTransform.gameObject.SetActive(false);
 
             yield return new WaitUntil(() => enemySet.Count == 0);
-            DayLightCycle.EnemyWaveEnded();
+            onWaveEnded.Raise();
         }
 
 #if UNITY_EDITOR

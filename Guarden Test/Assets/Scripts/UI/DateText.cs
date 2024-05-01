@@ -48,17 +48,7 @@ namespace TheGuarden.UI
         }
         private string Date => $"{DayName}, The {DayOfMonth} Of {MonthName}, {year}";
 
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += UpdateDate;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= UpdateDate;
-        }
-
-        private void UpdateDate()
+        public void UpdateDate()
         {
             day += 1;
 

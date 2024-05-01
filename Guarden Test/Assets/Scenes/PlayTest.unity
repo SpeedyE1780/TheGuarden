@@ -468,6 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 29766627}
   - component: {fileID: 29766628}
+  - component: {fileID: 29766629}
   m_Layer: 0
   m_Name: DayLightCycle
   m_TagString: Untagged
@@ -530,27 +531,27 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  OnDayStartedEvent:
+  onDayStarted: {fileID: 11400000, guid: c17a98b74579aa94f9236dfb769088fa, type: 2}
+  onNightStarted: {fileID: 11400000, guid: 6009029f72417f44790918e3502d8968, type: 2}
+--- !u!114 &29766629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29766626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
+  Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
-        m_TargetAssemblyTypeName: TheGuarden.GrowingInfo, TheGuarden
-        m_MethodName: OnDayStarted
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnNightStartedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
-        m_TargetAssemblyTypeName: TheGuarden.GrowingInfo, TheGuarden
-        m_MethodName: OnNightStarted
+      - m_Target: {fileID: 29766628}
+        m_TargetAssemblyTypeName: TheGuarden.Utility.DayLightCycle, TheGuarden.Utility
+        m_MethodName: OnEnemyWaveEnded
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4664,6 +4665,8 @@ GameObject:
   m_Component:
   - component: {fileID: 609680990}
   - component: {fileID: 609680991}
+  - component: {fileID: 609680992}
+  - component: {fileID: 609680993}
   m_Layer: 0
   m_Name: AnimalSpawner
   m_TagString: Untagged
@@ -4710,6 +4713,62 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: TheGuarden.UI.AnimalTracker, TheGuarden.UI
         m_MethodName: UpdateText
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &609680992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609680989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c17a98b74579aa94f9236dfb769088fa, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 609680991}
+        m_TargetAssemblyTypeName: TheGuarden.NPC.AnimalSpawner, TheGuarden.NPC
+        m_MethodName: SpawnAnimals
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &609680993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 609680989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 84afc94b6d606944f8771fb6deef208b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 609680991}
+        m_TargetAssemblyTypeName: TheGuarden.NPC.AnimalSpawner, TheGuarden.NPC
+        m_MethodName: RemoveAnimal
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10175,6 +10234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1300012552}
   - component: {fileID: 1300012553}
+  - component: {fileID: 1300012554}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -10247,15 +10307,26 @@ MonoBehaviour:
   ufoSpeed: 75
   wave: {fileID: 11400000, guid: 9007fc4f9ee91b14fab538e03e6fc1b5, type: 2}
   enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
-  OnWaveCompleted:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEnemyReachedShed:
+  onWaveEnded: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
+--- !u!114 &1300012554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300012551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6009029f72417f44790918e3502d8968, type: 2}
+  Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 609680991}
-        m_TargetAssemblyTypeName: TheGuarden.NPC.AnimalSpawner, TheGuarden
-        m_MethodName: RemoveAnimal
+      - m_Target: {fileID: 1300012553}
+        m_TargetAssemblyTypeName: TheGuarden.Enemies.EnemySpawner, TheGuarden.Enemies
+        m_MethodName: StartSpawning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34801,6 +34872,8 @@ GameObject:
   - component: {fileID: 1912071953}
   - component: {fileID: 1912071954}
   - component: {fileID: 1912071955}
+  - component: {fileID: 1912071957}
+  - component: {fileID: 1912071956}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -34853,6 +34926,62 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912071952}
   m_Enabled: 1
+--- !u!114 &1912071956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912071952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 6009029f72417f44790918e3502d8968, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1912071954}
+        m_TargetAssemblyTypeName: TheGuarden.Utility.FollowTarget, TheGuarden.Utility
+        m_MethodName: SwitchToTowerDefenceCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1912071957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912071952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c17a98b74579aa94f9236dfb769088fa, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1912071954}
+        m_TargetAssemblyTypeName: TheGuarden.Utility.FollowTarget, TheGuarden.Utility
+        m_MethodName: SwitchToFollowCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1920860016
 GameObject:
   m_ObjectHideFlags: 0
@@ -35620,6 +35749,7 @@ GameObject:
   - component: {fileID: 2043076422}
   - component: {fileID: 2043076423}
   - component: {fileID: 2043076424}
+  - component: {fileID: 2043076425}
   m_Layer: 0
   m_Name: MushroomTruck
   m_TagString: Untagged
@@ -35778,6 +35908,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2043076425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043076421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: c17a98b74579aa94f9236dfb769088fa, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2043076423}
+        m_TargetAssemblyTypeName: TheGuarden.NPC.TruckDelivery`1[[TheGuarden.Interactable.Mushroom,
+          TheGuarden.Interactable
+        m_MethodName: OnDayStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2043673533
 GameObject:
   m_ObjectHideFlags: 0

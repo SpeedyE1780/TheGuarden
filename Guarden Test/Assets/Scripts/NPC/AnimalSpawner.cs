@@ -17,18 +17,12 @@ namespace TheGuarden.NPC
 
         public UnityEvent<int> OnAnimalCountChanged;
 
-        private void OnEnable()
+        private void Awake()
         {
-            DayLightCycle.OnDayStarted += SpawnAnimals;
             Animal.Shed = shed;
         }
 
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= SpawnAnimals;
-        }
-
-        private void SpawnAnimals()
+        public void SpawnAnimals()
         {
             for (int i = 0; i < spawnCount; i++)
             {

@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Utility.Events
 {
-    internal class GameEventListener : MonoBehaviour
+    public class GameEventListener : MonoBehaviour
     {
         [SerializeField]
         private GameEvent gameEvent;
