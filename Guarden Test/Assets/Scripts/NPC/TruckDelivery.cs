@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.NPC
 {
@@ -30,8 +31,8 @@ namespace TheGuarden.NPC
         private float travelledPercentageDelay = 0.4f;
         [SerializeField, Tooltip("Audio Source played when items are delivered")]
         private AudioSource deliverySource;
-
-        public UnityEvent<int> OnDelivery;
+        [SerializeField]
+        private IntGameEvent onItemsDelivered;
 
         private bool delivered = false;
         private int deliveryCooldown = 0;
@@ -128,19 +129,24 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator DeliverItems()
         {
+            int deliveredItems = 0;
+
             foreach (GameObject guaranteed in items.Guaranteed)
             {
                 yield return SpawnAndConfigureItem(guaranteed);
+                deliveredItems += 1;
             }
 
             if (items.Random.Count > 0)
             {
-                GameLogger.LogInfo("RANDOM DELIVERY", this, GameLogger.LogCategory.Plant);
                 for (int i = 0; i < items.count; i++)
                 {
                     yield return SpawnAndConfigureItem(items.Random.GetRandomItem());
+                    deliveredItems += 1;
                 }
             }
+
+            onItemsDelivered.Raise(deliveredItems);
         }
 
         /// <summary>
