@@ -1,15 +1,15 @@
+using TheGuarden.Utility.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.Utility
 {
     public class WalkOnWater : MonoBehaviour
     {
-        public UnityEvent OnWalkOnWater;
+        public GameEvent onWalkOnWater;
 
         private void OnTriggerEnter(Collider other)
         {
-            OnWalkOnWater.Invoke();
+            onWalkOnWater.Raise();
         }
     }
 }

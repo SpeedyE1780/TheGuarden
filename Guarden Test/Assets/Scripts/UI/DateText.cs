@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using TheGuarden.Utility;
 using System.Collections.Generic;
 
 namespace TheGuarden.UI
@@ -12,7 +11,6 @@ namespace TheGuarden.UI
     {
         [SerializeField, Tooltip("Date text on screen")]
         internal TMP_Text dateText;
-
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
         [SerializeField, Tooltip("Months of the year")]
