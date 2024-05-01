@@ -26,11 +26,11 @@ namespace TheGuarden.Interactable
         private VisualEffect splashPrefab;
         [SerializeField]
         private BoolGameEvent onWaterAdded;
+        [SerializeField]
+        private GameEvent onPlantBedWatered;
 
         private int remainingUses = 0;
         private VisualEffect splash;
-
-        public UnityEvent OnPlantBedWatered;
 
         public string Name => name;
         public float UsabilityPercentage => remainingUses / (float)maxUses;
@@ -80,7 +80,7 @@ namespace TheGuarden.Interactable
             plantBed.Water(bucketRestoration);
             remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
             ItemUI.SetProgress(UsabilityPercentage);
-            OnPlantBedWatered.Invoke();
+            onPlantBedWatered.Raise();
         }
 
         /// <summary>

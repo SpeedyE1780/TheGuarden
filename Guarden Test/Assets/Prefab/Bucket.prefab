@@ -86,9 +86,7 @@ MonoBehaviour:
   splashPrefab: {fileID: 730003662931886121, guid: 21b2983f7d8dbae4bb9569ae3ea5350e,
     type: 3}
   onWaterAdded: {fileID: 11400000, guid: 3e9b924a2276d5e4a93ce05e3ac27638, type: 2}
-  OnPlantBedWatered:
-    m_PersistentCalls:
-      m_Calls: []
+  onPlantBedWatered: {fileID: 11400000, guid: 323dfed5728aaa8419436f32647033e5, type: 2}
 --- !u!135 &7694266318504934349
 SphereCollider:
   m_ObjectHideFlags: 0
