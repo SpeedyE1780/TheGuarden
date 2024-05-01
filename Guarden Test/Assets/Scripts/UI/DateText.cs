@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using TheGuarden.Utility;
 using System.Collections.Generic;
 
 namespace TheGuarden.UI
@@ -12,7 +11,6 @@ namespace TheGuarden.UI
     {
         [SerializeField, Tooltip("Date text on screen")]
         internal TMP_Text dateText;
-
         [SerializeField, Tooltip("Days of the week")]
         private List<string> days;
         [SerializeField, Tooltip("Months of the year")]
@@ -48,17 +46,7 @@ namespace TheGuarden.UI
         }
         private string Date => $"{DayName}, The {DayOfMonth} Of {MonthName}, {year}";
 
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += UpdateDate;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= UpdateDate;
-        }
-
-        private void UpdateDate()
+        public void UpdateDate()
         {
             day += 1;
 

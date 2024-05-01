@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab39bdfa2689c544b0f8cb41b7dfb35, type: 3}
   m_Name: Bucket Spawner
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 10765117685777033, guid: 79f010c1e6807314285f1d902aff40e8,
+  objectPrefab: {fileID: 8993444753751721491, guid: c581cedb8357df346b472af244e97c24,
     type: 3}

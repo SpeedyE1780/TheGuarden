@@ -163,21 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growingInfo: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
   growingParticles: {fileID: 2360375210469261123}
-  OnFullyGrown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
-        m_TargetAssemblyTypeName: AchievementProgress, Assembly-CSharp
-        m_MethodName: IncreaseCount
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  onFullyGrown: {fileID: 11400000, guid: 95b9bf117ff2d7d40965a69b0a6fb98d, type: 2}
 --- !u!114 &6923517243752356787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,12 +190,8 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
-  OnPlantInSoil:
-    m_PersistentCalls:
-      m_Calls: []
-  OnPlant:
-    m_PersistentCalls:
-      m_Calls: []
+  onPlantInSoil: {fileID: 11400000, guid: 7b1e1e09b59cb8d47b6e6a7df37df512, type: 2}
+  onPlant: {fileID: 11400000, guid: 10a5185a96c4b9843b8a05b8cddb49e1, type: 2}
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

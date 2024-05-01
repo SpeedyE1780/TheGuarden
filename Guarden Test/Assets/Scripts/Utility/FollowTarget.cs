@@ -41,26 +41,14 @@ namespace TheGuarden.Utility
             bounds = new Bounds();
         }
 
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += SwitchToFollowCamera;
-            DayLightCycle.OnNightStarted += SwitchToTowerDefenceCamera;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= SwitchToFollowCamera;
-            DayLightCycle.OnNightStarted -= SwitchToTowerDefenceCamera;
-        }
-
-        private void SwitchToFollowCamera()
+        public void SwitchToFollowCamera()
         {
             GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
             towerDefenceCamera.gameObject.SetActive(false);
             followCamera.gameObject.SetActive(true);
         }
 
-        private void SwitchToTowerDefenceCamera()
+        public void SwitchToTowerDefenceCamera()
         {
             GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
             followCamera.gameObject.SetActive(false);

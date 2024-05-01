@@ -31,15 +31,11 @@ namespace TheGuarden.NPC
 
         private void OnEnable()
         {
-            DayLightCycle.OnDayStarted += ExitShed;
-            DayLightCycle.OnNightStarted += HideInShed;
             spawnedAnimals.Add(this);
         }
 
         private void OnDisable()
         {
-            DayLightCycle.OnDayStarted -= ExitShed;
-            DayLightCycle.OnNightStarted -= HideInShed;
             spawnedAnimals.Remove(this);
         }
 
@@ -56,12 +52,12 @@ namespace TheGuarden.NPC
             rb.velocity = agent.velocity;
         }
 
-        private void ExitShed()
+        public void ExitShed()
         {
             hiding = false;
         }
 
-        private void HideInShed()
+        public void HideInShed()
         {
             SetDestination(Shed.position);
             hiding = true;

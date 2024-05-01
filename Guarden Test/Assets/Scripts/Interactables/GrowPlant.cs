@@ -1,7 +1,7 @@
 using UnityEngine;
-using UnityEngine.Events;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
 {
@@ -18,8 +18,8 @@ namespace TheGuarden.Interactable
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private VisualEffect growingParticles;
-
-        public UnityEvent OnFullyGrown;
+        [SerializeField]
+        private GameEvent onFullyGrown;
 
         private Vector3 targetGrowth = Vector3.zero;
         private bool isGrowing = false;
@@ -52,7 +52,7 @@ namespace TheGuarden.Interactable
                 isGrowing = false;
                 growingParticles.SendEvent(StopGrowing);
                 growingParticles.SendEvent(FullyGrown);
-                OnFullyGrown?.Invoke();
+                onFullyGrown.Raise();
             }
 
             if (IsGrowing && !isGrowing)

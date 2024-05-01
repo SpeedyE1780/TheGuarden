@@ -1,6 +1,6 @@
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.NPC
 {
@@ -14,21 +14,15 @@ namespace TheGuarden.NPC
         private int spawnCount;
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
+        [SerializeField]
+        private IntGameEvent OnAnimalCountChanged;
 
-        public UnityEvent<int> OnAnimalCountChanged;
-
-        private void OnEnable()
+        private void Awake()
         {
-            DayLightCycle.OnDayStarted += SpawnAnimals;
             Animal.Shed = shed;
         }
 
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= SpawnAnimals;
-        }
-
-        private void SpawnAnimals()
+        public void SpawnAnimals()
         {
             for (int i = 0; i < spawnCount; i++)
             {
@@ -36,7 +30,7 @@ namespace TheGuarden.NPC
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            OnAnimalCountChanged.Raise(animalSet.Count);
         }
 
         public void RemoveAnimal()
@@ -46,7 +40,7 @@ namespace TheGuarden.NPC
                 Destroy(animalSet[0].gameObject);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            OnAnimalCountChanged.Raise(animalSet.Count);
 
             if (animalSet.Count == 0)
             {

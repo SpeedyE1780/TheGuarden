@@ -1,9 +1,9 @@
 using System.Collections;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 namespace TheGuarden.Enemies
 {
@@ -23,12 +23,12 @@ namespace TheGuarden.Enemies
         private Health health;
         [SerializeField, Tooltip("List containing all spawned enemies")]
         private EnemySet enemySet;
+        [SerializeField]
+        private GameEvent onReachShed;
 
         private EnemyPath path;
         private bool rewinding = false;
         private bool rewindComplete = false;
-
-        internal UnityAction OnReachShed { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
@@ -86,7 +86,7 @@ namespace TheGuarden.Enemies
 
                     if (path.ReachedEndOfPath)
                     {
-                        OnReachShed();
+                        onReachShed.Raise();
                         Destroy(gameObject);
                         yield break;
                     }
