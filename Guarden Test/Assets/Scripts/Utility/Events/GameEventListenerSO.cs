@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace TheGuarden.Utility.Events
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Game Event Listener<void>")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Listeners/<void>")]
     public class GameEventListenerSO : ScriptableObject
     {
         public UnityEvent Response;

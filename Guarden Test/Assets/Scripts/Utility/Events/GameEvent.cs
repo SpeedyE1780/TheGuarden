@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheGuarden.Utility.Events
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Game Event<void>")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Events/<void>")]
     public class GameEvent : ScriptableObject
     {
         [SerializeField]
