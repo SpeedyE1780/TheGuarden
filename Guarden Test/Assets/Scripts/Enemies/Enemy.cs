@@ -3,6 +3,7 @@ using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace TheGuarden.Enemies
 {
@@ -12,8 +13,6 @@ namespace TheGuarden.Enemies
     [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
     public class Enemy : MonoBehaviour, IBehavior, IBuff
     {
-        internal delegate void OnDestroyedCallback(GameObject gameObject);
-
         [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
@@ -22,15 +21,19 @@ namespace TheGuarden.Enemies
         private float distanceThreshold = 3.0f;
         [SerializeField, Tooltip("Autofilled. Enemy Health component")]
         private Health health;
+        [SerializeField, Tooltip("List containing all spawned enemies")]
+        private EnemySet enemySet;
 
         private EnemyPath path;
         private bool rewinding = false;
         private bool rewindComplete = false;
-        internal OnDestroyedCallback OnDestroyed { get; set; }
+
+        internal UnityAction OnReachShed { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
         public Health Health => health;
+        public IBuff.OnIBuffDestroy OnIBuffDetroyed { get; set; }
 
 #if UNITY_EDITOR
         internal bool Rewinding => rewinding;
@@ -39,6 +42,17 @@ namespace TheGuarden.Enemies
         void Start()
         {
             StartCoroutine(Patrol());
+        }
+
+        private void OnEnable()
+        {
+            enemySet.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            enemySet.Remove(this);
+            OnIBuffDetroyed?.Invoke(this);
         }
 
         /// <summary>
@@ -72,6 +86,7 @@ namespace TheGuarden.Enemies
 
                     if (path.ReachedEndOfPath)
                     {
+                        OnReachShed();
                         Destroy(gameObject);
                         yield break;
                     }
@@ -81,11 +96,6 @@ namespace TheGuarden.Enemies
 
                 yield return null;
             }
-        }
-
-        private void OnDestroy()
-        {
-            OnDestroyed(gameObject);
         }
 
         public void RewindPathProgress(int waypoints)

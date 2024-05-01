@@ -7250,8 +7250,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Cows: 2'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 86c96c97eea6b07498e2dd349bfa5c4c, type: 2}
+  m_sharedMaterial: {fileID: -85192414755348417, guid: 86c96c97eea6b07498e2dd349bfa5c4c,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10240,14 +10241,12 @@ MonoBehaviour:
     - {fileID: 1672259918}
     - {fileID: 1504187425}
     - {fileID: 2108123662}
-  spawningDelay: 2
-  enemyPrefab: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
-    type: 3}
   followCamera: {fileID: 1912071954}
   ufoTransform: {fileID: 904827024}
   ufo: {fileID: 904827025}
   ufoSpeed: 75
-  enemyCount: 3
+  wave: {fileID: 11400000, guid: 9007fc4f9ee91b14fab538e03e6fc1b5, type: 2}
+  enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
   OnWaveCompleted:
     m_PersistentCalls:
       m_Calls: []
