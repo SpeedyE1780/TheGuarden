@@ -1,8 +1,5 @@
 using System.Collections;
-using TheGuarden.Interactable;
-using TheGuarden.Utility;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.Tutorial
 {
@@ -10,17 +7,17 @@ namespace TheGuarden.Tutorial
     /// FullyGrown waits until spawned mushroom is fully grown
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fully Grown")]
-    internal class FullyGrown : ObjectTutorial
+    internal class FullyGrown : Tutorial
     {
-        private GrowPlant grow;
-        private bool fullyGrown = false;
         [SerializeField]
         private GrowingInfo tutorialGrowingInfo;
+
+        private bool fullyGrown = false;
 
         /// <summary>
         /// Called when mushroom is fully grown
         /// </summary>
-        private void OnFullyGrown()
+        public void OnFullyGrown()
         {
             fullyGrown = true;
         }
@@ -31,9 +28,7 @@ namespace TheGuarden.Tutorial
         internal override void Setup()
         {
             fullyGrown = false;
-            grow = objectSpawner.SpawnedObject.GetComponent<GrowPlant>();
-            grow.enabled = false;
-            grow.OnFullyGrown.AddListener(OnFullyGrown);
+            tutorialGrowingInfo.OnNightStarted();
         }
 
         /// <summary>
@@ -42,10 +37,8 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            grow.enabled = true;
             tutorialGrowingInfo.OnDayStarted();
             yield return new WaitUntil(() => fullyGrown);
-            grow.OnFullyGrown.RemoveListener(OnFullyGrown);
         }
     }
 }
