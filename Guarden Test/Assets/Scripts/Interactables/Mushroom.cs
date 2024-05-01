@@ -5,6 +5,7 @@ using TheGuarden.PlantPowerUps;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using UnityEngine.Events;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
 {
@@ -30,10 +31,11 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Plant area layer mask")]
         private LayerMask plantableAreaMask;
+        [SerializeField]
+        private GameEvent onPlantInSoil;
 
         private PlantSoil plantSoil;
 
-        public UnityEvent OnPlantInSoil;
         public UnityEvent OnPlant;
 
         public Rigidbody Rigidbody => rb;
@@ -148,7 +150,7 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
             plantSoil.IsAvailable = false;
             IsConsumedAfterInteraction = true;
-            OnPlantInSoil.Invoke();
+            onPlantInSoil.Raise();
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Events;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
 using TheGuarden.Utility.Events;

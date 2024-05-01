@@ -190,9 +190,7 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
-  OnPlantInSoil:
-    m_PersistentCalls:
-      m_Calls: []
+  onPlantInSoil: {fileID: 11400000, guid: 7b1e1e09b59cb8d47b6e6a7df37df512, type: 2}
   OnPlant:
     m_PersistentCalls:
       m_Calls: []
