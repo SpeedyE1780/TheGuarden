@@ -14,6 +14,7 @@ namespace TheGuarden.PlantPowerUps
         private SphereCollider powerUpCollider;
 
         protected float Range => configuration.powerUpRange;
+        protected LayerMask AffectedLayer => configuration.powerUpMask;
 
         private void Start()
         {
