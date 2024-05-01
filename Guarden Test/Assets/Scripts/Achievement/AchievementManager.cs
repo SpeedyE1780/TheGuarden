@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using TheGuarden.Utility;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
-using UnityEngine.Events;
 
 namespace TheGuarden.Achievements
 {
@@ -17,8 +16,8 @@ namespace TheGuarden.Achievements
         private List<Achievement> achievements;
         [SerializeField, Tooltip("Autofilled from achievements list. All active trackers in scene")]
         private List<AchievementTracker> achievementTrackers;
-
-        public UnityEvent<Achievement> OnAchievementCompleted;
+        [SerializeField]
+        private AchievementGameEvent onAchievementCompleted;
 
         private static readonly string AchievementDirectory = Application.streamingAssetsPath;
         private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
@@ -70,7 +69,7 @@ namespace TheGuarden.Achievements
 
             foreach (Achievement achievement in achievements)
             {
-                achievement.Initialize(OnAchievementCompleted);
+                achievement.Initialize(onAchievementCompleted);
             }
         }
 
