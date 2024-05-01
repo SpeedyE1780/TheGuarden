@@ -55,7 +55,6 @@ namespace TheGuarden.PlantPowerUps
         private void OnDisable()
         {
             GameLogger.LogInfo($"{name} picked up removing buff from affected objects", this, GameLogger.LogCategory.PlantPowerUp);
-
             modifier.RemoveAllBuff();
         }
     }

@@ -33,6 +33,7 @@ namespace TheGuarden.Enemies
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
         public Health Health => health;
+        public IBuff.OnIBuffDestroy OnIBuffDetroyed { get; set; }
 
 #if UNITY_EDITOR
         internal bool Rewinding => rewinding;
@@ -51,6 +52,7 @@ namespace TheGuarden.Enemies
         private void OnDisable()
         {
             enemySet.Remove(this);
+            OnIBuffDetroyed?.Invoke(this);
         }
 
         /// <summary>
