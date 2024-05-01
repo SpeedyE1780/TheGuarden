@@ -4,7 +4,6 @@ using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 namespace TheGuarden.Enemies
 {

@@ -25,4 +25,27 @@ namespace TheGuarden.Utility.Events
             Response.Invoke();
         }
     }
+
+    public class TGameEventListener<T> : MonoBehaviour
+    {
+        [SerializeField]
+        private TGameEvent<T> gameEvent;
+
+        public UnityEvent<T> Response;
+
+        private void OnEnable()
+        {
+            gameEvent.RegisterListener(this);
+        }
+
+        private void OnDisable()
+        {
+            gameEvent.UnregisterListener(this);
+        }
+
+        internal void OnEventRaised(T arg)
+        {
+            Response.Invoke(arg);
+        }
+    }
 }

@@ -23,14 +23,40 @@ namespace TheGuarden.Utility.Events
 
         public void RegisterListener(GameEventListener listener)
         {
-            if (!eventListeners.Contains(listener))
-                eventListeners.Add(listener);
+            eventListeners.SafeAdd(listener);
         }
 
         public void UnregisterListener(GameEventListener listener)
         {
-            if (eventListeners.Contains(listener))
-                eventListeners.Remove(listener);
+            eventListeners.Remove(listener);
+        }
+    }
+
+    public class TGameEvent<T> : ScriptableObject
+    {
+        [SerializeField]
+        private TGameEventListenerSO<T> soListeners;
+
+        private readonly List<TGameEventListener<T>> eventListeners = new List<TGameEventListener<T>>();
+
+        public void Raise(T arg)
+        {
+            for (int i = eventListeners.Count - 1; i >= 0; i--)
+            {
+                eventListeners[i].OnEventRaised(arg);
+            }
+
+            soListeners?.OnEventRaised(arg);
+        }
+
+        public void RegisterListener(TGameEventListener<T> listener)
+        {
+            eventListeners.SafeAdd(listener);
+        }
+
+        public void UnregisterListener(TGameEventListener<T> listener)
+        {
+            eventListeners.Remove(listener);
         }
     }
 }

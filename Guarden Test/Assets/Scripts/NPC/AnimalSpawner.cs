@@ -1,6 +1,6 @@
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.NPC
 {
@@ -14,8 +14,8 @@ namespace TheGuarden.NPC
         private int spawnCount;
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
-
-        public UnityEvent<int> OnAnimalCountChanged;
+        [SerializeField]
+        private IntGameEvent OnAnimalCountChanged;
 
         private void Awake()
         {
@@ -30,7 +30,7 @@ namespace TheGuarden.NPC
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            OnAnimalCountChanged.Raise(animalSet.Count);
         }
 
         public void RemoveAnimal()
@@ -40,7 +40,7 @@ namespace TheGuarden.NPC
                 Destroy(animalSet[0].gameObject);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            OnAnimalCountChanged.Raise(animalSet.Count);
 
             if (animalSet.Count == 0)
             {

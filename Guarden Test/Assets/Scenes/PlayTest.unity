@@ -4706,21 +4706,8 @@ MonoBehaviour:
     type: 3}
   spawnCount: 2
   animalSet: {fileID: 11400000, guid: c8dad965b3954224cab07eaf36caf8d0, type: 2}
-  OnAnimalCountChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 950291766}
-        m_TargetAssemblyTypeName: TheGuarden.UI.AnimalTracker, TheGuarden.UI
-        m_MethodName: UpdateText
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  OnAnimalCountChanged: {fileID: 11400000, guid: a8ab61264bbcd9549a9dafa5ddb26683,
+    type: 2}
 --- !u!114 &609680992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7260,6 +7247,7 @@ GameObject:
   - component: {fileID: 950291765}
   - component: {fileID: 950291764}
   - component: {fileID: 950291766}
+  - component: {fileID: 950291767}
   m_Layer: 5
   m_Name: CowCount
   m_TagString: Untagged
@@ -7398,6 +7386,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 950291764}
+--- !u!114 &950291767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950291762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10736cd6227577c4f9fa56d52d27be5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a8ab61264bbcd9549a9dafa5ddb26683, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 950291766}
+        m_TargetAssemblyTypeName: TheGuarden.UI.AnimalTracker, TheGuarden.UI
+        m_MethodName: UpdateText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &951522321
 GameObject:
   m_ObjectHideFlags: 0
