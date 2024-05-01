@@ -16,10 +16,6 @@ namespace TheGuarden.Enemies
         private Transform spawnPoint;
         [SerializeField, Tooltip("List of paths enemies can take")]
         private List<EnemyPath> paths;
-        [SerializeField, Tooltip("Delay between each enemy spawning")]
-        private float spawningDelay;
-        [SerializeField, Tooltip("Enemy Prefab")]
-        private Enemy enemyPrefab;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("UFO transform that moves it in the scene")]
@@ -28,10 +24,10 @@ namespace TheGuarden.Enemies
         private VisualEffect ufo;
         [SerializeField, Tooltip("UFO movement speed")]
         private float ufoSpeed = 75.0f;
-        [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
-        private int enemyCount = 3;
-
-        private List<GameObject> spawnedEnemies = new List<GameObject>();
+        [SerializeField, Tooltip("Wave of enemies spawned")]
+        private Wave wave;
+        [SerializeField, Tooltip("List of all enemies in scene")]
+        private EnemySet enemySet;
 
         public UnityEvent OnWaveCompleted;
         public UnityEvent OnEnemyReachedShed;
@@ -77,19 +73,6 @@ namespace TheGuarden.Enemies
             }
         }
 
-        private void SpawnEnemy()
-        {
-            Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            enemy.SetPath(paths.GetRandomItem());
-            enemy.OnDestroyed = (enemyObject) =>
-            {
-                spawnedEnemies.Remove(enemyObject);
-                OnEnemyReachedShed.Invoke();
-            };
-            spawnedEnemies.Add(enemy.gameObject);
-            GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
-        }
-
         /// <summary>
         /// Spawn Enemies
         /// </summary>
@@ -105,11 +88,18 @@ namespace TheGuarden.Enemies
             ufo.Play();
             ufo.SendEvent("OnSucking");
 
-            for (int i = 0; i < enemyCount; i++)
+            SpawnConfiguration configuration = new SpawnConfiguration()
             {
-                yield return new WaitForSeconds(spawningDelay);
-                SpawnEnemy();
-            }
+                paths = paths,
+                position = spawnPoint.position,
+                rotation = spawnPoint.rotation,
+                OnDestroyed = (enemyObject) =>
+                {
+                    OnEnemyReachedShed.Invoke();
+                }
+            };
+
+            yield return wave.SpawnWave(configuration);
 
             ufo.SendEvent("OnFinishSucking");
             followCamera.RemoveTarget(ufoTransform);
@@ -118,7 +108,7 @@ namespace TheGuarden.Enemies
             ufo.Stop();
             ufoTransform.gameObject.SetActive(false);
 
-            yield return new WaitUntil(() => spawnedEnemies.Count == 0);
+            yield return new WaitUntil(() => enemySet.Count == 0);
             DayLightCycle.EnemyWaveEnded();
         }
 

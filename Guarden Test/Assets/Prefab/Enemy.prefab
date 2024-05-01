@@ -181,6 +181,7 @@ MonoBehaviour:
   agentSpeed: 5
   distanceThreshold: 3
   health: {fileID: 2469370035290940513}
+  enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
 --- !u!114 &2469370035290940513
 MonoBehaviour:
   m_ObjectHideFlags: 0
