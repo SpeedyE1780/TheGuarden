@@ -28,7 +28,7 @@ namespace TheGuarden.Enemies
         private bool rewinding = false;
         private bool rewindComplete = false;
 
-        internal UnityAction<GameObject> OnDestroyed { get; set; }
+        internal UnityAction OnReachShed { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
@@ -86,6 +86,7 @@ namespace TheGuarden.Enemies
 
                     if (path.ReachedEndOfPath)
                     {
+                        OnReachShed();
                         Destroy(gameObject);
                         yield break;
                     }
@@ -95,11 +96,6 @@ namespace TheGuarden.Enemies
 
                 yield return null;
             }
-        }
-
-        private void OnDestroy()
-        {
-            OnDestroyed(gameObject);
         }
 
         public void RewindPathProgress(int waypoints)

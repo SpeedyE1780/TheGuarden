@@ -93,10 +93,7 @@ namespace TheGuarden.Enemies
                 paths = paths,
                 position = spawnPoint.position,
                 rotation = spawnPoint.rotation,
-                OnDestroyed = (enemyObject) =>
-                {
-                    OnEnemyReachedShed.Invoke();
-                }
+                OnReachShed = OnEnemyReachedShed.Invoke
             };
 
             yield return wave.SpawnWave(configuration);
