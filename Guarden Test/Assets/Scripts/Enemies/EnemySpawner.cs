@@ -30,6 +30,10 @@ namespace TheGuarden.Enemies
         private EnemySet enemySet;
         [SerializeField]
         private GameEvent onWaveEnded;
+        [SerializeField]
+        private float healthMultiplier = 0.5f;
+
+        private float currentHealthMultiplier = 1.0f;
 
 #if UNITY_EDITOR
         internal List<EnemyPath> Paths => paths;
@@ -40,6 +44,7 @@ namespace TheGuarden.Enemies
         /// </summary>
         public void StartSpawning()
         {
+            currentHealthMultiplier += healthMultiplier;
             StartCoroutine(SpawnEnemies());
         }
 
@@ -80,6 +85,7 @@ namespace TheGuarden.Enemies
                 paths = paths,
                 position = spawnPoint.position,
                 rotation = spawnPoint.rotation,
+                healthMultiplier = currentHealthMultiplier,
             };
 
             yield return wave.SpawnWave(configuration);

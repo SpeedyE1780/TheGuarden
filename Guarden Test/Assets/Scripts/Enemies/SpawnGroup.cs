@@ -19,6 +19,7 @@ namespace TheGuarden.Enemies
             {
                 Enemy enemy = Instantiate(enemyPrefab, configuration.position, configuration.rotation);
                 enemy.SetPath(configuration.paths.GetRandomItem());
+                enemy.Health.MutlitplyMaxHealth(configuration.healthMultiplier);
                 GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
                 yield return new WaitForSeconds(delay);
             }

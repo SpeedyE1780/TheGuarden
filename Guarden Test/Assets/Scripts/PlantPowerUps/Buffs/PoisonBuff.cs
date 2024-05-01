@@ -8,7 +8,7 @@ namespace TheGuarden.PlantPowerUps
     internal class PoisonBuff : BuffModifier
     {
         [SerializeField, Tooltip("Damage per burst")]
-        private int damage;
+        private float damage;
         [SerializeField, Tooltip("Interval between burst")]
         private float duration;
 

@@ -8,9 +8,9 @@ namespace TheGuarden.Utility
     public class Health : MonoBehaviour
     {
         [SerializeField, Tooltip("Maximum Health")]
-        private int maxHealth;
+        private float maxHealth;
 
-        private int health;
+        private float health;
 
         private void Start()
         {
@@ -21,11 +21,11 @@ namespace TheGuarden.Utility
         /// Damage player and destroy if health <= 0
         /// </summary>
         /// <param name="damage">Damage received</param>
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             health -= damage;
 
-            if (health <= 0)
+            if (health <= 0.0f)
             {
                 Destroy(gameObject);
             }
@@ -35,9 +35,20 @@ namespace TheGuarden.Utility
         /// Heal player
         /// </summary>
         /// <param name="heal">Health received</param>
-        public void Heal(int heal)
+        public void Heal(float heal)
         {
-            health = Mathf.Clamp(health + heal, 0, maxHealth);
+            health = Mathf.Clamp(health + heal, 0.0f, maxHealth);
+        }
+
+        public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
+        {
+            maxHealth *= multiplier;
+            GameLogger.LogInfo($"{name} max health now is {maxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
+
+            if (updateHealth)
+            {
+                health = maxHealth;
+            }
         }
     }
 }

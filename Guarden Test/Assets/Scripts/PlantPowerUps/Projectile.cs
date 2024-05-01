@@ -11,7 +11,7 @@ namespace TheGuarden.PlantPowerUps
         [SerializeField, Tooltip("Projectile speed")]
         private float speed;
         [SerializeField, Tooltip("Damage dealt to target")]
-        private int damage = 1;
+        private float damage = 1.0f;
 
         public Transform Target { get; set; }
 
