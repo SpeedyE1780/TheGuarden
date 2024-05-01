@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66668624a871364ba588e3184d92623, type: 3}
   m_Name: OnNightStarted
   m_EditorClassIdentifier: 
+  soListeners: {fileID: 11400000, guid: 06cb2d87728a51a429c8416fe20ce7ff, type: 2}

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a66668624a871364ba588e3184d92623, type: 3}
   m_Name: OnDayStarted
   m_EditorClassIdentifier: 
+  soListeners: {fileID: 11400000, guid: 3587536c97c52de499a57bcd14afedf2, type: 2}
