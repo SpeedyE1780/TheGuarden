@@ -191,9 +191,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   onPlantInSoil: {fileID: 11400000, guid: 7b1e1e09b59cb8d47b6e6a7df37df512, type: 2}
-  OnPlant:
-    m_PersistentCalls:
-      m_Calls: []
+  onPlant: {fileID: 11400000, guid: 10a5185a96c4b9843b8a05b8cddb49e1, type: 2}
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

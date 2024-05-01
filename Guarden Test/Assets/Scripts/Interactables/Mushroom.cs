@@ -33,10 +33,10 @@ namespace TheGuarden.Interactable
         private LayerMask plantableAreaMask;
         [SerializeField]
         private GameEvent onPlantInSoil;
+        [SerializeField]
+        private GameEvent onPlant;
 
         private PlantSoil plantSoil;
-
-        public UnityEvent OnPlant;
 
         public Rigidbody Rigidbody => rb;
         public float GrowthPercentage => growPlant.GrowthPercentage;
@@ -137,7 +137,7 @@ namespace TheGuarden.Interactable
             Plant();
             ToggleCollisions(true);
             IsConsumedAfterInteraction = true;
-            OnPlant.Invoke();
+            onPlant.Raise();
         }
 
         /// <summary>
