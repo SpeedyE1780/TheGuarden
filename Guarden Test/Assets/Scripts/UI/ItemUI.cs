@@ -1,18 +1,21 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using TheGuarden.Utility;
 
 namespace TheGuarden.UI
 {
     /// <summary>
     /// ItemUI represents one item in the player's inventory on the screen
     /// </summary>
-    public class ItemUI : MonoBehaviour
+    public class ItemUI : MonoBehaviour, IPoolObject
     {
         [SerializeField, Tooltip("Item name text")]
         private TMP_Text nameText;
         [SerializeField, Tooltip("Item progress slider")]
         private Slider progressSlider;
+        [SerializeField]
+        private ObjectPool<ItemUI> pool;
 
         private InventoryUI inventoryUI;
 
@@ -61,12 +64,24 @@ namespace TheGuarden.UI
             nameText.color = Color.white;
         }
 
-        private void OnDestroy()
+        public void ReturnToPool()
         {
-            if (inventoryUI != null)
-            {
-                inventoryUI.RemoveItem(this);
-            }
+            pool.AddObject(this);
+        }
+
+        public void OnEnterPool()
+        {
+            inventoryUI.RemoveItem(this);
+            gameObject.SetActive(false);
+            progressSlider.value = 0;
+            nameText.text = "";
+            nameText.color = Color.white;
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
+            transform.SetParent(null);
         }
     }
 }

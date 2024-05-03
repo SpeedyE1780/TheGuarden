@@ -278,6 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 7003694367177702653}
   progressSlider: {fileID: 1463514433035056158}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!1 &6149708208450910515
 GameObject:
   m_ObjectHideFlags: 0

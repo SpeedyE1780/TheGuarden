@@ -11,7 +11,7 @@ namespace TheGuarden.Enemies
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
-    public class Enemy : MonoBehaviour, IBehavior, IBuff
+    public class Enemy : MonoBehaviour, IBehavior, IBuff, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
@@ -25,6 +25,8 @@ namespace TheGuarden.Enemies
         private EnemySet enemySet;
         [SerializeField]
         private GameEvent onReachShed;
+        [SerializeField]
+        private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
         private bool rewinding = false;
@@ -41,7 +43,7 @@ namespace TheGuarden.Enemies
 
         void Start()
         {
-            StartCoroutine(Patrol());
+            health.OnOutOfHealth = () => enemyPool.AddObject(this);
         }
 
         private void OnEnable()
@@ -62,6 +64,7 @@ namespace TheGuarden.Enemies
         internal void SetPath(EnemyPath patrolPath)
         {
             path = patrolPath;
+            StartCoroutine(Patrol());
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace TheGuarden.Enemies
                     if (path.ReachedEndOfPath)
                     {
                         onReachShed.Raise();
-                        Destroy(gameObject);
+                        enemyPool.AddObject(this);
                         yield break;
                     }
 
@@ -143,6 +146,18 @@ namespace TheGuarden.Enemies
             rewinding = false;
 
             StartCoroutine(Patrol());
+        }
+
+        public void OnEnterPool()
+        {
+            gameObject.SetActive(false);
+            health.ResetHealth();
+            rewindComplete = false;
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
         }
 
 #if UNITY_EDITOR

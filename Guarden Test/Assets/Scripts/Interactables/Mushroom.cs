@@ -4,7 +4,6 @@ using UnityEngine.AI;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.UI;
 using TheGuarden.Utility;
-using UnityEngine.Events;
 using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
@@ -13,7 +12,7 @@ namespace TheGuarden.Interactable
     /// Mushroom represent a plant tha can be planted and have power ups
     /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(NavMeshObstacle))]
-    public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
+    public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. List of active power ups")]
         private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
@@ -35,6 +34,10 @@ namespace TheGuarden.Interactable
         private GameEvent onPlantInSoil;
         [SerializeField]
         private GameEvent onPlant;
+        [SerializeField]
+        private Health health;
+        [SerializeField]
+        private ObjectPool<Mushroom> pool;
 
         private PlantSoil plantSoil;
 
@@ -47,6 +50,11 @@ namespace TheGuarden.Interactable
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage == 0 || GrowthPercentage == 1;
 
+        private void Start()
+        {
+            health.OnOutOfHealth = () => pool.AddObject(this);
+        }
+
         /// <summary>
         /// Ignore collisions
         /// </summary>
@@ -56,17 +64,30 @@ namespace TheGuarden.Interactable
             rb.excludeLayers = active ? 0 : ~0;
         }
 
+        private void ToggleBehaviors(bool active)
+        {
+            foreach (PlantPowerUp behavior in behaviors)
+            {
+                behavior.gameObject.SetActive(active);
+            }
+        }
+
+        private void ResetPlantSoil()
+        {
+            if (plantSoil != null)
+            {
+                plantSoil.IsAvailable = true;
+                plantSoil = null;
+            }
+        }
+
         /// <summary>
         /// Enable navmesh carving and all plant behaviors
         /// </summary>
         private void Plant()
         {
             navMeshObstacle.carving = true;
-
-            foreach (PlantPowerUp behavior in behaviors)
-            {
-                behavior.gameObject.SetActive(true);
-            }
+            ToggleBehaviors(true);
         }
 
         /// <summary>
@@ -81,12 +102,7 @@ namespace TheGuarden.Interactable
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ToggleCollisions(false);
-
-            if (plantSoil != null)
-            {
-                plantSoil.IsAvailable = true;
-                plantSoil = null;
-            }
+            ResetPlantSoil();
         }
 
         /// <summary>
@@ -172,7 +188,8 @@ namespace TheGuarden.Interactable
             if (IsConsumedAfterInteraction)
             {
                 transform.SetParent(null);
-                Destroy(ItemUI.gameObject);
+                ItemUI.ReturnToPool();
+                ItemUI = null;
             }
             else
             {
@@ -211,6 +228,29 @@ namespace TheGuarden.Interactable
 
             //If mushroom was deselected while interaction was active cancel the interaction
             OnInteractionCancelled();
+        }
+
+        public void OnEnterPool()
+        {
+            gameObject.SetActive(false);
+            navMeshObstacle.carving = false;
+            ToggleCollisions(true);
+            ToggleBehaviors(false);
+            growPlant.OnEnterPool();
+            transform.SetParent(null);
+            rb.constraints = RigidbodyConstraints.None;
+
+            if (ItemUI != null)
+            {
+                ItemUI.ReturnToPool();
+                ItemUI = null;
+            }
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
+            growPlant.OnExitPool();
         }
 
 #if UNITY_EDITOR

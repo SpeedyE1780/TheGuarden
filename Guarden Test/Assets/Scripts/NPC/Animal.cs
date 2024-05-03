@@ -8,7 +8,7 @@ namespace TheGuarden.NPC
     /// Animal represents the animals wandering around the scene
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
-    public class Animal : MonoBehaviour
+    public class Animal : MonoBehaviour, IPoolObject
     {
         internal static Transform Shed { get; set; }
 
@@ -70,6 +70,17 @@ namespace TheGuarden.NPC
         internal void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);
+        }
+
+        public void OnEnterPool()
+        {
+            gameObject.SetActive(false);
+            hiding = false;
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
         }
 
 #if UNITY_EDITOR

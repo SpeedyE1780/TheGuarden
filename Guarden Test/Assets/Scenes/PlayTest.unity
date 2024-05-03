@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 10
+  dayDuration: 60
   transitionDuration: 3
   curve:
     serializedVersion: 2
@@ -2092,6 +2092,7 @@ Transform:
   - {fileID: 609680990}
   - {fileID: 737661564}
   - {fileID: 1876744177}
+  - {fileID: 1485960244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2541,7 +2542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cc991706fa0cc4bb534c750dd075d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loggedCategory: -1
+  loggedCategory: 4096
 --- !u!1 &349350305
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,11 +4545,12 @@ MonoBehaviour:
   animalPrefab: {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64,
     type: 3}
   spawnCount: 2
-  dayOneAnimalCount: 5
+  dayOneAnimalCount: 12
   animalSet: {fileID: 11400000, guid: c8dad965b3954224cab07eaf36caf8d0, type: 2}
   onAnimalCountChanged: {fileID: 11400000, guid: a8ab61264bbcd9549a9dafa5ddb26683,
     type: 2}
   onGameEnded: {fileID: 11400000, guid: 2dec7e6d91d12e74290271da4feab438, type: 2}
+  animalPool: {fileID: 11400000, guid: bcae97148f557014098a9944d2eec8e0, type: 2}
 --- !u!114 &609680992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10123,6 +10125,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 1844632003}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!224 &1375691400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10855,6 +10858,51 @@ Transform:
   m_Father: {fileID: 662843848}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1485960243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485960244}
+  - component: {fileID: 1485960245}
+  m_Layer: 0
+  m_Name: GameState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485960244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485960243}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 282859965}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485960245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485960243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119fe39515561e44ea630e953476b4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGameStarted: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
 --- !u!1 &1493830118
 GameObject:
   m_ObjectHideFlags: 0
@@ -34859,6 +34907,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 204814617}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!224 &2012401047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35095,7 +35144,7 @@ MonoBehaviour:
   - {fileID: 1386089206}
   speed: 10
   meshes: {fileID: 1631699457}
-  items: {fileID: 11400000, guid: d926cbdeb9f1bc04f91ec8f5113c7b01, type: 2}
+  items: {fileID: 11400000, guid: cbf341018385dc149be096f7382b5c13, type: 2}
   followCamera: {fileID: 1912071954}
   deliveryLocation: {fileID: 202273868}
   configuration: {fileID: 11400000, guid: 38d685ebfb66576439f32eedea498c43, type: 2}
@@ -35800,7 +35849,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31390
+  m_Name: pb_Mesh85932
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

@@ -8,7 +8,7 @@ namespace TheGuarden.Interactable
     /// <summary>
     /// GrowPlant controls the mushroom growing speed
     /// </summary>
-    internal class GrowPlant : MonoBehaviour
+    internal class GrowPlant : MonoBehaviour, IPoolObject
     {
         private static readonly int Growing = Shader.PropertyToID("OnGrowing");
         private static readonly int StopGrowing = Shader.PropertyToID("OnStopGrowing");
@@ -91,6 +91,18 @@ namespace TheGuarden.Interactable
             isGrowing = true;
             soil = plantSoil;
             growingParticles.Play();
+        }
+
+        public void OnEnterPool()
+        {
+            transform.localScale = growingInfo.startSize;
+            isGrowing = false;
+            soil = null;
+            growingParticles.Stop();
+        }
+
+        public void OnExitPool()
+        {
         }
 
 #if UNITY_EDITOR

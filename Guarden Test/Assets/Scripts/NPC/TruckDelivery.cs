@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
 
@@ -11,7 +10,7 @@ namespace TheGuarden.NPC
     /// TruckDelivery is a game object that will delivery an Item at a specified time in the day
     /// </summary>
     /// <typeparam name="Item">Type of item that will be spawned and delivered</typeparam>
-    internal abstract class TruckDelivery<Item> : MonoBehaviour
+    internal abstract class TruckDelivery<Item> : MonoBehaviour where Item : MonoBehaviour, IPoolObject
     {
         [SerializeField, Tooltip("Roads on which truck can spawn")]
         private List<RoadLane> roads;
@@ -20,7 +19,7 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Meshes parent")]
         private GameObject meshes;
         [SerializeField, Tooltip("Items Scriptable Objects")]
-        private DeliveryItems items;
+        private DeliveryItems<Item> items;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
@@ -131,7 +130,7 @@ namespace TheGuarden.NPC
         {
             int deliveredItems = 0;
 
-            foreach (GameObject guaranteed in items.Guaranteed)
+            foreach (ObjectPool<Item> guaranteed in items.Guaranteed)
             {
                 yield return SpawnAndConfigureItem(guaranteed);
                 deliveredItems += 1;
@@ -154,10 +153,10 @@ namespace TheGuarden.NPC
         /// </summary>
         /// <param name="prefab">Item to spawn</param>
         /// <returns></returns>
-        private IEnumerator SpawnAndConfigureItem(GameObject prefab)
+        private IEnumerator SpawnAndConfigureItem(ObjectPool<Item> objectPool)
         {
-            GameObject go = Instantiate(prefab, SpawnPoint, Quaternion.identity);
-            Item item = go.GetComponent<Item>();
+            Item item = objectPool.GetPooledObject();
+            item.transform.SetPositionAndRotation(SpawnPoint, Quaternion.identity);
             ConfigureItem(item);
             yield return new WaitForSeconds(configuration.itemsInterval);
         }
