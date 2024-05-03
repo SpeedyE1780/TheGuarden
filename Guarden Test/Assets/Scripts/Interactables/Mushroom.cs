@@ -55,17 +55,30 @@ namespace TheGuarden.Interactable
             rb.excludeLayers = active ? 0 : ~0;
         }
 
+        private void ToggleBehaviors(bool active)
+        {
+            foreach (PlantPowerUp behavior in behaviors)
+            {
+                behavior.gameObject.SetActive(active);
+            }
+        }
+
+        private void ResetPlantSoil()
+        {
+            if (plantSoil != null)
+            {
+                plantSoil.IsAvailable = true;
+                plantSoil = null;
+            }
+        }
+
         /// <summary>
         /// Enable navmesh carving and all plant behaviors
         /// </summary>
         private void Plant()
         {
             navMeshObstacle.carving = true;
-
-            foreach (PlantPowerUp behavior in behaviors)
-            {
-                behavior.gameObject.SetActive(true);
-            }
+            ToggleBehaviors(true);
         }
 
         /// <summary>
@@ -80,12 +93,7 @@ namespace TheGuarden.Interactable
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ToggleCollisions(false);
-
-            if (plantSoil != null)
-            {
-                plantSoil.IsAvailable = true;
-                plantSoil = null;
-            }
+            ResetPlantSoil();
         }
 
         /// <summary>
@@ -172,6 +180,7 @@ namespace TheGuarden.Interactable
             {
                 transform.SetParent(null);
                 ItemUI.ReturnToPool();
+                ItemUI = null;
             }
             else
             {
@@ -214,12 +223,25 @@ namespace TheGuarden.Interactable
 
         public void OnEnterPool()
         {
-            throw new System.NotImplementedException();
+            gameObject.SetActive(false);
+            navMeshObstacle.carving = false;
+            ToggleCollisions(true);
+            ToggleBehaviors(false);
+            growPlant.OnEnterPool();
+            transform.SetParent(null);
+            rb.constraints = RigidbodyConstraints.None;
+
+            if (ItemUI != null)
+            {
+                ItemUI.ReturnToPool();
+                ItemUI = null;
+            }
         }
 
         public void OnExitPool()
         {
-            throw new System.NotImplementedException();
+            gameObject.SetActive(true);
+            growPlant.OnExitPool();
         }
 
 #if UNITY_EDITOR
