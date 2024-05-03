@@ -1,14 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    public class SimpleFactory<T> : ObjectFactory<T> where T : Object
+    public class RandomFactory<T> : ObjectFactory<T> where T : Object
     {
         [SerializeField]
-        private T prefab;
+        private List<T> prefabs;
 
         internal override T CreateObject()
         {
+            T prefab = prefabs.GetRandomItem();
+
             GameLogger.LogInfo($"Factory {name} creating {prefab.name}", this, GameLogger.LogCategory.ObjectPooling);
 
 #if UNITY_EDITOR

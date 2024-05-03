@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mushrooms
   m_EditorClassIdentifier: 
   guaranteed:
-  - {fileID: 11400000, guid: 10bdd00229ef3b1448fc6812ca7f95f6, type: 2}
-  - {fileID: 11400000, guid: 10bdd00229ef3b1448fc6812ca7f95f6, type: 2}
-  - {fileID: 11400000, guid: 10bdd00229ef3b1448fc6812ca7f95f6, type: 2}
+  - {fileID: 11400000, guid: 8dbaa375b320b0e4380894ff3524f1ff, type: 2}
+  - {fileID: 11400000, guid: 8dbaa375b320b0e4380894ff3524f1ff, type: 2}
+  - {fileID: 11400000, guid: 8dbaa375b320b0e4380894ff3524f1ff, type: 2}
   random: []
   count: 2

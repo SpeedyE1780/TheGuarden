@@ -4,7 +4,6 @@ using UnityEngine.AI;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.UI;
 using TheGuarden.Utility;
-using UnityEngine.Events;
 using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable

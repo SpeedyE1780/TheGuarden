@@ -12,7 +12,7 @@ namespace TheGuarden.PlantPowerUps
         [SerializeField, Tooltip("Point where projectile will spawn")]
         private Transform shootPoint;
         [SerializeField, Tooltip("Projectile prefab")]
-        private Projectile projectilePrefab;
+        private ObjectPool<Projectile> projectilePool;
         [SerializeField, Tooltip("Cooldown between projectiles")]
         private float cooldown;
 
@@ -49,7 +49,8 @@ namespace TheGuarden.PlantPowerUps
 
             while (targetEnemy != null)
             {
-                Projectile projectile = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+                Projectile projectile = projectilePool.GetPooledObject();
+                projectile.transform.SetPositionAndRotation(shootPoint.position, shootPoint.rotation);
                 projectile.Target = targetEnemy;
                 yield return new WaitForSeconds(cooldown);
 

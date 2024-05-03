@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 10
+  dayDuration: 60
   transitionDuration: 3
   curve:
     serializedVersion: 2
@@ -10902,7 +10902,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onGameStarted: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
-  onGameEnded: {fileID: 0}
 --- !u!1 &1493830118
 GameObject:
   m_ObjectHideFlags: 0
@@ -35848,7 +35847,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31390
+  m_Name: pb_Mesh85932
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

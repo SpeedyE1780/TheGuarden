@@ -2,7 +2,6 @@ using UnityEngine;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
-using UnityEngine.Events;
 using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
