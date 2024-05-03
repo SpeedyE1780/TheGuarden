@@ -17,7 +17,9 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
         [SerializeField]
-        private IntGameEvent OnAnimalCountChanged;
+        private IntGameEvent onAnimalCountChanged;
+        [SerializeField]
+        private GameEvent onGameEnded;
 
         private void Awake()
         {
@@ -38,7 +40,7 @@ namespace TheGuarden.NPC
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
             }
 
-            OnAnimalCountChanged.Raise(animalSet.Count);
+            onAnimalCountChanged.Raise(animalSet.Count);
         }
 
         public void RemoveAnimal()
@@ -48,11 +50,12 @@ namespace TheGuarden.NPC
                 Destroy(animalSet[0].gameObject);
             }
 
-            OnAnimalCountChanged.Raise(animalSet.Count);
+            onAnimalCountChanged.Raise(animalSet.Count);
 
             if (animalSet.Count == 0)
             {
                 GameLogger.LogInfo("All animals taken", this, GameLogger.LogCategory.Scene);
+                onGameEnded.Raise();
             }
         }
     }
