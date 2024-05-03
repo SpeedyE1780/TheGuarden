@@ -12,7 +12,7 @@ namespace TheGuarden.Interactable
     /// Mushroom represent a plant tha can be planted and have power ups
     /// </summary>
     [RequireComponent(typeof(Rigidbody), typeof(NavMeshObstacle))]
-    public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem
+    public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. List of active power ups")]
         private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
@@ -210,6 +210,16 @@ namespace TheGuarden.Interactable
 
             //If mushroom was deselected while interaction was active cancel the interaction
             OnInteractionCancelled();
+        }
+
+        public void OnEnterPool()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnExitPool()
+        {
+            throw new System.NotImplementedException();
         }
 
 #if UNITY_EDITOR

@@ -15,7 +15,6 @@ namespace TheGuarden.Utility
             ObjectPoolReseter.OnReset += ResetPooledObjects;
         }
 
-
         private void OnDisable()
         {
             ObjectPoolReseter.OnReset -= ResetPooledObjects;
