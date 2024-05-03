@@ -12,6 +12,8 @@ namespace TheGuarden.NPC
         private Animal animalPrefab;
         [SerializeField, Tooltip("Animal spawned each day")]
         private int spawnCount;
+        [SerializeField]
+        private int dayOneAnimalCount = 5;
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
         [SerializeField]
@@ -20,11 +22,17 @@ namespace TheGuarden.NPC
         private void Awake()
         {
             Animal.Shed = shed;
+            SpawnAnimals(dayOneAnimalCount);
         }
 
         public void SpawnAnimals()
         {
-            for (int i = 0; i < spawnCount; i++)
+            SpawnAnimals(spawnCount);
+        }
+
+        private void SpawnAnimals(int count)
+        {
+            for (int i = 0; i < count; i++)
             {
                 Instantiate(animalPrefab, shed.position, Quaternion.identity);
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
