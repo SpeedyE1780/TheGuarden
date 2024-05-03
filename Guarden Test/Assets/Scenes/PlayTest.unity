@@ -10125,6 +10125,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 1844632003}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!224 &1375691400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34906,6 +34907,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 204814617}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!224 &2012401047
 RectTransform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TheGuarden.Utility;
 using UnityEngine;
 
 namespace TheGuarden.UI
@@ -12,6 +13,8 @@ namespace TheGuarden.UI
         private ItemUI itemPrefab;
         [SerializeField, Tooltip("Parent containing all itemsUIs")]
         private Transform itemParents;
+        [SerializeField]
+        private ObjectPool<ItemUI> pool;
 
         private List<ItemUI> items = new List<ItemUI>();
 
@@ -21,7 +24,8 @@ namespace TheGuarden.UI
         /// <returns>Newly added item</returns>
         public ItemUI AddItem()
         {
-            ItemUI itemUI = Instantiate(itemPrefab, itemParents);
+            ItemUI itemUI = pool.GetPooledObject();
+            itemUI.transform.SetParent(itemParents);
             itemUI.SetParent(this);
             items.Add(itemUI);
             return itemUI;
@@ -38,9 +42,9 @@ namespace TheGuarden.UI
 
         private void OnDisable()
         {
-            for (int i = itemParents.childCount - 1; i >= 0; --i)
+            for (int i = items.Count - 1; i >= 0; i--)
             {
-                Destroy(itemParents.GetChild(i).gameObject);
+                items[i].ReturnToPool();
             }
         }
     }

@@ -171,7 +171,7 @@ namespace TheGuarden.Interactable
             if (IsConsumedAfterInteraction)
             {
                 transform.SetParent(null);
-                Destroy(ItemUI.gameObject);
+                ItemUI.ReturnToPool();
             }
             else
             {
