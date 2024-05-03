@@ -4544,11 +4544,12 @@ MonoBehaviour:
   animalPrefab: {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64,
     type: 3}
   spawnCount: 2
-  dayOneAnimalCount: 5
+  dayOneAnimalCount: 12
   animalSet: {fileID: 11400000, guid: c8dad965b3954224cab07eaf36caf8d0, type: 2}
   onAnimalCountChanged: {fileID: 11400000, guid: a8ab61264bbcd9549a9dafa5ddb26683,
     type: 2}
   onGameEnded: {fileID: 11400000, guid: 2dec7e6d91d12e74290271da4feab438, type: 2}
+  animalPool: {fileID: 11400000, guid: bcae97148f557014098a9944d2eec8e0, type: 2}
 --- !u!114 &609680992
 MonoBehaviour:
   m_ObjectHideFlags: 0

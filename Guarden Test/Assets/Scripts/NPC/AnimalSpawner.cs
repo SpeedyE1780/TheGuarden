@@ -20,6 +20,8 @@ namespace TheGuarden.NPC
         private IntGameEvent onAnimalCountChanged;
         [SerializeField]
         private GameEvent onGameEnded;
+        [SerializeField]
+        private ObjectPool<Animal> animalPool;
 
         private void Awake()
         {
@@ -36,7 +38,8 @@ namespace TheGuarden.NPC
         {
             for (int i = 0; i < count; i++)
             {
-                Instantiate(animalPrefab, shed.position, Quaternion.identity);
+                Animal animal = animalPool.GetPooledObject();
+                animal.transform.SetPositionAndRotation(shed.position, Quaternion.identity);
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
             }
 
@@ -47,7 +50,7 @@ namespace TheGuarden.NPC
         {
             if (animalSet.Count > 0)
             {
-                Destroy(animalSet[0].gameObject);
+                animalPool.AddObject(animalSet[0]);
             }
 
             onAnimalCountChanged.Raise(animalSet.Count);
