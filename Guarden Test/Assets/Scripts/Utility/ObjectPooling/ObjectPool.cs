@@ -9,13 +9,26 @@ namespace TheGuarden.Utility
 
     public abstract class ObjectPool<T> : ObjectPool
     {
+        [SerializeField]
+        private ObjectFactory<T> factory;
+
         private List<T> pooledObjects = new List<T>();
 
-        public T GetPooledObject()
+        private T GetObjectFromPool()
         {
             T pooledObject = pooledObjects[0];
             pooledObjects.RemoveAt(0);
             return pooledObject;
+        }
+
+        private T CreateNewObject()
+        {
+            return factory.CreateObject();
+        }
+
+        public T GetPooledObject()
+        {
+            return pooledObjects.Count == 0 ? CreateNewObject() : GetObjectFromPool();
         }
 
         public void AddObject(T obj)
