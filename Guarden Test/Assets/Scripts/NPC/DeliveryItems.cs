@@ -91,13 +91,20 @@ namespace TheGuarden.NPC
             }
         }
 
+        private void ClearLists()
+        {
+            guaranteed.Clear();
+            random.Clear();
+        }
+
         /// <summary>
         /// Clone current instance
         /// </summary>
         /// <returns>A deep copy clone of this class</returns>
         internal DeliveryItems<Item> Clone()
         {
-            DeliveryItems<Item> clone = CreateInstance<DeliveryItems<Item>>();
+            DeliveryItems<Item> clone = Instantiate(this);
+            clone.ClearLists();
             clone.count = count;
             clone.CloneDeliveryItems(guaranteed, clone.guaranteed, clone.unlockedGuaranteed);
             clone.CloneDeliveryItems(random, clone.random, clone.unlockedRandom);

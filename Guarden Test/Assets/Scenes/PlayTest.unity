@@ -35144,7 +35144,7 @@ MonoBehaviour:
   - {fileID: 1386089206}
   speed: 10
   meshes: {fileID: 1631699457}
-  items: {fileID: 11400000, guid: d926cbdeb9f1bc04f91ec8f5113c7b01, type: 2}
+  items: {fileID: 11400000, guid: cbf341018385dc149be096f7382b5c13, type: 2}
   followCamera: {fileID: 1912071954}
   deliveryLocation: {fileID: 202273868}
   configuration: {fileID: 11400000, guid: 38d685ebfb66576439f32eedea498c43, type: 2}
