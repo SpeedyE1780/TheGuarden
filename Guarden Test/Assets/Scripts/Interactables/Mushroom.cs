@@ -34,6 +34,10 @@ namespace TheGuarden.Interactable
         private GameEvent onPlantInSoil;
         [SerializeField]
         private GameEvent onPlant;
+        [SerializeField]
+        private Health health;
+        [SerializeField]
+        private ObjectPool<Mushroom> pool;
 
         private PlantSoil plantSoil;
 
@@ -45,6 +49,11 @@ namespace TheGuarden.Interactable
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage == 0 || GrowthPercentage == 1;
+
+        private void Start()
+        {
+            health.OnOutOfHealth = () => pool.AddObject(this);
+        }
 
         /// <summary>
         /// Ignore collisions

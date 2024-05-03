@@ -30,14 +30,7 @@ namespace TheGuarden.Utility
 
             if (health <= 0.0f)
             {
-                if (OnOutOfHealth == null)
-                {
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    OnOutOfHealth();
-                }
+                OnOutOfHealth();
             }
         }
 
