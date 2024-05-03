@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Low Level Enemy
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
   delay: 0.5

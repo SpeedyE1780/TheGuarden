@@ -20,6 +20,7 @@ namespace TheGuarden.Utility
             Audio = 1 << 9,
             Editor = 1 << 10,
             Tutorial = 1 << 11,
+            ObjectPooling = 1 << 12,
             All = -1
         }
 

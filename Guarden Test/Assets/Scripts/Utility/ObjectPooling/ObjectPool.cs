@@ -28,16 +28,16 @@ namespace TheGuarden.Utility
 
         private T GetObjectFromPool()
         {
-            GameLogger.LogInfo("Getting object from pool", this, GameLogger.LogCategory.Scene);
             T pooledObject = pooledObjects[0];
             pooledObjects.RemoveAt(0);
             pooledObject.OnExitPool();
+            GameLogger.LogInfo($"Getting {pooledObject.name} from {name} pool", this, GameLogger.LogCategory.ObjectPooling);
             return pooledObject;
         }
 
         private T CreateNewObject()
         {
-            GameLogger.LogInfo("Create object from factory", this, GameLogger.LogCategory.Scene);
+            GameLogger.LogInfo($"Create object from {factory.name} factory", this, GameLogger.LogCategory.ObjectPooling);
             return factory.CreateObject();
         }
 

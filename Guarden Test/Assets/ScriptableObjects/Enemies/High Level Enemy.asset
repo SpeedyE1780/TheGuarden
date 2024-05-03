@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: High Level Enemy
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 2854661575363335227, guid: ecc61280955138b4c88017f39ad24e7e, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
-  - {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6, type: 3}
+  - {fileID: 11400000, guid: 04d9495e9a9bcc246a229847ad2ae061, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
+  - {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
   delay: 1.5

@@ -8,6 +8,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 219852099375238453, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
+        type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 04d9495e9a9bcc246a229847ad2ae061,
+        type: 2}
     - target: {fileID: 2469370035290940513, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
         type: 3}
       propertyPath: maxHealth
