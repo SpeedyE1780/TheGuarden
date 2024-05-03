@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    public abstract class ObjectFactory<T> : ScriptableObject
+    public abstract class ObjectFactory<T> : ScriptableObject where T : Object
     {
-        public abstract T CreateObject();
+        internal abstract T CreateObject();
     }
 }

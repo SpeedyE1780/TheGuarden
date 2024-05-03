@@ -7,7 +7,7 @@ namespace TheGuarden.Utility
     {
     }
 
-    public abstract class ObjectPool<T> : ObjectPool
+    public abstract class ObjectPool<T> : ObjectPool where T : Object
     {
         [SerializeField]
         private ObjectFactory<T> factory;
@@ -16,6 +16,7 @@ namespace TheGuarden.Utility
 
         private T GetObjectFromPool()
         {
+            GameLogger.LogInfo("Getting object from pool", this, GameLogger.LogCategory.Scene);
             T pooledObject = pooledObjects[0];
             pooledObjects.RemoveAt(0);
             return pooledObject;
@@ -23,6 +24,7 @@ namespace TheGuarden.Utility
 
         private T CreateNewObject()
         {
+            GameLogger.LogInfo("Create object from factory", this, GameLogger.LogCategory.Scene);
             return factory.CreateObject();
         }
 
