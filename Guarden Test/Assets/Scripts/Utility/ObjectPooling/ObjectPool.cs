@@ -3,16 +3,28 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    public abstract class ObjectPool : ScriptableObject
-    {
-    }
-
-    public abstract class ObjectPool<T> : ObjectPool where T : Object, IPoolObject
+    public abstract class ObjectPool<T> : ScriptableObject where T : Object, IPoolObject
     {
         [SerializeField]
         private ObjectFactory<T> factory;
 
         private List<T> pooledObjects = new List<T>();
+
+        private void OnEnable()
+        {
+            ObjectPoolReseter.OnReset += ResetPooledObjects;
+        }
+
+
+        private void OnDisable()
+        {
+            ObjectPoolReseter.OnReset -= ResetPooledObjects;
+        }
+
+        private void ResetPooledObjects()
+        {
+            pooledObjects.Clear();
+        }
 
         private T GetObjectFromPool()
         {
