@@ -166,6 +166,11 @@ MonoBehaviour:
   growingInfo: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
   growingParticles: {fileID: 2360375210469261123}
   onFullyGrown: {fileID: 11400000, guid: 95b9bf117ff2d7d40965a69b0a6fb98d, type: 2}
+  onGrowingProperty: {fileID: 11400000, guid: 9bbbfecf94c6bab4bbbd28def47d3b6b, type: 2}
+  onStopGrowingProperty: {fileID: 11400000, guid: bdd6ba0a64d075645a6bca3cf9e65923,
+    type: 2}
+  onFullyGrownProperty: {fileID: 11400000, guid: 08f49be507e89784b9f0d00af175513c,
+    type: 2}
 --- !u!114 &6923517243752356787
 MonoBehaviour:
   m_ObjectHideFlags: 0

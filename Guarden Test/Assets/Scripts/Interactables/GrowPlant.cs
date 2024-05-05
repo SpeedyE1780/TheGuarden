@@ -10,16 +10,18 @@ namespace TheGuarden.Interactable
     /// </summary>
     internal class GrowPlant : MonoBehaviour, IPoolObject
     {
-        private static readonly int Growing = Shader.PropertyToID("OnGrowing");
-        private static readonly int StopGrowing = Shader.PropertyToID("OnStopGrowing");
-        private static readonly int FullyGrown = Shader.PropertyToID("OnFullyGrown");
-
         [SerializeField, Tooltip("All growing related info")]
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private VisualEffect growingParticles;
         [SerializeField]
         private GameEvent onFullyGrown;
+        [SerializeField]
+        private ExposedProperty onGrowingProperty;
+        [SerializeField]
+        private ExposedProperty onStopGrowingProperty;
+        [SerializeField]
+        private ExposedProperty onFullyGrownProperty;
 
         private Vector3 targetGrowth = Vector3.zero;
         private bool isGrowing = false;
@@ -50,20 +52,20 @@ namespace TheGuarden.Interactable
             if (isGrowing && IsFullyGrown)
             {
                 isGrowing = false;
-                growingParticles.SendEvent(StopGrowing);
-                growingParticles.SendEvent(FullyGrown);
+                growingParticles.SendEvent(onStopGrowingProperty.PropertyID);
+                growingParticles.SendEvent(onFullyGrownProperty.PropertyID);
                 onFullyGrown.Raise();
             }
 
             if (IsGrowing && !isGrowing)
             {
                 isGrowing = true;
-                growingParticles.SendEvent(Growing);
+                growingParticles.SendEvent(onGrowingProperty.PropertyID);
             }
             else if (!IsGrowing && isGrowing)
             {
                 isGrowing = false;
-                growingParticles.SendEvent(StopGrowing);
+                growingParticles.SendEvent(onStopGrowingProperty.PropertyID);
             }
         }
 

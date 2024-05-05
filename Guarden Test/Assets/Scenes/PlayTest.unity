@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 60
+  dayDuration: 200
   transitionDuration: 3
   curve:
     serializedVersion: 2
@@ -2561,7 +2561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cc991706fa0cc4bb534c750dd075d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loggedCategory: 4096
+  loggedCategory: -1
 --- !u!1 &349350305
 GameObject:
   m_ObjectHideFlags: 0
@@ -9784,6 +9784,8 @@ MonoBehaviour:
   enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
   onWaveEnded: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
   healthMultiplier: 0.5
+  onSucking: {fileID: 11400000, guid: e85f5f03c6974fa42874c114de5ce6f9, type: 2}
+  onFinishSucking: {fileID: 11400000, guid: 6f6cc64604e2e9d45a9bd4b47d08af92, type: 2}
 --- !u!114 &1300012554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36126,7 +36128,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34146
+  m_Name: pb_Mesh31688
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

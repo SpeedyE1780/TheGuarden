@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 4011078326277615359}
-  velocityParam: Velocity
-  spawnParam: Spawn
+  velocityParam: {fileID: 11400000, guid: 4f8edb85f97004641be2ee94c2401b05, type: 2}
+  spawnParam: {fileID: 11400000, guid: 629d312818c9e5b4f96d9228d7f4bbb6, type: 2}
   rb: {fileID: 5394329849608207086}
 --- !u!1 &8624806574159695145
 GameObject:
@@ -388,7 +388,7 @@ Transform:
   - {fileID: 3015820215559826910}
   - {fileID: 7284881402961356843}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5394329849608207086
 Rigidbody:

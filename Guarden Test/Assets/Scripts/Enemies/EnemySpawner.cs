@@ -41,6 +41,10 @@ namespace TheGuarden.Enemies
         private GameEvent onWaveEnded;
         [SerializeField]
         private float healthMultiplier = 0.5f;
+        [SerializeField]
+        private ExposedProperty onSucking;
+        [SerializeField]
+        private ExposedProperty onFinishSucking;
 
         private float currentHealthMultiplier = 1.0f;
         private int currentWaveConfig = 0;
@@ -101,7 +105,7 @@ namespace TheGuarden.Enemies
 
             yield return MoveUFO(spawnPoint.position);
             ufo.Play();
-            ufo.SendEvent("OnSucking");
+            ufo.SendEvent(onSucking.PropertyID);
 
             SpawnConfiguration configuration = new SpawnConfiguration()
             {
@@ -113,7 +117,7 @@ namespace TheGuarden.Enemies
 
             yield return CurrentWave.wave.SpawnWave(configuration);
 
-            ufo.SendEvent("OnFinishSucking");
+            ufo.SendEvent(onFinishSucking.PropertyID);
             followCamera.RemoveTarget(ufoTransform);
             yield return MoveUFO(endPosition);
 
