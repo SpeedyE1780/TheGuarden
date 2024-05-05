@@ -35214,6 +35214,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Paul
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d53537cf2f1c0b4ebb20fbeddac32ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36128,7 +36133,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31688
+  m_Name: pb_Mesh78124
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
