@@ -2659,7 +2659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cc991706fa0cc4bb534c750dd075d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loggedCategory: 0
+  loggedCategory: -1
 --- !u!1 &349350305
 GameObject:
   m_ObjectHideFlags: 0
@@ -11217,7 +11217,6 @@ MonoBehaviour:
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
-  maxPlayerCount: 1
 --- !u!114 &1515259377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11231,7 +11230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 1
   m_AllowJoining: 1
   m_JoinBehavior: 0
   m_PlayerJoinedEvent:
