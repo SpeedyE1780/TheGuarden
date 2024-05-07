@@ -21,6 +21,8 @@ namespace TheGuarden.Players
         private List<InventoryUI> inventoryUI;
         [SerializeField, Tooltip("List of colors for each player")]
         private List<Color> playerColors;
+        [SerializeField]
+        private int maxPlayerCount = 1;
 
         /// <summary>
         /// OnPlayerJoin is called from the PlayerInputManager component
@@ -28,10 +30,28 @@ namespace TheGuarden.Players
         /// <param name="player">Player who joined the game</param>
         public void OnPlayerJoin(PlayerInput player)
         {
+            if (PlayerInput.all.Count > maxPlayerCount)
+            {
+                bool success = PlayerInput.all[0].SwitchCurrentControlScheme(player.devices.ToArray());
+
+                if (success)
+                {
+                    GameLogger.LogInfo("Switched player 1 control scheme", this, GameLogger.LogCategory.Player);
+                }
+                else
+                {
+                    GameLogger.LogError("Unable to switch player 1 control scheme", this, GameLogger.LogCategory.Player);
+                }
+
+                Destroy(player.gameObject);
+                return;
+            }
+
             player.camera = followCamera.Camera;
             PlayerController controller = player.GetComponent<PlayerController>();
-            controller.SetColor(playerColors[player.playerIndex]);
-            controller.Inventory.SetInventoryUI(inventoryUI[player.playerIndex]);
+            int playerIndex = player.playerIndex == -1 ? 0 : player.playerIndex;
+            controller.SetColor(playerColors[playerIndex]);
+            controller.Inventory.SetInventoryUI(inventoryUI[playerIndex]);
             followCamera.AddTarget(player.transform);
         }
 
