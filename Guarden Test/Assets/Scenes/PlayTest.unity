@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 200
+  dayDuration: 60
   transitionDuration: 3
   curve:
     serializedVersion: 2
@@ -1927,14 +1927,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207304613}
-  m_LocalRotation: {x: 0.26470625, y: -0, z: -0, w: 0.9643291}
-  m_LocalPosition: {x: 0, y: 25, z: -50}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 45, z: 2.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1912071953}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 30.699, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!114 &207304615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3915,6 +3915,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 95734d34eff7d8e438a410fde750d265,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c09fcf9ca8dd3641a02536ea6e8c9cf, type: 2}
     - target: {fileID: 919132149155446097, guid: 95734d34eff7d8e438a410fde750d265,
         type: 3}
       propertyPath: m_Name
@@ -4554,7 +4559,7 @@ MonoBehaviour:
   animalPrefab: {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64,
     type: 3}
   spawnCount: 2
-  dayOneAnimalCount: 12
+  dayOneAnimalCount: 5
   animalSet: {fileID: 11400000, guid: c8dad965b3954224cab07eaf36caf8d0, type: 2}
   onAnimalCountChanged: {fileID: 11400000, guid: a8ab61264bbcd9549a9dafa5ddb26683,
     type: 2}
@@ -8030,6 +8035,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5e0862f7b5706c54fab3dcc0c7e140b6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1d151e64c1a068640b68756c0a5c9cb1, type: 2}
     - target: {fileID: 919132149155446097, guid: 5e0862f7b5706c54fab3dcc0c7e140b6,
         type: 3}
       propertyPath: m_Name
@@ -9771,8 +9781,10 @@ MonoBehaviour:
   ufo: {fileID: 904827025}
   ufoSpeed: 75
   waveConfigs:
-  - days: 3
+  - days: 1
     wave: {fileID: 11400000, guid: 9007fc4f9ee91b14fab538e03e6fc1b5, type: 2}
+  - days: 2
+    wave: {fileID: 11400000, guid: b448b709b5cdd0741b7e0d526f264801, type: 2}
   - days: 0
     wave: {fileID: 11400000, guid: b448b709b5cdd0741b7e0d526f264801, type: 2}
   enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
@@ -12495,7 +12507,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 8e507c8855995464386f27759ef5369d, type: 2}
+      objectReference: {fileID: 2100000, guid: 1d151e64c1a068640b68756c0a5c9cb1, type: 2}
     - target: {fileID: 919132149155446097, guid: 400c0fafc00fce14491b5abac60c3ff5,
         type: 3}
       propertyPath: m_Name
@@ -35824,6 +35836,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5bb3e25d8f18129488f2b16185c3780f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c09fcf9ca8dd3641a02536ea6e8c9cf, type: 2}
     - target: {fileID: 919132149155446097, guid: 5bb3e25d8f18129488f2b16185c3780f,
         type: 3}
       propertyPath: m_Name
@@ -36065,7 +36082,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh31638
+  m_Name: pb_Mesh77206
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2

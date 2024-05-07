@@ -15,4 +15,6 @@ MonoBehaviour:
   spawnGroups:
   - {fileID: 11400000, guid: 39d41a02b514b3c4fa27fd9957ea0b12, type: 2}
   - {fileID: 11400000, guid: 39d41a02b514b3c4fa27fd9957ea0b12, type: 2}
+  - {fileID: 11400000, guid: 39d41a02b514b3c4fa27fd9957ea0b12, type: 2}
+  - {fileID: 11400000, guid: 39d41a02b514b3c4fa27fd9957ea0b12, type: 2}
   delay: 2

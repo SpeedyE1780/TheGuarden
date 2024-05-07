@@ -119,6 +119,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 310434028874281703, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: maxHealth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2236016672227850794, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
