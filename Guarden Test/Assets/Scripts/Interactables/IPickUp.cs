@@ -7,6 +7,7 @@ namespace TheGuarden.Interactable
     /// </summary>
     public interface IPickUp
     {
+        public GameObject gameObject { get; }
         public bool HasInstantPickUp { get; }
 
         /// <summary>

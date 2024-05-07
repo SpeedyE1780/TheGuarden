@@ -23,7 +23,7 @@ namespace TheGuarden.Players
 
         private InventoryUI inventoryUI;
         private List<IInventoryItem> items = new List<IInventoryItem>();
-        private GameObject currentPickUp;
+        private IPickUp currentPickUp;
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
         private bool showPickUpInstruction = false;
@@ -87,11 +87,10 @@ namespace TheGuarden.Players
             }
 
             GameLogger.LogInfo("STARTED/PERFORMED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
-            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
 
-            if ((context.started && pickUp.HasInstantPickUp) || context.performed)
+            if ((context.started && currentPickUp.HasInstantPickUp) || context.performed)
             {
-                PickUp(pickUp);
+                PickUp(currentPickUp);
             }
         }
 
@@ -197,16 +196,16 @@ namespace TheGuarden.Players
         {
             if (currentPickUp == null && other.CompareTag(Tags.PickUp))
             {
-                currentPickUp = other.attachedRigidbody.gameObject;
+                currentPickUp = other.attachedRigidbody.GetComponent<IPickUp>();
                 GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
-                onInstructions.Raise("Press/Hold space to pick up item");
+                onInstructions.Raise($"{(currentPickUp.HasInstantPickUp ? "Press" : "Hold")} space to pick up item");
                 showPickUpInstruction = true;
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == currentPickUp)
+            if (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == currentPickUp.gameObject)
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
