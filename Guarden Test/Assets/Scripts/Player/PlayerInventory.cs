@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using TheGuarden.Interactable;
 using TheGuarden.UI;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Players
 {
@@ -15,6 +16,10 @@ namespace TheGuarden.Players
     {
         [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
+        [SerializeField]
+        private TGameEvent<string> onInstructions;
+        [SerializeField]
+        private GameEvent onHideInstructions;
 
         private InventoryUI inventoryUI;
         private List<IInventoryItem> items = new List<IInventoryItem>();
@@ -86,6 +91,7 @@ namespace TheGuarden.Players
             if ((context.started && pickUp.HasInstantPickUp) || context.performed)
             {
                 PickUp(pickUp);
+                onHideInstructions.Raise();
             }
         }
 
@@ -180,6 +186,7 @@ namespace TheGuarden.Players
             {
                 currentPickUp = other.attachedRigidbody.gameObject;
                 GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
+                onInstructions.Raise("Press/Hold space to pick up item");
             }
         }
 
@@ -189,6 +196,7 @@ namespace TheGuarden.Players
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
+                onHideInstructions.Raise();
             }
         }
     }
