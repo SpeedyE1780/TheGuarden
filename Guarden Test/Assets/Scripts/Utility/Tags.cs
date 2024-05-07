@@ -9,7 +9,6 @@ namespace TheGuarden.Utility
     {
         public const string PickUp = "PickUp";
         public const string Enemy = "Enemy";
-        public const string Shed = "Shed";
 
         /// <summary>
         /// Check if game object has any of the given tags
