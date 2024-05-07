@@ -85,7 +85,7 @@ namespace TheGuarden.Enemies
         {
             CurrentWave.days -= 1;
 
-            if (CurrentWave.days <= 0 && currentWaveConfig < waveConfigs.Count)
+            if (CurrentWave.days <= 0 && currentWaveConfig < waveConfigs.Count - 1)
             {
                 currentWaveConfig += 1;
                 GameLogger.LogInfo($"{name} switching to {CurrentWave.wave.name} wave", this, GameLogger.LogCategory.Enemy);
