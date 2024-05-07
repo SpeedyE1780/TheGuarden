@@ -178,14 +178,14 @@ namespace TheGuarden.Players
         {
             if (currentPickUp == null && other.CompareTag(Tags.PickUp))
             {
-                currentPickUp = other.gameObject;
+                currentPickUp = other.attachedRigidbody.gameObject;
                 GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject == currentPickUp)
+            if (other.attachedRigidbody.gameObject == currentPickUp)
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);

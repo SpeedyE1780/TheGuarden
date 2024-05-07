@@ -15,6 +15,8 @@ namespace TheGuarden.Interactable
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private VisualEffect growingParticles;
         [SerializeField]
+        private Transform growingTransform;
+        [SerializeField]
         private GameEvent onFullyGrown;
         [SerializeField]
         private ExposedProperty onGrowingProperty;
@@ -27,8 +29,8 @@ namespace TheGuarden.Interactable
         private bool isGrowing = false;
         private PlantSoil soil;
 
-        public bool IsFullyGrown => transform.localScale == growingInfo.maxSize;
-        public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
+        public bool IsFullyGrown => growingTransform.localScale == growingInfo.maxSize;
+        public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, growingTransform.localScale);
         private bool IsGrowing => !IsFullyGrown && soil != null && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
 #if UNITY_EDITOR
@@ -39,11 +41,11 @@ namespace TheGuarden.Interactable
         {
             if (IsGrowing)
             {
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x + (growingInfo.growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y + (growingInfo.growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z + (growingInfo.growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
+                targetGrowth.x = Mathf.Clamp(growingTransform.localScale.x + (growingInfo.growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
+                targetGrowth.y = Mathf.Clamp(growingTransform.localScale.y + (growingInfo.growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
+                targetGrowth.z = Mathf.Clamp(growingTransform.localScale.z + (growingInfo.growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
 
-                transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growingInfo.growthRate);
+                growingTransform.localScale = Vector3.MoveTowards(growingTransform.localScale, targetGrowth, Time.deltaTime * growingInfo.growthRate);
             }
         }
 
@@ -97,7 +99,7 @@ namespace TheGuarden.Interactable
 
         public void OnEnterPool()
         {
-            transform.localScale = growingInfo.startSize;
+            growingTransform.localScale = growingInfo.startSize;
             isGrowing = false;
             soil = null;
             growingParticles.Stop();
@@ -108,18 +110,6 @@ namespace TheGuarden.Interactable
         }
 
 #if UNITY_EDITOR
-        internal Transform GetBehaviorParent()
-        {
-            Transform behaviorParent = transform.Find("Behaviors");
-
-            if (behaviorParent == null)
-            {
-                GameLogger.LogError("GrowPlant doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
-            }
-
-            return behaviorParent;
-        }
-
         internal void AutofillVariables()
         {
             growingParticles = GetComponentInChildren<VisualEffect>();

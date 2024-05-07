@@ -11,7 +11,7 @@ namespace TheGuarden.Interactable
     /// <summary>
     /// Mushroom represent a plant tha can be planted and have power ups
     /// </summary>
-    [RequireComponent(typeof(Rigidbody), typeof(NavMeshObstacle))]
+    [RequireComponent(typeof(Rigidbody))]
     public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. List of active power ups")]
