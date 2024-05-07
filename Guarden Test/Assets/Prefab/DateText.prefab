@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 472079755251725079}
   - component: {fileID: 5066215864391998353}
   - component: {fileID: 8198589669225151229}
+  - component: {fileID: 9190894906653670265}
   m_Layer: 5
   m_Name: DateText
   m_TagString: Untagged
@@ -27,7 +28,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2851848479170204939}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Wetnessday, The 29th Of Debtsember, 2024
+  m_text: Mungi, The 1st Of Genuary, 2024
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 86c96c97eea6b07498e2dd349bfa5c4c, type: 2}
   m_sharedMaterial: {fileID: -85192414755348417, guid: 86c96c97eea6b07498e2dd349bfa5c4c,
@@ -185,6 +186,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: c17a98b74579aa94f9236dfb769088fa, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5066215864391998353}
+        m_TargetAssemblyTypeName: TheGuarden.UI.DateText, TheGuarden.UI
+        m_MethodName: UpdateDate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9190894906653670265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851848479170204939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:

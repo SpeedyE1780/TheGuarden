@@ -8,7 +8,7 @@ namespace TheGuarden.Utility
         [SerializeField]
         private GameEvent onGameStarted;
 
-        private void Awake()
+        private void Start()
         {
             onGameStarted.Raise();
         }

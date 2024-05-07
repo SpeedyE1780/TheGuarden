@@ -38,17 +38,16 @@ namespace TheGuarden.NPC
 
         private Vector3 SpawnPoint => transform.position + Vector3.up;
 
-        private void Start()
+        private void Awake()
         {
             items = items.Clone();
+            deliverySource.clip = configuration.audioClip;
 
             //If no delivery on first day update cooldown to prevent delivery
             if (!configuration.dayOneDelivery)
             {
                 SetDeliveryCooldown(configuration.daysBetweenDelivery);
             }
-
-            deliverySource.clip = configuration.audioClip;
         }
 
         private void SetDeliveryCooldown(int value)

@@ -26,6 +26,10 @@ namespace TheGuarden.NPC
         private void Awake()
         {
             Animal.Shed = shed;
+        }
+
+        public void SpawnDayOneAnimals()
+        {
             SpawnAnimals(dayOneAnimalCount);
         }
 

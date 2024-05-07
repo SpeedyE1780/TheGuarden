@@ -19,9 +19,10 @@ namespace TheGuarden.Utility
         private GameEvent onDayStarted;
         [SerializeField]
         private GameEvent onNightStarted;
+
         private bool enemyWavedEnded = false;
 
-        private void Start()
+        public void OnGameStarted()
         {
             StartCoroutine(RunCycle());
         }
@@ -51,12 +52,8 @@ namespace TheGuarden.Utility
 
         private IEnumerator RunCycle()
         {
-            //Wait one frame so all objects start passed
-            yield return null;
-
             while (true)
             {
-                onDayStarted.Raise();
                 GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
                 yield return new WaitForSeconds(dayDuration);
                 yield return UpdateLight();
@@ -67,6 +64,7 @@ namespace TheGuarden.Utility
 
                 yield return new WaitUntil(() => enemyWavedEnded);
                 yield return UpdateLight(1);
+                onDayStarted.Raise();
             }
         }
     }

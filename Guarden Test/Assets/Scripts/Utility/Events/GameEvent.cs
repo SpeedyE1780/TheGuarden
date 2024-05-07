@@ -13,12 +13,15 @@ namespace TheGuarden.Utility.Events
 
         public void Raise()
         {
+            if (soListeners != null)
+            {
+                soListeners.OnEventRaised();
+            }
+
             for (int i = eventListeners.Count - 1; i >= 0; i--)
             {
                 eventListeners[i].OnEventRaised();
             }
-
-            soListeners?.OnEventRaised();
         }
 
         public void RegisterListener(GameEventListener listener)
@@ -41,12 +44,15 @@ namespace TheGuarden.Utility.Events
 
         public void Raise(T arg)
         {
+            if (soListeners != null)
+            {
+                soListeners.OnEventRaised(arg);
+            }
+
             for (int i = eventListeners.Count - 1; i >= 0; i--)
             {
                 eventListeners[i].OnEventRaised(arg);
             }
-
-            soListeners?.OnEventRaised(arg);
         }
 
         public void RegisterListener(TGameEventListener<T> listener)
