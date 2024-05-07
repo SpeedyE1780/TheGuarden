@@ -26,6 +26,7 @@ namespace TheGuarden.Players
         private GameObject currentPickUp;
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
+        private bool showPickUpInstruction = false;
 
         /// <summary>
         /// Set and activate the player's inventory UI
@@ -91,7 +92,6 @@ namespace TheGuarden.Players
             if ((context.started && pickUp.HasInstantPickUp) || context.performed)
             {
                 PickUp(pickUp);
-                onHideInstructions.Raise();
             }
         }
 
@@ -104,6 +104,8 @@ namespace TheGuarden.Players
             pickUp.PickUp(inventoryPoint);
             currentPickUp = null;
             AddItemToInventory(pickUp.GetInventoryItem());
+            showPickUpInstruction = false;
+            onHideInstructions.Raise();
         }
 
         /// <summary>
@@ -180,6 +182,17 @@ namespace TheGuarden.Players
             inventoryUI.OnPlayerLeft();
         }
 
+        private void Update()
+        {
+            if (selectedItem != null)
+            {
+                if (!selectedItem.CheckForInteractable() && !showPickUpInstruction)
+                {
+                    onHideInstructions.Raise();
+                }
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (currentPickUp == null && other.CompareTag(Tags.PickUp))
@@ -187,6 +200,7 @@ namespace TheGuarden.Players
                 currentPickUp = other.attachedRigidbody.gameObject;
                 GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
                 onInstructions.Raise("Press/Hold space to pick up item");
+                showPickUpInstruction = true;
             }
         }
 
@@ -196,8 +210,10 @@ namespace TheGuarden.Players
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
-                onHideInstructions.Raise();
+                showPickUpInstruction = false;
             }
+
+            onHideInstructions.Raise();
         }
     }
 }

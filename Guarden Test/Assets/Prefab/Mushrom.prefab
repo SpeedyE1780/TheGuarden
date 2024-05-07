@@ -271,6 +271,7 @@ MonoBehaviour:
   onPlant: {fileID: 11400000, guid: 10a5185a96c4b9843b8a05b8cddb49e1, type: 2}
   health: {fileID: 310434028874281703}
   pool: {fileID: 0}
+  onInstructions: {fileID: 11400000, guid: f798b268001669441be80afec6ad2ee6, type: 2}
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0
