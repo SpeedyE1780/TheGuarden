@@ -34671,6 +34671,9 @@ MonoBehaviour:
   defaultTarget: {fileID: 1813824480}
   movementSpeed: 5
   snapToPosition: 0
+  followBounds:
+    m_Center: {x: -1, y: 0, z: -5}
+    m_Extent: {x: 19.5, y: 1, z: 30}
 --- !u!81 &1912071955
 AudioListener:
   m_ObjectHideFlags: 0
@@ -36199,7 +36202,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh77206
+  m_Name: pb_Mesh60112
   serializedVersion: 11
   m_SubMeshes:
   - serializedVersion: 2
