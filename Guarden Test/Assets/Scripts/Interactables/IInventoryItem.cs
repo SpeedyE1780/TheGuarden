@@ -1,4 +1,6 @@
 using TheGuarden.UI;
+using TheGuarden.Utility;
+using UnityEngine;
 
 namespace TheGuarden.Interactable
 {
@@ -7,6 +9,7 @@ namespace TheGuarden.Interactable
     /// </summary>
     public interface IInventoryItem
     {
+        public GameObject gameObject { get; }
         public string Name { get; }
         public float UsabilityPercentage { get; }
         public ItemUI ItemUI { get; set; }
@@ -17,6 +20,8 @@ namespace TheGuarden.Interactable
         /// </summary>
         public void Select()
         {
+            GameLogger.LogInfo($"{Name} is selected", gameObject, GameLogger.LogCategory.InventoryItem);
+
             if (ItemUI != null)
             {
                 ItemUI.Select();
@@ -28,6 +33,8 @@ namespace TheGuarden.Interactable
         /// </summary>
         public void Deselect()
         {
+            GameLogger.LogInfo($"{Name} is deselected", gameObject, GameLogger.LogCategory.InventoryItem);
+
             if (ItemUI != null)
             {
                 ItemUI.Deselect();

@@ -60,8 +60,8 @@ namespace TheGuarden.Enemies
         /// </summary>
         public void StartSpawning()
         {
-            currentHealthMultiplier += healthMultiplier;
             StartCoroutine(SpawnEnemies());
+            currentHealthMultiplier += healthMultiplier;
         }
 
         /// <summary>
