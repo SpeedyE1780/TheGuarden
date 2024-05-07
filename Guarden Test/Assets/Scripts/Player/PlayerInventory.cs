@@ -13,11 +13,10 @@ namespace TheGuarden.Players
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerInventory : MonoBehaviour
     {
-        [SerializeField, Tooltip("InventoryUI in scene")]
-        private InventoryUI inventoryUI;
         [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
 
+        private InventoryUI inventoryUI;
         private List<IInventoryItem> items = new List<IInventoryItem>();
         private GameObject currentPickUp;
         private int selectedItemIndex = -1;
@@ -164,6 +163,17 @@ namespace TheGuarden.Players
             SelectItem(newIndex);
         }
 
+        public void EmptyInventory()
+        {
+            foreach (IInventoryItem item in items)
+            {
+                item.Drop();
+            }
+
+            items.Clear();
+            inventoryUI.OnPlayerLeft();
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (currentPickUp == null && other.CompareTag(Tags.PickUp))
@@ -179,14 +189,6 @@ namespace TheGuarden.Players
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            if (inventoryUI != null)
-            {
-                inventoryUI.gameObject.SetActive(false);
             }
         }
     }

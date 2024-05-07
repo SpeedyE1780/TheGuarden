@@ -40,12 +40,14 @@ namespace TheGuarden.UI
             items.Remove(item);
         }
 
-        private void OnDisable()
+        public void OnPlayerLeft()
         {
             for (int i = items.Count - 1; i >= 0; i--)
             {
                 items[i].ReturnToPool();
             }
+
+            gameObject.SetActive(false);
         }
     }
 }

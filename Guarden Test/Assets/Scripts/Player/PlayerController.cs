@@ -7,6 +7,10 @@ namespace TheGuarden.Players
     {
         [SerializeField, Tooltip("Mesh that will change color base on player id")]
         private MeshRenderer playerRenderer;
+        [SerializeField]
+        private PlayerInventory inventory;
+
+        public PlayerInventory Inventory => inventory;
 
         /// <summary>
         /// Called from PlayerInput component
@@ -15,6 +19,7 @@ namespace TheGuarden.Players
         {
             if (context.performed)
             {
+                inventory.EmptyInventory();
                 Destroy(gameObject);
             }
         }

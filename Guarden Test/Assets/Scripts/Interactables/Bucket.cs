@@ -144,5 +144,11 @@ namespace TheGuarden.Interactable
         {
             gameObject.SetActive(false);
         }
+
+        public void Drop()
+        {
+            transform.SetParent(null);
+            gameObject.SetActive(true);
+        }
     }
 }

@@ -29,8 +29,9 @@ namespace TheGuarden.Players
         public void OnPlayerJoin(PlayerInput player)
         {
             player.camera = followCamera.Camera;
-            player.GetComponent<PlayerInventory>().SetInventoryUI(inventoryUI[player.playerIndex]);
-            player.GetComponent<PlayerController>().SetColor(playerColors[player.playerIndex]);
+            PlayerController controller = player.GetComponent<PlayerController>();
+            controller.SetColor(playerColors[player.playerIndex]);
+            controller.Inventory.SetInventoryUI(inventoryUI[player.playerIndex]);
             followCamera.AddTarget(player.transform);
         }
 
@@ -42,7 +43,7 @@ namespace TheGuarden.Players
         {
             if (followCamera != null)
             {
-                followCamera.RemoveTarget(player.transform); 
+                followCamera.RemoveTarget(player.transform);
             }
         }
 
@@ -51,7 +52,7 @@ namespace TheGuarden.Players
         {
             followCamera = FindObjectOfType<FollowTarget>();
 
-            if(followCamera == null)
+            if (followCamera == null)
             {
                 GameLogger.LogError("No FollowTarget in scene", gameObject, GameLogger.LogCategory.Scene);
             }

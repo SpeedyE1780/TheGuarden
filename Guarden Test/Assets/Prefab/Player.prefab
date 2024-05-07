@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 9172935641007748065}
+  inventory: {fileID: 8220134511689740318}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0

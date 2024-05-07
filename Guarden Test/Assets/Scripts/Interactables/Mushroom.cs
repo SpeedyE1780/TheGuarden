@@ -48,7 +48,7 @@ namespace TheGuarden.Interactable
         public float UsabilityPercentage => GrowthPercentage;
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
-        public bool HasInstantPickUp => GrowthPercentage == 0 || GrowthPercentage == 1;
+        public bool HasInstantPickUp => GrowthPercentage < 0.001 || GrowthPercentage == 1;
 
         private void Start()
         {
@@ -251,6 +251,14 @@ namespace TheGuarden.Interactable
         {
             gameObject.SetActive(true);
             growPlant.OnExitPool();
+        }
+
+        public void Drop()
+        {
+            transform.SetParent(null);
+            gameObject.SetActive(true);
+            rb.constraints = RigidbodyConstraints.None;
+            ToggleCollisions(true);
         }
 
 #if UNITY_EDITOR
