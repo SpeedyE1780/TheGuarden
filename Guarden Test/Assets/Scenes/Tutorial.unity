@@ -412,21 +412,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
   - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
   - {fileID: 11400000, guid: 6f1cdcda59ad2c848bc8786c909fe3f0, type: 2}
-  OnAchievementCompleted:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1889519151}
-        m_TargetAssemblyTypeName: TheGuarden.UI.AchievementPopUp, TheGuarden.UI
-        m_MethodName: OnAchievementCompleted
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  onAchievementCompleted: {fileID: 11400000, guid: 8b11558f1a87d0746a98f893bb8a9968,
+    type: 2}
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followCamera: {fileID: 330585545}
+  towerDefenceCamera: {fileID: 0}
   targets: []
   offset: {x: 0, y: 12, z: -14}
   addedOffset: 18.439089
@@ -2761,7 +2749,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044358135
 GameObject:
@@ -3189,75 +3177,6 @@ Transform:
   m_Father: {fileID: 250589735}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!1 &1303947123
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1303947124}
-  - component: {fileID: 1303947125}
-  m_Layer: 0
-  m_Name: GameTime
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1303947124
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303947123}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1303947125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1303947123}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f99265f67ac134bad289cd7f0788b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHour: 11
-  startingMinutes: 50
-  days:
-  - Mungi
-  - Tulip
-  - Wetnessday
-  - Thawsday
-  - Fungay
-  - Saphoday
-  - Sunday
-  months:
-  - Genuary
-  - Feduberry
-  - Marsh
-  - Aphrill
-  - Hay
-  - Juniper
-  - Jelly
-  - Golddust
-  - Septum
-  - Bocktober
-  - Nocember
-  - Debtsember
-  timeScale: 1
-  clockScale: 0
 --- !u!1 &1333457574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,11 +3499,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 53912471505475667, guid: 28d90b06c8c068a4e8cb4fa032044638,
-        type: 3}
-      propertyPath: gameTime
-      value: 
-      objectReference: {fileID: 1303947125}
     - target: {fileID: 2349035005673358447, guid: 28d90b06c8c068a4e8cb4fa032044638,
         type: 3}
       propertyPath: m_Name
@@ -3864,6 +3778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1871049848}
   - component: {fileID: 1871049849}
+  - component: {fileID: 1871049850}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -3884,7 +3799,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1871049849
 MonoBehaviour:
@@ -3920,18 +3835,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1889519151 stripped
+--- !u!114 &1871049850
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5332605470150999020, guid: 28d90b06c8c068a4e8cb4fa032044638,
-    type: 3}
-  m_PrefabInstance: {fileID: 1637527498}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1871049847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b743f4f9ecd3017468bb7c0b047d7cf4, type: 3}
+  m_Script: {fileID: 11500000, guid: 119fe39515561e44ea630e953476b4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGameStarted: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
 --- !u!1 &1937143795
 GameObject:
   m_ObjectHideFlags: 0

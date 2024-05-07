@@ -1,0 +1,20 @@
+{
+    "name": "TheGuarden.NPC.Editor",
+    "rootNamespace": "TheGuarden.NPC.Editor",
+    "references": [
+        "GUID:b48061cb228a1644e9c81d4580f5484f",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f",
+        "GUID:bfe26ced4962770498501e7f2b9ec513"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

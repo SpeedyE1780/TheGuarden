@@ -1,5 +1,4 @@
 using System.Collections;
-using TheGuarden.Interactable;
 using UnityEngine;
 
 namespace TheGuarden.Tutorial
@@ -8,16 +7,15 @@ namespace TheGuarden.Tutorial
     /// FillBucket waits until the spawned bucket is filled
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Fill Bucket")]
-    internal class FillBucket : ObjectTutorial
+    internal class FillBucket : Tutorial
     {
-        private Bucket bucket;
         private bool filled = false;
 
         /// <summary>
         /// Called when water is added to bucket
         /// </summary>
         /// <param name="full">True if bucket is filled</param>
-        private void OnAddWater(bool full)
+        public void OnAddWater(bool full)
         {
             filled = full;
         }
@@ -28,8 +26,6 @@ namespace TheGuarden.Tutorial
         internal override void Setup()
         {
             filled = false;
-            bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();
-            bucket.OnWaterAdded.AddListener(OnAddWater);
         }
 
         /// <summary>
@@ -38,9 +34,7 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-
             yield return new WaitUntil(() => filled);
-            bucket.OnWaterAdded.RemoveListener(OnAddWater);
         }
     }
 }

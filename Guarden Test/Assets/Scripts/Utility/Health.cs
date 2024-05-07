@@ -7,27 +7,30 @@ namespace TheGuarden.Utility
     /// </summary>
     public class Health : MonoBehaviour
     {
-        [SerializeField, Tooltip("Maximum Health")]
-        private int maxHealth;
+        public delegate void OutOfHealth();
 
-        private int health;
+        [SerializeField, Tooltip("Maximum Health")]
+        private float maxHealth;
+
+        private float health;
+        public OutOfHealth OnOutOfHealth { get; set; }
 
         private void Start()
         {
-            health = maxHealth;
+            ResetHealth();
         }
 
         /// <summary>
         /// Damage player and destroy if health <= 0
         /// </summary>
         /// <param name="damage">Damage received</param>
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             health -= damage;
 
-            if (health <= 0)
+            if (health <= 0.0f)
             {
-                Destroy(gameObject);
+                OnOutOfHealth();
             }
         }
 
@@ -35,9 +38,25 @@ namespace TheGuarden.Utility
         /// Heal player
         /// </summary>
         /// <param name="heal">Health received</param>
-        public void Heal(int heal)
+        public void Heal(float heal)
         {
-            health = Mathf.Clamp(health + heal, 0, maxHealth);
+            health = Mathf.Clamp(health + heal, 0.0f, maxHealth);
+        }
+
+        public void ResetHealth()
+        {
+            health = maxHealth;
+        }
+
+        public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
+        {
+            maxHealth *= multiplier;
+            GameLogger.LogInfo($"{name} max health now is {maxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
+
+            if (updateHealth)
+            {
+                health = maxHealth;
+            }
         }
     }
 }

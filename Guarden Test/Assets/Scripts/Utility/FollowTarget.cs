@@ -6,11 +6,12 @@ namespace TheGuarden.Utility
     /// <summary>
     /// FollowTarget makes sure the Camera follows and has all targets in view
     /// </summary>
-    [RequireComponent(typeof(Camera))]
     public class FollowTarget : MonoBehaviour
     {
         [SerializeField, Tooltip("Camera following the targets")]
         private Camera followCamera;
+        [SerializeField, Tooltip("Tower Defence Camera")]
+        private Camera towerDefenceCamera;
         [SerializeField, Tooltip("Targets that need to stay in camera view")]
         private List<Transform> targets;
         [SerializeField, Tooltip("Offset between the camera and the targets")]
@@ -38,6 +39,20 @@ namespace TheGuarden.Utility
         {
             offset = offset.normalized;
             bounds = new Bounds();
+        }
+
+        public void SwitchToFollowCamera()
+        {
+            GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
+            towerDefenceCamera.gameObject.SetActive(false);
+            followCamera.gameObject.SetActive(true);
+        }
+
+        public void SwitchToTowerDefenceCamera()
+        {
+            GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
+            followCamera.gameObject.SetActive(false);
+            towerDefenceCamera.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -85,7 +100,7 @@ namespace TheGuarden.Utility
         {
             if (snapToPosition && targets.Count != 0)
             {
-                transform.position = CalculateDesiredPosition();
+                followCamera.transform.position = CalculateDesiredPosition();
             }
         }
 
@@ -112,7 +127,7 @@ namespace TheGuarden.Utility
         private void FixedUpdate()
         {
             Vector3 desiredPosition = CalculateDesiredPosition();
-            transform.position = Vector3.MoveTowards(transform.position, desiredPosition, movementSpeed * Time.deltaTime);
+            followCamera.transform.position = Vector3.MoveTowards(followCamera.transform.position, desiredPosition, movementSpeed * Time.deltaTime);
         }
 
 #if UNITY_EDITOR

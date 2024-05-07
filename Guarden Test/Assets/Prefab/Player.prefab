@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8062121946189806746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.617, z: 1.315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 4011078326277615359}
-  velocityParam: Velocity
-  spawnParam: Spawn
+  velocityParam: {fileID: 11400000, guid: 4f8edb85f97004641be2ee94c2401b05, type: 2}
+  spawnParam: {fileID: 11400000, guid: 629d312818c9e5b4f96d9228d7f4bbb6, type: 2}
   rb: {fileID: 5394329849608207086}
 --- !u!1 &8624806574159695145
 GameObject:

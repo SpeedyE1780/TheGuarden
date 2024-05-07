@@ -1,49 +1,60 @@
 using System.Collections;
+using TheGuarden.PlantPowerUps;
+using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
 using UnityEngine.AI;
-using TheGuarden.NPC;
 
 namespace TheGuarden.Enemies
 {
     /// <summary>
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
-    [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour
+    [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
+    public class Enemy : MonoBehaviour, IBehavior, IBuff, IPoolObject
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
-        private float patrolSpeed = 5.0f;
-        [SerializeField, Tooltip("Speed at which enemy chases animals")]
-        private float chaseSpeed = 7.0f;
-        [SerializeField, Tooltip("Speed at which animal is picked up")]
-        private float pickUpSpeed = 2.0f;
+        private float agentSpeed = 5.0f;
         [SerializeField, Tooltip("Minimum distance before destination is considered reached")]
         private float distanceThreshold = 3.0f;
-        [SerializeField, Tooltip("Radius used to look for animals")]
-        private float detectionRadius = 10.0f;
-        [SerializeField, Tooltip("Layer used for animal detection")]
-        private LayerMask animalMask;
-        [SerializeField, Tooltip("Position where animal will be positioned when kidnapped")]
-        private Transform holdingPoint;
+        [SerializeField, Tooltip("Autofilled. Enemy Health component")]
+        private Health health;
+        [SerializeField, Tooltip("List containing all spawned enemies")]
+        private EnemySet enemySet;
+        [SerializeField]
+        private GameEvent onReachShed;
+        [SerializeField]
+        private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
-        private Animal targetAnimal;
+        private bool rewinding = false;
+        private bool rewindComplete = false;
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
-        //When animals are in a force field the path ends at the nearest possible point on the edge of the force field
-        //Prevent enemy from holding animal if it can't reach it and it reached the end of the path
-        private bool CanGrabAnimal => targetAnimal != null && Vector3.Distance(transform.position, targetAnimal.transform.position) <= distanceThreshold;
+        public NavMeshAgent Agent => agent;
+        public Health Health => health;
+        public IBuff.OnIBuffDestroy OnIBuffDetroyed { get; set; }
 
 #if UNITY_EDITOR
-        public float DetectionRadius => detectionRadius;
-        public Vector3 TargetPosition => targetAnimal != null ? targetAnimal.transform.position : transform.position;
+        internal bool Rewinding => rewinding;
 #endif
 
         void Start()
         {
-            StartCoroutine(Patrol());
+            health.OnOutOfHealth = () => enemyPool.AddObject(this);
+        }
+
+        private void OnEnable()
+        {
+            enemySet.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            enemySet.Remove(this);
+            OnIBuffDetroyed?.Invoke(this);
         }
 
         /// <summary>
@@ -53,37 +64,7 @@ namespace TheGuarden.Enemies
         internal void SetPath(EnemyPath patrolPath)
         {
             path = patrolPath;
-        }
-
-        /// <summary>
-        /// Checks that animal is not null / already kidnapped by other enemy / inside a force field
-        /// </summary>
-        /// <param name="target">Animal that enemy is trying to kidnap</param>
-        /// <returns></returns>
-        private bool CanKidnapAnimal(Animal target)
-        {
-            return target != null && target.Collider.enabled && !target.InsideForceField;
-        }
-
-        /// <summary>
-        /// Check if animal is within detection range and outside force field
-        /// </summary>
-        /// <returns>An animal that can be kidnapped or null</returns>
-        private Animal DetectAnimal()
-        {
-            Collider[] animals = Physics.OverlapSphere(transform.position, detectionRadius, animalMask);
-
-            foreach (Collider animalCollider in animals)
-            {
-                Animal animal = animalCollider.GetComponent<Animal>();
-
-                if (CanKidnapAnimal(animal))
-                {
-                    return animal;
-                }
-            }
-
-            return null;
+            StartCoroutine(Patrol());
         }
 
         /// <summary>
@@ -93,106 +74,98 @@ namespace TheGuarden.Enemies
         private IEnumerator Patrol()
         {
             agent.SetDestination(path.CurrentPosition);
-            agent.speed = patrolSpeed;
+            agent.speed = agentSpeed;
 
             while (true)
             {
+                if (rewinding)
+                {
+                    yield break;
+                }
+
                 if (ReachedDestination)
                 {
                     path.CurrentIndex += 1;
 
                     if (path.ReachedEndOfPath)
                     {
-                        Destroy(gameObject);
+                        onReachShed.Raise();
+                        enemyPool.AddObject(this);
                         yield break;
                     }
 
                     agent.SetDestination(path.CurrentPosition);
                 }
 
-                targetAnimal = DetectAnimal();
-
-                if (targetAnimal != null)
-                {
-                    StartCoroutine(Chase());
-                    yield break;
-                }
-
                 yield return null;
             }
         }
 
-        /// <summary>
-        /// Start Chase State
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator Chase()
+        public void RewindPathProgress(int waypoints)
         {
-            agent.speed = chaseSpeed;
-            agent.SetDestination(targetAnimal.transform.position);
-
-            while (CanKidnapAnimal(targetAnimal))
+            if (rewindComplete)
             {
+                GameLogger.LogInfo($"{name} already rewinded path", this, GameLogger.LogCategory.Enemy);
+                return;
+            }
 
-                if (CanGrabAnimal)
+            GameLogger.LogInfo($"{name} rewinded by {waypoints} waypoints", this, GameLogger.LogCategory.Enemy);
+            StartCoroutine(RewindPath(waypoints));
+        }
+
+        private IEnumerator RewindPath(int waypoints)
+        {
+            rewinding = true;
+            path.CurrentIndex -= 1;
+            agent.SetDestination(path.CurrentPosition);
+
+            while (waypoints > 0)
+            {
+                if (ReachedDestination)
                 {
-                    StartCoroutine(PickUpTarget());
-                    yield break;
+                    GameLogger.LogInfo($"{name} rewinded stop remaining {waypoints}", this, GameLogger.LogCategory.Enemy);
+                    path.CurrentIndex -= 1;
+                    waypoints -= 1;
+
+                    if (path.CurrentIndex < 0)
+                    {
+                        path.CurrentIndex = 0;
+                        GameLogger.LogInfo("Early break path index is less than 0", this, GameLogger.LogCategory.Enemy);
+                        break;
+                    }
+
+                    agent.SetDestination(path.CurrentPosition);
                 }
 
-                agent.SetDestination(targetAnimal.transform.position);
                 yield return null;
             }
+
+            GameLogger.LogInfo($"{name} completed rewind", this, GameLogger.LogCategory.Enemy);
+            yield return new WaitUntil(() => ReachedDestination);
+            rewindComplete = true;
+            rewinding = false;
 
             StartCoroutine(Patrol());
         }
 
-        /// <summary>
-        /// Start Picking up and holding animal state
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator PickUpTarget()
+        public void OnEnterPool()
         {
-            targetAnimal.PauseBehavior();
-            agent.SetDestination(transform.position);
-
-            while (targetAnimal.transform.position != holdingPoint.position)
-            {
-                targetAnimal.transform.position = Vector3.MoveTowards(targetAnimal.transform.position, holdingPoint.position, pickUpSpeed * Time.deltaTime);
-                yield return null;
-            }
-
-            StartCoroutine(Escape());
+            gameObject.SetActive(false);
+            health.ResetHealth();
+            rewindComplete = false;
         }
 
-        /// <summary>
-        /// Start Escape State
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator Escape()
+        public void OnExitPool()
         {
-            agent.SetDestination(path.LastPosition);
-
-            while (true)
-            {
-                targetAnimal.transform.position = holdingPoint.position;
-
-                if (ReachedDestination)
-                {
-                    Destroy(targetAnimal.gameObject);
-                    Destroy(gameObject);
-                }
-
-                yield return null;
-            }
+            gameObject.SetActive(true);
         }
 
-        private void OnDestroy()
+#if UNITY_EDITOR
+        internal void AutofillComponents()
         {
-            if (targetAnimal != null && !targetAnimal.Collider.enabled)
-            {
-                targetAnimal.ResumeBehavior();
-            }
+            agent = GetComponent<NavMeshAgent>();
+            health = GetComponent<Health>();
         }
+#endif
     }
 }

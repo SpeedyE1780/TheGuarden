@@ -24431,7 +24431,7 @@ MonoBehaviour:
   - {fileID: 8926484042661616050}
   m_ExposedName: Spawn
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 1
   m_Category: 
   m_Min:
     m_Type:
@@ -34498,7 +34498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
@@ -34548,7 +34548,7 @@ MonoBehaviour:
       slotIndex: 0
     - context: {fileID: 8926484042661615763}
       slotIndex: 0
-  eventName: OnPlay
+  eventName: OnGrowing
 --- !u!114 &8926484042661616358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34562,7 +34562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
@@ -34612,7 +34612,7 @@ MonoBehaviour:
       slotIndex: 1
     - context: {fileID: 8926484042661615763}
       slotIndex: 1
-  eventName: OnFullyGrown
+  eventName: OnStopGrowing
 --- !u!114 &8926484042661616360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34626,7 +34626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIIgnoredErrors: []
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1

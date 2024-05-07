@@ -1,3 +1,4 @@
+using TheGuarden.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,13 +9,20 @@ namespace TheGuarden.Enemies.Editor
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(Enemy enemy, GizmoType type)
         {
-            if(type == GizmoType.InSelectionHierarchy)
+            Gizmos.DrawLine(enemy.transform.position, enemy.Agent.destination);
+
+            if (enemy.Rewinding)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(enemy.transform.position, enemy.TargetPosition);
+                Gizmos.DrawWireSphere(enemy.transform.position, 2.0f);
             }
+        }
 
-            Gizmos.DrawWireSphere(enemy.transform.position, enemy.DetectionRadius);
+        [MenuItem("CONTEXT/Enemy/Autofill Components")]
+        internal static void AutofillComponents(MenuCommand command)
+        {
+            Enemy enemy = command.context as Enemy;
+            RecordEditorHistory.RecordHistory(enemy, $"Autofill {enemy.name} Components", enemy.AutofillComponents);
         }
     }
 }

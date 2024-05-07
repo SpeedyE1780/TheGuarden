@@ -1,0 +1,19 @@
+{
+    "name": "TheGuarden.PlantPowerUps.Editor",
+    "rootNamespace": "TheGuarden.PlantPowerUps.Editor",
+    "references": [
+        "GUID:1e6ef3025147d1c4fabd0c53831b758e",
+        "GUID:b2acc1a911a7cbe48a5efea29268b62f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

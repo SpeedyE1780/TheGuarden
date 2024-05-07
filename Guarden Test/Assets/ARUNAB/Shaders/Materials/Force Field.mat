@@ -13,6 +13,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -90,7 +91,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
+    - _AlphaClip: 1
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -98,7 +99,7 @@ Material:
     - _CastShadows: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _Cull: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -125,12 +126,12 @@ Material:
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
-    - _alpha_clipping: 0.5
-    - _distance: -0.9
-    - _edge_width: 5.3
-    - _noise_cutoff: 10.7
-    - _noise_strength: 15.48
-    - _offset: -1.6
+    - _alpha_clipping: 0.93
+    - _distance: -2.3
+    - _edge_width: 7.05
+    - _noise_cutoff: 8.16
+    - _noise_strength: 3.04
+    - _offset: -3.32
     - _vertex_offset_intensity: 10
     - _wave_speed: 0.1
     m_Colors:
@@ -141,6 +142,7 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Force_Field_color: {r: 0.9716981, g: 0.9695926, b: 0.64627093, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Swirl_Movement_Speed: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _Tiling: {r: 4.1, g: 7.3, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5293101097440680046
