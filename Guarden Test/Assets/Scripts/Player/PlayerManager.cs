@@ -23,11 +23,12 @@ namespace TheGuarden.Players
         private List<InventoryUI> inventoryUI;
         [SerializeField, Tooltip("List of colors for each player")]
         private List<Color> playerColors;
+        [SerializeField]
+        private StateToggle playersInScene;
 
         private void OnEnable()
         {
             InputUser.onUnpairedDeviceUsed += OnUnpairDeviceUsed;
-
         }
 
         private void OnDisable()
@@ -47,6 +48,7 @@ namespace TheGuarden.Players
             controller.SetColor(playerColors[playerIndex]);
             controller.Inventory.SetInventoryUI(inventoryUI[playerIndex]);
             followCamera.AddTarget(player.transform);
+            playersInScene.TurnOn();
         }
 
         private void OnUnpairDeviceUsed(InputControl arg1, UnityEngine.InputSystem.LowLevel.InputEventPtr arg2)
@@ -89,6 +91,11 @@ namespace TheGuarden.Players
         /// <param name="player">Player who left the game</param>
         public void OnPlayerLeave(PlayerInput player)
         {
+            if (PlayerInput.all.Count == 0)
+            {
+                playersInScene.TurnOff();
+            }
+
             if (followCamera != null)
             {
                 followCamera.RemoveTarget(player.transform);

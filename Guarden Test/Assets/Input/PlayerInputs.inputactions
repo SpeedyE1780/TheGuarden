@@ -260,6 +260,45 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "PopupWindow",
+            "id": "88da04c0-c9dc-40cb-83e9-ca0e536fce58",
+            "actions": [
+                {
+                    "name": "HideWindow",
+                    "type": "Button",
+                    "id": "b2e214f0-741c-4cb2-8bce-4a72de77f69f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7d978142-28ae-45ef-af78-284282f02c91",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "386dfbeb-8dbf-450e-8d19-a1eedfefcd2c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HideWindow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
@@ -269,6 +308,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

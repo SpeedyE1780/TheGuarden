@@ -7,7 +7,7 @@ namespace TheGuarden.NPC
     /// <summary>
     /// DeliveryItem wraps gameobject to spawn and determine when its unlocked
     /// </summary>
-    internal class DeliveryItem<T> : ScriptableObject where T : Object, IPoolObject
+    internal abstract class DeliveryItem<T> : ScriptableObject where T : Object, IPoolObject
     {
         [SerializeField, Tooltip("GameObject to spawn")]
         internal ObjectPool<T> item;
@@ -16,6 +16,8 @@ namespace TheGuarden.NPC
 
         internal bool IsUnlocked => daysToUnlock <= 0;
         private int lastFrame = 0;
+
+        public abstract void OnUnlocked();
 
         /// <summary>
         /// Decrement daysToUnlock

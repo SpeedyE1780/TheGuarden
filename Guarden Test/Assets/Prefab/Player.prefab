@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
   - component: {fileID: 2445950737267009821}
+  - component: {fileID: -5085773385672959237}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -466,6 +467,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 9172935641007748065}
   inventory: {fileID: 8220134511689740318}
+  input: {fileID: 4519687550107306965}
+  hideMushroomUnlockedWindow: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c,
+    type: 2}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +592,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 09eae8b4-5f38-46c1-87cb-35cffcec63c5
     m_ActionName: PlayerActions/PreviousItem[/Keyboard/leftShift,/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnHideMushroomUnlockedWindow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2e214f0-741c-4cb2-8bce-4a72de77f69f
+    m_ActionName: PopupWindow/HideWindow[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -609,3 +629,31 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-5085773385672959237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnMushroomUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

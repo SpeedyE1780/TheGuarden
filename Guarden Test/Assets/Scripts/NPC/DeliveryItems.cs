@@ -34,6 +34,7 @@ namespace TheGuarden.NPC
 
             if (deliveryItem.IsUnlocked)
             {
+                deliveryItem.OnUnlocked();
                 GameLogger.LogInfo($"{deliveryItem.name} Unlocked", this, GameLogger.LogCategory.PlantPowerUp);
                 unlocked.Add(deliveryItem.item);
                 return true;
@@ -82,6 +83,7 @@ namespace TheGuarden.NPC
                 if (clone.IsUnlocked)
                 {
                     GameLogger.LogInfo($"{item.name} is unlocked on start", this, GameLogger.LogCategory.PlantPowerUp);
+                    clone.OnUnlocked();
                     unlocked.Add(item.item);
                 }
                 else
