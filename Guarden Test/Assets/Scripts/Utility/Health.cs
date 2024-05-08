@@ -48,6 +48,11 @@ namespace TheGuarden.Utility
             health = maxHealth;
         }
 
+        public void Kill()
+        {
+            Damage(health);
+        }
+
         public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
         {
             maxHealth *= multiplier;

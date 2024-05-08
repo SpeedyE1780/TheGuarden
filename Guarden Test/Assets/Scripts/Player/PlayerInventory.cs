@@ -194,7 +194,7 @@ namespace TheGuarden.Players
 
         private void OnTriggerStay(Collider other)
         {
-            if (currentPickUp == null && other.CompareTag(Tags.PickUp))
+            if ((currentPickUp == null || !currentPickUp.gameObject.activeSelf) && other.CompareTag(Tags.PickUp))
             {
                 currentPickUp = other.attachedRigidbody.GetComponent<IPickUp>();
                 GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
