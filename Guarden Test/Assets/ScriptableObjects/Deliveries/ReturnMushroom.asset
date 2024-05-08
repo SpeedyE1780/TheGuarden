@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 7bc590342e92c4848a9e3587ff061a93, type: 2}
   daysToUnlock: 0
-  mushroomInfo: {fileID: 11400000, guid: a95878e1cfd6b404893190458c472509, type: 2}
+  mushroomInfo: {fileID: 11400000, guid: 7bf3a4d2ad2c90843885004291d79c7a, type: 2}
   unlockedMushroom: {fileID: 11400000, guid: 47c3407ed6cd193449e7e6a8d3ef41ba, type: 2}

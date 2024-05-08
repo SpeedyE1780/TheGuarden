@@ -24,6 +24,7 @@ namespace TheGuarden.UI
         private GameEvent mushroomWindowActive;
 
         private List<MushroomInfo> mushroomList = new List<MushroomInfo>();
+        private HashSet<MushroomInfo> unlockedMushrooms = new HashSet<MushroomInfo>();
         private bool hideWindow = false;
 
         private void Start()
@@ -33,7 +34,15 @@ namespace TheGuarden.UI
 
         public void OnMushroomUnlocked(MushroomInfo mushroom)
         {
-            mushroomList.Add(mushroom);
+            if (!unlockedMushrooms.Contains(mushroom))
+            {
+                unlockedMushrooms.Add(mushroom);
+                mushroomList.Add(mushroom);
+            }
+            else
+            {
+                GameLogger.LogWarning($"{mushroom.Name} already added in list", this, GameLogger.LogCategory.PlantPowerUp);
+            }
         }
 
         public void HideWindow()
@@ -65,9 +74,13 @@ namespace TheGuarden.UI
             Time.timeScale = 0;
             hideWindow = false;
             yield return new WaitUntil(() => hideWindow);
-            Time.timeScale = 1;
-            window.gameObject.SetActive(false);
             mushroomList.Remove(mushroom);
+
+            if (mushroomList.Count == 0)
+            {
+                window.gameObject.SetActive(false);
+                Time.timeScale = 1;
+            }
         }
     }
 }
