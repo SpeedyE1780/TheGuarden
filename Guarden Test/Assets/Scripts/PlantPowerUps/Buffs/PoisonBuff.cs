@@ -28,7 +28,7 @@ namespace TheGuarden.PlantPowerUps
         {
             while (true)
             {
-                GameLogger.LogInfo($"{buff.Agent.name} damaged {damage}", this, GameLogger.LogCategory.PlantPowerUp);
+                GameLogger.LogInfo($"{buff.Agent.name} took {damage} poison damage", this, GameLogger.LogCategory.PlantPowerUp);
                 buff.Health.Damage(damage);
                 yield return new WaitForSeconds(duration);
             }

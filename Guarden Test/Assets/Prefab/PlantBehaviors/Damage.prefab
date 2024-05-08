@@ -103,16 +103,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Poison Cloud
       objectReference: {fileID: 0}
-    - target: {fileID: 7681264281094524563, guid: 458cb10bb89c3f44ca8abf53c02e5880,
-        type: 3}
-      propertyPath: m_InitialEventNameOverriden
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7681264281094524563, guid: 458cb10bb89c3f44ca8abf53c02e5880,
-        type: 3}
-      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 8017041446802512794, guid: 458cb10bb89c3f44ca8abf53c02e5880,
         type: 3}
       propertyPath: m_RootOrder
