@@ -61,13 +61,18 @@ namespace TheGuarden.NPC
         /// </summary>
         public void OnDayStarted()
         {
+            items.OnDayStarted();
+            DeliverMushrooms();
+        }
+
+        public void DeliverMushrooms()
+        {
             if (deliveryCooldown <= 0)
             {
                 StartDelivery();
             }
 
             deliveryCooldown -= 1;
-            items.OnDayStarted();
         }
 
         /// <summary>
