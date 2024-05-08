@@ -451,6 +451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rb: {fileID: 5394329849608207086}
+  nightMovement: {fileID: 11400000, guid: 2a2c2e338943d6d40bada1f448076379, type: 2}
 --- !u!114 &7332446620996662355
 MonoBehaviour:
   m_ObjectHideFlags: 0

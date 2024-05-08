@@ -9,13 +9,13 @@ namespace TheGuarden.Utility
         [SerializeField]
         private VisualEffect effect;
         [SerializeField]
-        private VFXPlayState playState;
+        private StateToggle playState;
 
         private void OnEnable()
         {
-            playState.onValueChange += OnStateChanged;
+            playState.OnValueChange += OnStateChanged;
 
-            if (playState.PlayOnEnable)
+            if (playState.Toggled)
             {
                 effect.Play();
             }
@@ -23,17 +23,19 @@ namespace TheGuarden.Utility
 
         private void OnDisable()
         {
-            playState.onValueChange -= OnStateChanged;
+            playState.OnValueChange -= OnStateChanged;
         }
 
         private void OnStateChanged()
         {
-            if (playState.PlayOnEnable)
+            if (playState.Toggled)
             {
+                GameLogger.LogInfo($"{name} played", this, GameLogger.LogCategory.Scene);
                 effect.Play();
             }
             else
             {
+                GameLogger.LogInfo($"{name} stopped", this, GameLogger.LogCategory.Scene);
                 effect.Stop();
             }
         }

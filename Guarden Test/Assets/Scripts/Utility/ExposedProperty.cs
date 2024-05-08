@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Exposed Property")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Utility/Exposed Property")]
     public class ExposedProperty : ScriptableObject
     {
         [SerializeField]

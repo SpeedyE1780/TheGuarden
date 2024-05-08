@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    [CreateAssetMenu(menuName = "Scriptable Objects/Interaction Instruction")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Utility/Interaction Instruction")]
     public class InteractionInstruction : ScriptableObject
     {
         private const string KeyboardMouseScheme = "Keyboard/Mouse";
