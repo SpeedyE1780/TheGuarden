@@ -78,6 +78,11 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 3074901754225266032}
+    - target: {fileID: 8828556680122105769, guid: 01a94670fe5649643847188ec1b18817,
+        type: 3}
+      propertyPath: mushroomHealth
+      value: 
+      objectReference: {fileID: 8427213541592749494}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -216,3 +221,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8123816479511668561}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8427213541592749494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 310434028874281703, guid: c25ec14dcaeff274da1653d222450940,
+    type: 3}
+  m_PrefabInstance: {fileID: 8123816479511668561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074901754225266032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1beb4631a58f6bf4590d028b31382f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

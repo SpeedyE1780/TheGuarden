@@ -8,7 +8,7 @@ namespace TheGuarden.PlantPowerUps
         [SerializeField]
         private float delay = 0.0f;
         [SerializeField]
-        private GameObject parent;
+        private Health mushroomHealth;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -29,15 +29,14 @@ namespace TheGuarden.PlantPowerUps
             foreach (Collider enemyCollider in enemyColliders)
             {
                 GameLogger.LogInfo($"Insta kill destroying {enemyCollider.name}", this, GameLogger.LogCategory.PlantPowerUp);
-                Destroy(enemyCollider.gameObject);
+
+                if (enemyCollider.TryGetComponent<Health>(out Health enemyHealth))
+                {
+                    enemyHealth.Kill();
+                }
             }
 
-            if (parent != null)
-            {
-                Destroy(parent);
-            }
-
-            Destroy(gameObject);
+            mushroomHealth.Kill();
         }
     }
 }
