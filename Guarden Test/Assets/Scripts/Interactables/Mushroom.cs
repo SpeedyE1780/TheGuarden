@@ -31,6 +31,8 @@ namespace TheGuarden.Interactable
         [SerializeField, Tooltip("Plant area layer mask")]
         private LayerMask plantableAreaMask;
         [SerializeField]
+        private LayerMask mushroomLayerMask;
+        [SerializeField]
         private GameEvent onPlantInSoil;
         [SerializeField]
         private GameEvent onPlant;
@@ -148,8 +150,17 @@ namespace TheGuarden.Interactable
 
             if (!Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.InventoryItem);
+                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
                 return;
+            }
+
+            foreach (Collider collider in Physics.OverlapSphere(transform.position, overlapRadius, mushroomLayerMask))
+            {
+                if (collider.attachedRigidbody != null && collider.attachedRigidbody.gameObject != gameObject)
+                {
+                    GameLogger.LogError("Can't plant mushroom colliding with other mushroom", gameObject, GameLogger.LogCategory.Plant);
+                    return;
+                }
             }
 
             Plant();

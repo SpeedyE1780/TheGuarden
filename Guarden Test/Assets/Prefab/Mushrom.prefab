@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8786819483201416578}
   - component: {fileID: 1486715600038798802}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HeadCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 3956496231695575479}
   - component: {fileID: 8797612134577381625}
   - component: {fileID: 9012676655167962487}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Visuals
   m_TagString: PickUp
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605625342606380028}
   - component: {fileID: 641551429941376297}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: StemCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 7334000047881488347}
   - component: {fileID: 310434028874281703}
   - component: {fileID: 6151858367588292063}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Mushrom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,6 +267,9 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
+  mushroomLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   onPlantInSoil: {fileID: 11400000, guid: 7b1e1e09b59cb8d47b6e6a7df37df512, type: 2}
   onPlant: {fileID: 11400000, guid: 10a5185a96c4b9843b8a05b8cddb49e1, type: 2}
   health: {fileID: 310434028874281703}
@@ -350,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4781410716438576801}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Behaviors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,6 +448,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b778d6fd047141841bae1798514eee67,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -531,6 +539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plant Growth
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986885113607026853, guid: da56efc63279c4040a2f1b9cc115408b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
