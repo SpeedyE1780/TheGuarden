@@ -31,6 +31,8 @@ namespace TheGuarden.Interactable
         private InteractionInstruction addWaterInstruction;
         [SerializeField]
         private InteractionInstruction waterPlantBedInstruction;
+        [SerializeField]
+        private InteractionInstruction missingWaterInstruction;
 
         private int remainingUses = 0;
         private VisualEffect splash;
@@ -159,7 +161,7 @@ namespace TheGuarden.Interactable
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                return waterPlantBedInstruction;
+                return remainingUses > 0 ? waterPlantBedInstruction : missingWaterInstruction;
             }
 
             if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
