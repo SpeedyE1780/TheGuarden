@@ -87,7 +87,10 @@ MonoBehaviour:
     type: 3}
   onWaterAdded: {fileID: 11400000, guid: 3e9b924a2276d5e4a93ce05e3ac27638, type: 2}
   onPlantBedWatered: {fileID: 11400000, guid: 323dfed5728aaa8419436f32647033e5, type: 2}
-  onInstructions: {fileID: 11400000, guid: f798b268001669441be80afec6ad2ee6, type: 2}
+  addWaterInstruction: {fileID: 11400000, guid: 239b3e9ca9abc3e4aa1b38e5a3e83732,
+    type: 2}
+  waterPlantBedInstruction: {fileID: 11400000, guid: 87c4ff8a53e56594e84f1a0fd94d7082,
+    type: 2}
 --- !u!135 &7694266318504934349
 SphereCollider:
   m_ObjectHideFlags: 0

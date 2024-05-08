@@ -432,6 +432,11 @@ MonoBehaviour:
   inventoryPoint: {fileID: 7284881402961356843}
   onInstructions: {fileID: 11400000, guid: f798b268001669441be80afec6ad2ee6, type: 2}
   onHideInstructions: {fileID: 11400000, guid: e6f22a3ab4c46d0409175cc454963e01, type: 2}
+  playerInput: {fileID: 4519687550107306965}
+  pressPickUpInstruction: {fileID: 11400000, guid: a1281176dab7ab343b88bd55ed5adaa7,
+    type: 2}
+  holdPickUpInstruction: {fileID: 11400000, guid: 1e01f4574ed7a3c4da259e8feb2e3beb,
+    type: 2}
 --- !u!114 &8646316663285618983
 MonoBehaviour:
   m_ObjectHideFlags: 0

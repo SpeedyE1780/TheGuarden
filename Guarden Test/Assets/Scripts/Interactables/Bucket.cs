@@ -28,7 +28,9 @@ namespace TheGuarden.Interactable
         [SerializeField]
         private GameEvent onPlantBedWatered;
         [SerializeField]
-        private TGameEvent<string> onInstructions;
+        private InteractionInstruction addWaterInstruction;
+        [SerializeField]
+        private InteractionInstruction waterPlantBedInstruction;
 
         private int remainingUses = 0;
         private VisualEffect splash;
@@ -153,21 +155,19 @@ namespace TheGuarden.Interactable
             gameObject.SetActive(true);
         }
 
-        public bool CheckForInteractable()
+        public InteractionInstruction CheckForInteractable()
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                onInstructions.Raise("Hold e to water plant bed");
-                return true;
+                return waterPlantBedInstruction;
             }
 
             if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
             {
-                onInstructions.Raise("Press e to add water to bucket");
-                return true;
+                return addWaterInstruction;
             }
 
-            return false;
+            return null;
         }
     }
 }

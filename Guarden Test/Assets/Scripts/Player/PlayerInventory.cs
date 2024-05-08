@@ -20,6 +20,12 @@ namespace TheGuarden.Players
         private TGameEvent<string> onInstructions;
         [SerializeField]
         private GameEvent onHideInstructions;
+        [SerializeField]
+        private PlayerInput playerInput;
+        [SerializeField]
+        private InteractionInstruction pressPickUpInstruction;
+        [SerializeField]
+        private InteractionInstruction holdPickUpInstruction;
 
         private InventoryUI inventoryUI;
         private List<IInventoryItem> items = new List<IInventoryItem>();
@@ -185,7 +191,13 @@ namespace TheGuarden.Players
         {
             if (selectedItem != null)
             {
-                if (!selectedItem.CheckForInteractable() && !showPickUpInstruction)
+                InteractionInstruction instruction = selectedItem.CheckForInteractable();
+
+                if (instruction != null)
+                {
+                    onInstructions.Raise(instruction.GetInstructionMessage(playerInput.currentControlScheme));
+                }
+                else if (!showPickUpInstruction)
                 {
                     onHideInstructions.Raise();
                 }
@@ -194,12 +206,17 @@ namespace TheGuarden.Players
 
         private void OnTriggerStay(Collider other)
         {
-            if ((currentPickUp == null || !currentPickUp.gameObject.activeSelf) && other.CompareTag(Tags.PickUp))
+            if (other.CompareTag(Tags.PickUp))
             {
-                currentPickUp = other.attachedRigidbody.GetComponent<IPickUp>();
-                GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
-                onInstructions.Raise($"{(currentPickUp.HasInstantPickUp ? "Press" : "Hold")} space to pick up item");
-                showPickUpInstruction = true;
+                if ((currentPickUp == null || !currentPickUp.gameObject.activeSelf))
+                {
+                    currentPickUp = other.attachedRigidbody.GetComponent<IPickUp>();
+                    GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
+                    showPickUpInstruction = true;
+                }
+
+                string pickUpInstruction = currentPickUp.HasInstantPickUp ? pressPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme) : holdPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme);
+                onInstructions.Raise(pickUpInstruction);
             }
         }
 

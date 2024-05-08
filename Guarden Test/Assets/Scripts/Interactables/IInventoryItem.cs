@@ -67,6 +67,6 @@ namespace TheGuarden.Interactable
         public void OnInteractionCancelled();
 
         public void Drop();
-        public bool CheckForInteractable();
+        public InteractionInstruction CheckForInteractable();
     }
 }

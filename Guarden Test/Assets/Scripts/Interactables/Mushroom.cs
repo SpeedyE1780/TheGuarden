@@ -39,7 +39,7 @@ namespace TheGuarden.Interactable
         [SerializeField]
         private ObjectPool<Mushroom> pool;
         [SerializeField]
-        private TGameEvent<string> onInstructions;
+        private InteractionInstruction plantBedInstruction;
 
         private PlantSoil plantSoil;
 
@@ -263,15 +263,14 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
         }
 
-        public bool CheckForInteractable()
+        public InteractionInstruction CheckForInteractable()
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                onInstructions.Raise("Hold e to plant mushroom");
-                return true;
+                return plantBedInstruction;
             }
 
-            return false;
+            return null;
         }
 
 #if UNITY_EDITOR
