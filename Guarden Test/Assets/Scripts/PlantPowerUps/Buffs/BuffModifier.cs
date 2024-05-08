@@ -11,14 +11,14 @@ namespace TheGuarden.PlantPowerUps
         {
             buffed.Add(buff);
             ApplyBuff(buff);
-            buff.OnIBuffDetroyed += RemoveAndRemoveBuff;
+            buff.OnIBuffDetroyed += RemoveAndClearBuff;
         }
 
-        internal void RemoveAndRemoveBuff(IBuff buff)
+        internal void RemoveAndClearBuff(IBuff buff)
         {
             buffed.Remove(buff);
             RemoveBuff(buff);
-            buff.OnIBuffDetroyed -= RemoveAndRemoveBuff;
+            buff.OnIBuffDetroyed -= RemoveAndClearBuff;
         }
 
         internal abstract void ApplyBuff(IBuff buff);

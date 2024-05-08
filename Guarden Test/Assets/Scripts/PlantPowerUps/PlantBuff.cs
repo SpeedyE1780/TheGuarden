@@ -49,7 +49,7 @@ namespace TheGuarden.PlantPowerUps
                 return;
             }
 
-            modifier.RemoveAndRemoveBuff(buff);
+            modifier.RemoveAndClearBuff(buff);
         }
 
         private void OnDisable()
