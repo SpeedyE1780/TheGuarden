@@ -238,6 +238,7 @@ namespace TheGuarden.Interactable
             navMeshObstacle.carving = false;
             ToggleCollisions(true);
             ToggleBehaviors(false);
+            ResetPlantSoil();
             growPlant.OnEnterPool();
             transform.SetParent(null);
             rb.constraints = RigidbodyConstraints.None;
