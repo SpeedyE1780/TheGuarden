@@ -94,7 +94,7 @@ namespace TheGuarden.NPC
             followCamera.AddTarget(transform);
             followCamera.AddTarget(deliveryLocation);
 
-            while (transform.position != lane.EndPosition)
+            while ((transform.position - lane.EndPosition).sqrMagnitude > 1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
 
