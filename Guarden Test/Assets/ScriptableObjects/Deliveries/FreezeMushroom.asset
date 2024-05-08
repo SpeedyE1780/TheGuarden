@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FreezeMushroom
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: b51fb8989cb576348959cb5818d285d4, type: 2}
-  daysToUnlock: 0
+  daysToUnlock: 2
   mushroomInfo: {fileID: 11400000, guid: ef10c7cb5562064418e4c12fb3f7550f, type: 2}
   unlockedMushroom: {fileID: 11400000, guid: 47c3407ed6cd193449e7e6a8d3ef41ba, type: 2}
