@@ -183,6 +183,7 @@ MonoBehaviour:
   health: {fileID: 2469370035290940513}
   enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
   onReachShed: {fileID: 11400000, guid: 84afc94b6d606944f8771fb6deef208b, type: 2}
+  onEnemyKilled: {fileID: 11400000, guid: c1cc721a5d38aa54ab4a7842451d60cc, type: 2}
   enemyPool: {fileID: 11400000, guid: 36a983114a919b1488439644d000a78c, type: 2}
 --- !u!114 &2469370035290940513
 MonoBehaviour:

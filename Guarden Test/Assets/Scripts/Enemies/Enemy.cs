@@ -26,6 +26,8 @@ namespace TheGuarden.Enemies
         [SerializeField]
         private GameEvent onReachShed;
         [SerializeField]
+        private GameEvent onEnemyKilled;
+        [SerializeField]
         private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
@@ -43,7 +45,11 @@ namespace TheGuarden.Enemies
 
         void Start()
         {
-            health.OnOutOfHealth = () => enemyPool.AddObject(this);
+            health.OnOutOfHealth = () =>
+            {
+                onEnemyKilled.Raise();
+                enemyPool.AddObject(this);
+            };
         }
 
         private void OnEnable()

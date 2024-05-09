@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 4519687550107306965}
   - component: {fileID: 2445950737267009821}
   - component: {fileID: -5085773385672959237}
+  - component: {fileID: 6008480904195809278}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -642,6 +643,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnMushroomUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6008480904195809278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
