@@ -15,6 +15,8 @@ namespace TheGuarden.UI
         [SerializeField, Tooltip("Item progress slider")]
         private Slider progressSlider;
         [SerializeField]
+        private Image itemImage;
+        [SerializeField]
         private ObjectPool<ItemUI> pool;
 
         private InventoryUI inventoryUI;
@@ -33,10 +35,12 @@ namespace TheGuarden.UI
         /// </summary>
         /// <param name="itemName">Item Name</param>
         /// <param name="progress">Item progress</param>
-        public void SetItem(string itemName, float progress)
+        public void SetItem(string itemName, float progress, Sprite icon)
         {
             nameText.text = itemName;
             progressSlider.value = progress;
+            itemImage.enabled = icon != null;
+            itemImage.sprite = icon;
         }
 
         /// <summary>

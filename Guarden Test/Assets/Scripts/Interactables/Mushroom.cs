@@ -52,11 +52,12 @@ namespace TheGuarden.Interactable
         public Rigidbody Rigidbody => rb;
         public float GrowthPercentage => growPlant.GrowthPercentage;
         public bool IsFullyGrown => growPlant.IsFullyGrown;
-        public string Name => name;
+        public string Name => mushroomInfo.Name;
         public float UsabilityPercentage => GrowthPercentage;
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage < 0.001 || GrowthPercentage == 1;
+        public Sprite Icon => mushroomInfo.Sprite;
 
         private void Start()
         {

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroomName: Poison Mushroom
   mushroomDescription: Will apply poison damage to enemies in range
-  mushroomSprite: {fileID: 21300000, guid: dbb8ac49ee9e62a4ab9a16c26423ec15, type: 3}
+  mushroomSprite: {fileID: 21300000, guid: 8558d05d1cfb0c445b357184dc27353e, type: 3}

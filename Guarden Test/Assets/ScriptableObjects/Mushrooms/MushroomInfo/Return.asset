@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroomName: Rewind Mushroom
   mushroomDescription: Will make enemies rewind their path
-  mushroomSprite: {fileID: 21300000, guid: dbb8ac49ee9e62a4ab9a16c26423ec15, type: 3}
+  mushroomSprite: {fileID: 21300000, guid: 88a96c2c6c99f714fbcca791a6bd3f53, type: 3}

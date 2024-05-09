@@ -41,6 +41,7 @@ namespace TheGuarden.Interactable
         public float UsabilityPercentage => remainingUses / (float)maxUses;
         public ItemUI ItemUI { get; set; }
         public bool HasInstantPickUp => true;
+        public Sprite Icon => null;
 
         private void Start()
         {

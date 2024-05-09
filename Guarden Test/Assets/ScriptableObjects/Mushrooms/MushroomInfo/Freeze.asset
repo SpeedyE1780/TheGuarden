@@ -15,4 +15,4 @@ MonoBehaviour:
   mushroomName: Freeze Mushroom
   mushroomDescription: Will freeze enemies for a short period when they first enter
     radius
-  mushroomSprite: {fileID: 21300000, guid: dbb8ac49ee9e62a4ab9a16c26423ec15, type: 3}
+  mushroomSprite: {fileID: 21300000, guid: c812a5aabf43ab046a5244504494d7f5, type: 3}
