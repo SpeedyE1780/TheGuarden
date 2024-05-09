@@ -276,6 +276,9 @@ MonoBehaviour:
   pool: {fileID: 0}
   plantBedInstruction: {fileID: 11400000, guid: 92723e8f926c8c04a8e2fc10ca760232,
     type: 2}
+  mushroomInfo: {fileID: 0}
+  onMushroomInfoPickedUp: {fileID: 11400000, guid: b9761b5333074ed4c9d51645909d2cf2,
+    type: 2}
 --- !u!54 &7334000047881488347
 Rigidbody:
   m_ObjectHideFlags: 0

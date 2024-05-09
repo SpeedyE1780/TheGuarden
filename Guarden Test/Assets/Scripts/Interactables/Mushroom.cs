@@ -42,6 +42,10 @@ namespace TheGuarden.Interactable
         private ObjectPool<Mushroom> pool;
         [SerializeField]
         private InteractionInstruction plantBedInstruction;
+        [SerializeField]
+        private MushroomInfo mushroomInfo;
+        [SerializeField]
+        private TGameEvent<MushroomInfo> onMushroomInfoPickedUp;
 
         private PlantSoil plantSoil;
 
@@ -107,6 +111,7 @@ namespace TheGuarden.Interactable
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ToggleCollisions(false);
             ResetPlantSoil();
+            onMushroomInfoPickedUp.Raise(mushroomInfo);
         }
 
         /// <summary>

@@ -137,6 +137,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
+      propertyPath: mushroomInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bf3a4d2ad2c90843885004291d79c7a,
+        type: 2}
+    - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
       propertyPath: behaviors.Array.size
       value: 1
       objectReference: {fileID: 0}
