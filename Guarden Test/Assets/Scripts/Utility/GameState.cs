@@ -1,3 +1,4 @@
+using System.Collections;
 using TheGuarden.Utility.Events;
 using UnityEngine;
 
@@ -7,10 +8,20 @@ namespace TheGuarden.Utility
     {
         [SerializeField]
         private GameEvent onGameStarted;
+        [SerializeField]
+        private GameEvent onExitGame;
+        [SerializeField]
+        private StateToggle playerState;
 
-        private void Start()
+        private IEnumerator Start()
         {
+            yield return new WaitUntil(() => playerState.Toggled);
             onGameStarted.Raise();
+        }
+
+        private void OnDestroy()
+        {
+
         }
     }
 }
