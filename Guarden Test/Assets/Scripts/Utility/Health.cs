@@ -12,6 +12,7 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Maximum Health")]
         private float maxHealth;
 
+        private float currentMaxHealth;
         private float health;
         public OutOfHealth OnOutOfHealth { get; set; }
 
@@ -40,12 +41,13 @@ namespace TheGuarden.Utility
         /// <param name="heal">Health received</param>
         public void Heal(float heal)
         {
-            health = Mathf.Clamp(health + heal, 0.0f, maxHealth);
+            health = Mathf.Clamp(health + heal, 0.0f, currentMaxHealth);
         }
 
         public void ResetHealth()
         {
-            health = maxHealth;
+            currentMaxHealth = maxHealth;
+            health = currentMaxHealth;
         }
 
         public void Kill()
@@ -55,12 +57,12 @@ namespace TheGuarden.Utility
 
         public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
         {
-            maxHealth *= multiplier;
-            GameLogger.LogInfo($"{name} max health now is {maxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
+            currentMaxHealth = maxHealth * multiplier;
+            GameLogger.LogInfo($"{name} max health now is {currentMaxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
 
             if (updateHealth)
             {
-                health = maxHealth;
+                health = currentMaxHealth;
             }
         }
     }
