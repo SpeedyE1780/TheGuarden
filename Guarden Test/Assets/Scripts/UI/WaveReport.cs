@@ -47,9 +47,12 @@ namespace TheGuarden.UI
 
         public void OnHideWindow()
         {
-            GameLogger.LogInfo("Hide Wave Report", this, GameLogger.LogCategory.UI);
-            Time.timeScale = 1.0f;
-            reportWindow.SetActive(false);
+            if (reportWindow.activeSelf)
+            {
+                GameLogger.LogInfo("Hide Wave Report", this, GameLogger.LogCategory.UI);
+                Time.timeScale = 1.0f;
+                reportWindow.SetActive(false);
+            }
         }
     }
 }
