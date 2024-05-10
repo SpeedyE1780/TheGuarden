@@ -21,10 +21,22 @@ namespace TheGuarden.Achievements
 
         public string Description => description;
 
+        private void OnEnable()
+        {
+            AchievementManager.InitializeAchievements += Initialize;
+            AchievementManager.DeinitializeAchievements += Deinitialize;
+        }
+
+        private void OnDisable()
+        {
+            AchievementManager.InitializeAchievements -= Initialize;
+            AchievementManager.DeinitializeAchievements -= Deinitialize;
+        }
+
         /// <summary>
         /// Check if achievement is completed and subscribe to tracker's value changed
         /// </summary>
-        internal void Initialize(AchievementGameEvent onCompleted)
+        private void Initialize(AchievementGameEvent onCompleted)
         {
             isCompleted = tracker.count >= threshold;
             GameLogger.LogInfo($"{name} is completed: {isCompleted}", this, GameLogger.LogCategory.Achievements);
@@ -39,7 +51,7 @@ namespace TheGuarden.Achievements
         /// <summary>
         /// Unsubscribe from tracker's value changed
         /// </summary>
-        internal void Deinitialize()
+        private void Deinitialize()
         {
             tracker.OnValueChanged -= OnProgress;
         }
