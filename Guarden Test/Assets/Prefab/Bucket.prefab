@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 907937545677139945}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3641909878593219081
 Rigidbody:
@@ -93,6 +93,7 @@ MonoBehaviour:
     type: 2}
   missingWaterInstruction: {fileID: 11400000, guid: d5762bee7cd73f84e8b39e31911837c9,
     type: 2}
+  icon: {fileID: 21300000, guid: cd5245539662a0f47bb06fd756552f5a, type: 3}
 --- !u!135 &7694266318504934349
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -12,10 +12,10 @@ namespace TheGuarden.PlantPowerUps
         private float speed;
         [SerializeField, Tooltip("Damage dealt to target")]
         private float damage = 1.0f;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool projectile should return to")]
         private ObjectPool<Projectile> pool;
 
-        public Transform Target { get; set; }
+        internal Transform Target { get; set; }
 
         private void Update()
         {
@@ -40,9 +40,7 @@ namespace TheGuarden.PlantPowerUps
 
         private void DamageTarget()
         {
-            Health targetHealth = Target.GetComponent<Health>();
-
-            if (targetHealth == null)
+            if (!Target.TryGetComponent(out Health targetHealth))
             {
                 GameLogger.LogError($"{Target.name} has no health component and can't be damaged", this, GameLogger.LogCategory.PlantPowerUp);
                 return;
@@ -51,12 +49,18 @@ namespace TheGuarden.PlantPowerUps
             targetHealth.Damage(damage);
         }
 
+        /// <summary>
+        /// Reset state before entering pool
+        /// </summary>
         public void OnEnterPool()
         {
             gameObject.SetActive(false);
             Target = null;
         }
 
+        /// <summary>
+        /// Reset to initial state befor exiting pool
+        /// </summary>
         public void OnExitPool()
         {
             gameObject.SetActive(true);

@@ -108,12 +108,12 @@ namespace TheGuarden.NPC
             followCamera.AddTarget(transform);
             followCamera.AddTarget(deliveryLocation);
 
-            while ((transform.position - lane.EndPosition).sqrMagnitude > 1)
+            while (distanceTravelled < lane.Length)
             {
                 transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
                 distanceTravelled += speed * Time.deltaTime;
 
-                if (!delivered && distanceTravelled < distanceThreshold)
+                if (!delivered && distanceTravelled >= distanceThreshold)
                 {
                     delivered = true;
                     deliverySource.Play();

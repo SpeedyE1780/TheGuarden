@@ -1,7 +1,7 @@
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
-namespace TheGuarden.PlantPowerUps
+namespace TheGuarden.PlantPowerUps.Buffs
 {
     /// <summary>
     /// Parent class of plants that apply buff to buffs inside trigger

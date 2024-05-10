@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {
+    /// <summary>
+    /// PowerUpConfiguration contains basic power up configurations
+    /// </summary>
     [CreateAssetMenu(menuName ="Scriptable Objects/Plant Power Ups/Config")]
     internal class PowerUpConfiguration : ScriptableObject
     {
