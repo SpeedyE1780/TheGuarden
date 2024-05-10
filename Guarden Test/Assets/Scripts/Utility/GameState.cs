@@ -4,15 +4,18 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// GameState controls the state of the game on sends events accordingly
+    /// </summary>
     public class GameState : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Game Loaded event")]
         private GameEvent onGameLoaded;
-        [SerializeField]
+        [SerializeField, Tooltip("Game Started event")]
         private GameEvent onGameStarted;
-        [SerializeField]
+        [SerializeField, Tooltip("Exit Game event")]
         private GameEvent onExitGame;
-        [SerializeField]
+        [SerializeField, Tooltip("State indicating if player joined the game")]
         private StateToggle playerState;
 
         private void Awake()

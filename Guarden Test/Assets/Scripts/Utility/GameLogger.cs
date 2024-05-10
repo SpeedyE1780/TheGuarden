@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// GameLogger gives more control over logging in the game
+    /// </summary>
     public class GameLogger : MonoBehaviour
     {
         [System.Flags]

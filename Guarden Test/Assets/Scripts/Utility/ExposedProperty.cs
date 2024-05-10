@@ -2,10 +2,13 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// ExposedProperty replaces https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@7.1/manual/ExposedPropertyHelper.html
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Utility/Exposed Property")]
     public class ExposedProperty : ScriptableObject
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Name of property in graph")]
         private string propertyName;
 
         private int propertyID = -1;

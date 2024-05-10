@@ -3,11 +3,19 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// Choose a random prefab from list and instantiate it
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class RandomFactory<T> : ObjectFactory<T> where T : Object
     {
-        [SerializeField]
+        [SerializeField, Tooltip("List of possible prefab that will be instantiated")]
         private List<T> prefabs;
 
+        /// <summary>
+        /// Instantiate Object in scene
+        /// </summary>
+        /// <returns>New object</returns>
         internal override T CreateObject()
         {
             T prefab = prefabs.GetRandomItem();

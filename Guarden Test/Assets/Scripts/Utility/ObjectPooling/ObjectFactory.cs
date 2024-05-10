@@ -2,8 +2,16 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
+    /// <summary>
+    /// ObjectFactory will create objects when the pool is empty
+    /// </summary>
+    /// <typeparam name="T">Object type</typeparam>
     public abstract class ObjectFactory<T> : ScriptableObject where T : Object
     {
+        /// <summary>
+        /// Instantiate Object in scene
+        /// </summary>
+        /// <returns>New object</returns>
         internal abstract T CreateObject();
 
 #if UNITY_EDITOR

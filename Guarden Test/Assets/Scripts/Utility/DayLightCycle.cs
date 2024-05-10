@@ -15,29 +15,44 @@ namespace TheGuarden.Utility
         private float transitionDuration = 3.0f;
         [SerializeField, Tooltip("Angle Curve")]
         internal AnimationCurve curve;
-        [SerializeField]
+        [SerializeField, Tooltip("Day Started event")]
         private GameEvent onDayStarted;
-        [SerializeField]
+        [SerializeField, Tooltip("Night Started event")]
         private GameEvent onNightStarted;
 
         private bool enemyWavedEnded = false;
 
+        /// <summary>
+        /// Start the daylight cycle when game starts
+        /// </summary>
         public void OnGameStarted()
         {
             StartCoroutine(RunCycle());
         }
 
+        /// <summary>
+        /// Called from game event
+        /// </summary>
         public void OnEnemyWaveEnded()
         {
             enemyWavedEnded = true;
         }
 
+        /// <summary>
+        /// Update light rotation
+        /// </summary>
+        /// <param name="progress">time value in curve</param>
         internal void UpdateLight(float progress)
         {
             float angle = curve.Evaluate(progress);
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
+        /// <summary>
+        /// Transition light from day/night to night/day
+        /// </summary>
+        /// <param name="offset">0 to transition from day/night 1 to transtion from night/day</param>
+        /// <returns></returns>
         private IEnumerator UpdateLight(int offset = 0)
         {
             float time = 0;
@@ -50,6 +65,10 @@ namespace TheGuarden.Utility
             }
         }
 
+        /// <summary>
+        /// Transition from daytime to night time
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator RunCycle()
         {
             while (true)

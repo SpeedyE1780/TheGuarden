@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace TheGuarden.Utility
 {
-    public class WalkOnWater : MonoBehaviour
+    /// <summary>
+    /// Detect when player enter lake trigger and send event
+    /// </summary>
+    internal class WalkOnWater : MonoBehaviour
     {
-        public GameEvent onWalkOnWater;
+        [SerializeField, Tooltip("Walk On Water game event")]
+        private GameEvent onWalkOnWater;
 
         private void OnTriggerEnter(Collider other)
         {

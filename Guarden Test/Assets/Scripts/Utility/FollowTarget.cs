@@ -24,7 +24,7 @@ namespace TheGuarden.Utility
         private float movementSpeed = 5.0f;
         [SerializeField, Tooltip("Snap to desired position when player joins/leaves")]
         private bool snapToPosition = true;
-        [SerializeField]
+        [SerializeField, Tooltip("Bounds of the game")]
         private Bounds followBounds;
 
         private Vector3 center;
@@ -44,6 +44,9 @@ namespace TheGuarden.Utility
             bounds = new Bounds();
         }
 
+        /// <summary>
+        /// Switch to follow camera
+        /// </summary>
         public void SwitchToFollowCamera()
         {
             GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
@@ -51,6 +54,9 @@ namespace TheGuarden.Utility
             followCamera.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Switch to tower defence camera
+        /// </summary>
         public void SwitchToTowerDefenceCamera()
         {
             GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
