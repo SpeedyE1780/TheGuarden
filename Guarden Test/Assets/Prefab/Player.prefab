@@ -609,6 +609,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b2e214f0-741c-4cb2-8bce-4a72de77f69f
     m_ActionName: PopupWindow/HideWindow[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8220134511689740318}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerInventory, TheGuarden.Players
+        m_MethodName: OnDropItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ef8beec1-222c-4eee-97d2-bce9b2781378
+    m_ActionName: PlayerActions/DropItem[/Keyboard/x]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -643,6 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -671,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:

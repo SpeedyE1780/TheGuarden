@@ -162,6 +162,8 @@ namespace TheGuarden.Interactable
         {
             transform.SetParent(null);
             gameObject.SetActive(true);
+            ItemUI.ReturnToPool();
+            ItemUI = null;
         }
 
         /// <summary>

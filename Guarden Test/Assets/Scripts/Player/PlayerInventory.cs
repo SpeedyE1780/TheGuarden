@@ -45,6 +45,22 @@ namespace TheGuarden.Players
         }
 
         /// <summary>
+        /// Set selected item to first item or null
+        /// </summary>
+        private void UpdateSelectedItem()
+        {
+            if (items.Count == 0)
+            {
+                selectedItemIndex = -1;
+                selectedItem = null;
+            }
+            else
+            {
+                SelectItem(0);
+            }
+        }
+
+        /// <summary>
         /// Called from the PlayerInput component
         /// </summary>
         /// <param name="context">Input context</param>
@@ -62,16 +78,7 @@ namespace TheGuarden.Players
                 if (selectedItem.IsConsumedAfterInteraction)
                 {
                     items.Remove(selectedItem);
-
-                    if (items.Count == 0)
-                    {
-                        selectedItemIndex = -1;
-                        selectedItem = null;
-                    }
-                    else
-                    {
-                        SelectItem(0);
-                    }
+                    UpdateSelectedItem();
                 }
             }
 
@@ -188,6 +195,18 @@ namespace TheGuarden.Players
 
             items.Clear();
             inventoryUI.OnPlayerLeft();
+        }
+
+        public void OnDropItem(InputAction.CallbackContext context)
+        {
+            if (selectedItem == null || !context.performed)
+            {
+                return;
+            }
+
+            selectedItem.Drop();
+            items.Remove(selectedItem);
+            UpdateSelectedItem();
         }
 
         private void Update()

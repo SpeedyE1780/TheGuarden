@@ -224,6 +224,12 @@ namespace TheGuarden.Interactable
             onPlantInSoil.Raise();
         }
 
+        private void ResetItemUI()
+        {
+            ItemUI.ReturnToPool();
+            ItemUI = null;
+        }
+
         /// <summary>
         /// Try to plant mushroom anywhere or in soil
         /// </summary>
@@ -243,8 +249,7 @@ namespace TheGuarden.Interactable
             if (IsConsumedAfterInteraction)
             {
                 transform.SetParent(null);
-                ItemUI.ReturnToPool();
-                ItemUI = null;
+                ResetItemUI();
             }
             else
             {
@@ -325,6 +330,7 @@ namespace TheGuarden.Interactable
             gameObject.SetActive(true);
             rb.constraints = RigidbodyConstraints.None;
             ToggleCollisions(true);
+            ResetItemUI();
         }
 
         /// <summary>
