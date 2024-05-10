@@ -19,18 +19,11 @@ namespace TheGuarden.UI
         [SerializeField]
         private Image mushroomIcon;
         [SerializeField]
-        private StateToggle playersInScene;
-        [SerializeField]
         private GameEvent mushroomWindowActive;
 
         private List<MushroomInfo> mushroomList = new List<MushroomInfo>();
         private HashSet<MushroomInfo> unlockedMushrooms = new HashSet<MushroomInfo>();
         private bool hideWindow = false;
-
-        private void Start()
-        {
-            StartCoroutine(WaitForMushroomUnlocked());
-        }
 
         public void OnMushroomUnlocked(MushroomInfo mushroom)
         {
@@ -45,22 +38,11 @@ namespace TheGuarden.UI
             }
         }
 
-        public void HideWindow()
+        public void ShowMushroomTutorial(MushroomInfo mushroom)
         {
-            hideWindow = true;
-        }
-
-        private IEnumerator WaitForMushroomUnlocked()
-        {
-            while (true)
+            if (mushroomList.Contains(mushroom))
             {
-                yield return new WaitUntil(() => mushroomList.Count > 0);
-
-                while (mushroomList.Count > 0)
-                {
-                    yield return new WaitUntil(() => playersInScene.Toggled);
-                    yield return PopUp(mushroomList[0]);
-                }
+                StartCoroutine(PopUp(mushroom));
             }
         }
 
@@ -75,12 +57,13 @@ namespace TheGuarden.UI
             hideWindow = false;
             yield return new WaitUntil(() => hideWindow);
             mushroomList.Remove(mushroom);
+            window.gameObject.SetActive(false);
+            Time.timeScale = 1;
+        }
 
-            if (mushroomList.Count == 0)
-            {
-                window.gameObject.SetActive(false);
-                Time.timeScale = 1;
-            }
+        public void HideWindow()
+        {
+            hideWindow = true;
         }
     }
 }

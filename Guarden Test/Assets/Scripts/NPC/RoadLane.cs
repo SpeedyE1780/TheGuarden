@@ -1,5 +1,5 @@
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
 namespace TheGuarden.NPC
 {

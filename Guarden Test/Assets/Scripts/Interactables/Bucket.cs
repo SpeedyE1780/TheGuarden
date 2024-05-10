@@ -1,8 +1,8 @@
-using UnityEngine;
 using TheGuarden.UI;
 using TheGuarden.Utility;
-using UnityEngine.VFX;
 using TheGuarden.Utility.Events;
+using UnityEngine;
+using UnityEngine.VFX;
 
 namespace TheGuarden.Interactable
 {
@@ -23,24 +23,27 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Splash VFX played when adding water or watering plant bed")]
         private VisualEffect splashPrefab;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event called when water is added to bucket passes true is filled")]
         private BoolGameEvent onWaterAdded;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event called when plant bed is watered")]
         private GameEvent onPlantBedWatered;
-        [SerializeField]
+        [SerializeField, Tooltip("Interaction shown when near lake")]
         private InteractionInstruction addWaterInstruction;
-        [SerializeField]
+        [SerializeField, Tooltip("Interaction shown when near plant bed")]
         private InteractionInstruction waterPlantBedInstruction;
-        [SerializeField]
+        [SerializeField, Tooltip("Interatction shown when near plant bed and empty bucket")]
         private InteractionInstruction missingWaterInstruction;
 
         private int remainingUses = 0;
         private VisualEffect splash;
+        private Collider[] lakeCollider = new Collider[1];
+        private Collider[] plantBedCollider = new Collider[1];
 
         public string Name => name;
         public float UsabilityPercentage => remainingUses / (float)maxUses;
         public ItemUI ItemUI { get; set; }
         public bool HasInstantPickUp => true;
+        public Sprite Icon => null;
 
         private void Start()
         {
@@ -62,9 +65,9 @@ namespace TheGuarden.Interactable
         /// </summary>
         private void AddWater()
         {
-            remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
-            Collider[] lake = Physics.OverlapSphere(transform.position, overlapRadius, lakeLayer);
-            PlaySplashVFX(lake[0].ClosestPoint(transform.position));
+            remainingUses = Mathf.Min(remainingUses + 1, maxUses);
+            Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, lakeCollider, lakeLayer);
+            PlaySplashVFX(lakeCollider[0].ClosestPoint(transform.position));
             onWaterAdded.Raise(remainingUses == maxUses);
         }
 
@@ -83,7 +86,7 @@ namespace TheGuarden.Interactable
 
             PlaySplashVFX(closestPoint);
             plantBed.Water(bucketRestoration);
-            remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
+            remainingUses = Mathf.Max(remainingUses - 1, 0);
             ItemUI.SetProgress(UsabilityPercentage);
             onPlantBedWatered.Raise();
         }
@@ -129,8 +132,7 @@ namespace TheGuarden.Interactable
         /// </summary>
         public void OnInteractionPerformed()
         {
-            Collider[] plantBedsCollider = new Collider[1];
-            int plantBedCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedsCollider, plantBedMask);
+            int plantBedCount = Physics.OverlapSphereNonAlloc(transform.position, overlapRadius, plantBedCollider, plantBedMask);
 
             if (plantBedCount == 0)
             {
@@ -138,8 +140,8 @@ namespace TheGuarden.Interactable
                 return;
             }
 
-            PlantBed plantBed = plantBedsCollider[0].GetComponent<PlantBed>();
-            WaterPlantBed(plantBed, plantBedsCollider[0].ClosestPoint(transform.position));
+            PlantBed plantBed = plantBedCollider[0].GetComponent<PlantBed>();
+            WaterPlantBed(plantBed, plantBedCollider[0].ClosestPoint(transform.position));
             GameLogger.LogInfo("Watering plant bed", gameObject, GameLogger.LogCategory.InventoryItem);
         }
 
@@ -151,12 +153,19 @@ namespace TheGuarden.Interactable
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// Drop bucket in position and set the gameobject active
+        /// </summary>
         public void Drop()
         {
             transform.SetParent(null);
             gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Check for interactables around bucket and return interaction instruction
+        /// </summary>
+        /// <returns>Instructions show on screen</returns>
         public InteractionInstruction CheckForInteractable()
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))

@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviors: []
+  powerUps: []
   growPlant: {fileID: 5518996527343548638}
   rb: {fileID: 7334000047881488347}
   navMeshObstacle: {fileID: 8797612134577381625}
@@ -275,6 +275,9 @@ MonoBehaviour:
   health: {fileID: 310434028874281703}
   pool: {fileID: 0}
   plantBedInstruction: {fileID: 11400000, guid: 92723e8f926c8c04a8e2fc10ca760232,
+    type: 2}
+  mushroomInfo: {fileID: 0}
+  onMushroomInfoPickedUp: {fileID: 11400000, guid: b9761b5333074ed4c9d51645909d2cf2,
     type: 2}
 --- !u!54 &7334000047881488347
 Rigidbody:
@@ -354,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4781410716438576801}
   m_Layer: 12
-  m_Name: Behaviors
+  m_Name: PowerUps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

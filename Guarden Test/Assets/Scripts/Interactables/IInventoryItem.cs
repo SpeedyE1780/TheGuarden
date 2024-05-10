@@ -14,6 +14,7 @@ namespace TheGuarden.Interactable
         public float UsabilityPercentage { get; }
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction => false;
+        public Sprite Icon { get; }
 
         /// <summary>
         /// Highlight item in inventory
@@ -48,7 +49,7 @@ namespace TheGuarden.Interactable
         public void SetItemUI(ItemUI itemUI)
         {
             ItemUI = itemUI;
-            itemUI.SetItem(Name, UsabilityPercentage);
+            itemUI.SetItem(Name, UsabilityPercentage, Icon);
         }
 
         /// <summary>
@@ -66,7 +67,15 @@ namespace TheGuarden.Interactable
         /// </summary>
         public void OnInteractionCancelled();
 
+        /// <summary>
+        /// Called when item is dropped
+        /// </summary>
         public void Drop();
+
+        /// <summary>
+        /// Check if item can interact with surrounding game objects
+        /// </summary>
+        /// <returns></returns>
         public InteractionInstruction CheckForInteractable();
     }
 }

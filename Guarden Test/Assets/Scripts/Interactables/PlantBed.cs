@@ -35,7 +35,7 @@ namespace TheGuarden.Interactable
         /// Restore dryWetRatio
         /// </summary>
         /// <param name="bucketRestoration">Amount added to dryWetRatio</param>
-        public void Water(float bucketRestoration)
+        internal void Water(float bucketRestoration)
         {
             dryWetRatio = Mathf.Clamp01(dryWetRatio + bucketRestoration);
         }

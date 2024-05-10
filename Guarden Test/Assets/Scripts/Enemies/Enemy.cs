@@ -8,26 +8,24 @@ using UnityEngine.AI;
 namespace TheGuarden.Enemies
 {
     /// <summary>
-    /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
+    /// Enemy will follow its path until it reaches the animal shed
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
-    public class Enemy : MonoBehaviour, IBehavior, IBuff, IPoolObject
+    internal class Enemy : MonoBehaviour, IBehavior, IBuff, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
-        [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
-        private float agentSpeed = 5.0f;
         [SerializeField, Tooltip("Minimum distance before destination is considered reached")]
-        private float distanceThreshold = 3.0f;
+        private float distanceThreshold = 0.5f;
         [SerializeField, Tooltip("Autofilled. Enemy Health component")]
         private Health health;
         [SerializeField, Tooltip("List containing all spawned enemies")]
         private EnemySet enemySet;
-        [SerializeField]
+        [SerializeField, Tooltip("Game Event raised when enemy reaches the shed")]
         private GameEvent onReachShed;
-        [SerializeField]
+        [SerializeField, Tooltip("Game Event raised when enemy is killed")]
         private GameEvent onEnemyKilled;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool that enemy will return to once killed")]
         private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
@@ -64,23 +62,22 @@ namespace TheGuarden.Enemies
         }
 
         /// <summary>
-        /// Set enemy patrol path
+        /// Set enemy path
         /// </summary>
-        /// <param name="patrolPath">Enemy patrol path</param>
-        internal void SetPath(EnemyPath patrolPath)
+        /// <param name="followPath">Path that the enemy will follow</param>
+        internal void SetPath(EnemyPath followPath)
         {
-            path = patrolPath;
-            StartCoroutine(Patrol());
+            path = followPath;
+            StartCoroutine(FollowPath());
         }
 
         /// <summary>
-        /// Patrol State
+        /// Set destination to next waypoint until shed is reached
         /// </summary>
         /// <returns></returns>
-        private IEnumerator Patrol()
+        private IEnumerator FollowPath()
         {
             agent.SetDestination(path.CurrentPosition);
-            agent.speed = agentSpeed;
 
             while (true)
             {
@@ -107,6 +104,10 @@ namespace TheGuarden.Enemies
             }
         }
 
+        /// <summary>
+        /// Make enemy rewind its path
+        /// </summary>
+        /// <param name="waypoints">Number of waypoints enemy will rewind</param>
         public void RewindPathProgress(int waypoints)
         {
             if (rewindComplete)
@@ -119,6 +120,11 @@ namespace TheGuarden.Enemies
             StartCoroutine(RewindPath(waypoints));
         }
 
+        /// <summary>
+        /// Set destination to previous waypoint until rewind is complete or reached start of path
+        /// </summary>
+        /// <param name="waypoints">Number of waypoints enemy will rewind</param>
+        /// <returns></returns>
         private IEnumerator RewindPath(int waypoints)
         {
             rewinding = true;
@@ -127,33 +133,32 @@ namespace TheGuarden.Enemies
 
             while (waypoints > 0)
             {
-                if (ReachedDestination)
+                yield return new WaitUntil(() => ReachedDestination);
+
+                GameLogger.LogInfo($"{name} rewinded stops remaining: {waypoints}", this, GameLogger.LogCategory.Enemy);
+                path.CurrentIndex -= 1;
+                waypoints -= 1;
+
+                if (path.CurrentIndex < 0)
                 {
-                    GameLogger.LogInfo($"{name} rewinded stop remaining {waypoints}", this, GameLogger.LogCategory.Enemy);
-                    path.CurrentIndex -= 1;
-                    waypoints -= 1;
-
-                    if (path.CurrentIndex < 0)
-                    {
-                        path.CurrentIndex = 0;
-                        GameLogger.LogInfo("Early break path index is less than 0", this, GameLogger.LogCategory.Enemy);
-                        break;
-                    }
-
-                    agent.SetDestination(path.CurrentPosition);
+                    path.CurrentIndex = 0;
+                    GameLogger.LogInfo("Early break path index is less than 0", this, GameLogger.LogCategory.Enemy);
+                    break;
                 }
 
-                yield return null;
+                agent.SetDestination(path.CurrentPosition);
             }
 
             GameLogger.LogInfo($"{name} completed rewind", this, GameLogger.LogCategory.Enemy);
-            yield return new WaitUntil(() => ReachedDestination);
             rewindComplete = true;
             rewinding = false;
 
-            StartCoroutine(Patrol());
+            StartCoroutine(FollowPath());
         }
 
+        /// <summary>
+        /// Reset state to default before entering pool
+        /// </summary>
         public void OnEnterPool()
         {
             gameObject.SetActive(false);
@@ -161,6 +166,9 @@ namespace TheGuarden.Enemies
             rewindComplete = false;
         }
 
+        /// <summary>
+        /// Enable behaviors when exiting pools
+        /// </summary>
         public void OnExitPool()
         {
             gameObject.SetActive(true);

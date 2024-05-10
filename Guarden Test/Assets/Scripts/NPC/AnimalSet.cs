@@ -1,8 +1,11 @@
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
 namespace TheGuarden.NPC
 {
+    /// <summary>
+    /// List of all related animals
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Runtime Sets/Animal")]
-    public class AnimalSet : RuntimeSet<Animal> { }
+    internal class AnimalSet : RuntimeSet<Animal> { }
 }

@@ -4,40 +4,48 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
-    public class AnimalSpawner : MonoBehaviour
+    internal class AnimalSpawner : MonoBehaviour
     {
         [SerializeField, Tooltip("Shed where animals should go to at night")]
         private Transform shed;
-        [SerializeField, Tooltip("Animal prefab")]
-        private Animal animalPrefab;
         [SerializeField, Tooltip("Animal spawned each day")]
         private int spawnCount;
-        [SerializeField]
+        [SerializeField, Tooltip("Animal spawned when game starts")]
         private int dayOneAnimalCount = 5;
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event raised when an animal is spawned/kidnapped")]
         private IntGameEvent onAnimalCountChanged;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event raised when all animals are kidnapped")]
         private GameEvent onGameEnded;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool from which animal are taken")]
         private ObjectPool<Animal> animalPool;
 
         private void Awake()
         {
             Animal.Shed = shed;
         }
-
+        
+        /// <summary>
+        /// Called from OnGameStartedEvent
+        /// </summary>
         public void SpawnDayOneAnimals()
         {
             SpawnAnimals(dayOneAnimalCount);
         }
 
+        /// <summary>
+        /// Called from OnDayStartedEvent
+        /// </summary>
         public void SpawnAnimals()
         {
             SpawnAnimals(spawnCount);
         }
 
+        /// <summary>
+        /// Spawn animals from pool
+        /// </summary>
+        /// <param name="count">Number of animals to spawn</param>
         private void SpawnAnimals(int count)
         {
             for (int i = 0; i < count; i++)
@@ -50,6 +58,9 @@ namespace TheGuarden.NPC
             onAnimalCountChanged.Raise(animalSet.Count);
         }
 
+        /// <summary>
+        /// Called from OnEnemyReachShed event
+        /// </summary>
         public void RemoveAnimal()
         {
             if (animalSet.Count > 0)

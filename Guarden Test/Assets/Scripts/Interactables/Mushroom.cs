@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
+using UnityEngine;
+using UnityEngine.AI;
 
 namespace TheGuarden.Interactable
 {
@@ -15,7 +15,7 @@ namespace TheGuarden.Interactable
     public class Mushroom : MonoBehaviour, IPickUp, IInventoryItem, IPoolObject
     {
         [SerializeField, Tooltip("Autofilled. List of active power ups")]
-        private List<PlantPowerUp> behaviors = new List<PlantPowerUp>();
+        private List<PlantPowerUp> powerUps = new List<PlantPowerUp>();
         [SerializeField, Tooltip("Autofilled. Growing component")]
         private GrowPlant growPlant;
         [SerializeField, Tooltip("Autofilled. Rigidbody component")]
@@ -30,29 +30,34 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Plant area layer mask")]
         private LayerMask plantableAreaMask;
-        [SerializeField]
+        [SerializeField, Tooltip("Mushrooms layer mask")]
         private LayerMask mushroomLayerMask;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event called when mushroom is planted in soil")]
         private GameEvent onPlantInSoil;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event called when fully grown mushroom is planted")]
         private GameEvent onPlant;
-        [SerializeField]
+        [SerializeField, Tooltip("Mushroom health component")]
         private Health health;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool this mushroom belongs to")]
         private ObjectPool<Mushroom> pool;
-        [SerializeField]
+        [SerializeField, Tooltip("Instruction shown when near plant bed")]
         private InteractionInstruction plantBedInstruction;
+        [SerializeField, Tooltip("Mushroom info shown in tutorial and inventory")]
+        private MushroomInfo mushroomInfo;
+        [SerializeField, Tooltip("Game event called when mushroom is picked up")]
+        private TGameEvent<MushroomInfo> onMushroomInfoPickedUp;
 
         private PlantSoil plantSoil;
 
         public Rigidbody Rigidbody => rb;
         public float GrowthPercentage => growPlant.GrowthPercentage;
         public bool IsFullyGrown => growPlant.IsFullyGrown;
-        public string Name => name;
+        public string Name => mushroomInfo.Name;
         public float UsabilityPercentage => GrowthPercentage;
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
-        public bool HasInstantPickUp => GrowthPercentage < 0.001 || GrowthPercentage == 1;
+        public bool HasInstantPickUp => GrowthPercentage < 0.001 || IsFullyGrown;
+        public Sprite Icon => mushroomInfo.Sprite;
 
         private void Start()
         {
@@ -68,15 +73,22 @@ namespace TheGuarden.Interactable
             rb.excludeLayers = active ? 0 : ~0;
         }
 
-        private void ToggleBehaviors(bool active)
+        /// <summary>
+        /// Toggle plant power ups
+        /// </summary>
+        /// <param name="active"></param>
+        private void TogglePowerUps(bool active)
         {
-            foreach (PlantPowerUp behavior in behaviors)
+            foreach (PlantPowerUp powerUp in powerUps)
             {
-                behavior.gameObject.SetActive(active);
+                powerUp.gameObject.SetActive(active);
             }
         }
 
-        private void ResetPlantSoil()
+        /// <summary>
+        /// Free plant soil
+        /// </summary>
+        private void FreePlantSoil()
         {
             if (plantSoil != null)
             {
@@ -86,12 +98,12 @@ namespace TheGuarden.Interactable
         }
 
         /// <summary>
-        /// Enable navmesh carving and all plant behaviors
+        /// Enable navmesh carving and all plant power ups
         /// </summary>
         private void Plant()
         {
             navMeshObstacle.carving = true;
-            ToggleBehaviors(true);
+            TogglePowerUps(true);
         }
 
         /// <summary>
@@ -106,7 +118,8 @@ namespace TheGuarden.Interactable
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ToggleCollisions(false);
-            ResetPlantSoil();
+            FreePlantSoil();
+            onMushroomInfoPickedUp.Raise(mushroomInfo);
         }
 
         /// <summary>
@@ -142,25 +155,44 @@ namespace TheGuarden.Interactable
         }
 
         /// <summary>
-        /// Plant anywhere except on plant beds
+        /// Check if plant position is in a restricted area
         /// </summary>
-        private void PlantAnywhere()
+        /// <returns>True if planting in plant bed or outside planting area</returns>
+        private bool IsInRestrictedArea()
         {
-            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
+            bool isRestrictedArea = !Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask);
+            GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
+            return isRestrictedArea;
+        }
 
-            if (!Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
-            {
-                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
-                return;
-            }
-
+        /// <summary>
+        /// Check if colliding with other mushrooms
+        /// </summary>
+        /// <returns>True if colliding with other mushroom</returns>
+        private bool IsCollidingWithMushrooms()
+        {
             foreach (Collider collider in Physics.OverlapSphere(transform.position, overlapRadius, mushroomLayerMask))
             {
                 if (collider.attachedRigidbody != null && collider.attachedRigidbody.gameObject != gameObject)
                 {
                     GameLogger.LogError("Can't plant mushroom colliding with other mushroom", gameObject, GameLogger.LogCategory.Plant);
-                    return;
+                    return true;
                 }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Plant fully grown mushroom anywhere
+        /// </summary>
+        private void PlantAnywhere()
+        {
+            GameLogger.LogInfo("Plant anywhere", gameObject, GameLogger.LogCategory.InventoryItem);
+
+            if (IsInRestrictedArea() || IsCollidingWithMushrooms())
+            {
+                return;
             }
 
             Plant();
@@ -243,13 +275,16 @@ namespace TheGuarden.Interactable
             OnInteractionCancelled();
         }
 
+        /// <summary>
+        /// Reset state before entering pool
+        /// </summary>
         public void OnEnterPool()
         {
             gameObject.SetActive(false);
             navMeshObstacle.carving = false;
             ToggleCollisions(true);
-            ToggleBehaviors(false);
-            ResetPlantSoil();
+            TogglePowerUps(false);
+            FreePlantSoil();
             growPlant.OnEnterPool();
             transform.SetParent(null);
             rb.constraints = RigidbodyConstraints.None;
@@ -261,12 +296,17 @@ namespace TheGuarden.Interactable
             }
         }
 
+        /// <summary>
+        /// Set mushroom active again when exiting pool
+        /// </summary>
         public void OnExitPool()
         {
             gameObject.SetActive(true);
-            growPlant.OnExitPool();
         }
 
+        /// <summary>
+        /// Drop mushroom in scene
+        /// </summary>
         public void Drop()
         {
             transform.SetParent(null);
@@ -275,6 +315,10 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
         }
 
+        /// <summary>
+        /// Check for interactables around mushroom and return interaction instruction
+        /// </summary>
+        /// <returns>Instructions show on screen</returns>
         public InteractionInstruction CheckForInteractable()
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
@@ -292,20 +336,20 @@ namespace TheGuarden.Interactable
             navMeshObstacle = GetComponent<NavMeshObstacle>();
             growPlant = GetComponent<GrowPlant>();
 
-            Transform behaviorsParent = transform.Find("Behaviors");
+            Transform powerUpsParent = transform.Find("PowerUps");
 
-            if (behaviorsParent != null)
+            if (powerUpsParent != null)
             {
-                behaviors.Clear();
+                powerUps.Clear();
 
-                foreach (Transform behavior in behaviorsParent)
+                foreach (Transform behavior in powerUpsParent)
                 {
-                    behaviors.Add(behavior.GetComponent<PlantPowerUp>());
+                    powerUps.Add(behavior.GetComponent<PlantPowerUp>());
                 }
             }
             else
             {
-                GameLogger.LogError("Mushroom doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
+                GameLogger.LogError("Mushroom doesn't have PowerUps child", this, GameLogger.LogCategory.Scene);
             }
         }
 #endif
