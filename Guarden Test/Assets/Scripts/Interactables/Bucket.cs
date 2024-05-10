@@ -9,7 +9,7 @@ namespace TheGuarden.Interactable
     /// <summary>
     /// Bucket used to water plant bed
     /// </summary>
-    internal class Bucket : MonoBehaviour, IPickUp, IInventoryItem
+    public class Bucket : MonoBehaviour, IPickUp, IInventoryItem
     {
         [SerializeField, Tooltip("Uses before bucket needs to be filled again")]
         private int maxUses = 3;
@@ -47,17 +47,17 @@ namespace TheGuarden.Interactable
         public bool HasInstantPickUp => true;
         public Sprite Icon => icon;
 
-        private void Start()
-        {
-            splash = Instantiate(splashPrefab);
-        }
-
         /// <summary>
         /// Move splash vfx to position and play it
         /// </summary>
         /// <param name="position">Splash position</param>
         private void PlaySplashVFX(Vector3 position)
         {
+            if (splash == null)
+            {
+                splash = Instantiate(splashPrefab);
+            }
+
             splash.transform.position = position;
             splash.Play();
         }

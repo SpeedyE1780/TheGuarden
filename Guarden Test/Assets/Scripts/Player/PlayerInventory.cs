@@ -28,6 +28,8 @@ namespace TheGuarden.Players
         private InteractionInstruction pressPickUpInstruction;
         [SerializeField, Tooltip("Hodling to pick up instructions")]
         private InteractionInstruction holdPickUpInstruction;
+        [SerializeField, Tooltip("Player bucket added to inventory on start")]
+        private Bucket bucket;
 
         private InventoryUI inventoryUI;
         private List<IInventoryItem> items;
@@ -39,6 +41,8 @@ namespace TheGuarden.Players
         private void Start()
         {
             items = new List<IInventoryItem>(inventorySize);
+            bucket = Instantiate(bucket);
+            PickUp(bucket);
         }
 
         /// <summary>

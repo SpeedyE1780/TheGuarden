@@ -432,6 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4f326bdf366364ba4ce21d6550544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySize: 5
   inventoryPoint: {fileID: 7284881402961356843}
   onInstructions: {fileID: 11400000, guid: f798b268001669441be80afec6ad2ee6, type: 2}
   onHideInstructions: {fileID: 11400000, guid: e6f22a3ab4c46d0409175cc454963e01, type: 2}
@@ -440,6 +441,7 @@ MonoBehaviour:
     type: 2}
   holdPickUpInstruction: {fileID: 11400000, guid: 1e01f4574ed7a3c4da259e8feb2e3beb,
     type: 2}
+  bucket: {fileID: 8621485320277051538, guid: 79f010c1e6807314285f1d902aff40e8, type: 3}
 --- !u!114 &8646316663285618983
 MonoBehaviour:
   m_ObjectHideFlags: 0
