@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78998480c7d927b46ab4d43e36e00d6c, type: 3}
   m_Name: Turret
   m_EditorClassIdentifier: 
-  mushroomName: Turret Mushroom
+  mushroomName: Turret
   mushroomDescription: Will shoot mushrooms at enemies in range
   mushroomSprite: {fileID: 21300000, guid: 844c4c2af81b5dc4eaec8244143cc88a, type: 3}
