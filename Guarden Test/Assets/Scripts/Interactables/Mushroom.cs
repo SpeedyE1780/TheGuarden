@@ -46,6 +46,10 @@ namespace TheGuarden.Interactable
         private MushroomInfo mushroomInfo;
         [SerializeField, Tooltip("Game event called when mushroom is picked up")]
         private TGameEvent<MushroomInfo> onMushroomInfoPickedUp;
+        [SerializeField, Tooltip("Collisions gameobject showing whether or not mushroom is colliding with existing mushroom")]
+        private GameObject collisionsRadius;
+        [SerializeField, Tooltip("Game event called when trying to plant mushroom")]
+        private TGameEvent<bool> onPlantingMushroom;
 
         private PlantSoil plantSoil;
 
@@ -144,6 +148,11 @@ namespace TheGuarden.Interactable
                     }
                 }
             }
+            else
+            {
+                onPlantingMushroom.Raise(true);
+                collisionsRadius.SetActive(false); //Hide collision sphere on mushroom being planted
+            }
         }
 
         private void LateUpdate()
@@ -199,6 +208,7 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
             IsConsumedAfterInteraction = true;
             onPlant.Raise();
+            onPlantingMushroom.Raise(false);
         }
 
         /// <summary>
@@ -250,6 +260,7 @@ namespace TheGuarden.Interactable
             gameObject.SetActive(false);
             plantSoil = null;
             transform.localPosition = Vector3.zero;
+            onPlantingMushroom.Raise(false);
         }
 
         /// <summary>
@@ -327,6 +338,11 @@ namespace TheGuarden.Interactable
             }
 
             return null;
+        }
+
+        public void ToggleCollisionSphere(bool active)
+        {
+            collisionsRadius.SetActive(active && IsFullyGrown);
         }
 
 #if UNITY_EDITOR
