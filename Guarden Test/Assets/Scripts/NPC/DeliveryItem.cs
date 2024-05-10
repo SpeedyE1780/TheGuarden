@@ -1,6 +1,5 @@
-using TheGuarden.Interactable;
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
 namespace TheGuarden.NPC
 {
@@ -17,6 +16,9 @@ namespace TheGuarden.NPC
         internal bool IsUnlocked => daysToUnlock <= 0;
         private int lastFrame = 0;
 
+        /// <summary>
+        /// Called when item is unlocked
+        /// </summary>
         public abstract void OnUnlocked();
 
         /// <summary>

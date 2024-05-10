@@ -93,10 +93,15 @@ namespace TheGuarden.NPC
             }
         }
 
+        /// <summary>
+        /// Clear items list
+        /// </summary>
         private void ClearLists()
         {
             guaranteed.Clear();
             random.Clear();
+            unlockedGuaranteed.Clear();
+            unlockedRandom.Clear();
         }
 
         /// <summary>

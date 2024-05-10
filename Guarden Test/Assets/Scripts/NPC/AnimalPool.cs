@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace TheGuarden.NPC
 {
+    /// <summary>
+    /// Animal Pool
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Object Pooling/Pools/Animal")]
-    public class AnimalPool : ObjectPool<Animal>
-    {
-    }
+    internal class AnimalPool : ObjectPool<Animal> { }
 }

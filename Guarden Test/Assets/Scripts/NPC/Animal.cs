@@ -1,27 +1,29 @@
+using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.AI;
-using TheGuarden.Utility;
 
 namespace TheGuarden.NPC
 {
     /// <summary>
     /// Animal represents the animals wandering around the scene
     /// </summary>
-    [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
-    public class Animal : MonoBehaviour, IPoolObject
+    [RequireComponent(typeof(NavMeshAgent))]
+    internal class Animal : MonoBehaviour, IPoolObject
     {
         internal static Transform Shed { get; set; }
 
         [SerializeField, Tooltip("Autofilled. Animal Navmesh Agent")]
         private NavMeshAgent agent;
-        [SerializeField, Tooltip("Autofilled. Animal rigidbody")]
-        private Rigidbody rb;
         [SerializeField, Tooltip("Minimum distance before considering agent destination reached")]
         private float stoppingDistance = 0.75f;
         [SerializeField, Tooltip("List of all spawned animals")]
         private AnimalSet spawnedAnimals;
 
         private bool hiding = false;
+
+#if UNITY_EDITOR
+        internal NavMeshAgent Agent => agent;
+#endif
 
         void Start()
         {
@@ -47,16 +49,17 @@ namespace TheGuarden.NPC
             }
         }
 
-        private void LateUpdate()
-        {
-            rb.velocity = agent.velocity;
-        }
-
+        /// <summary>
+        /// Called from OnWaveEnded Game Event
+        /// </summary>
         public void ExitShed()
         {
             hiding = false;
         }
 
+        /// <summary>
+        /// Called from OnNightStarted Game Event
+        /// </summary>
         public void HideInShed()
         {
             SetDestination(Shed.position);
@@ -72,12 +75,18 @@ namespace TheGuarden.NPC
             agent.SetDestination(destination);
         }
 
+        /// <summary>
+        /// Reset object before entering pool
+        /// </summary>
         public void OnEnterPool()
         {
             gameObject.SetActive(false);
             hiding = false;
         }
 
+        /// <summary>
+        /// Reset object when exiting pool
+        /// </summary>
         public void OnExitPool()
         {
             gameObject.SetActive(true);
@@ -87,7 +96,6 @@ namespace TheGuarden.NPC
         internal void AutofillComponents()
         {
             agent = GetComponent<NavMeshAgent>();
-            rb = GetComponent<Rigidbody>();
         }
 #endif
     }

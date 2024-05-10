@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
+using UnityEngine;
 
 namespace TheGuarden.NPC
 {
@@ -10,6 +10,7 @@ namespace TheGuarden.NPC
     /// TruckDelivery is a game object that will delivery an Item at a specified time in the day
     /// </summary>
     /// <typeparam name="Item">Type of item that will be spawned and delivered</typeparam>
+    [RequireComponent(typeof(AudioSource))]
     internal abstract class TruckDelivery<Item> : MonoBehaviour where Item : MonoBehaviour, IPoolObject
     {
         [SerializeField, Tooltip("Roads on which truck can spawn")]
@@ -30,7 +31,7 @@ namespace TheGuarden.NPC
         private float travelledPercentageDelay = 0.4f;
         [SerializeField, Tooltip("Audio Source played when items are delivered")]
         private AudioSource deliverySource;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event called when items are delivered")]
         private IntGameEvent onItemsDelivered;
 
         private bool delivered = false;
@@ -50,6 +51,10 @@ namespace TheGuarden.NPC
             }
         }
 
+        /// <summary>
+        /// Update delivery cooldown
+        /// </summary>
+        /// <param name="value">New cooldown</param>
         private void SetDeliveryCooldown(int value)
         {
             //Add one to cancel this day's ending contribution
@@ -65,6 +70,9 @@ namespace TheGuarden.NPC
             DeliverMushrooms();
         }
 
+        /// <summary>
+        /// Try to deliver mushrooms if cooldown is completed
+        /// </summary>
         public void DeliverMushrooms()
         {
             if (deliveryCooldown <= 0)
@@ -93,17 +101,19 @@ namespace TheGuarden.NPC
             GameLogger.LogInfo($"{name} delivering items", this, GameLogger.LogCategory.InventoryItem);
             delivered = false;
             meshes.SetActive(true);
-            RoadLane lane = roads[Random.Range(0, roads.Count)];
+            RoadLane lane = roads.GetRandomItem();
             transform.SetPositionAndRotation(lane.StartPosition, lane.StartRotation);
             float distanceThreshold = lane.Length * travelledPercentageDelay;
+            float distanceTravelled = 0;
             followCamera.AddTarget(transform);
             followCamera.AddTarget(deliveryLocation);
 
             while ((transform.position - lane.EndPosition).sqrMagnitude > 1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
+                distanceTravelled += speed * Time.deltaTime;
 
-                if (!delivered && Vector3.Distance(transform.position, lane.StartPosition) >= distanceThreshold)
+                if (!delivered && distanceTravelled < distanceThreshold)
                 {
                     delivered = true;
                     deliverySource.Play();
@@ -192,11 +202,6 @@ namespace TheGuarden.NPC
             }
 
             deliverySource = GetComponent<AudioSource>();
-
-            if (deliverySource == null)
-            {
-                GameLogger.LogWarning($"{name} has no audio source component", gameObject, GameLogger.LogCategory.Scene);
-            }
         }
 #endif
     }
