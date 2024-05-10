@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TheGuarden.Utility;
 using UnityEngine;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
@@ -35,6 +36,7 @@ namespace TheGuarden.Achievements
         private void Initialize(AchivementTrackerDictionary achievementsProgress)
         {
             count = achievementsProgress.GetValueOrDefault(name, 0);
+            GameLogger.LogInfo($"{name} initialized with count: {count}", this, GameLogger.LogCategory.Achievements);
         }
 
         /// <summary>

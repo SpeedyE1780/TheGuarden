@@ -7,7 +7,7 @@ namespace TheGuarden.Utility.Editor
     {
         public delegate void ModifyComponent();
 
-        public static void RecordHistory<T>(T component, string undoTitle, ModifyComponent modifyComponent) where T : Component
+        public static void RecordHistory<T>(T component, string undoTitle, ModifyComponent modifyComponent) where T : Object
         {
             Undo.RecordObject(component, undoTitle);
             modifyComponent();

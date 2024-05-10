@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using TheGuarden.Utility;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace TheGuarden.Achievements
         private static readonly string AchievementDirectory = Application.streamingAssetsPath;
         private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
 
+        [SerializeField, Tooltip("All achievements in the game")]
+        private List<Achievement> allAchievements = new List<Achievement>();
         [SerializeField, Tooltip("Game Event called when an achievement is completed")]
         private AchievementGameEvent onAchievementCompleted;
 
@@ -42,7 +45,7 @@ namespace TheGuarden.Achievements
             AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
 #endif
 
-            InitializeTrackers?.Invoke(achievementsProgress);
+            InitializeTrackers.Invoke(achievementsProgress);
         }
 
         /// <summary>
@@ -53,7 +56,7 @@ namespace TheGuarden.Achievements
         {
             GameLogger.LogInfo("Saving Achievements to file", this, GameLogger.LogCategory.Achievements);
             AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
-            SaveTrackers?.Invoke(achievementsProgress);
+            SaveTrackers.Invoke(achievementsProgress);
             string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
             FileUtility.WriteFile(AchievementPath, achievementJSON);
         }
@@ -64,9 +67,8 @@ namespace TheGuarden.Achievements
         public void OnGameLoaded()
         {
             GameLogger.LogInfo("Achievement Manager Initializing", this, GameLogger.LogCategory.Achievements);
-
             LoadAchievementProgress();
-            InitializeAchievements?.Invoke(onAchievementCompleted);
+            InitializeAchievements.Invoke(onAchievementCompleted);
         }
 
         /// <summary>
@@ -76,7 +78,16 @@ namespace TheGuarden.Achievements
         {
             GameLogger.LogInfo("Achievement Manager Saving", this, GameLogger.LogCategory.Achievements);
             SaveAchievementProgress();
-            DeinitializeAchievements?.Invoke();
+            DeinitializeAchievements.Invoke();
         }
+
+#if UNITY_EDITOR
+        internal void FillAchievements(List<Achievement> achievementsAssets)
+        {
+            allAchievements.Clear();
+            allAchievements.AddRange(achievementsAssets);
+        }
+
+#endif
     }
 }
