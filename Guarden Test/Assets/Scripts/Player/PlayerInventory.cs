@@ -14,6 +14,8 @@ namespace TheGuarden.Players
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerInventory : MonoBehaviour
     {
+        [SerializeField, Tooltip("Maximum items in inventory")]
+        private int inventorySize = 5;
         [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
         [SerializeField, Tooltip("Instructions game event raised when interactio instructions are active")]
@@ -28,11 +30,16 @@ namespace TheGuarden.Players
         private InteractionInstruction holdPickUpInstruction;
 
         private InventoryUI inventoryUI;
-        private List<IInventoryItem> items = new List<IInventoryItem>();
+        private List<IInventoryItem> items;
         private IPickUp currentPickUp;
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
         private bool showPickUpInstruction = false;
+
+        private void Start()
+        {
+            items = new List<IInventoryItem>(inventorySize);
+        }
 
         /// <summary>
         /// Set and activate the player's inventory UI
@@ -94,7 +101,7 @@ namespace TheGuarden.Players
         /// <param name="context">Input context</param>
         public void OnPickUp(InputAction.CallbackContext context)
         {
-            if (currentPickUp == null || context.canceled)
+            if (currentPickUp == null || context.canceled || items.Count == inventorySize)
             {
                 return;
             }

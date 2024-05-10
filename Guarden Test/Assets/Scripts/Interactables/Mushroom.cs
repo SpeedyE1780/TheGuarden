@@ -330,6 +330,7 @@ namespace TheGuarden.Interactable
             gameObject.SetActive(true);
             rb.constraints = RigidbodyConstraints.None;
             ToggleCollisions(true);
+            TogglePowerUps(false);
             ResetItemUI();
         }
 
