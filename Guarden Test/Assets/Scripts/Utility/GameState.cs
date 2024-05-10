@@ -7,11 +7,18 @@ namespace TheGuarden.Utility
     public class GameState : MonoBehaviour
     {
         [SerializeField]
+        private GameEvent onGameLoaded;
+        [SerializeField]
         private GameEvent onGameStarted;
         [SerializeField]
         private GameEvent onExitGame;
         [SerializeField]
         private StateToggle playerState;
+
+        private void Awake()
+        {
+            onGameLoaded.Raise();
+        }
 
         private IEnumerator Start()
         {
@@ -21,7 +28,7 @@ namespace TheGuarden.Utility
 
         private void OnDestroy()
         {
-
+            onExitGame.Raise();
         }
     }
 }

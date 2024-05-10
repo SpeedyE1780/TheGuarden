@@ -8,7 +8,7 @@ namespace TheGuarden.Achievements
     /// <summary>
     /// AchievementTracker is used to keep track of an event count in game
     /// </summary>
-    [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Achievement Tracker")]
+    [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Tracker")]
     internal class AchievementTracker : ScriptableObject
     {
         internal delegate void ValueChanged(int value);
@@ -16,11 +16,23 @@ namespace TheGuarden.Achievements
 
         internal event ValueChanged OnValueChanged;
 
+        private void OnEnable()
+        {
+            AchievementManager.InitializeTrackers += Initialize;
+            AchievementManager.SaveTrackers += SaveProgress;
+        }
+
+        private void OnDisable()
+        {
+            AchievementManager.InitializeTrackers -= Initialize;
+            AchievementManager.SaveTrackers -= SaveProgress;
+        }
+
         /// <summary>
         /// Initialize count from save file
         /// </summary>
         /// <param name="achievementsProgress">Dictionary containing all trackers saved values</param>
-        internal void Initialize(AchivementTrackerDictionary achievementsProgress)
+        private void Initialize(AchivementTrackerDictionary achievementsProgress)
         {
             count = achievementsProgress.GetValueOrDefault(name, 0);
         }
@@ -29,7 +41,7 @@ namespace TheGuarden.Achievements
         /// Save final count to save file
         /// </summary>
         /// <param name="achievementsProgress">Dictionary containing all trackers new values</param>
-        internal void SaveProgress(AchivementTrackerDictionary achievementsProgress)
+        private void SaveProgress(AchivementTrackerDictionary achievementsProgress)
         {
             achievementsProgress.Add(name, count);
         }

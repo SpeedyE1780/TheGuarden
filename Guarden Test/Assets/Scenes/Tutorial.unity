@@ -360,60 +360,6 @@ Transform:
   m_Father: {fileID: 605644090}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &63122302
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 63122303}
-  - component: {fileID: 63122304}
-  m_Layer: 0
-  m_Name: AchievementManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &63122303
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63122302}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &63122304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63122302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7700fb7f4ed11154287b7e675af9c6ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  achievements:
-  - {fileID: 11400000, guid: 52f013c2550f8224ab9b29ad78ff84ac, type: 2}
-  - {fileID: 11400000, guid: e45b2ffca08108a44b40c6fd8be17568, type: 2}
-  - {fileID: 11400000, guid: 6c1744523b0f00d4b803025aac5609aa, type: 2}
-  achievementTrackers:
-  - {fileID: 11400000, guid: 98f268f839307544490a834bca130089, type: 2}
-  - {fileID: 11400000, guid: 6be00f1b36eaf554489fd337ad0a5b8d, type: 2}
-  - {fileID: 11400000, guid: 6f1cdcda59ad2c848bc8786c909fe3f0, type: 2}
-  onAchievementCompleted: {fileID: 11400000, guid: 8b11558f1a87d0746a98f893bb8a9968,
-    type: 2}
 --- !u!1 &82849327
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +812,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &326922539
 MonoBehaviour:
@@ -888,6 +834,7 @@ MonoBehaviour:
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
+  playersInScene: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,6 +993,9 @@ MonoBehaviour:
   defaultTarget: {fileID: 1001226897}
   movementSpeed: 25
   snapToPosition: 0
+  followBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!1 &373785037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,7 +1781,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599704275
 MonoBehaviour:
@@ -2019,6 +1969,7 @@ MonoBehaviour:
   dryColor: {r: 1, g: 0.66336644, b: 0.33663374, a: 1}
   wetColor: {r: 0.39607844, g: 0.2627451, b: 0.13333334, a: 1}
   dryingSpeed: 0.000001
+  material: {fileID: 0}
 --- !u!1 &650908587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,7 +2700,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044358135
 GameObject:
@@ -3476,7 +3427,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1623720764
 MonoBehaviour:
@@ -3799,7 +3750,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1871049849
 MonoBehaviour:
@@ -3847,7 +3798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119fe39515561e44ea630e953476b4f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onGameLoaded: {fileID: 0}
   onGameStarted: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
+  onExitGame: {fileID: 0}
+  playerState: {fileID: 0}
 --- !u!1 &1937143795
 GameObject:
   m_ObjectHideFlags: 0
@@ -3931,7 +3885,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!208 &1937143800
 NavMeshObstacle:

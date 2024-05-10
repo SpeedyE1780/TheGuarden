@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using UnityEngine;
 using Newtonsoft.Json;
 using TheGuarden.Utility;
+using UnityEngine;
 
 using AchivementTrackerDictionary = System.Collections.Generic.Dictionary<string, int>;
 
@@ -10,17 +9,22 @@ namespace TheGuarden.Achievements
     /// <summary>
     /// AchievementManager keeps track of active achievements in scene
     /// </summary>
-    public class AchievementManager : MonoBehaviour
+    [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Manager")]
+    public class AchievementManager : ScriptableObject
     {
-        [SerializeField, Tooltip("Active achievements in scene")]
-        private List<Achievement> achievements;
-        [SerializeField, Tooltip("Autofilled from achievements list. All active trackers in scene")]
-        private List<AchievementTracker> achievementTrackers;
-        [SerializeField]
-        private AchievementGameEvent onAchievementCompleted;
-
         private static readonly string AchievementDirectory = Application.streamingAssetsPath;
         private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";
+
+        [SerializeField, Tooltip("Game Event called when an achievement is completed")]
+        private AchievementGameEvent onAchievementCompleted;
+
+        internal delegate void TrackerState(AchivementTrackerDictionary dictionary);
+        internal static event TrackerState InitializeTrackers;
+        internal static event TrackerState SaveTrackers;
+        internal delegate void AchievementInitializer(AchievementGameEvent onCompleted);
+        internal static event AchievementInitializer InitializeAchievements;
+        internal delegate void AchievementDeinitializer();
+        internal static event AchievementDeinitializer DeinitializeAchievements;
 
         /// <summary>
         /// Read save file and set tracker values to saved value or 0
@@ -38,10 +42,7 @@ namespace TheGuarden.Achievements
             AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
 #endif
 
-            foreach (AchievementTracker tracker in achievementTrackers)
-            {
-                tracker.Initialize(achievementsProgress);
-            }
+            InitializeTrackers?.Invoke(achievementsProgress);
         }
 
         /// <summary>
@@ -51,51 +52,31 @@ namespace TheGuarden.Achievements
         private void SaveAchievementProgress()
         {
             GameLogger.LogInfo("Saving Achievements to file", this, GameLogger.LogCategory.Achievements);
-
             AchivementTrackerDictionary achievementsProgress = new AchivementTrackerDictionary();
-
-            foreach (AchievementTracker tracker in achievementTrackers)
-            {
-                tracker.SaveProgress(achievementsProgress);
-            }
-
+            SaveTrackers?.Invoke(achievementsProgress);
             string achievementJSON = JsonConvert.SerializeObject(achievementsProgress, Formatting.Indented);
             FileUtility.WriteFile(AchievementPath, achievementJSON);
         }
 
-        private void Start()
+        /// <summary>
+        /// Called from OnGameLoaded Event
+        /// </summary>
+        public void OnGameLoaded()
         {
+            GameLogger.LogInfo("Achievement Manager Initializing", this, GameLogger.LogCategory.Achievements);
+
             LoadAchievementProgress();
-
-            foreach (Achievement achievement in achievements)
-            {
-                achievement.Initialize(onAchievementCompleted);
-            }
+            InitializeAchievements?.Invoke(onAchievementCompleted);
         }
 
-        private void OnDestroy()
+        /// <summary>
+        /// Called from OnExitGameEvent
+        /// </summary>
+        public void OnExitGame()
         {
+            GameLogger.LogInfo("Achievement Manager Saving", this, GameLogger.LogCategory.Achievements);
             SaveAchievementProgress();
-
-            foreach (Achievement achievement in achievements)
-            {
-                achievement.Deinitialize();
-            }
+            DeinitializeAchievements?.Invoke();
         }
-
-#if UNITY_EDITOR
-        internal void FillTrackers()
-        {
-            achievementTrackers.Clear();
-
-            foreach (Achievement achievement in achievements)
-            {
-                if (!achievementTrackers.Contains(achievement.tracker))
-                {
-                    achievementTrackers.Add(achievement.tracker);
-                }
-            }
-        }
-#endif
     }
 }
