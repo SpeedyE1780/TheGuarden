@@ -15,18 +15,6 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 71948996b5c44b34383c7b4a40de67de, type: 2}
-        m_TargetAssemblyTypeName: TheGuarden.Utility.ObjectPoolReseter, TheGuarden.Utility
-        m_MethodName: ResetPools
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 11400000, guid: 978aad347effda14ebea7b7ffbe532b7, type: 2}
         m_TargetAssemblyTypeName: TheGuarden.GrowingInfo, TheGuarden.Interactable
         m_MethodName: OnDayStarted

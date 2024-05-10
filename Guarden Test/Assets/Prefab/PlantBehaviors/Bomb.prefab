@@ -70,3 +70,4 @@ MonoBehaviour:
   powerUpCollider: {fileID: 5423892427953817198}
   delay: 0.2
   mushroomHealth: {fileID: 0}
+  explosionPool: {fileID: 11400000, guid: 6eb1bbe24bd0a914aa99ede2eba6e9e7, type: 2}

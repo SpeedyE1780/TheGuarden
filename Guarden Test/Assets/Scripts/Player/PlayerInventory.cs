@@ -255,7 +255,7 @@ namespace TheGuarden.Players
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == currentPickUp.gameObject)
+            if (currentPickUp != null && other.attachedRigidbody != null && other.attachedRigidbody.gameObject == currentPickUp.gameObject)
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);

@@ -12,6 +12,8 @@ namespace TheGuarden.PlantPowerUps
         private float delay = 0.0f;
         [SerializeField, Tooltip("Mushrooms health component")]
         private Health mushroomHealth;
+        [SerializeField, Tooltip("Mushroom explosion pool")]
+        ObjectPool<VFXExplosionController> explosionPool;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -43,6 +45,7 @@ namespace TheGuarden.PlantPowerUps
             }
 
             mushroomHealth.Kill();
+            explosionPool.GetPooledObject().transform.SetPositionAndRotation(transform.position, transform.rotation);
         }
     }
 }
