@@ -145,14 +145,14 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Float: 0
-    - _Foam_Amount: 17.79
-    - _Foam_Cutoff: 20.6
+    - _Foam_Amount: 39.52
+    - _Foam_Cutoff: 19.1
     - _Foam_Depth: 1.21
     - _Foam_Noise_Scale: 4.34
     - _Foam_Ripple_Speed: 0.4
-    - _Foam_Scale: 44.73
+    - _Foam_Scale: 41.79
     - _Foam_Size: 3.74
-    - _Foam_Speed: 0.4
+    - _Foam_Speed: 0.5
     - _Foam_cutoff: 0.001
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -161,7 +161,7 @@ Material:
     - _Metallic: 0
     - _Normal_Intensity: 0.01
     - _OcclusionStrength: 1
-    - _Offset: -0.6
+    - _Offset: 0.3
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -190,14 +190,14 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Deep_Color: {r: 0.12437699, g: 0.3065385, b: 0.40566036, a: 0.7764706}
+    - _Deep_Color: {r: 0.12437696, g: 0.30653846, b: 0.40566033, a: 0.36862746}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Foam_Color: {r: 1, g: 1, b: 1, a: 0.4392157}
     - _Foam_Speed: {r: 0.96, g: 0.85, b: 0, a: 0}
     - _Foam_color: {r: 17.148375, g: 17.148375, b: 17.148375, a: 0}
     - _Refr_Speed: {r: 5, g: 0, b: 0, a: 0}
     - _Refraction_Rate: {r: 0.2, g: 0, b: 0, a: 0}
-    - _Shallow_Color: {r: 0.09313814, g: 0.8584906, b: 0.8144723, a: 0.49019608}
+    - _Shallow_Color: {r: 0.093138106, g: 0.8584906, b: 0.8144723, a: 0.33333334}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Swamp_caustic_color: {r: 0.38527945, g: 0.735849, b: 0.735849, a: 0.4627451}
     - _Swamp_color: {r: 0.28502136, g: 0.478655, b: 0.5754717, a: 1}
