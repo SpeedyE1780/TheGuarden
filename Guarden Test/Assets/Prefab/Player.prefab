@@ -597,7 +597,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7332446620996662355}
         m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
-        m_MethodName: OnHideMushroomUnlockedWindow
+        m_MethodName: HideActiveWindow
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
