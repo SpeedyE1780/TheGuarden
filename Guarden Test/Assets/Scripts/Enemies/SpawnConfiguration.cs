@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace TheGuarden.Enemies
 {
+    /// <summary>
+    /// SpawnConfiguration contains basic enemy info
+    /// </summary>
     internal class SpawnConfiguration
     {
         internal List<EnemyPath> paths;

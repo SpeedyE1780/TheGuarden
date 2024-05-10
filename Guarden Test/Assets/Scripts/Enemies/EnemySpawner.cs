@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
+using UnityEngine;
 using UnityEngine.VFX;
 
 namespace TheGuarden.Enemies
 {
     /// <summary>
-    /// EnemySpawner spawns enemy during time period
+    /// EnemySpawner spawns enemy waves
     /// </summary>
-    public class EnemySpawner : MonoBehaviour
+    internal class EnemySpawner : MonoBehaviour
     {
+        /// <summary>
+        /// Class representing how long each wave lasts
+        /// </summary>
         [System.Serializable]
         private class WaveConfig
         {
@@ -27,7 +30,7 @@ namespace TheGuarden.Enemies
         private List<EnemyPath> paths;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
-        [SerializeField, Tooltip("UFO transform that moves it in the scene")]
+        [SerializeField, Tooltip("UFO transform that will show up when spawning enemies")]
         private Transform ufoTransform;
         [SerializeField, Tooltip("UFO Visual effect that will drop enemy")]
         private VisualEffect ufo;
@@ -37,13 +40,13 @@ namespace TheGuarden.Enemies
         private List<WaveConfig> waveConfigs;
         [SerializeField, Tooltip("List of all enemies in scene")]
         private EnemySet enemySet;
-        [SerializeField]
+        [SerializeField, Tooltip("Game event raised when all enemies are disabled")]
         private GameEvent onWaveEnded;
-        [SerializeField]
+        [SerializeField, Tooltip("Multiplier added each night to enemy's max health")]
         private float healthMultiplier = 0.5f;
-        [SerializeField]
+        [SerializeField, Tooltip("VFX OnSucking Property")]
         private ExposedProperty onSucking;
-        [SerializeField]
+        [SerializeField, Tooltip("VFX OnFinishSucking Property")]
         private ExposedProperty onFinishSucking;
 
         private float currentHealthMultiplier = 1.0f;
@@ -56,7 +59,7 @@ namespace TheGuarden.Enemies
 #endif
 
         /// <summary>
-        /// Start Spawning coroutine
+        /// Calleld when NightStarted event is called
         /// </summary>
         public void StartSpawning()
         {
@@ -81,6 +84,9 @@ namespace TheGuarden.Enemies
             }
         }
 
+        /// <summary>
+        /// Check if spawner should switch to next wave configuration
+        /// </summary>
         private void UpdateCurrentWave()
         {
             CurrentWave.days -= 1;

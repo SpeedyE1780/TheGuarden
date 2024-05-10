@@ -11,13 +11,12 @@ namespace TheGuarden.Enemies
     {
         [SerializeField, Tooltip("Points making the path")]
         private List<Transform> points;
-        public int CurrentIndex { get; set; }
-        public readonly Vector3 CurrentPosition => points[CurrentIndex].position;
-        public readonly Vector3 LastPosition => points[^1].position;
-        public readonly bool ReachedEndOfPath => CurrentIndex >= points.Count;
+        internal int CurrentIndex { get; set; }
+        internal readonly Vector3 CurrentPosition => points[CurrentIndex].position;
+        internal readonly bool ReachedEndOfPath => CurrentIndex >= points.Count;
 
 #if UNITY_EDITOR
-        public List<Transform> Points => points;
+        internal List<Transform> Points => points;
 #endif
     }
 }
