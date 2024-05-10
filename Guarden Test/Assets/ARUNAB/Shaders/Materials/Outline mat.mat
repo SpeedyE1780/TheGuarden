@@ -113,7 +113,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Length: 0.53
+    - _Length: 0.41
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -132,7 +132,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     - _outline_Width: -0.02
-    - _scale: 1
+    - _scale: 0.99
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
