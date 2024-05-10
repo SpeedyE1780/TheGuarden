@@ -7,5 +7,5 @@ namespace TheGuarden.Achievements
     /// Game Event that passes the completed achievement as an argument
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Game Events/Events/<Achievement>")]
-    public class AchievementGameEvent : TGameEvent<Achievement> { }
+    internal class AchievementGameEvent : TGameEvent<Achievement> { }
 }

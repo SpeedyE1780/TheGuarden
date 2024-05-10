@@ -10,7 +10,7 @@ namespace TheGuarden.Achievements
     /// AchievementManager keeps track of active achievements in scene
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Achievements/Manager")]
-    public class AchievementManager : ScriptableObject
+    internal class AchievementManager : ScriptableObject
     {
         private static readonly string AchievementDirectory = Application.streamingAssetsPath;
         private static readonly string AchievementPath = AchievementDirectory + "/Achievements.json";

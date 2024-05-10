@@ -5,5 +5,5 @@ namespace TheGuarden.Achievements
     /// <summary>
     /// Monobehavior component that listens to an Achievement Game Event
     /// </summary>
-    public class AchievementGameEventListener : TGameEventListener<Achievement> { }
+    internal class AchievementGameEventListener : TGameEventListener<Achievement> { }
 }
