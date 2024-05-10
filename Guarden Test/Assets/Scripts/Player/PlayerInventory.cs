@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using TheGuarden.Interactable;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TheGuarden.Players
 {
@@ -16,15 +16,15 @@ namespace TheGuarden.Players
     {
         [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
-        [SerializeField]
+        [SerializeField, Tooltip("Instructions game event raised when interactio instructions are active")]
         private TGameEvent<string> onInstructions;
-        [SerializeField]
+        [SerializeField, Tooltip("Hide instructions game event")]
         private GameEvent onHideInstructions;
-        [SerializeField]
+        [SerializeField, Tooltip("Player input component")]
         private PlayerInput playerInput;
-        [SerializeField]
+        [SerializeField, Tooltip("Pressing to pick up instructions")]
         private InteractionInstruction pressPickUpInstruction;
-        [SerializeField]
+        [SerializeField, Tooltip("Hodling to pick up instructions")]
         private InteractionInstruction holdPickUpInstruction;
 
         private InventoryUI inventoryUI;
@@ -176,7 +176,10 @@ namespace TheGuarden.Players
             SelectItem(newIndex);
         }
 
-        public void EmptyInventory()
+        /// <summary>
+        /// Empty player inventory before dropping out
+        /// </summary>
+        internal void EmptyInventory()
         {
             foreach (IInventoryItem item in items)
             {

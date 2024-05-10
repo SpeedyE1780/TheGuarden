@@ -4,6 +4,10 @@ using UnityEngine.InputSystem;
 
 namespace TheGuarden.Players
 {
+    /// <summary>
+    /// PlayerController handles main player behaviors
+    /// </summary>
+    [RequireComponent(typeof(PlayerInput))]
     internal class PlayerController : MonoBehaviour
     {
         private const string PlayerActionsMap = "PlayerActions";
@@ -11,12 +15,12 @@ namespace TheGuarden.Players
 
         [SerializeField, Tooltip("Mesh that will change color base on player id")]
         private MeshRenderer playerRenderer;
-        [SerializeField]
+        [SerializeField, Tooltip("Player's inventory")]
         private PlayerInventory inventory;
-        [SerializeField]
+        [SerializeField, Tooltip("Player's input component")]
         private PlayerInput input;
-        [SerializeField]
-        private GameEvent hideMushroomUnlockedWindow;
+        [SerializeField, Tooltip("Game event raised to hide active window")]
+        private GameEvent hideActiveWindow;
 
         public PlayerInventory Inventory => inventory;
 
@@ -32,17 +36,24 @@ namespace TheGuarden.Players
             }
         }
 
-        public void OnMushroomUnlocked()
+        /// <summary>
+        /// Called from game event switch action map to hide window
+        /// </summary>
+        public void OnWindowActive()
         {
             input.SwitchCurrentActionMap(PopupWindowMap);
         }
 
-        public void OnHideMushroomUnlockedWindow(InputAction.CallbackContext context)
+        /// <summary>
+        /// Hide active window when input is pressed
+        /// </summary>
+        /// <param name="context"></param>
+        public void HideActiveWindow(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
                 input.SwitchCurrentActionMap(PlayerActionsMap);
-                hideMushroomUnlockedWindow.Raise();
+                hideActiveWindow.Raise();
             }
         }
 

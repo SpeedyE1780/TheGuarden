@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66668624a871364ba588e3184d92623, type: 3}
-  m_Name: OnMushroomWindowActive
+  m_Name: OnWindowActive
   m_EditorClassIdentifier: 
   soListeners: {fileID: 0}

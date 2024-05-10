@@ -1,6 +1,6 @@
+using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TheGuarden.Utility;
 
 namespace TheGuarden.Players
 {
@@ -14,7 +14,7 @@ namespace TheGuarden.Players
         private float speed = 5f;
         [SerializeField, Tooltip("Autofilled. Player rigidbody")]
         private Rigidbody rb;
-        [SerializeField]
+        [SerializeField, Tooltip("State toggle indicating if movement direction should be switched")]
         private StateToggle nightMovement;
 
         private Vector3 movement;
@@ -34,6 +34,7 @@ namespace TheGuarden.Players
         {
             velocity = movement * speed;
 
+            //Night camera is rotated so swizzle velocity to match camera orientation
             if (nightMovement.Toggled)
             {
                 float horizontal = velocity.x;

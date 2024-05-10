@@ -470,8 +470,7 @@ MonoBehaviour:
   playerRenderer: {fileID: 9172935641007748065}
   inventory: {fileID: 8220134511689740318}
   input: {fileID: 4519687550107306965}
-  hideMushroomUnlockedWindow: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c,
-    type: 2}
+  hideActiveWindow: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c, type: 2}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,7 +648,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7332446620996662355}
         m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
-        m_MethodName: OnMushroomUnlocked
+        m_MethodName: OnWindowActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -677,7 +676,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7332446620996662355}
         m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
-        m_MethodName: OnMushroomUnlocked
+        m_MethodName: OnWindowActive
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

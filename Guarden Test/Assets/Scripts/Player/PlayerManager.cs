@@ -1,11 +1,11 @@
+using System.Collections;
 using System.Collections.Generic;
+using TheGuarden.UI;
+using TheGuarden.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using TheGuarden.UI;
-using TheGuarden.Utility;
 using UnityEngine.InputSystem.Users;
-using System.Collections;
 
 namespace TheGuarden.Players
 {
@@ -23,17 +23,17 @@ namespace TheGuarden.Players
         private List<InventoryUI> inventoryUI;
         [SerializeField, Tooltip("List of colors for each player")]
         private List<Color> playerColors;
-        [SerializeField]
+        [SerializeField, Tooltip("State toggle indicating if player are in scene")]
         private StateToggle playersInScene;
 
         private void OnEnable()
         {
-            InputUser.onUnpairedDeviceUsed += OnUnpairDeviceUsed;
+            InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
         }
 
         private void OnDisable()
         {
-            InputUser.onUnpairedDeviceUsed -= OnUnpairDeviceUsed;
+            InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
         }
 
         /// <summary>
@@ -51,11 +51,38 @@ namespace TheGuarden.Players
             playersInScene.TurnOn();
         }
 
-        private void OnUnpairDeviceUsed(InputControl arg1, UnityEngine.InputSystem.LowLevel.InputEventPtr arg2)
+        /// <summary>
+        /// OnPlayerLeave is called from the PlayerInputManager component
+        /// </summary>
+        /// <param name="player">Player who left the game</param>
+        public void OnPlayerLeave(PlayerInput player)
         {
-            StartCoroutine(SwitchControlScheme(arg1.device));
+            if (PlayerInput.all.Count == 0)
+            {
+                playersInScene.TurnOff();
+            }
+
+            if (followCamera != null)
+            {
+                followCamera.RemoveTarget(player.transform);
+            }
         }
 
+        /// <summary>
+        /// Wait until unpaired device is used
+        /// </summary>
+        /// <param name="arg1"></param>
+        /// <param name="arg2"></param>
+        private void OnUnpairedDeviceUsed(InputControl control, UnityEngine.InputSystem.LowLevel.InputEventPtr eventPtr)
+        {
+            StartCoroutine(SwitchControlScheme(control.device));
+        }
+
+        /// <summary>
+        /// Try to switch player 1 to the unpaired device
+        /// </summary>
+        /// <param name="device">Device trying to pair to</param>
+        /// <returns></returns>
         private IEnumerator SwitchControlScheme(InputDevice device)
         {
             //Wait one frame in case this call triggers a player join in the player input manager
@@ -82,23 +109,6 @@ namespace TheGuarden.Players
             else
             {
                 GameLogger.LogError($"Unable to switch player 1 control scheme to {device.name}", this, GameLogger.LogCategory.Player);
-            }
-        }
-
-        /// <summary>
-        /// OnPlayerLeave is called from the PlayerInputManager component
-        /// </summary>
-        /// <param name="player">Player who left the game</param>
-        public void OnPlayerLeave(PlayerInput player)
-        {
-            if (PlayerInput.all.Count == 0)
-            {
-                playersInScene.TurnOff();
-            }
-
-            if (followCamera != null)
-            {
-                followCamera.RemoveTarget(player.transform);
             }
         }
 
