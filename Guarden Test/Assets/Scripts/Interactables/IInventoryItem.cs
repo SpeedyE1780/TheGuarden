@@ -67,7 +67,15 @@ namespace TheGuarden.Interactable
         /// </summary>
         public void OnInteractionCancelled();
 
+        /// <summary>
+        /// Called when item is dropped
+        /// </summary>
         public void Drop();
+
+        /// <summary>
+        /// Check if item can interact with surrounding game objects
+        /// </summary>
+        /// <returns></returns>
         public InteractionInstruction CheckForInteractable();
     }
 }

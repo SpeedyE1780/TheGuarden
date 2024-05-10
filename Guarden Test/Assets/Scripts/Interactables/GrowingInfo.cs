@@ -21,11 +21,17 @@ namespace TheGuarden
 
         internal float growthRate = 0;
 
+        /// <summary>
+        /// Called from OnDayStarted Game Event
+        /// </summary>
         public void OnDayStarted()
         {
             growthRate = peakGrowingRate;
         }
 
+        /// <summary>
+        /// Called from OnNightStarted Game Event
+        /// </summary>
         public void OnNightStarted()
         {
             growthRate = offPeakGrowingRate;

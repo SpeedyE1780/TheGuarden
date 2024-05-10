@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e21b7f6b10c9f41958d3824b154c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviors: []
+  powerUps: []
   growPlant: {fileID: 5518996527343548638}
   rb: {fileID: 7334000047881488347}
   navMeshObstacle: {fileID: 8797612134577381625}
@@ -357,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4781410716438576801}
   m_Layer: 12
-  m_Name: Behaviors
+  m_Name: PowerUps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

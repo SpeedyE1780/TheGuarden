@@ -10,7 +10,7 @@ namespace TheGuarden.Interactable.Editor
         internal static void AutofillVariables(MenuCommand command)
         {
             GrowPlant growPlant = command.context as GrowPlant;
-            RecordEditorHistory.RecordHistory(growPlant, $"Autofill {growPlant.name} GameTime", growPlant.AutofillVariables);
+            RecordEditorHistory.RecordHistory(growPlant, $"Autofill {growPlant.name} growing particles", growPlant.AutofillVariables);
         }
     }
 }
