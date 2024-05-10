@@ -299,6 +299,7 @@ namespace TheGuarden.Interactable
             growPlant.OnEnterPool();
             transform.SetParent(null);
             rb.constraints = RigidbodyConstraints.None;
+            collisionsRadius.SetActive(false);
 
             if (ItemUI != null)
             {
