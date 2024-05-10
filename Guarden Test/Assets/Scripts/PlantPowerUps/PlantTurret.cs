@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {

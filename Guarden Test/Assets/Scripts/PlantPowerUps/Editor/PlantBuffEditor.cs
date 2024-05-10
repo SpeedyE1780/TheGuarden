@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace TheGuarden.PlantPowerUps.Editor
+namespace TheGuarden.PlantPowerUps.Buffs.Editor
 {
     public class PlantBuffEditor
     {

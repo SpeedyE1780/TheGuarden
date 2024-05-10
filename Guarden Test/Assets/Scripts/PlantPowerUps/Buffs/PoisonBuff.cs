@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using TheGuarden.Utility;
 using UnityEngine;
 
-namespace TheGuarden.PlantPowerUps
+namespace TheGuarden.PlantPowerUps.Buffs
 {
+    /// <summary>
+    /// Poison Buff will apply damage periodically
+    /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Plant Power Ups/Buffs/Damage")]
     internal class PoisonBuff : BuffModifier
     {
@@ -15,12 +18,20 @@ namespace TheGuarden.PlantPowerUps
 
         private List<int> activeBuffs = new List<int>();
 
+        /// <summary>
+        /// Start Poison damage coroutine on buff
+        /// </summary>
+        /// <param name="buff">IBuff who entered the trigger</param>
         internal override void ApplyBuff(IBuff buff)
         {
             buff.StartCoroutine(PoisonDamage(buff));
             activeBuffs.Add(buff.Agent.GetInstanceID());
         }
 
+        /// <summary>
+        /// Remove buff from active list
+        /// </summary>
+        /// <param name="buff">IBuff who exited the trigger</param>
         internal override void RemoveBuff(IBuff buff)
         {
             int id = buff.Agent.GetInstanceID();
@@ -28,6 +39,11 @@ namespace TheGuarden.PlantPowerUps
             GameLogger.LogInfo($"{buff.Agent.name} poison buff removed", this, GameLogger.LogCategory.PlantPowerUp);
         }
 
+        /// <summary>
+        /// Apply poison damage while buff is in active list
+        /// </summary>
+        /// <param name="buff">Buff who is being poisoned</param>
+        /// <returns></returns>
         private IEnumerator PoisonDamage(IBuff buff)
         {
             int id = buff.Agent.GetInstanceID();

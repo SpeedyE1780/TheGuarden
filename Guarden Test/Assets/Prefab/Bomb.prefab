@@ -66,7 +66,7 @@ PrefabInstance:
     - target: {fileID: 3445580339630339015, guid: 01a94670fe5649643847188ec1b18817,
         type: 3}
       propertyPath: m_Name
-      value: InstaKill
+      value: Bomb
       objectReference: {fileID: 0}
     - target: {fileID: 3445580339630339015, guid: 01a94670fe5649643847188ec1b18817,
         type: 3}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af9be1608a34e64bac5d2c96a8f6635, type: 3}
+  m_Script: {fileID: 11500000, guid: 81645d7aeae943b46b61cdd768bec78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &5887796085652437445 stripped
@@ -127,7 +127,7 @@ PrefabInstance:
     - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_Name
-      value: Insta Kill
+      value: Bomb
       objectReference: {fileID: 0}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78998480c7d927b46ab4d43e36e00d6c, type: 3}
-  m_Name: Return
+  m_Name: Rewind
   m_EditorClassIdentifier: 
   mushroomName: Rewind
   mushroomDescription: Will make enemies rewind their path

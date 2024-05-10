@@ -33,17 +33,19 @@ namespace TheGuarden.Interactable
         private InteractionInstruction waterPlantBedInstruction;
         [SerializeField, Tooltip("Interatction shown when near plant bed and empty bucket")]
         private InteractionInstruction missingWaterInstruction;
+        [SerializeField, Tooltip("Bucket Icon")]
+        private Sprite icon;
 
         private int remainingUses = 0;
         private VisualEffect splash;
         private Collider[] lakeCollider = new Collider[1];
         private Collider[] plantBedCollider = new Collider[1];
 
-        public string Name => name;
+        public string Name => "Bucket";
         public float UsabilityPercentage => remainingUses / (float)maxUses;
         public ItemUI ItemUI { get; set; }
         public bool HasInstantPickUp => true;
-        public Sprite Icon => null;
+        public Sprite Icon => icon;
 
         private void Start()
         {

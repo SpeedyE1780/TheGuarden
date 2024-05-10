@@ -1,7 +1,7 @@
-using UnityEngine;
 using TheGuarden.Utility;
+using UnityEngine;
 
-namespace TheGuarden.PlantPowerUps
+namespace TheGuarden.PlantPowerUps.Behaviors
 {
     /// <summary>
     /// Parent class of plants that alter behavior once IBehavior enters them

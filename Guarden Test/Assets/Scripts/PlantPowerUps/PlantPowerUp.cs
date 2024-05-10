@@ -10,7 +10,7 @@ namespace TheGuarden.PlantPowerUps
     {
         [SerializeField, Tooltip("Power up configuration")]
         private PowerUpConfiguration configuration;
-        [SerializeField, Tooltip("Collider used to check if animal entered/exited trigger")]
+        [SerializeField, Tooltip("Collider used to check if enemy entered/exited trigger")]
         private SphereCollider powerUpCollider;
 
         protected float Range => configuration.powerUpRange;

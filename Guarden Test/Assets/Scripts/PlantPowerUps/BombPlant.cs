@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace TheGuarden.PlantPowerUps
 {
-    public class PlantInstaKill : PlantPowerUp
+    /// <summary>
+    /// BombPlant explodes when enemy enters trigger
+    /// </summary>
+    internal class BombPlant : PlantPowerUp
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Delay before explosion")]
         private float delay = 0.0f;
-        [SerializeField]
+        [SerializeField, Tooltip("Mushrooms health component")]
         private Health mushroomHealth;
 
         private void OnTriggerEnter(Collider other)
@@ -22,6 +25,9 @@ namespace TheGuarden.PlantPowerUps
             }
         }
 
+        /// <summary>
+        /// Get all enemy in range and kill them
+        /// </summary>
         private void ActivateKill()
         {
             Collider[] enemyColliders = Physics.OverlapSphere(transform.position, Range, AffectedLayer);
@@ -30,7 +36,7 @@ namespace TheGuarden.PlantPowerUps
             {
                 GameLogger.LogInfo($"Insta kill destroying {enemyCollider.name}", this, GameLogger.LogCategory.PlantPowerUp);
 
-                if (enemyCollider.TryGetComponent<Health>(out Health enemyHealth))
+                if (enemyCollider.TryGetComponent(out Health enemyHealth))
                 {
                     enemyHealth.Kill();
                 }

@@ -1,5 +1,6 @@
 using System.Collections;
-using TheGuarden.PlantPowerUps;
+using TheGuarden.PlantPowerUps.Behaviors;
+using TheGuarden.PlantPowerUps.Buffs;
 using TheGuarden.Utility;
 using TheGuarden.Utility.Events;
 using UnityEngine;
