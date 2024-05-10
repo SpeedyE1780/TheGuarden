@@ -28,6 +28,8 @@ namespace TheGuarden.Players
         private InteractionInstruction pressPickUpInstruction;
         [SerializeField, Tooltip("Hodling to pick up instructions")]
         private InteractionInstruction holdPickUpInstruction;
+        [SerializeField, Tooltip("Drop item instructions")]
+        private InteractionInstruction dropInstruction;
         [SerializeField, Tooltip("Player bucket added to inventory on start")]
         private Bucket bucket;
 
@@ -37,6 +39,8 @@ namespace TheGuarden.Players
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
         private bool showPickUpInstruction = false;
+
+        private bool InventoryFull => items.Count == inventorySize;
 
         private void Start()
         {
@@ -105,8 +109,15 @@ namespace TheGuarden.Players
         /// <param name="context">Input context</param>
         public void OnPickUp(InputAction.CallbackContext context)
         {
-            if (currentPickUp == null || context.canceled || items.Count == inventorySize)
+            if (currentPickUp == null || context.canceled)
             {
+
+                return;
+            }
+
+            if (InventoryFull)
+            {
+                GameLogger.LogWarning("Inventory full can't pick up additional items", this, GameLogger.LogCategory.Player);
                 return;
             }
 
@@ -248,8 +259,15 @@ namespace TheGuarden.Players
                     showPickUpInstruction = true;
                 }
 
-                string pickUpInstruction = currentPickUp.HasInstantPickUp ? pressPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme) : holdPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme);
-                onInstructions.Raise(pickUpInstruction);
+                if (InventoryFull)
+                {
+                    onInstructions.Raise(dropInstruction.GetInstructionMessage(playerInput.currentControlScheme));
+                }
+                else
+                {
+                    string pickUpInstruction = currentPickUp.HasInstantPickUp ? pressPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme) : holdPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme);
+                    onInstructions.Raise(pickUpInstruction);
+                }
             }
         }
 
