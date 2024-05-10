@@ -19,7 +19,7 @@ namespace TheGuarden.PlantPowerUps
 
         private void Update()
         {
-            if (Target == null)
+            if (!Target.gameObject.activeSelf)
             {
                 pool.AddObject(this);
                 return;

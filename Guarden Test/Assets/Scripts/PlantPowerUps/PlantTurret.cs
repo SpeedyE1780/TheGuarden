@@ -47,7 +47,7 @@ namespace TheGuarden.PlantPowerUps
         {
             GameLogger.LogInfo($"{name} targeting {targetEnemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
 
-            while (targetEnemy != null)
+            while (targetEnemy != null && targetEnemy.gameObject.activeSelf)
             {
                 Projectile projectile = projectilePool.GetPooledObject();
                 projectile.transform.SetPositionAndRotation(shootPoint.position, shootPoint.rotation);
@@ -59,6 +59,8 @@ namespace TheGuarden.PlantPowerUps
                     targetEnemy = null;
                 }
             }
+
+            targetEnemy = null;
         }
     }
 }
