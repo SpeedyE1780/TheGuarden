@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace TheGuarden.UI
 {
@@ -46,6 +46,9 @@ namespace TheGuarden.UI
         }
         private string Date => $"{DayName}, The {DayOfMonth} Of {MonthName}, {year}";
 
+        /// <summary>
+        /// Called from game event increment current day
+        /// </summary>
         public void UpdateDate()
         {
             day += 1;

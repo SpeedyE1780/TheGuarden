@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheGuarden.UI
 {
-    public class AnimalTracker : MonoBehaviour
+    internal class AnimalTracker : MonoBehaviour
     {
         [SerializeField, Tooltip("Tracker text")]
         private TextMeshProUGUI text;

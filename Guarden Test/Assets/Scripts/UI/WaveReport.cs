@@ -5,46 +5,64 @@ using UnityEngine;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// WaveReport showing wave stats
+    /// </summary>
     public class WaveReport : MonoBehaviour
     {
-        [SerializeField]
+        [SerializeField, Tooltip("Report window")]
         private GameObject reportWindow;
-        [SerializeField]
+        [SerializeField, Tooltip("Cows kidnapped stat text")]
         private TextMeshProUGUI cowsKidnappedText;
-        [SerializeField]
+        [SerializeField, Tooltip("Enemies killed stat text")]
         private TextMeshProUGUI enemiesKilledText;
-        [SerializeField]
-        private GameEvent onShowInstructions;
+        [SerializeField, Tooltip("Game Event raised when window is active")]
+        private GameEvent onWindowActive;
 
         int cowsKidnapped = 0;
         int enemiesKilled = 0;
 
+        /// <summary>
+        /// Reset wave stats
+        /// </summary>
         public void OnNightStarted()
         {
             enemiesKilled = 0;
             cowsKidnapped = 0;
         }
 
+        /// <summary>
+        /// Increment enemies killed
+        /// </summary>
         public void OnEnemyKilled()
         {
             enemiesKilled += 1;
         }
 
+        /// <summary>
+        /// Increment cows kidnapped
+        /// </summary>
         public void OnCowKidnapped()
         {
             cowsKidnapped += 1;
         }
 
+        /// <summary>
+        /// Show report when wave ends and pause game
+        /// </summary>
         public void OnWaveEnded()
         {
             GameLogger.LogInfo("Show Wave Report", this, GameLogger.LogCategory.UI);
-            onShowInstructions.Raise();
+            onWindowActive.Raise();
             Time.timeScale = 0.0f;
             cowsKidnappedText.text = $"Cows Kidnapped: {cowsKidnapped}";
             enemiesKilledText.text = $"Enemies Killed: {enemiesKilled}";
             reportWindow.SetActive(true);
         }
 
+        /// <summary>
+        /// Hide window when active and resume game
+        /// </summary>
         public void OnHideWindow()
         {
             if (reportWindow.activeSelf)

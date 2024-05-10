@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// AudioSlider updates the selected audio mixer parameter
+    /// </summary>
     [RequireComponent(typeof(Slider))]
-    public class AudioSlider : MonoBehaviour
+    internal class AudioSlider : MonoBehaviour
     {
         [SerializeField, Tooltip("Targeted Audio Mixer")]
         private AudioMixer audioMixer;

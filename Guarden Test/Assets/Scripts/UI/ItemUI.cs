@@ -1,7 +1,7 @@
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using TheGuarden.Utility;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace TheGuarden.UI
 {
@@ -14,9 +14,9 @@ namespace TheGuarden.UI
         private TMP_Text nameText;
         [SerializeField, Tooltip("Item progress slider")]
         private Slider progressSlider;
-        [SerializeField]
+        [SerializeField, Tooltip("Item image")]
         private Image itemImage;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool this item is returned to")]
         private ObjectPool<ItemUI> pool;
 
         private InventoryUI inventoryUI;
@@ -68,11 +68,17 @@ namespace TheGuarden.UI
             nameText.color = Color.white;
         }
 
+        /// <summary>
+        /// Return this item to pool
+        /// </summary>
         public void ReturnToPool()
         {
             pool.AddObject(this);
         }
 
+        /// <summary>
+        /// Reset state befor entering pool
+        /// </summary>
         public void OnEnterPool()
         {
             inventoryUI.RemoveItem(this);
@@ -82,6 +88,9 @@ namespace TheGuarden.UI
             nameText.color = Color.white;
         }
 
+        /// <summary>
+        /// Reset state when exiting pool
+        /// </summary>
         public void OnExitPool()
         {
             gameObject.SetActive(true);

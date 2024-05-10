@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheGuarden.Achievements;
 using TMPro;
 using UnityEngine;
-using TheGuarden.Achievements;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// Popup window shown when achievement is completed
+    /// </summary>
     internal class AchievementPopUp : MonoBehaviour
     {
         [SerializeField, Tooltip("PopUpWindow")]

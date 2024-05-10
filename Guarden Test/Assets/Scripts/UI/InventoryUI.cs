@@ -13,7 +13,7 @@ namespace TheGuarden.UI
         private ItemUI itemPrefab;
         [SerializeField, Tooltip("Parent containing all itemsUIs")]
         private Transform itemParents;
-        [SerializeField]
+        [SerializeField, Tooltip("Pool from which itemUI are retrieved")]
         private ObjectPool<ItemUI> pool;
 
         private List<ItemUI> items = new List<ItemUI>();
@@ -40,6 +40,9 @@ namespace TheGuarden.UI
             items.Remove(item);
         }
 
+        /// <summary>
+        /// Clear inventory once player leaves game
+        /// </summary>
         public void OnPlayerLeft()
         {
             for (int i = items.Count - 1; i >= 0; i--)

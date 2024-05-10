@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace TheGuarden.UI
 {
+    /// <summary>
+    /// Mushroom tutorial window explaining what the mushroom does
+    /// </summary>
     public class MushroomUnlockedWindow : MonoBehaviour
     {
         [SerializeField, Tooltip("Window")]
@@ -16,15 +19,19 @@ namespace TheGuarden.UI
         private TextMeshProUGUI mushroomName;
         [SerializeField, Tooltip("Mushroom Description")]
         private TextMeshProUGUI mushroomDescription;
-        [SerializeField]
+        [SerializeField, Tooltip("Mushroom Icon")]
         private Image mushroomIcon;
-        [SerializeField]
+        [SerializeField, Tooltip("Game Event raised when window is active")]
         private GameEvent mushroomWindowActive;
 
         private List<MushroomInfo> mushroomList = new List<MushroomInfo>();
         private HashSet<MushroomInfo> unlockedMushrooms = new HashSet<MushroomInfo>();
         private bool hideWindow = false;
 
+        /// <summary>
+        /// Called when new mushroom is unlocked
+        /// </summary>
+        /// <param name="mushroom">Unlocked mushroom info</param>
         public void OnMushroomUnlocked(MushroomInfo mushroom)
         {
             if (!unlockedMushrooms.Contains(mushroom))
@@ -38,6 +45,10 @@ namespace TheGuarden.UI
             }
         }
 
+        /// <summary>
+        /// Called when mushroom is picked up
+        /// </summary>
+        /// <param name="mushroom">Picked up mushroom info</param>
         public void ShowMushroomTutorial(MushroomInfo mushroom)
         {
             if (mushroomList.Contains(mushroom))
@@ -46,6 +57,11 @@ namespace TheGuarden.UI
             }
         }
 
+        /// <summary>
+        /// Pause game and show mushroom tutorial
+        /// </summary>
+        /// <param name="mushroom">Mushroom info shown in tutorial</param>
+        /// <returns></returns>
         private IEnumerator PopUp(MushroomInfo mushroom)
         {
             mushroomWindowActive.Raise();
@@ -61,6 +77,9 @@ namespace TheGuarden.UI
             Time.timeScale = 1;
         }
 
+        /// <summary>
+        /// Called when hide input is pressed
+        /// </summary>
         public void HideWindow()
         {
             hideWindow = true;
