@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine.VFX;
-using UnityEngine.Events;
 
 namespace TheGuarden.Enemies
 {
@@ -12,14 +12,19 @@ namespace TheGuarden.Enemies
     /// </summary>
     public class EnemySpawner : MonoBehaviour
     {
+        [System.Serializable]
+        private class WaveConfig
+        {
+            [SerializeField]
+            internal int days;
+            [SerializeField]
+            internal Wave wave;
+        }
+
         [SerializeField, Tooltip("Position where enemies will be spawned")]
         private Transform spawnPoint;
         [SerializeField, Tooltip("List of paths enemies can take")]
         private List<EnemyPath> paths;
-        [SerializeField, Tooltip("Delay between each enemy spawning")]
-        private float spawningDelay;
-        [SerializeField, Tooltip("Enemy Prefab")]
-        private Enemy enemyPrefab;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("UFO transform that moves it in the scene")]
@@ -28,29 +33,27 @@ namespace TheGuarden.Enemies
         private VisualEffect ufo;
         [SerializeField, Tooltip("UFO movement speed")]
         private float ufoSpeed = 75.0f;
-        [SerializeField, Tooltip("Number of enemies spawned per ufo trip")]
-        private int enemyCount = 3;
+        [SerializeField, Tooltip("Wave of enemies spawned")]
+        private List<WaveConfig> waveConfigs;
+        [SerializeField, Tooltip("List of all enemies in scene")]
+        private EnemySet enemySet;
+        [SerializeField]
+        private GameEvent onWaveEnded;
+        [SerializeField]
+        private float healthMultiplier = 0.5f;
+        [SerializeField]
+        private ExposedProperty onSucking;
+        [SerializeField]
+        private ExposedProperty onFinishSucking;
 
-        private List<GameObject> spawnedEnemies = new List<GameObject>();
+        private float currentHealthMultiplier = 1.0f;
+        private int currentWaveConfig = 0;
 
-        public UnityEvent OnWaveCompleted;
-        public UnityEvent OnEnemyReachedShed;
+        private WaveConfig CurrentWave => waveConfigs[currentWaveConfig];
 
 #if UNITY_EDITOR
         internal List<EnemyPath> Paths => paths;
 #endif
-
-        private void OnEnable()
-        {
-            DayLightCycle.OnNightStarted += StartSpawning;
-            DayLightCycle.OnWaveEnded += OnWaveCompleted.Invoke;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnNightStarted -= StartSpawning;
-            DayLightCycle.OnWaveEnded -= OnWaveCompleted.Invoke;
-        }
 
         /// <summary>
         /// Start Spawning coroutine
@@ -58,6 +61,7 @@ namespace TheGuarden.Enemies
         public void StartSpawning()
         {
             StartCoroutine(SpawnEnemies());
+            currentHealthMultiplier += healthMultiplier;
         }
 
         /// <summary>
@@ -77,17 +81,15 @@ namespace TheGuarden.Enemies
             }
         }
 
-        private void SpawnEnemy()
+        private void UpdateCurrentWave()
         {
-            Enemy enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-            enemy.SetPath(paths.GetRandomItem());
-            enemy.OnDestroyed = (enemyObject) =>
+            CurrentWave.days -= 1;
+
+            if (CurrentWave.days <= 0 && currentWaveConfig < waveConfigs.Count - 1)
             {
-                spawnedEnemies.Remove(enemyObject);
-                OnEnemyReachedShed.Invoke();
-            };
-            spawnedEnemies.Add(enemy.gameObject);
-            GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
+                currentWaveConfig += 1;
+                GameLogger.LogInfo($"{name} switching to {CurrentWave.wave.name} wave", this, GameLogger.LogCategory.Enemy);
+            }
         }
 
         /// <summary>
@@ -103,23 +105,29 @@ namespace TheGuarden.Enemies
 
             yield return MoveUFO(spawnPoint.position);
             ufo.Play();
-            ufo.SendEvent("OnSucking");
+            ufo.SendEvent(onSucking.PropertyID);
 
-            for (int i = 0; i < enemyCount; i++)
+            SpawnConfiguration configuration = new SpawnConfiguration()
             {
-                yield return new WaitForSeconds(spawningDelay);
-                SpawnEnemy();
-            }
+                paths = paths,
+                position = spawnPoint.position,
+                rotation = spawnPoint.rotation,
+                healthMultiplier = currentHealthMultiplier,
+            };
 
-            ufo.SendEvent("OnFinishSucking");
+            yield return CurrentWave.wave.SpawnWave(configuration);
+
+            ufo.SendEvent(onFinishSucking.PropertyID);
             followCamera.RemoveTarget(ufoTransform);
             yield return MoveUFO(endPosition);
 
             ufo.Stop();
             ufoTransform.gameObject.SetActive(false);
 
-            yield return new WaitUntil(() => spawnedEnemies.Count == 0);
-            DayLightCycle.EnemyWaveEnded();
+            yield return new WaitUntil(() => enemySet.Count == 0);
+
+            UpdateCurrentWave();
+            onWaveEnded.Raise();
         }
 
 #if UNITY_EDITOR

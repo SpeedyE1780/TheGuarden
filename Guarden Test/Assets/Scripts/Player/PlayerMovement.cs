@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TheGuarden.Utility;
 
 namespace TheGuarden.Players
 {
@@ -13,6 +14,8 @@ namespace TheGuarden.Players
         private float speed = 5f;
         [SerializeField, Tooltip("Autofilled. Player rigidbody")]
         private Rigidbody rb;
+        [SerializeField]
+        private StateToggle nightMovement;
 
         private Vector3 movement;
         private Vector3 velocity;
@@ -29,13 +32,23 @@ namespace TheGuarden.Players
 
         private void Update()
         {
-            if (movement != Vector3.zero)
+            velocity = movement * speed;
+
+            if (nightMovement.Toggled)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(movement);
+                float horizontal = velocity.x;
+                float vertical = velocity.z;
+
+                velocity.x = vertical;
+                velocity.z = -horizontal;
+            }
+
+            if (velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(velocity);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
 
-            velocity = movement * speed;
             velocity.y = rb.velocity.y;
             rb.velocity = velocity;
         }

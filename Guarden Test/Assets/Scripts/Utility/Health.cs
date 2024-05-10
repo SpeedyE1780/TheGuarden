@@ -7,27 +7,31 @@ namespace TheGuarden.Utility
     /// </summary>
     public class Health : MonoBehaviour
     {
-        [SerializeField, Tooltip("Maximum Health")]
-        private int maxHealth;
+        public delegate void OutOfHealth();
 
-        private int health;
+        [SerializeField, Tooltip("Maximum Health")]
+        private float maxHealth;
+
+        private float currentMaxHealth;
+        private float health;
+        public OutOfHealth OnOutOfHealth { get; set; }
 
         private void Start()
         {
-            health = maxHealth;
+            ResetHealth();
         }
 
         /// <summary>
         /// Damage player and destroy if health <= 0
         /// </summary>
         /// <param name="damage">Damage received</param>
-        public void Damage(int damage)
+        public void Damage(float damage)
         {
             health -= damage;
 
-            if (health <= 0)
+            if (health <= 0.0f)
             {
-                Destroy(gameObject);
+                OnOutOfHealth();
             }
         }
 
@@ -35,9 +39,31 @@ namespace TheGuarden.Utility
         /// Heal player
         /// </summary>
         /// <param name="heal">Health received</param>
-        public void Heal(int heal)
+        public void Heal(float heal)
         {
-            health = Mathf.Clamp(health + heal, 0, maxHealth);
+            health = Mathf.Clamp(health + heal, 0.0f, currentMaxHealth);
+        }
+
+        public void ResetHealth()
+        {
+            currentMaxHealth = maxHealth;
+            health = currentMaxHealth;
+        }
+
+        public void Kill()
+        {
+            Damage(health);
+        }
+
+        public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
+        {
+            currentMaxHealth = maxHealth * multiplier;
+            GameLogger.LogInfo($"{name} max health now is {currentMaxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
+
+            if (updateHealth)
+            {
+                health = currentMaxHealth;
+            }
         }
     }
 }

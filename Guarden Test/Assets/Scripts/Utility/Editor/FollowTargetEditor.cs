@@ -5,11 +5,17 @@ namespace TheGuarden.Utility.Editor
 {
     public class FollowTargetEditor
     {
-        [DrawGizmo(GizmoType.InSelectionHierarchy)]
+        [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(FollowTarget followTarget, GizmoType type)
         {
-            Mesh cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
-            Gizmos.DrawMesh(cube, followTarget.DefaultTargetPosition + Vector3.up * 0.5f);
+            if (type == GizmoType.InSelectionHierarchy)
+            {
+                Mesh cube = Resources.GetBuiltinResource<Mesh>("Cube.fbx");
+                Gizmos.DrawMesh(cube, followTarget.DefaultTargetPosition + Vector3.up * 0.5f);
+            }
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireCube(followTarget.Bounds.center, followTarget.Bounds.size);
         }
 
         [MenuItem("CONTEXT/FollowTarget/Calculate Offset")]

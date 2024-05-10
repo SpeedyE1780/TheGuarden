@@ -134,7 +134,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8062121946189806746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.617, z: 1.315}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vfx: {fileID: 4011078326277615359}
-  velocityParam: Velocity
-  spawnParam: Spawn
+  velocityParam: {fileID: 11400000, guid: 4f8edb85f97004641be2ee94c2401b05, type: 2}
+  spawnParam: {fileID: 11400000, guid: 629d312818c9e5b4f96d9228d7f4bbb6, type: 2}
   rb: {fileID: 5394329849608207086}
 --- !u!1 &8624806574159695145
 GameObject:
@@ -364,6 +364,8 @@ GameObject:
   - component: {fileID: 7332446620996662355}
   - component: {fileID: 4519687550107306965}
   - component: {fileID: 2445950737267009821}
+  - component: {fileID: -5085773385672959237}
+  - component: {fileID: 6008480904195809278}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -429,8 +431,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4f326bdf366364ba4ce21d6550544b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryUI: {fileID: 0}
   inventoryPoint: {fileID: 7284881402961356843}
+  onInstructions: {fileID: 11400000, guid: f798b268001669441be80afec6ad2ee6, type: 2}
+  onHideInstructions: {fileID: 11400000, guid: e6f22a3ab4c46d0409175cc454963e01, type: 2}
+  playerInput: {fileID: 4519687550107306965}
+  pressPickUpInstruction: {fileID: 11400000, guid: a1281176dab7ab343b88bd55ed5adaa7,
+    type: 2}
+  holdPickUpInstruction: {fileID: 11400000, guid: 1e01f4574ed7a3c4da259e8feb2e3beb,
+    type: 2}
 --- !u!114 &8646316663285618983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,6 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rb: {fileID: 5394329849608207086}
+  nightMovement: {fileID: 11400000, guid: 2a2c2e338943d6d40bada1f448076379, type: 2}
 --- !u!114 &7332446620996662355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +467,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 9172935641007748065}
+  inventory: {fileID: 8220134511689740318}
+  input: {fileID: 4519687550107306965}
+  hideMushroomUnlockedWindow: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c,
+    type: 2}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,6 +593,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 09eae8b4-5f38-46c1-87cb-35cffcec63c5
     m_ActionName: PlayerActions/PreviousItem[/Keyboard/leftShift,/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnHideMushroomUnlockedWindow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b2e214f0-741c-4cb2-8bce-4a72de77f69f
+    m_ActionName: PopupWindow/HideWindow[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions
@@ -601,3 +630,59 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &-5085773385672959237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnMushroomUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6008480904195809278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096293998003245730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: OnMushroomUnlocked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

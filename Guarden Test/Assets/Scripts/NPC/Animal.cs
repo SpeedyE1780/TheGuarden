@@ -8,7 +8,7 @@ namespace TheGuarden.NPC
     /// Animal represents the animals wandering around the scene
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent), typeof(Rigidbody), typeof(Collider))]
-    public class Animal : MonoBehaviour
+    public class Animal : MonoBehaviour, IPoolObject
     {
         internal static Transform Shed { get; set; }
 
@@ -31,15 +31,11 @@ namespace TheGuarden.NPC
 
         private void OnEnable()
         {
-            DayLightCycle.OnDayStarted += ExitShed;
-            DayLightCycle.OnNightStarted += HideInShed;
             spawnedAnimals.Add(this);
         }
 
         private void OnDisable()
         {
-            DayLightCycle.OnDayStarted -= ExitShed;
-            DayLightCycle.OnNightStarted -= HideInShed;
             spawnedAnimals.Remove(this);
         }
 
@@ -56,12 +52,12 @@ namespace TheGuarden.NPC
             rb.velocity = agent.velocity;
         }
 
-        private void ExitShed()
+        public void ExitShed()
         {
             hiding = false;
         }
 
-        private void HideInShed()
+        public void HideInShed()
         {
             SetDestination(Shed.position);
             hiding = true;
@@ -74,6 +70,17 @@ namespace TheGuarden.NPC
         internal void SetDestination(Vector3 destination)
         {
             agent.SetDestination(destination);
+        }
+
+        public void OnEnterPool()
+        {
+            gameObject.SetActive(false);
+            hiding = false;
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
         }
 
 #if UNITY_EDITOR

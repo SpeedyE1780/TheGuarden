@@ -1,20 +1,23 @@
+using TheGuarden.Interactable;
 using UnityEngine;
+using TheGuarden.Utility;
 
 namespace TheGuarden.NPC
 {
     /// <summary>
     /// DeliveryItem wraps gameobject to spawn and determine when its unlocked
     /// </summary>
-    [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Item")]
-    internal class DeliveryItem : ScriptableObject
+    internal abstract class DeliveryItem<T> : ScriptableObject where T : Object, IPoolObject
     {
         [SerializeField, Tooltip("GameObject to spawn")]
-        internal GameObject item;
+        internal ObjectPool<T> item;
         [SerializeField, Tooltip("Days before item is unlocked")]
         private int daysToUnlock = 0;
 
         internal bool IsUnlocked => daysToUnlock <= 0;
         private int lastFrame = 0;
+
+        public abstract void OnUnlocked();
 
         /// <summary>
         /// Decrement daysToUnlock

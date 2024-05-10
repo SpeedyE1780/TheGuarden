@@ -49,13 +49,12 @@ namespace TheGuarden.PlantPowerUps
                 return;
             }
 
-            modifier.RemoveAndRemoveBuff(buff);
+            modifier.RemoveAndClearBuff(buff);
         }
 
         private void OnDisable()
         {
             GameLogger.LogInfo($"{name} picked up removing buff from affected objects", this, GameLogger.LogCategory.PlantPowerUp);
-
             modifier.RemoveAllBuff();
         }
     }

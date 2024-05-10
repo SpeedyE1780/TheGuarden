@@ -119,6 +119,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 310434028874281703, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: maxHealth
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2236016672227850794, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -127,13 +132,25 @@ PrefabInstance:
     - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_Name
-      value: Mushroom Damage
+      value: Damage Mushroom
       objectReference: {fileID: 0}
     - target: {fileID: 6490151955704539681, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: pool
+      value: 
+      objectReference: {fileID: 11400000, guid: 778987801bdec6b43b05be1564522a48,
+        type: 2}
+    - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: mushroomInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 16cb7bc9d4fc74f48ab18afaef04608a,
+        type: 2}
     - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: behaviors.Array.size

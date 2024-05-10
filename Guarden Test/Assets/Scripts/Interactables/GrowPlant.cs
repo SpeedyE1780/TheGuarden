@@ -1,32 +1,36 @@
 using UnityEngine;
-using UnityEngine.Events;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
 {
     /// <summary>
     /// GrowPlant controls the mushroom growing speed
     /// </summary>
-    internal class GrowPlant : MonoBehaviour
+    internal class GrowPlant : MonoBehaviour, IPoolObject
     {
-        private static readonly int Growing = Shader.PropertyToID("OnGrowing");
-        private static readonly int StopGrowing = Shader.PropertyToID("OnStopGrowing");
-        private static readonly int FullyGrown = Shader.PropertyToID("OnFullyGrown");
-
         [SerializeField, Tooltip("All growing related info")]
         private GrowingInfo growingInfo;
         [SerializeField, Tooltip("Autofilled. Particle system played while plant grows")]
         private VisualEffect growingParticles;
-
-        public UnityEvent OnFullyGrown;
+        [SerializeField]
+        private Transform growingTransform;
+        [SerializeField]
+        private GameEvent onFullyGrown;
+        [SerializeField]
+        private ExposedProperty onGrowingProperty;
+        [SerializeField]
+        private ExposedProperty onStopGrowingProperty;
+        [SerializeField]
+        private ExposedProperty onFullyGrownProperty;
 
         private Vector3 targetGrowth = Vector3.zero;
         private bool isGrowing = false;
         private PlantSoil soil;
 
-        public bool IsFullyGrown => transform.localScale == growingInfo.maxSize;
-        public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, transform.localScale);
+        public bool IsFullyGrown => growingTransform.localScale == growingInfo.maxSize;
+        public float GrowthPercentage => MathExtensions.InverseLerp(growingInfo.startSize, growingInfo.maxSize, growingTransform.localScale);
         private bool IsGrowing => !IsFullyGrown && soil != null && soil.DryWetRatio >= growingInfo.minimumDryWetRatio;
 
 #if UNITY_EDITOR
@@ -37,11 +41,11 @@ namespace TheGuarden.Interactable
         {
             if (IsGrowing)
             {
-                targetGrowth.x = Mathf.Clamp(transform.localScale.x + (growingInfo.growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
-                targetGrowth.y = Mathf.Clamp(transform.localScale.y + (growingInfo.growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
-                targetGrowth.z = Mathf.Clamp(transform.localScale.z + (growingInfo.growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
+                targetGrowth.x = Mathf.Clamp(growingTransform.localScale.x + (growingInfo.growthRate * growingInfo.startSize.x), 0, growingInfo.maxSize.x);
+                targetGrowth.y = Mathf.Clamp(growingTransform.localScale.y + (growingInfo.growthRate * growingInfo.startSize.y), 0, growingInfo.maxSize.y);
+                targetGrowth.z = Mathf.Clamp(growingTransform.localScale.z + (growingInfo.growthRate * growingInfo.startSize.z), 0, growingInfo.maxSize.z);
 
-                transform.localScale = Vector3.MoveTowards(transform.localScale, targetGrowth, Time.deltaTime * growingInfo.growthRate);
+                growingTransform.localScale = Vector3.MoveTowards(growingTransform.localScale, targetGrowth, Time.deltaTime * growingInfo.growthRate);
             }
         }
 
@@ -50,20 +54,20 @@ namespace TheGuarden.Interactable
             if (isGrowing && IsFullyGrown)
             {
                 isGrowing = false;
-                growingParticles.SendEvent(StopGrowing);
-                growingParticles.SendEvent(FullyGrown);
-                OnFullyGrown?.Invoke();
+                growingParticles.SendEvent(onStopGrowingProperty.PropertyID);
+                growingParticles.SendEvent(onFullyGrownProperty.PropertyID);
+                onFullyGrown.Raise();
             }
 
             if (IsGrowing && !isGrowing)
             {
                 isGrowing = true;
-                growingParticles.SendEvent(Growing);
+                growingParticles.SendEvent(onGrowingProperty.PropertyID);
             }
             else if (!IsGrowing && isGrowing)
             {
                 isGrowing = false;
-                growingParticles.SendEvent(StopGrowing);
+                growingParticles.SendEvent(onStopGrowingProperty.PropertyID);
             }
         }
 
@@ -93,19 +97,19 @@ namespace TheGuarden.Interactable
             growingParticles.Play();
         }
 
-#if UNITY_EDITOR
-        internal Transform GetBehaviorParent()
+        public void OnEnterPool()
         {
-            Transform behaviorParent = transform.Find("Behaviors");
-
-            if (behaviorParent == null)
-            {
-                GameLogger.LogError("GrowPlant doesn't have Behaviors child", this, GameLogger.LogCategory.Scene);
-            }
-
-            return behaviorParent;
+            growingTransform.localScale = growingInfo.startSize;
+            isGrowing = false;
+            soil = null;
+            growingParticles.Stop();
         }
 
+        public void OnExitPool()
+        {
+        }
+
+#if UNITY_EDITOR
         internal void AutofillVariables()
         {
             growingParticles = GetComponentInChildren<VisualEffect>();

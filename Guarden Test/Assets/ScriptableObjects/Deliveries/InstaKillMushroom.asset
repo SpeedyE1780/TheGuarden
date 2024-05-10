@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfb0965b3a71f0488b844c7da7a2f44, type: 3}
+  m_Name: InstaKillMushroom
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 3839dfd4f6bc6c34b8f0636f0ac1b21e, type: 2}
+  daysToUnlock: 5
+  mushroomInfo: {fileID: 11400000, guid: e23866175c9edde4b8c42f467808e5ab, type: 2}
+  unlockedMushroom: {fileID: 11400000, guid: 47c3407ed6cd193449e7e6a8d3ef41ba, type: 2}

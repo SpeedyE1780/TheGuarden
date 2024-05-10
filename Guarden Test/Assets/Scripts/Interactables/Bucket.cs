@@ -2,7 +2,7 @@ using UnityEngine;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using UnityEngine.VFX;
-using UnityEngine.Events;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Interactable
 {
@@ -23,17 +23,25 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Splash VFX played when adding water or watering plant bed")]
         private VisualEffect splashPrefab;
+        [SerializeField]
+        private BoolGameEvent onWaterAdded;
+        [SerializeField]
+        private GameEvent onPlantBedWatered;
+        [SerializeField]
+        private InteractionInstruction addWaterInstruction;
+        [SerializeField]
+        private InteractionInstruction waterPlantBedInstruction;
+        [SerializeField]
+        private InteractionInstruction missingWaterInstruction;
 
         private int remainingUses = 0;
         private VisualEffect splash;
-
-        public UnityEvent<bool> OnWaterAdded;
-        public UnityEvent OnPlantBedWatered;
 
         public string Name => name;
         public float UsabilityPercentage => remainingUses / (float)maxUses;
         public ItemUI ItemUI { get; set; }
         public bool HasInstantPickUp => true;
+        public Sprite Icon => null;
 
         private void Start()
         {
@@ -58,7 +66,7 @@ namespace TheGuarden.Interactable
             remainingUses = Mathf.Clamp(remainingUses + 1, 0, maxUses);
             Collider[] lake = Physics.OverlapSphere(transform.position, overlapRadius, lakeLayer);
             PlaySplashVFX(lake[0].ClosestPoint(transform.position));
-            OnWaterAdded.Invoke(remainingUses == maxUses);
+            onWaterAdded.Raise(remainingUses == maxUses);
         }
 
         /// <summary>
@@ -78,7 +86,7 @@ namespace TheGuarden.Interactable
             plantBed.Water(bucketRestoration);
             remainingUses = Mathf.Clamp(remainingUses - 1, 0, maxUses);
             ItemUI.SetProgress(UsabilityPercentage);
-            OnPlantBedWatered.Invoke();
+            onPlantBedWatered.Raise();
         }
 
         /// <summary>
@@ -142,6 +150,27 @@ namespace TheGuarden.Interactable
         public void OnInteractionCancelled()
         {
             gameObject.SetActive(false);
+        }
+
+        public void Drop()
+        {
+            transform.SetParent(null);
+            gameObject.SetActive(true);
+        }
+
+        public InteractionInstruction CheckForInteractable()
+        {
+            if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
+            {
+                return remainingUses > 0 ? waterPlantBedInstruction : missingWaterInstruction;
+            }
+
+            if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
+            {
+                return addWaterInstruction;
+            }
+
+            return null;
         }
     }
 }

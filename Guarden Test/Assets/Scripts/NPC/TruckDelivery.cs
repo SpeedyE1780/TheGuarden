@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.NPC
 {
@@ -10,7 +10,7 @@ namespace TheGuarden.NPC
     /// TruckDelivery is a game object that will delivery an Item at a specified time in the day
     /// </summary>
     /// <typeparam name="Item">Type of item that will be spawned and delivered</typeparam>
-    internal abstract class TruckDelivery<Item> : MonoBehaviour
+    internal abstract class TruckDelivery<Item> : MonoBehaviour where Item : MonoBehaviour, IPoolObject
     {
         [SerializeField, Tooltip("Roads on which truck can spawn")]
         private List<RoadLane> roads;
@@ -19,7 +19,7 @@ namespace TheGuarden.NPC
         [SerializeField, Tooltip("Meshes parent")]
         private GameObject meshes;
         [SerializeField, Tooltip("Items Scriptable Objects")]
-        private DeliveryItems items;
+        private DeliveryItems<Item> items;
         [SerializeField, Tooltip("Autofilled. Camera following players")]
         private FollowTarget followCamera;
         [SerializeField, Tooltip("Transform that deliveries should be aimed at")]
@@ -30,35 +30,24 @@ namespace TheGuarden.NPC
         private float travelledPercentageDelay = 0.4f;
         [SerializeField, Tooltip("Audio Source played when items are delivered")]
         private AudioSource deliverySource;
-
-        public UnityEvent<int> OnDelivery;
+        [SerializeField]
+        private IntGameEvent onItemsDelivered;
 
         private bool delivered = false;
         private int deliveryCooldown = 0;
 
         private Vector3 SpawnPoint => transform.position + Vector3.up;
 
-        private void Start()
+        private void Awake()
         {
             items = items.Clone();
+            deliverySource.clip = configuration.audioClip;
 
             //If no delivery on first day update cooldown to prevent delivery
             if (!configuration.dayOneDelivery)
             {
                 SetDeliveryCooldown(configuration.daysBetweenDelivery);
             }
-
-            deliverySource.clip = configuration.audioClip;
-        }
-
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += OnDayStarted;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= OnDayStarted;
         }
 
         private void SetDeliveryCooldown(int value)
@@ -70,7 +59,13 @@ namespace TheGuarden.NPC
         /// <summary>
         /// Check if a delivery will occur today if not decrement cooldown
         /// </summary>
-        private void OnDayStarted()
+        public void OnDayStarted()
+        {
+            items.OnDayStarted();
+            DeliverMushrooms();
+        }
+
+        public void DeliverMushrooms()
         {
             if (deliveryCooldown <= 0)
             {
@@ -78,7 +73,6 @@ namespace TheGuarden.NPC
             }
 
             deliveryCooldown -= 1;
-            items.OnDayStarted();
         }
 
         /// <summary>
@@ -105,7 +99,7 @@ namespace TheGuarden.NPC
             followCamera.AddTarget(transform);
             followCamera.AddTarget(deliveryLocation);
 
-            while (transform.position != lane.EndPosition)
+            while ((transform.position - lane.EndPosition).sqrMagnitude > 1)
             {
                 transform.position = Vector3.MoveTowards(transform.position, lane.EndPosition, speed * Time.deltaTime);
 
@@ -138,19 +132,24 @@ namespace TheGuarden.NPC
         /// <returns></returns>
         private IEnumerator DeliverItems()
         {
-            foreach (GameObject guaranteed in items.Guaranteed)
+            int deliveredItems = 0;
+
+            foreach (ObjectPool<Item> guaranteed in items.Guaranteed)
             {
                 yield return SpawnAndConfigureItem(guaranteed);
+                deliveredItems += 1;
             }
 
             if (items.Random.Count > 0)
             {
-                GameLogger.LogInfo("RANDOM DELIVERY", this, GameLogger.LogCategory.Plant);
                 for (int i = 0; i < items.count; i++)
                 {
                     yield return SpawnAndConfigureItem(items.Random.GetRandomItem());
+                    deliveredItems += 1;
                 }
             }
+
+            onItemsDelivered.Raise(deliveredItems);
         }
 
         /// <summary>
@@ -158,10 +157,10 @@ namespace TheGuarden.NPC
         /// </summary>
         /// <param name="prefab">Item to spawn</param>
         /// <returns></returns>
-        private IEnumerator SpawnAndConfigureItem(GameObject prefab)
+        private IEnumerator SpawnAndConfigureItem(ObjectPool<Item> objectPool)
         {
-            GameObject go = Instantiate(prefab, SpawnPoint, Quaternion.identity);
-            Item item = go.GetComponent<Item>();
+            Item item = objectPool.GetPooledObject();
+            item.transform.SetPositionAndRotation(SpawnPoint, Quaternion.identity);
             ConfigureItem(item);
             yield return new WaitForSeconds(configuration.itemsInterval);
         }

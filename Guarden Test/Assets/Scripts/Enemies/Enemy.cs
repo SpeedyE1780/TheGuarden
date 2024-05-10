@@ -1,6 +1,7 @@
 using System.Collections;
 using TheGuarden.PlantPowerUps;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,10 +11,8 @@ namespace TheGuarden.Enemies
     /// Enemy is a State Machine that will patrol the scene and try to kidnap animals
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent), typeof(Health))]
-    public class Enemy : MonoBehaviour, IBehavior, IBuff
+    public class Enemy : MonoBehaviour, IBehavior, IBuff, IPoolObject
     {
-        internal delegate void OnDestroyedCallback(GameObject gameObject);
-
         [SerializeField, Tooltip("Autofilled. Enemy NavMeshAgent component")]
         private NavMeshAgent agent;
         [SerializeField, Tooltip("Speed at which enemy patrol the scene")]
@@ -22,15 +21,23 @@ namespace TheGuarden.Enemies
         private float distanceThreshold = 3.0f;
         [SerializeField, Tooltip("Autofilled. Enemy Health component")]
         private Health health;
+        [SerializeField, Tooltip("List containing all spawned enemies")]
+        private EnemySet enemySet;
+        [SerializeField]
+        private GameEvent onReachShed;
+        [SerializeField]
+        private GameEvent onEnemyKilled;
+        [SerializeField]
+        private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
         private bool rewinding = false;
         private bool rewindComplete = false;
-        internal OnDestroyedCallback OnDestroyed { get; set; }
 
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
         public Health Health => health;
+        public IBuff.OnIBuffDestroy OnIBuffDetroyed { get; set; }
 
 #if UNITY_EDITOR
         internal bool Rewinding => rewinding;
@@ -38,7 +45,22 @@ namespace TheGuarden.Enemies
 
         void Start()
         {
-            StartCoroutine(Patrol());
+            health.OnOutOfHealth = () =>
+            {
+                onEnemyKilled.Raise();
+                enemyPool.AddObject(this);
+            };
+        }
+
+        private void OnEnable()
+        {
+            enemySet.Add(this);
+        }
+
+        private void OnDisable()
+        {
+            enemySet.Remove(this);
+            OnIBuffDetroyed?.Invoke(this);
         }
 
         /// <summary>
@@ -48,6 +70,7 @@ namespace TheGuarden.Enemies
         internal void SetPath(EnemyPath patrolPath)
         {
             path = patrolPath;
+            StartCoroutine(Patrol());
         }
 
         /// <summary>
@@ -72,7 +95,8 @@ namespace TheGuarden.Enemies
 
                     if (path.ReachedEndOfPath)
                     {
-                        Destroy(gameObject);
+                        onReachShed.Raise();
+                        enemyPool.AddObject(this);
                         yield break;
                     }
 
@@ -81,11 +105,6 @@ namespace TheGuarden.Enemies
 
                 yield return null;
             }
-        }
-
-        private void OnDestroy()
-        {
-            OnDestroyed(gameObject);
         }
 
         public void RewindPathProgress(int waypoints)
@@ -133,6 +152,18 @@ namespace TheGuarden.Enemies
             rewinding = false;
 
             StartCoroutine(Patrol());
+        }
+
+        public void OnEnterPool()
+        {
+            gameObject.SetActive(false);
+            health.ResetHealth();
+            rewindComplete = false;
+        }
+
+        public void OnExitPool()
+        {
+            gameObject.SetActive(true);
         }
 
 #if UNITY_EDITOR

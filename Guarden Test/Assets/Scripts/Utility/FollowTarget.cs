@@ -24,6 +24,8 @@ namespace TheGuarden.Utility
         private float movementSpeed = 5.0f;
         [SerializeField, Tooltip("Snap to desired position when player joins/leaves")]
         private bool snapToPosition = true;
+        [SerializeField]
+        private Bounds followBounds;
 
         private Vector3 center;
         private float boundsSize;
@@ -33,6 +35,7 @@ namespace TheGuarden.Utility
 
 #if UNITY_EDITOR
         internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
+        internal Bounds Bounds => followBounds;
 #endif
 
         private void Awake()
@@ -41,26 +44,14 @@ namespace TheGuarden.Utility
             bounds = new Bounds();
         }
 
-        private void OnEnable()
-        {
-            DayLightCycle.OnDayStarted += SwitchToFollowCamera;
-            DayLightCycle.OnNightStarted += SwitchToTowerDefenceCamera;
-        }
-
-        private void OnDisable()
-        {
-            DayLightCycle.OnDayStarted -= SwitchToFollowCamera;
-            DayLightCycle.OnNightStarted -= SwitchToTowerDefenceCamera;
-        }
-
-        private void SwitchToFollowCamera()
+        public void SwitchToFollowCamera()
         {
             GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
             towerDefenceCamera.gameObject.SetActive(false);
             followCamera.gameObject.SetActive(true);
         }
 
-        private void SwitchToTowerDefenceCamera()
+        public void SwitchToTowerDefenceCamera()
         {
             GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
             followCamera.gameObject.SetActive(false);
@@ -139,6 +130,18 @@ namespace TheGuarden.Utility
         private void FixedUpdate()
         {
             Vector3 desiredPosition = CalculateDesiredPosition();
+
+            //Only check if xz are in bounds
+            float y = desiredPosition.y;
+            desiredPosition.y = 0;
+
+            if (!followBounds.Contains(desiredPosition))
+            {
+                desiredPosition = followBounds.ClosestPoint(desiredPosition);
+            }
+
+            desiredPosition.y = y;
+
             followCamera.transform.position = Vector3.MoveTowards(followCamera.transform.position, desiredPosition, movementSpeed * Time.deltaTime);
         }
 

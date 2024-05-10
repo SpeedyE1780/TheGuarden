@@ -12,16 +12,16 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Visual Effect component")]
         private VisualEffect vfx;
         [SerializeField, Tooltip("Velocity Param Name")]
-        private string velocityParam;
+        private ExposedProperty velocityParam;
         [SerializeField, Tooltip("Spawn Param Name")]
-        private string spawnParam;
+        private ExposedProperty spawnParam;
         [SerializeField, Tooltip("Rigidbody that Visual Effect is attached to")]
         private Rigidbody rb;
 
         void Update()
         {
-            vfx.SetVector3(velocityParam, -rb.velocity);
-            vfx.SetBool(spawnParam, rb.velocity.sqrMagnitude > 1);
+            vfx.SetVector3(velocityParam.PropertyID, -rb.velocity);
+            vfx.SetBool(spawnParam.PropertyID, rb.velocity.sqrMagnitude > 1);
         }
     }
 }

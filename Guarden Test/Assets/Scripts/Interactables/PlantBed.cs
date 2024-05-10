@@ -13,14 +13,15 @@ namespace TheGuarden.Interactable
         private Color wetColor;
         [SerializeField, Tooltip("Speed at which bed is drying")]
         private float dryingSpeed = 0.01f;
+        [SerializeField,Tooltip("Material To Change")]
+        private Material material;
 
         //Dry = 0, Wet = 1
         internal float dryWetRatio = 0;
-        private Material material;
+        
 
         private void Start()
         {
-            material = GetComponent<Renderer>().material;
             material.color = Color.Lerp(dryColor, wetColor, dryWetRatio);
         }
 

@@ -1,5 +1,4 @@
 using System.Collections;
-using TheGuarden.Interactable;
 using UnityEngine;
 
 namespace TheGuarden.Tutorial
@@ -8,15 +7,14 @@ namespace TheGuarden.Tutorial
     /// WaterPlantBed waits until plant bed is watered
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Water Plant Bed")]
-    internal class WaterPlantBed : ObjectTutorial
+    internal class WaterPlantBed : Tutorial
     {
-        private Bucket bucket;
         private bool watered = false;
 
         /// <summary>
         /// Called when bucket waters plant bed
         /// </summary>
-        private void OnPlantWatered()
+        public void OnPlantWatered()
         {
             watered = true;
         }
@@ -27,8 +25,6 @@ namespace TheGuarden.Tutorial
         internal override void Setup()
         {
             watered = false;
-            bucket = objectSpawner.SpawnedObject.GetComponent<Bucket>();
-            bucket.OnPlantBedWatered.AddListener(OnPlantWatered);
         }
 
         /// <summary>
@@ -38,7 +34,6 @@ namespace TheGuarden.Tutorial
         internal override IEnumerator StartTutorial()
         {
             yield return new WaitUntil(() => watered);
-            bucket.OnPlantBedWatered.RemoveListener(OnPlantWatered);
         }
     }
 }

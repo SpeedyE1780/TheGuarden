@@ -26,6 +26,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHAPREMULTIPLY_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -167,11 +168,12 @@ Material:
     - _ReceiveShadows: 1
     - _Refr_Scale: 8.7
     - _Refr_strentgh: 6.8
+    - _Refraction_intensity: 0.031
     - _Refraction_strength: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 1
     - _Water_Depth: 2.92
@@ -201,4 +203,5 @@ Material:
     - _Swamp_color: {r: 0.28502136, g: 0.478655, b: 0.5754717, a: 1}
     - _Tiling: {r: 3.24, g: 3.65, b: 0, a: 0}
     - _Water_Caustic_Intensity: {r: 0.1, g: 0, b: 0, a: 0}
+    - _water_speed: {r: 0.05, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

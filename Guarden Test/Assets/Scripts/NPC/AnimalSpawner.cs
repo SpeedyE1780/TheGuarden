@@ -1,6 +1,6 @@
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace TheGuarden.NPC
 {
@@ -12,45 +12,57 @@ namespace TheGuarden.NPC
         private Animal animalPrefab;
         [SerializeField, Tooltip("Animal spawned each day")]
         private int spawnCount;
+        [SerializeField]
+        private int dayOneAnimalCount = 5;
         [SerializeField, Tooltip("Animal set")]
         private AnimalSet animalSet;
+        [SerializeField]
+        private IntGameEvent onAnimalCountChanged;
+        [SerializeField]
+        private GameEvent onGameEnded;
+        [SerializeField]
+        private ObjectPool<Animal> animalPool;
 
-        public UnityEvent<int> OnAnimalCountChanged;
-
-        private void OnEnable()
+        private void Awake()
         {
-            DayLightCycle.OnDayStarted += SpawnAnimals;
             Animal.Shed = shed;
         }
 
-        private void OnDisable()
+        public void SpawnDayOneAnimals()
         {
-            DayLightCycle.OnDayStarted -= SpawnAnimals;
+            SpawnAnimals(dayOneAnimalCount);
         }
 
-        private void SpawnAnimals()
+        public void SpawnAnimals()
         {
-            for (int i = 0; i < spawnCount; i++)
+            SpawnAnimals(spawnCount);
+        }
+
+        private void SpawnAnimals(int count)
+        {
+            for (int i = 0; i < count; i++)
             {
-                Instantiate(animalPrefab, shed.position, Quaternion.identity);
+                Animal animal = animalPool.GetPooledObject();
+                animal.transform.SetPositionAndRotation(shed.position, Quaternion.identity);
                 GameLogger.LogInfo("Animal Spawned", this, GameLogger.LogCategory.Scene);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            onAnimalCountChanged.Raise(animalSet.Count);
         }
 
         public void RemoveAnimal()
         {
             if (animalSet.Count > 0)
             {
-                Destroy(animalSet[0].gameObject);
+                animalPool.AddObject(animalSet[0]);
             }
 
-            OnAnimalCountChanged.Invoke(animalSet.Count);
+            onAnimalCountChanged.Raise(animalSet.Count);
 
             if (animalSet.Count == 0)
             {
                 GameLogger.LogInfo("All animals taken", this, GameLogger.LogCategory.Scene);
+                onGameEnded.Raise();
             }
         }
     }

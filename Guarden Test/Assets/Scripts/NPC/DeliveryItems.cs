@@ -7,21 +7,20 @@ namespace TheGuarden.NPC
     /// <summary>
     /// List of items that truck should spawn
     /// </summary>
-    [CreateAssetMenu(menuName = "Scriptable Objects/Deliveries/Items List")]
-    internal class DeliveryItems : ScriptableObject
+    internal class DeliveryItems<Item> : ScriptableObject where Item : Object, IPoolObject
     {
         [SerializeField, Tooltip("Guaranteed items that will be delivered")]
-        private List<DeliveryItem> guaranteed = new List<DeliveryItem>();
+        private List<DeliveryItem<Item>> guaranteed = new List<DeliveryItem<Item>>();
         [SerializeField, Tooltip("Random items that might be delivered")]
-        private List<DeliveryItem> random = new List<DeliveryItem>();
+        private List<DeliveryItem<Item>> random = new List<DeliveryItem<Item>>();
         [SerializeField, Tooltip("Random item count")]
         internal int count = 0;
 
-        private List<GameObject> unlockedGuaranteed = new List<GameObject>();
-        private List<GameObject> unlockedRandom = new List<GameObject>();
+        private List<ObjectPool<Item>> unlockedGuaranteed = new List<ObjectPool<Item>>();
+        private List<ObjectPool<Item>> unlockedRandom = new List<ObjectPool<Item>>();
 
-        internal List<GameObject> Guaranteed => unlockedGuaranteed;
-        internal List<GameObject> Random => unlockedRandom;
+        internal List<ObjectPool<Item>> Guaranteed => unlockedGuaranteed;
+        internal List<ObjectPool<Item>> Random => unlockedRandom;
 
         /// <summary>
         /// Add item to unlocked list if unlocked
@@ -29,12 +28,13 @@ namespace TheGuarden.NPC
         /// <param name="deliveryItem">Item that's being added</param>
         /// <param name="unlocked">List of unlocked items</param>
         /// <returns>True if item was added</returns>
-        private bool TryAddItem(DeliveryItem deliveryItem, List<GameObject> unlocked)
+        private bool TryAddItem(DeliveryItem<Item> deliveryItem, List<ObjectPool<Item>> unlocked)
         {
             deliveryItem.OnDayStarted();
 
             if (deliveryItem.IsUnlocked)
             {
+                deliveryItem.OnUnlocked();
                 GameLogger.LogInfo($"{deliveryItem.name} Unlocked", this, GameLogger.LogCategory.PlantPowerUp);
                 unlocked.Add(deliveryItem.item);
                 return true;
@@ -48,7 +48,7 @@ namespace TheGuarden.NPC
         /// </summary>
         /// <param name="source">Source of items</param>
         /// <param name="unlocked">List of unlocked items</param>
-        private void AddUnlockedItems(List<DeliveryItem> source, List<GameObject> unlocked)
+        private void AddUnlockedItems(List<DeliveryItem<Item>> source, List<ObjectPool<Item>> unlocked)
         {
             for (int i = source.Count - 1; i >= 0; --i)
             {
@@ -74,15 +74,16 @@ namespace TheGuarden.NPC
         /// <param name="source">Source of items to clone</param>
         /// <param name="destination">Destination where items should be added if not unlocked</param>
         /// <param name="unlocked">List of unlocked items</param>
-        private void CloneDeliveryItems(List<DeliveryItem> source, List<DeliveryItem> destination, List<GameObject> unlocked)
+        private void CloneDeliveryItems(List<DeliveryItem<Item>> source, List<DeliveryItem<Item>> destination, List<ObjectPool<Item>> unlocked)
         {
-            foreach (DeliveryItem item in source)
+            foreach (DeliveryItem<Item> item in source)
             {
-                DeliveryItem clone = Instantiate(item);
+                DeliveryItem<Item> clone = Instantiate(item);
 
                 if (clone.IsUnlocked)
                 {
                     GameLogger.LogInfo($"{item.name} is unlocked on start", this, GameLogger.LogCategory.PlantPowerUp);
+                    clone.OnUnlocked();
                     unlocked.Add(item.item);
                 }
                 else
@@ -92,13 +93,20 @@ namespace TheGuarden.NPC
             }
         }
 
+        private void ClearLists()
+        {
+            guaranteed.Clear();
+            random.Clear();
+        }
+
         /// <summary>
         /// Clone current instance
         /// </summary>
         /// <returns>A deep copy clone of this class</returns>
-        internal DeliveryItems Clone()
+        internal DeliveryItems<Item> Clone()
         {
-            DeliveryItems clone = CreateInstance<DeliveryItems>();
+            DeliveryItems<Item> clone = Instantiate(this);
+            clone.ClearLists();
             clone.count = count;
             clone.CloneDeliveryItems(guaranteed, clone.guaranteed, clone.unlockedGuaranteed);
             clone.CloneDeliveryItems(random, clone.random, clone.unlockedRandom);

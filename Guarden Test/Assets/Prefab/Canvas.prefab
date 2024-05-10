@@ -277,7 +277,7 @@ RectTransform:
   - {fileID: 8575997506308526438}
   - {fileID: 7892421218931125498}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1788,6 +1788,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 5077958204601764907}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!1 &6717080068620135536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,6 +2213,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 3582766278497258925, guid: 304af02db42d70e4682cb44e919e14a1,
     type: 3}
   itemParents: {fileID: 1704674916077813543}
+  pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
 --- !u!1 &7780282426151288362
 GameObject:
   m_ObjectHideFlags: 0

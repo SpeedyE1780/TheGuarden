@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab39bdfa2689c544b0f8cb41b7dfb35, type: 3}
   m_Name: Mushroom Spawner
   m_EditorClassIdentifier: 
-  objectPrefab: {fileID: 6490151955704539681, guid: bfcf6985836ad4b45ac149e098a556b0,
+  objectPrefab: {fileID: 5129282516682255072, guid: bfcf6985836ad4b45ac149e098a556b0,
     type: 3}

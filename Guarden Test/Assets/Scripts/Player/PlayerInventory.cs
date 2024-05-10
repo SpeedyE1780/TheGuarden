@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using TheGuarden.Interactable;
 using TheGuarden.UI;
 using TheGuarden.Utility;
+using TheGuarden.Utility.Events;
 
 namespace TheGuarden.Players
 {
@@ -13,15 +14,25 @@ namespace TheGuarden.Players
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerInventory : MonoBehaviour
     {
-        [SerializeField, Tooltip("InventoryUI in scene")]
-        private InventoryUI inventoryUI;
         [SerializeField, Tooltip("Parent of all picked up items")]
         private Transform inventoryPoint;
+        [SerializeField]
+        private TGameEvent<string> onInstructions;
+        [SerializeField]
+        private GameEvent onHideInstructions;
+        [SerializeField]
+        private PlayerInput playerInput;
+        [SerializeField]
+        private InteractionInstruction pressPickUpInstruction;
+        [SerializeField]
+        private InteractionInstruction holdPickUpInstruction;
 
+        private InventoryUI inventoryUI;
         private List<IInventoryItem> items = new List<IInventoryItem>();
-        private GameObject currentPickUp;
+        private IPickUp currentPickUp;
         private int selectedItemIndex = -1;
         private IInventoryItem selectedItem;
+        private bool showPickUpInstruction = false;
 
         /// <summary>
         /// Set and activate the player's inventory UI
@@ -82,11 +93,10 @@ namespace TheGuarden.Players
             }
 
             GameLogger.LogInfo("STARTED/PERFORMED INTERACTION PICKUP", gameObject, GameLogger.LogCategory.Player);
-            IPickUp pickUp = currentPickUp.GetComponent<IPickUp>();
 
-            if ((context.started && pickUp.HasInstantPickUp) || context.performed)
+            if ((context.started && currentPickUp.HasInstantPickUp) || context.performed)
             {
-                PickUp(pickUp);
+                PickUp(currentPickUp);
             }
         }
 
@@ -99,6 +109,8 @@ namespace TheGuarden.Players
             pickUp.PickUp(inventoryPoint);
             currentPickUp = null;
             AddItemToInventory(pickUp.GetInventoryItem());
+            showPickUpInstruction = false;
+            onHideInstructions.Raise();
         }
 
         /// <summary>
@@ -164,30 +176,60 @@ namespace TheGuarden.Players
             SelectItem(newIndex);
         }
 
+        public void EmptyInventory()
+        {
+            foreach (IInventoryItem item in items)
+            {
+                item.Drop();
+            }
+
+            items.Clear();
+            inventoryUI.OnPlayerLeft();
+        }
+
+        private void Update()
+        {
+            if (selectedItem != null)
+            {
+                InteractionInstruction instruction = selectedItem.CheckForInteractable();
+
+                if (instruction != null)
+                {
+                    onInstructions.Raise(instruction.GetInstructionMessage(playerInput.currentControlScheme));
+                }
+                else if (!showPickUpInstruction)
+                {
+                    onHideInstructions.Raise();
+                }
+            }
+        }
+
         private void OnTriggerStay(Collider other)
         {
-            if (currentPickUp == null && other.CompareTag(Tags.PickUp))
+            if (other.CompareTag(Tags.PickUp))
             {
-                currentPickUp = other.gameObject;
-                GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
+                if ((currentPickUp == null || !currentPickUp.gameObject.activeSelf))
+                {
+                    currentPickUp = other.attachedRigidbody.GetComponent<IPickUp>();
+                    GameLogger.LogInfo("ENTER PICK UP", gameObject, GameLogger.LogCategory.Player);
+                    showPickUpInstruction = true;
+                }
+
+                string pickUpInstruction = currentPickUp.HasInstantPickUp ? pressPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme) : holdPickUpInstruction.GetInstructionMessage(playerInput.currentControlScheme);
+                onInstructions.Raise(pickUpInstruction);
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject == currentPickUp)
+            if (other.attachedRigidbody != null && other.attachedRigidbody.gameObject == currentPickUp.gameObject)
             {
                 currentPickUp = null;
                 GameLogger.LogInfo("EXIT PICK UP", gameObject, GameLogger.LogCategory.Player);
+                showPickUpInstruction = false;
             }
-        }
 
-        private void OnDestroy()
-        {
-            if (inventoryUI != null)
-            {
-                inventoryUI.gameObject.SetActive(false);
-            }
+            onHideInstructions.Raise();
         }
     }
 }
