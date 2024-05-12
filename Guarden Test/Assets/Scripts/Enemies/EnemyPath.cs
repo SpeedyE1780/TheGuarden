@@ -7,15 +7,17 @@ namespace TheGuarden.Enemies
     /// EnemyPath is a list of points that the enemy will follow before leaving the scene
     /// </summary>
     [System.Serializable]
-    internal struct EnemyPath
+    internal class EnemyPath : MonoBehaviour
     {
         [SerializeField, Tooltip("Points making the path")]
         private List<Transform> points;
         internal int CurrentIndex { get; set; }
-        internal readonly Vector3 CurrentPosition => points[CurrentIndex].position;
-        internal readonly bool ReachedEndOfPath => CurrentIndex >= points.Count;
+        internal Vector3 CurrentPosition => points[CurrentIndex].position;
+        internal bool ReachedEndOfPath => CurrentIndex >= points.Count;
 
 #if UNITY_EDITOR
+        [SerializeField, Tooltip("Editor Only used to set generated collider width")]
+        internal float pathWidth = 1.0f;
         internal List<Transform> Points => points;
 #endif
     }
