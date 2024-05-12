@@ -6,6 +6,12 @@ namespace TheGuarden.Enemies.Editor
 {
     public class EnemyPathEditor
     {
+        private const string ColliderParent = "Colliders";
+        private const string ColliderName = "Collider";
+        private const string ForceFieldParent = "ForceFields";
+        private const string ForceFieldName = "ForceField";
+
+
         [DrawGizmo(GizmoType.InSelectionHierarchy | GizmoType.NotInSelectionHierarchy)]
         internal static void DrawGizmo(EnemyPath enemyPath, GizmoType gizmoType)
         {
@@ -15,17 +21,17 @@ namespace TheGuarden.Enemies.Editor
             }
         }
 
-        private static Transform CreateColliderTransform(Transform parent)
+        private static Transform CreateParent(Transform parent, string name)
         {
-            GameObject colliderParent = new GameObject("Colliders");
+            GameObject colliderParent = new GameObject(name);
             colliderParent.transform.SetParent(parent);
             return colliderParent.transform;
         }
 
-        private static Transform GetColliderParents(Transform enemyPathTransform)
+        private static Transform GetParent(Transform enemyPathTransform, string name)
         {
-            Transform colliderParents = enemyPathTransform.Find("Colliders");
-            return colliderParents ?? CreateColliderTransform(enemyPathTransform);
+            Transform colliderParents = enemyPathTransform.Find(name);
+            return colliderParents ?? CreateParent(enemyPathTransform, name);
         }
 
         private static void DeleteChildren(Transform parent)
@@ -55,11 +61,11 @@ namespace TheGuarden.Enemies.Editor
         }
 
         [MenuItem("CONTEXT/EnemyPath/Generate Colliders")]
-        internal static void AutofillVariables(MenuCommand command)
+        internal static void GenerateColliders(MenuCommand command)
         {
             EnemyPath enemyPath = command.context as EnemyPath;
             int layer = LayerMask.NameToLayer("EnemyPath");
-            Transform colliderParent = GetColliderParents(enemyPath.transform);
+            Transform colliderParent = GetParent(enemyPath.transform, ColliderParent);
             colliderParent.gameObject.layer = layer;
             DeleteChildren(colliderParent);
 
@@ -69,9 +75,33 @@ namespace TheGuarden.Enemies.Editor
                 Vector3 next = enemyPath.Points[i + 1].position;
                 float distance = (next - current).magnitude;
 
-                BoxCollider collider = CreateCollider(colliderParent, GetPositionAndRotation(current, next), layer, $"Collider {i}");
+                BoxCollider collider = CreateCollider(colliderParent, GetPositionAndRotation(current, next), layer, $"{ColliderName} {i}");
                 collider.size = new Vector3(enemyPath.pathWidth, 0.5f, distance);
                 collider.isTrigger = true;
+            }
+        }
+
+        [MenuItem("CONTEXT/EnemyPath/Generate Force Fields")]
+        internal static void GenerateForceFields(MenuCommand command)
+        {
+            EnemyPath enemyPath = command.context as EnemyPath;
+            Transform colliderParent = GetParent(enemyPath.transform, ColliderParent);
+
+            if (colliderParent.childCount == 0)
+            {
+                GenerateColliders(command);
+            }
+
+            Transform forceFieldParent = GetParent(enemyPath.transform, ForceFieldParent);
+            DeleteChildren(forceFieldParent);
+
+            for (int i = 0; i < colliderParent.childCount; i++)
+            {
+                GameObject forceField = UnityEngine.Object.Instantiate(enemyPath.forceFieldPrefab, forceFieldParent);
+                BoxCollider collider = colliderParent.GetChild(i).GetComponent<BoxCollider>();
+                forceField.name = $"{ForceFieldName} {i}";
+                forceField.transform.SetPositionAndRotation(collider.transform.position, collider.transform.rotation);
+                forceField.transform.localScale = collider.size;
             }
         }
     }
