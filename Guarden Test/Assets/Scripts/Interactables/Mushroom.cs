@@ -134,6 +134,7 @@ namespace TheGuarden.Interactable
         public void OnInteractionStarted()
         {
             gameObject.SetActive(true);
+            ToggleCollisions(false);
 
             if (!IsFullyGrown)
             {
