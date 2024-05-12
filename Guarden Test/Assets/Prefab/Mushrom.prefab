@@ -352,6 +352,9 @@ MonoBehaviour:
   plantableAreaMask:
     serializedVersion: 2
     m_Bits: 2048
+  nonPlantableArea:
+    serializedVersion: 2
+    m_Bits: 8832
   mushroomLayerMask:
     serializedVersion: 2
     m_Bits: 4096

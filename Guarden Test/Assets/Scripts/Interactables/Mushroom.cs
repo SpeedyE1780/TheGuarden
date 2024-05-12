@@ -30,6 +30,8 @@ namespace TheGuarden.Interactable
         private LayerMask plantBedMask;
         [SerializeField, Tooltip("Plant area layer mask")]
         private LayerMask plantableAreaMask;
+        [SerializeField, Tooltip("Non Plantable area layer mask")]
+        private LayerMask nonPlantableArea;
         [SerializeField, Tooltip("Mushrooms layer mask")]
         private LayerMask mushroomLayerMask;
         [SerializeField, Tooltip("Game event called when mushroom is planted in soil")]
@@ -169,7 +171,7 @@ namespace TheGuarden.Interactable
         /// <returns>True if planting in plant bed or outside planting area</returns>
         private bool IsInRestrictedArea()
         {
-            bool isRestrictedArea = !Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, plantBedMask);
+            bool isRestrictedArea = !Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, nonPlantableArea);
             GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
             return isRestrictedArea;
         }
