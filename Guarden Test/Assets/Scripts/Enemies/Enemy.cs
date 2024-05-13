@@ -30,9 +30,11 @@ namespace TheGuarden.Enemies
         private ObjectPool<Enemy> enemyPool;
 
         private EnemyPath path;
+        private int pathIndex = 0;
         private bool rewinding = false;
         private bool rewindComplete = false;
 
+        private Vector3 TargetPosition => path[pathIndex];
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
         public NavMeshAgent Agent => agent;
         public Health Health => health;
@@ -78,7 +80,7 @@ namespace TheGuarden.Enemies
         /// <returns></returns>
         private IEnumerator FollowPath()
         {
-            agent.SetDestination(path.CurrentPosition);
+            agent.SetDestination(TargetPosition);
 
             while (true)
             {
@@ -89,16 +91,16 @@ namespace TheGuarden.Enemies
 
                 if (ReachedDestination)
                 {
-                    path.CurrentIndex += 1;
+                    pathIndex += 1;
 
-                    if (path.ReachedEndOfPath)
+                    if (pathIndex == path.Count)
                     {
                         onReachShed.Raise();
                         enemyPool.AddObject(this);
                         yield break;
                     }
 
-                    agent.SetDestination(path.CurrentPosition);
+                    agent.SetDestination(TargetPosition);
                 }
 
                 yield return null;
@@ -129,25 +131,25 @@ namespace TheGuarden.Enemies
         private IEnumerator RewindPath(int waypoints)
         {
             rewinding = true;
-            path.CurrentIndex -= 1;
-            agent.SetDestination(path.CurrentPosition);
+            pathIndex -= 1;
+            agent.SetDestination(TargetPosition);
 
             while (waypoints > 0)
             {
                 yield return new WaitUntil(() => ReachedDestination);
 
                 GameLogger.LogInfo($"{name} rewinded stops remaining: {waypoints}", this, GameLogger.LogCategory.Enemy);
-                path.CurrentIndex -= 1;
+                pathIndex -= 1;
                 waypoints -= 1;
 
-                if (path.CurrentIndex < 0)
+                if (pathIndex < 0)
                 {
-                    path.CurrentIndex = 0;
+                    pathIndex = 0;
                     GameLogger.LogInfo("Early break path index is less than 0", this, GameLogger.LogCategory.Enemy);
                     break;
                 }
 
-                agent.SetDestination(path.CurrentPosition);
+                agent.SetDestination(TargetPosition);
             }
 
             GameLogger.LogInfo($"{name} completed rewind", this, GameLogger.LogCategory.Enemy);
@@ -172,6 +174,7 @@ namespace TheGuarden.Enemies
         /// </summary>
         public void OnExitPool()
         {
+            pathIndex = 0;
             gameObject.SetActive(true);
         }
 
