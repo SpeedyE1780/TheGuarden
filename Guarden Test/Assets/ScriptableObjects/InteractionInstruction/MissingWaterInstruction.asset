@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: MissingWaterInstruction
   m_EditorClassIdentifier: 
-  keyboardInstruction: Add water to bucket to water plant bed
-  controllerInstruction: Add water to bucket to water plant bed
+  instructions: Add water to bucket to water plant bed
+  actionReference: {fileID: 0}

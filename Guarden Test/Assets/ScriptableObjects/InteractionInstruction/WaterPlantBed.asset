@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: WaterPlantBed
   m_EditorClassIdentifier: 
-  keyboardInstruction: Hold e to water plant bed
-  controllerInstruction: Hold <rotate=90><sprite=0></rotate> to water plant bed
+  instructions: Hold {0} to water plant bed
+  actionReference: {fileID: -4463723971352298113, guid: bf2bf6405e9bcb549a91507adaf74345,
+    type: 3}
