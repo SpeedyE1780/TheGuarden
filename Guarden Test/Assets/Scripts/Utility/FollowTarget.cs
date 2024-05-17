@@ -12,6 +12,8 @@ namespace TheGuarden.Utility
         private Camera followCamera;
         [SerializeField, Tooltip("Tower Defence Camera")]
         private Camera towerDefenceCamera;
+        [SerializeField, Tooltip("UI Camera")]
+        private Camera uiCamera;
         [SerializeField, Tooltip("Targets that need to stay in camera view")]
         private List<Transform> targets;
         [SerializeField, Tooltip("Offset between the camera and the targets")]
@@ -31,7 +33,9 @@ namespace TheGuarden.Utility
         private float boundsSize;
         private Bounds bounds;
 
-        public Camera Camera => followCamera;
+        public Camera FollowCamera => followCamera;
+        public static Camera ActiveCamera { get; private set; }
+        public static Camera UICamera { get; private set; }
 
 #if UNITY_EDITOR
         internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
@@ -43,6 +47,7 @@ namespace TheGuarden.Utility
         {
             offset = offset.normalized;
             bounds = new Bounds();
+            UICamera = uiCamera;
         }
 
         /// <summary>
@@ -53,6 +58,7 @@ namespace TheGuarden.Utility
             GameLogger.LogInfo("Activate Follow Camera", this, GameLogger.LogCategory.Scene);
             towerDefenceCamera.gameObject.SetActive(false);
             followCamera.gameObject.SetActive(true);
+            ActiveCamera = followCamera;
         }
 
         /// <summary>
@@ -63,6 +69,7 @@ namespace TheGuarden.Utility
             GameLogger.LogInfo("Activate Tower Defence Camera", this, GameLogger.LogCategory.Scene);
             followCamera.gameObject.SetActive(false);
             towerDefenceCamera.gameObject.SetActive(true);
+            ActiveCamera = towerDefenceCamera;
         }
 
         /// <summary>

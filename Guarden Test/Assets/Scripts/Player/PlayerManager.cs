@@ -66,7 +66,7 @@ namespace TheGuarden.Players
         /// <param name="player">Player who joined the game</param>
         public void OnPlayerJoin(PlayerInput player)
         {
-            player.camera = followCamera.Camera;
+            player.camera = followCamera.FollowCamera;
             PlayerController controller = player.GetComponent<PlayerController>();
             int playerIndex = player.playerIndex == -1 ? 0 : player.playerIndex;
             controller.SetColor(playerColors[playerIndex]);

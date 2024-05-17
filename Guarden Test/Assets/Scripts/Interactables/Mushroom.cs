@@ -52,6 +52,8 @@ namespace TheGuarden.Interactable
         private GameObject collisionsRadius;
         [SerializeField, Tooltip("Game event called when trying to plant mushroom")]
         private TGameEvent<bool> onPlantingMushroom;
+        [SerializeField, Tooltip("INDICATOR")]
+        private Transform indicator;
 
         private PlantSoil plantSoil;
 
@@ -160,6 +162,22 @@ namespace TheGuarden.Interactable
 
         private void LateUpdate()
         {
+            Vector3 viewportPosition = FollowTarget.ActiveCamera.WorldToViewportPoint(transform.position);
+
+            if (viewportPosition.x < 0 || viewportPosition.x > 1)
+            {
+                viewportPosition.x = 0.8f * Mathf.Sign(viewportPosition.x);
+            }
+
+            if (viewportPosition.y < 0 || viewportPosition.y > 1)
+            {
+                viewportPosition.y = 0.8f * Mathf.Sign(viewportPosition.y);
+            }
+
+            Vector3 position = FollowTarget.UICamera.ViewportToWorldPoint(viewportPosition);
+            indicator.position = position;
+            indicator.rotation = Quaternion.identity;
+
             if (plantSoil != null)
             {
                 transform.position = plantSoil.transform.position;
