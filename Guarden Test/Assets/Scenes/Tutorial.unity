@@ -1661,7 +1661,9 @@ MonoBehaviour:
   dryColor: {r: 1, g: 0.66336644, b: 0.33663374, a: 1}
   wetColor: {r: 0.39607844, g: 0.2627451, b: 0.13333334, a: 1}
   dryingSpeed: 0.000001
+  renderer: {fileID: 605644088}
   material: {fileID: 2100000, guid: edaa92b3b01c4704a8c4e77eb588ad9e, type: 2}
+  colorProperty: {fileID: 11400000, guid: 9e5abe7e439355f46bae90f9e46371a2, type: 2}
 --- !u!1 &650908587
 GameObject:
   m_ObjectHideFlags: 0
