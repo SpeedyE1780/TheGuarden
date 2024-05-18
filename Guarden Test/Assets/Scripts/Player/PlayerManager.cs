@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheGuarden.Interactable;
 using TheGuarden.UI;
 using TheGuarden.Utility;
 using UnityEngine;
@@ -21,10 +22,31 @@ namespace TheGuarden.Players
         private InputSystemUIInputModule inputSystemUIInputModule;
         [SerializeField, Tooltip("List of each player's inventory UI")]
         private List<InventoryUI> inventoryUI;
+        [SerializeField, Tooltip("Items added to player inventory on spawn")]
+        private List<GameObject> spawnPlayerItems;
         [SerializeField, Tooltip("List of colors for each player")]
         private List<Color> playerColors;
         [SerializeField, Tooltip("State toggle indicating if player are in scene")]
         private StateToggle playersInScene;
+
+        private List<IPickUp> spawnPickups;
+
+        private void Start()
+        {
+            spawnPickups = new List<IPickUp>();
+
+            foreach (GameObject item in spawnPlayerItems)
+            {
+                if (item.TryGetComponent(out IPickUp pickUp))
+                {
+                    spawnPickups.Add(pickUp);
+                }
+                else
+                {
+                    GameLogger.LogError($"{item.name} does not have an IPickUp component", this, GameLogger.LogCategory.Player);
+                }
+            }
+        }
 
         private void OnEnable()
         {
@@ -46,7 +68,7 @@ namespace TheGuarden.Players
             PlayerController controller = player.GetComponent<PlayerController>();
             int playerIndex = player.playerIndex == -1 ? 0 : player.playerIndex;
             controller.SetColor(playerColors[playerIndex]);
-            controller.Inventory.SetInventoryUI(inventoryUI[playerIndex]);
+            controller.Inventory.Initialize(spawnPickups, inventoryUI[playerIndex]);
             followCamera.AddTarget(player.transform);
             playersInScene.TurnOn();
         }

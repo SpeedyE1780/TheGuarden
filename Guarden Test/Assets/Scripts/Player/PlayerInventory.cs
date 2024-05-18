@@ -30,8 +30,6 @@ namespace TheGuarden.Players
         private InteractionInstruction holdPickUpInstruction;
         [SerializeField, Tooltip("Drop item instructions")]
         private InteractionInstruction dropInstruction;
-        [SerializeField, Tooltip("Player bucket added to inventory on start")]
-        private Bucket bucket;
 
         private InventoryUI inventoryUI;
         private List<IInventoryItem> items;
@@ -42,18 +40,28 @@ namespace TheGuarden.Players
 
         private bool InventoryFull => items.Count == inventorySize;
 
-        private void Start()
+        /// <summary>
+        /// Add items to inventory and set UI
+        /// </summary>
+        /// <param name="itemsToAdd">Items added to player inventory</param>
+        /// <param name="inventoryUI">Inventory's UI</param>
+        internal void Initialize(List<IPickUp> itemsToAdd, InventoryUI inventoryUI)
         {
             items = new List<IInventoryItem>(inventorySize);
-            bucket = Instantiate(bucket);
-            PickUp(bucket);
+            SetInventoryUI(inventoryUI);
+
+            foreach (IPickUp pickUp in itemsToAdd)
+            {
+                GameObject instantiatedPickUp = Instantiate(pickUp.gameObject);
+                PickUp(instantiatedPickUp.GetComponent<IPickUp>());
+            }
         }
 
         /// <summary>
         /// Set and activate the player's inventory UI
         /// </summary>
         /// <param name="UI">The player's inventory UI</param>
-        internal void SetInventoryUI(InventoryUI UI)
+        private void SetInventoryUI(InventoryUI UI)
         {
             inventoryUI = UI;
             inventoryUI.gameObject.SetActive(true);
