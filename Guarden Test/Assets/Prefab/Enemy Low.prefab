@@ -95,8 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 3380905506472732822}
-  agentSpeed: 5
-  distanceThreshold: 3
+  distanceThreshold: 0.5
   health: {fileID: 2469370035290940513}
   enemySet: {fileID: 11400000, guid: cc53a944eaef20b4d903ac370fa86000, type: 2}
   onReachShed: {fileID: 11400000, guid: 84afc94b6d606944f8771fb6deef208b, type: 2}

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: DropPickUp
   m_EditorClassIdentifier: 
-  keyboardInstruction: Inventory full press X to drop selected item
-  controllerInstruction: Inventory full press <rotate=-90><sprite=0></rotate> to
-    drop selected item
+  instructions: Inventory full press {0} to drop selected item
+  actionReference: {fileID: 7167178026702799667, guid: bf2bf6405e9bcb549a91507adaf74345,
+    type: 3}

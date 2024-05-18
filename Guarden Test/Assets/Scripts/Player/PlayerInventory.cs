@@ -171,6 +171,7 @@ namespace TheGuarden.Players
             selectedItemIndex = index;
             selectedItem = items[index];
             selectedItem.Select();
+            inventoryUI.ResetHideDelay();
         }
 
         /// <summary>
@@ -201,8 +202,8 @@ namespace TheGuarden.Players
             }
 
             selectedItem?.Deselect();
-            int newIndex = selectedItemIndex - 1 < 0 ? items.Count - 1 : selectedItemIndex - 1;
-            SelectItem(newIndex);
+            int newItemIndex = selectedItemIndex - 1 < 0 ? items.Count - 1 : selectedItemIndex - 1;
+            SelectItem(newItemIndex);
         }
 
         /// <summary>
@@ -226,6 +227,7 @@ namespace TheGuarden.Players
                 return;
             }
 
+            selectedItem.Deselect();
             selectedItem.Drop();
             items.Remove(selectedItem);
             UpdateSelectedItem();

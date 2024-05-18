@@ -173,7 +173,12 @@ namespace TheGuarden.Interactable
         private bool IsInRestrictedArea()
         {
             bool isRestrictedArea = !Physics.CheckSphere(transform.position, overlapRadius, plantableAreaMask) || Physics.CheckSphere(transform.position, overlapRadius, nonPlantableArea);
-            GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
+
+            if (isRestrictedArea)
+            {
+                GameLogger.LogError("Can't plant in planting bed or outside planting area", gameObject, GameLogger.LogCategory.Plant);
+            }
+
             return isRestrictedArea;
         }
 

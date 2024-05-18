@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: PressPickUp
   m_EditorClassIdentifier: 
-  keyboardInstruction: Press space to pick up item
-  controllerInstruction: Press <rotate=180><sprite=0></rotate> to pick up item
+  instructions: Press {0} to pick up item
+  actionReference: {fileID: 7743739715345199758, guid: bf2bf6405e9bcb549a91507adaf74345,
+    type: 3}

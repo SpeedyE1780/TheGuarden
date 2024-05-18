@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: AddWaterInstruction
   m_EditorClassIdentifier: 
-  keyboardInstruction: Press e to add water to bucket
-  controllerInstruction: Press <rotate=90><sprite=0></rotate> to add water to bucket
+  instructions: Press {0} to add water to bucket
+  actionReference: {fileID: -4463723971352298113, guid: bf2bf6405e9bcb549a91507adaf74345,
+    type: 3}

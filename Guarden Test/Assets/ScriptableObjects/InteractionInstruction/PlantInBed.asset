@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
   m_Name: PlantInBed
   m_EditorClassIdentifier: 
-  keyboardInstruction: Hold e to plant mushroom
-  controllerInstruction: Hold <rotate=90><sprite=0></rotate> to plant mushroom
+  instructions: Hold {0} to plant mushroom
+  actionReference: {fileID: -4463723971352298113, guid: bf2bf6405e9bcb549a91507adaf74345,
+    type: 3}

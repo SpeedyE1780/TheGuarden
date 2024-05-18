@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TheGuarden.Utility
 {
@@ -8,12 +9,10 @@ namespace TheGuarden.Utility
     [CreateAssetMenu(menuName = "Scriptable Objects/Utility/Interaction Instruction")]
     public class InteractionInstruction : ScriptableObject
     {
-        private const string KeyboardMouseScheme = "Keyboard/Mouse";
-
-        [SerializeField, Multiline, Tooltip("Keyboard instruction")]
-        private string keyboardInstruction;
-        [SerializeField, Multiline, Tooltip("Controller instruction")]
-        private string controllerInstruction;
+        [SerializeField, Multiline, Tooltip("Instruction shown on screen")]
+        private string instructions;
+        [SerializeField, Tooltip("Instruction's input action")]
+        private InputActionReference actionReference;
 
         /// <summary>
         /// Return instruction based on control scheme
@@ -22,12 +21,8 @@ namespace TheGuarden.Utility
         /// <returns>Instructions based on control scheme</returns>
         public string GetInstructionMessage(string controlScheme)
         {
-            if (controlScheme == KeyboardMouseScheme)
-            {
-                return keyboardInstruction;
-            }
-
-            return controllerInstruction;
+            string bindingDisplay = actionReference != null ? actionReference.action.GetBindingDisplayString(InputBinding.MaskByGroup(controlScheme), InputBinding.DisplayStringOptions.DontIncludeInteractions) : string.Empty;
+            return string.Format(instructions, bindingDisplay);
         }
     }
 }

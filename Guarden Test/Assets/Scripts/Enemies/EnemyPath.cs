@@ -11,9 +11,9 @@ namespace TheGuarden.Enemies
     {
         [SerializeField, Tooltip("Points making the path")]
         private List<Transform> points;
-        internal int CurrentIndex { get; set; }
-        internal Vector3 CurrentPosition => points[CurrentIndex].position;
-        internal bool ReachedEndOfPath => CurrentIndex >= points.Count;
+
+        internal Vector3 this[int index] => points[index].position;
+        internal int Count => points.Count;
 
 #if UNITY_EDITOR
         [Header("EDITOR ONLY")]

@@ -20,6 +20,7 @@ namespace TheGuarden.UI
         private ObjectPool<ItemUI> pool;
 
         private InventoryUI inventoryUI;
+        private ItemUI viewer;
 
         /// <summary>
         /// Set InventoryUI containing this item
@@ -44,12 +45,37 @@ namespace TheGuarden.UI
         }
 
         /// <summary>
+        /// Set item on screen info based on reference
+        /// </summary>
+        /// <param name="reference">Item who's info is shown</param>
+        private void SetItem(ItemUI reference)
+        {
+            nameText.text = reference.nameText.text;
+            progressSlider.value = reference.progressSlider.value;
+            itemImage.enabled = reference.itemImage.enabled;
+            itemImage.sprite = reference.itemImage.sprite;
+        }
+
+        private void ClearItem()
+        {
+            nameText.text = string.Empty;
+            progressSlider.value = 0;
+            itemImage.enabled = false;
+            itemImage.sprite = null;
+        }
+
+        /// <summary>
         /// Set progress slider value
         /// </summary>
         /// <param name="progress">Progress slider value</param>
         public void SetProgress(float progress)
         {
             progressSlider.value = progress;
+
+            if (viewer != null)
+            {
+                viewer.progressSlider.value = progress;
+            }
         }
 
         /// <summary>
@@ -58,6 +84,8 @@ namespace TheGuarden.UI
         public void Select()
         {
             nameText.color = Color.yellow;
+            viewer = inventoryUI.SelectedViewer;
+            viewer.SetItem(this);
         }
 
         /// <summary>
@@ -66,6 +94,8 @@ namespace TheGuarden.UI
         public void Deselect()
         {
             nameText.color = Color.white;
+            viewer.ClearItem();
+            viewer = null;
         }
 
         /// <summary>
