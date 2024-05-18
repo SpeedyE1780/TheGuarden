@@ -24,5 +24,11 @@ namespace TheGuarden.Utility
             string bindingDisplay = actionReference != null ? actionReference.action.GetBindingDisplayString(InputBinding.MaskByGroup(controlScheme), InputBinding.DisplayStringOptions.DontIncludeInteractions) : string.Empty;
             return string.Format(instructions, bindingDisplay);
         }
+
+        public string GetAllBindingsInstructionMessage()
+        {
+            string bindingDisplay = actionReference != null ? actionReference.action.GetBindingDisplayString(InputBinding.DisplayStringOptions.DontIncludeInteractions) : string.Empty;
+            return string.Format(instructions, bindingDisplay);
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace TheGuarden.Players
         private PlayerInput input;
         [SerializeField, Tooltip("Game event raised to hide active window")]
         private GameEvent hideActiveWindow;
+        [SerializeField, Tooltip("Game event raised to start enemy wave")]
+        private GameEvent startEnemyWave;
 
         public PlayerInventory Inventory => inventory;
 
@@ -64,6 +66,18 @@ namespace TheGuarden.Players
         internal void SetColor(Color color)
         {
             playerRenderer.material.color = color;
+        }
+
+        /// <summary>
+        /// Start enemy wave
+        /// </summary>
+        /// <param name="context">context is used to check if input is performed</param>
+        public void StartEnemyWave(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                startEnemyWave.Raise();
+            }
         }
     }
 }

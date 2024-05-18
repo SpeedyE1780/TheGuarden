@@ -474,6 +474,7 @@ MonoBehaviour:
   inventory: {fileID: 8220134511689740318}
   input: {fileID: 4519687550107306965}
   hideActiveWindow: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c, type: 2}
+  startEnemyWave: {fileID: 11400000, guid: 755536769d2ee3d4abea07b756326e31, type: 2}
 --- !u!114 &4519687550107306965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,6 +629,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ef8beec1-222c-4eee-97d2-bce9b2781378
     m_ActionName: PlayerActions/DropItem[/Keyboard/x]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7332446620996662355}
+        m_TargetAssemblyTypeName: TheGuarden.Players.PlayerController, TheGuarden.Players
+        m_MethodName: StartEnemyWave
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c5e25bf5-20c7-48b2-8074-bfc2ee4294c6
+    m_ActionName: PlayerActions/StartWave[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerActions

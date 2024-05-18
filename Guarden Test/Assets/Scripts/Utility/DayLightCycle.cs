@@ -20,7 +20,11 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Night Started event")]
         private GameEvent onNightStarted;
 
+        private float dayTime = 0;
         private bool enemyWavedEnded = false;
+        private bool startWaveEarly = false;
+
+        public float DayProgess => dayTime / dayDuration;
 
         /// <summary>
         /// Start the daylight cycle when game starts
@@ -36,6 +40,14 @@ namespace TheGuarden.Utility
         public void OnEnemyWaveEnded()
         {
             enemyWavedEnded = true;
+        }
+
+        /// <summary>
+        /// Called from game event
+        /// </summary>
+        public void OnStartWaveEarly()
+        {
+            startWaveEarly = true;
         }
 
         /// <summary>
@@ -66,6 +78,40 @@ namespace TheGuarden.Utility
         }
 
         /// <summary>
+        /// Update daytime until it reaches duration and start night
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator RunDay()
+        {
+            GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
+            dayTime = 0;
+            startWaveEarly = false;
+
+            while (dayTime < dayDuration && !startWaveEarly)
+            {
+                dayTime += Time.deltaTime;
+                yield return null;
+            }
+
+            dayTime = dayDuration;
+            yield return UpdateLight();
+        }
+
+        /// <summary>
+        /// Start enemy wave and wait until all enemies are gone
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator RunNight()
+        {
+            GameLogger.LogInfo("Night Started", this, GameLogger.LogCategory.Scene);
+            enemyWavedEnded = false;
+            onNightStarted.Raise();
+
+            yield return new WaitUntil(() => enemyWavedEnded);
+            yield return UpdateLight(1);
+        }
+
+        /// <summary>
         /// Transition from daytime to night time
         /// </summary>
         /// <returns></returns>
@@ -73,16 +119,8 @@ namespace TheGuarden.Utility
         {
             while (true)
             {
-                GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
-                yield return new WaitForSeconds(dayDuration);
-                yield return UpdateLight();
-
-                enemyWavedEnded = false;
-                onNightStarted.Raise();
-                GameLogger.LogInfo("Night Started", this, GameLogger.LogCategory.Scene);
-
-                yield return new WaitUntil(() => enemyWavedEnded);
-                yield return UpdateLight(1);
+                yield return RunDay();
+                yield return RunNight();
                 onDayStarted.Raise();
             }
         }
