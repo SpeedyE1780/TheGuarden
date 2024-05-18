@@ -22,6 +22,7 @@ namespace TheGuarden.Utility
 
         private float dayTime = 0;
         private bool enemyWavedEnded = false;
+        private bool startWaveEarly = false;
 
         public float DayProgess => dayTime / dayDuration;
 
@@ -39,6 +40,14 @@ namespace TheGuarden.Utility
         public void OnEnemyWaveEnded()
         {
             enemyWavedEnded = true;
+        }
+
+        /// <summary>
+        /// Called from game event
+        /// </summary>
+        public void OnStartWaveEarly()
+        {
+            startWaveEarly = true;
         }
 
         /// <summary>
@@ -76,13 +85,15 @@ namespace TheGuarden.Utility
         {
             GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
             dayTime = 0;
+            startWaveEarly = false;
 
-            while (dayTime < dayDuration)
+            while (dayTime < dayDuration && !startWaveEarly)
             {
                 dayTime += Time.deltaTime;
                 yield return null;
             }
 
+            dayTime = dayDuration;
             yield return UpdateLight();
         }
 
