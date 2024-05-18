@@ -36,6 +36,7 @@ namespace TheGuarden.Utility
 #if UNITY_EDITOR
         internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
         internal Bounds Bounds => followBounds;
+        internal Camera FollowCamera => followCamera;
 #endif
 
         private void Awake()
@@ -156,6 +157,15 @@ namespace TheGuarden.Utility
         {
             offset = calculatedOffset;
             addedOffset = calculatedOffset.magnitude;
+        }
+
+        internal void MoveToDefault()
+        {
+            Vector3 intialOffset = offset;
+            offset.Normalize();
+            Vector3 position = CalculateDesiredPosition();
+            followCamera.transform.position = position;
+            offset = intialOffset;
         }
 #endif
     }

@@ -25,5 +25,12 @@ namespace TheGuarden.Utility.Editor
             Vector3 offset = followTarget.transform.position - followTarget.DefaultTargetPosition;
             RecordEditorHistory.RecordHistory(followTarget, $"Update {followTarget.name} offsets", () => { followTarget.UpdateOffset(offset); });
         }
+
+        [MenuItem("CONTEXT/FollowTarget/Move Camera to Default")]
+        internal static void MoveToDefault(MenuCommand command)
+        {
+            FollowTarget target = command.context as FollowTarget;
+            RecordEditorHistory.RecordHistory(target.FollowCamera.transform, $"Move {target.FollowCamera.name} to default", target.MoveToDefault);
+        }
     }
 }
