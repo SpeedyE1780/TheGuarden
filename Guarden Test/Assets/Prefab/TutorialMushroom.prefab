@@ -19,6 +19,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialMushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 6923517243752356787, guid: c25ec14dcaeff274da1653d222450940,
+        type: 3}
+      propertyPath: mushroomInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 36e4d28451f4f354d95c0c0269cedb0b,
+        type: 2}
     - target: {fileID: 8670486904953502129, guid: c25ec14dcaeff274da1653d222450940,
         type: 3}
       propertyPath: m_RootOrder
