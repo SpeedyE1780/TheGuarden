@@ -145,8 +145,8 @@ Material:
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
     - _Float: 0
-    - _Foam_Amount: 39.52
-    - _Foam_Cutoff: 19.1
+    - _Foam_Amount: 60
+    - _Foam_Cutoff: 4.5
     - _Foam_Depth: 1.21
     - _Foam_Noise_Scale: 4.34
     - _Foam_Ripple_Speed: 0.4
@@ -161,7 +161,7 @@ Material:
     - _Metallic: 0
     - _Normal_Intensity: 0.01
     - _OcclusionStrength: 1
-    - _Offset: 0.3
+    - _Offset: 0.2
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -190,18 +190,18 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Deep_Color: {r: 0.23183607, g: 0.23584908, b: 0.08121218, a: 0.36862746}
+    - _Deep_Color: {r: 0.22761658, g: 0.2924528, b: 0.07058824, a: 0.36862746}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Foam_Color: {r: 1, g: 1, b: 1, a: 0.4392157}
+    - _Foam_Color: {r: 0.49261302, g: 0.7735849, b: 0.5055912, a: 0.4392157}
     - _Foam_Speed: {r: 0.96, g: 0.85, b: 0, a: 0}
     - _Foam_color: {r: 17.148375, g: 17.148375, b: 17.148375, a: 0}
     - _Refr_Speed: {r: 5, g: 0, b: 0, a: 0}
     - _Refraction_Rate: {r: 0.2, g: 0, b: 0, a: 0}
-    - _Shallow_Color: {r: 0.12584549, g: 0.26415092, b: 0.12584852, a: 1}
+    - _Shallow_Color: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Swamp_caustic_color: {r: 0.38527945, g: 0.735849, b: 0.735849, a: 0.4627451}
     - _Swamp_color: {r: 0.28502136, g: 0.478655, b: 0.5754717, a: 1}
     - _Tiling: {r: 3.24, g: 3.65, b: 0, a: 0}
     - _Water_Caustic_Intensity: {r: 0.1, g: 0, b: 0, a: 0}
-    - _water_speed: {r: 0.05, g: 0, b: 0, a: 0}
+    - _water_speed: {r: 0.01, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
