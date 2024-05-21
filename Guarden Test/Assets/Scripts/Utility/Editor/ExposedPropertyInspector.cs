@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace TheGuarden.Utility.Editor
 {
-    [CustomEditor(typeof(ExposedProperty))]
+    [CustomEditor(typeof(ExposedProperty), true)]
     public class ExposedPropertyInspector : UnityEditor.Editor
     {
         private Label propertyIDLabel;

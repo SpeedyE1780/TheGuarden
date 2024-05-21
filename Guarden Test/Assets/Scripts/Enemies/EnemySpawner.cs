@@ -45,13 +45,13 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Multiplier added each night to enemy's max health")]
         private float healthMultiplier = 0.5f;
         [SerializeField, Tooltip("VFX OnSucking Property")]
-        private ExposedProperty onSucking;
+        private ShaderProperty onSucking;
         [SerializeField, Tooltip("VFX OnFinishSucking Property")]
-        private ExposedProperty onFinishSucking;
+        private ShaderProperty onFinishSucking;
 
         [SerializeField, Tooltip("Audio Source")]
         private AudioSource audioSource;
-        [SerializeField,Tooltip("Hover Sound")]
+        [SerializeField, Tooltip("Hover Sound")]
         private AudioClip hoverClip;
         [SerializeField, Tooltip("Enter Sound")]
         private AudioClip UFOEnterClip;
@@ -117,6 +117,7 @@ namespace TheGuarden.Enemies
             followCamera.AddTarget(ufoTransform);
 
             yield return MoveUFO(spawnPoint.position);
+            ufo.enabled = true;
             ufo.Play();
             audioSource.Play();
             ufo.SendEvent(onSucking.PropertyID);
@@ -131,6 +132,7 @@ namespace TheGuarden.Enemies
 
             yield return CurrentWave.wave.SpawnWave(configuration);
 
+            ufo.enabled = false;
             ufo.SendEvent(onFinishSucking.PropertyID);
             followCamera.RemoveTarget(ufoTransform);
             yield return MoveUFO(endPosition);

@@ -13,7 +13,7 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Material To Change")]
         private Material material;
         [SerializeField, Tooltip("Shader color property")]
-        private ExposedProperty colorProperty;
+        private ShaderProperty colorProperty;
 
         private void Start()
         {

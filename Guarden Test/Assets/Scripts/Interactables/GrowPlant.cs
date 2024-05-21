@@ -19,11 +19,11 @@ namespace TheGuarden.Interactable
         [SerializeField, Tooltip("Game event called when mushroom is fully grown")]
         private GameEvent onFullyGrown;
         [SerializeField, Tooltip("Growing event VFX Property")]
-        private ExposedProperty onGrowingProperty;
+        private ShaderProperty onGrowingProperty;
         [SerializeField, Tooltip("StopGrowing event VFX Property")]
-        private ExposedProperty onStopGrowingProperty;
+        private ShaderProperty onStopGrowingProperty;
         [SerializeField, Tooltip("FullyGrown event VFX Property")]
-        private ExposedProperty onFullyGrownProperty;
+        private ShaderProperty onFullyGrownProperty;
 
         private Vector3 targetGrowth = Vector3.zero;
         private bool isGrowing = false;
