@@ -51,7 +51,7 @@ namespace TheGuarden.Enemies
 
         [SerializeField, Tooltip("Audio Source")]
         private AudioSource audioSource;
-        [SerializeField,Tooltip("Hover Sound")]
+        [SerializeField, Tooltip("Hover Sound")]
         private AudioClip hoverClip;
         [SerializeField, Tooltip("Enter Sound")]
         private AudioClip UFOEnterClip;
@@ -117,6 +117,7 @@ namespace TheGuarden.Enemies
             followCamera.AddTarget(ufoTransform);
 
             yield return MoveUFO(spawnPoint.position);
+            ufo.enabled = true;
             ufo.Play();
             audioSource.Play();
             ufo.SendEvent(onSucking.PropertyID);
@@ -131,6 +132,7 @@ namespace TheGuarden.Enemies
 
             yield return CurrentWave.wave.SpawnWave(configuration);
 
+            ufo.enabled = false;
             ufo.SendEvent(onFinishSucking.PropertyID);
             followCamera.RemoveTarget(ufoTransform);
             yield return MoveUFO(endPosition);
