@@ -13,7 +13,7 @@ namespace TheGuarden.PlantPowerUps
         [SerializeField, Tooltip("Mushrooms health component")]
         private Health mushroomHealth;
         [SerializeField, Tooltip("Mushroom explosion pool")]
-        ObjectPool<VFXExplosionController> explosionPool;
+        ObjectPool<PooledVisualEffect> explosionPool;
 
         private void OnTriggerEnter(Collider other)
         {
