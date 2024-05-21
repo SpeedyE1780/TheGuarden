@@ -67,7 +67,7 @@ namespace TheGuarden.UI
             mushroomWindowActive.Raise();
             mushroomName.text = mushroom.Name;
             mushroomDescription.text = mushroom.Description;
-            mushroomIcon.sprite = mushroom.Sprite;
+            mushroomIcon.sprite = mushroom.WindowSprite;
             window.gameObject.SetActive(true);
             Time.timeScale = 0;
             hideWindow = false;
