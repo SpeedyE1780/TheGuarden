@@ -1,0 +1,19 @@
+Item Pickup Sound:
+Assets/Audio/Clips/Item Pickup.wav
+https://freesound.org/people/nicholasdaryl/sounds/563465/
+
+Turret Fire Sound:
+Assets/Audio/Clips/Turret Fire.wav
+https://freesound.org/people/robbeman/sounds/495645/
+
+Cow Mooing Sound:
+Assets/Audio/Clips/Moo.wav
+https://freesound.org/people/Bird_man/sounds/275154/
+
+Chicken Clucking Sound
+Assets/Audio/Clips/Chicken Cluck.wav
+https://freesound.org/people/D4XX/sounds/607245/
+
+Sheep Baa Sound
+Assets/Audio/Clips/BAA.wav
+https://freesound.org/people/liran1601/sounds/731671/
