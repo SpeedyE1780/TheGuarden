@@ -14,8 +14,12 @@ namespace TheGuarden.Players
         private float speed = 5f;
         [SerializeField, Tooltip("Autofilled. Player rigidbody")]
         private Rigidbody rb;
+        [SerializeField, Tooltip("Player Animator")]
+        private Animator animator;
         [SerializeField, Tooltip("State toggle indicating if movement direction should be switched")]
         private StateToggle nightMovement;
+        [SerializeField, Tooltip("Animator's speed parameter")]
+        private AnimatorProperty speedProperty;
 
         private Vector3 movement;
         private Vector3 velocity;
@@ -33,6 +37,7 @@ namespace TheGuarden.Players
         private void Update()
         {
             velocity = movement * speed;
+            animator.SetFloat(speedProperty.PropertyID, movement.magnitude);
 
             //Night camera is rotated so swizzle velocity to match camera orientation
             if (nightMovement.Toggled)

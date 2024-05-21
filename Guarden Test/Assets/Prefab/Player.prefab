@@ -456,7 +456,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   rb: {fileID: 5394329849608207086}
+  animator: {fileID: 0}
   nightMovement: {fileID: 11400000, guid: 2a2c2e338943d6d40bada1f448076379, type: 2}
+  speedProperty: {fileID: 11400000, guid: ceb0ae5c2d0b6cb4793baff25d1275be, type: 2}
 --- !u!114 &7332446620996662355
 MonoBehaviour:
   m_ObjectHideFlags: 0
