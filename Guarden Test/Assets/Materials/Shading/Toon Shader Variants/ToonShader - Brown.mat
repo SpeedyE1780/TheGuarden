@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Diffuse_Map:
-        m_Texture: {fileID: 2800000, guid: f550f9bfead2f0e4db3dbacb13068fba, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
@@ -50,6 +50,6 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_of_shader: {r: 0.36130688, g: 0.36130688, b: 0.36130688, a: 0}
+    - _Color_of_shader: {r: 0.23584908, g: 0.11953994, b: 0, a: 0}
     - _Temp_Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

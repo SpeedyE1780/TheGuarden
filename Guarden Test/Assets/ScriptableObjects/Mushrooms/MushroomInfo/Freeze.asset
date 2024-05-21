@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Freeze
   m_EditorClassIdentifier: 
   mushroomName: Freeze
-  mushroomDescription: Will freeze enemies for a short period when they first enter
-    radius
+  mushroomDescription: Will freeze enemies for a short period.
   mushroomSprite: {fileID: 21300000, guid: c812a5aabf43ab046a5244504494d7f5, type: 3}
