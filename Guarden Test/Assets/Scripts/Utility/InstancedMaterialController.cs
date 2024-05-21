@@ -38,5 +38,10 @@ namespace TheGuarden.Utility
         {
             material.SetVector(colorProperty.PropertyID, color);
         }
+
+        public Color GetColor()
+        {
+            return material.GetVector(colorProperty.PropertyID);
+        }
     }
 }

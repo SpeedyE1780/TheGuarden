@@ -12,8 +12,8 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("Maximum Health")]
         private float maxHealth;
 
-        private float currentMaxHealth;
-        private float health;
+        public float CurrentMaxHealth { get; private set; }
+        public float CurrentHealth { get; private set; }
         public OutOfHealth OnOutOfHealth { get; set; }
 
         private void Start()
@@ -27,9 +27,9 @@ namespace TheGuarden.Utility
         /// <param name="damage">Damage received</param>
         public void Damage(float damage)
         {
-            health -= damage;
+            CurrentHealth -= damage;
 
-            if (health <= 0.0f)
+            if (CurrentHealth <= 0.0f)
             {
                 OnOutOfHealth();
             }
@@ -41,7 +41,7 @@ namespace TheGuarden.Utility
         /// <param name="heal">Health received</param>
         public void Heal(float heal)
         {
-            health = Mathf.Clamp(health + heal, 0.0f, currentMaxHealth);
+            CurrentHealth = Mathf.Clamp(CurrentHealth + heal, 0.0f, CurrentMaxHealth);
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace TheGuarden.Utility
         /// </summary>
         public void ResetHealth()
         {
-            currentMaxHealth = maxHealth;
-            health = currentMaxHealth;
+            CurrentMaxHealth = maxHealth;
+            CurrentHealth = CurrentMaxHealth;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace TheGuarden.Utility
         /// </summary>
         public void Kill()
         {
-            Damage(health);
+            Damage(CurrentHealth);
         }
 
         /// <summary>
@@ -68,12 +68,12 @@ namespace TheGuarden.Utility
         /// <param name="updateHealth">Whether or not current health should be updated to new max health</param>
         public void MutlitplyMaxHealth(float multiplier, bool updateHealth = true)
         {
-            currentMaxHealth = maxHealth * multiplier;
-            GameLogger.LogInfo($"{name} max health now is {currentMaxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
+            CurrentMaxHealth = maxHealth * multiplier;
+            GameLogger.LogInfo($"{name} max health now is {CurrentMaxHealth}", this, GameLogger.LogCategory.Enemy | GameLogger.LogCategory.Plant);
 
             if (updateHealth)
             {
-                health = currentMaxHealth;
+                CurrentHealth = CurrentMaxHealth;
             }
         }
     }
