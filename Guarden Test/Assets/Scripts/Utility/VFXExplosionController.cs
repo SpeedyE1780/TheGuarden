@@ -36,7 +36,7 @@ namespace TheGuarden.Utility
         /// </summary>
         public void OnExitPool()
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
 
         /// <summary>
