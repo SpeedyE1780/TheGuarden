@@ -28,6 +28,8 @@ namespace TheGuarden.Players
         private List<Color> playerColors;
         [SerializeField, Tooltip("State toggle indicating if player are in scene")]
         private StateToggle playersInScene;
+        [SerializeField, Tooltip("Reference of current player control scheme")]
+        private StringReference playerControlScheme;
 
         private List<IPickUp> spawnPickups;
 
@@ -70,7 +72,8 @@ namespace TheGuarden.Players
             controller.SetColor(playerColors[playerIndex]);
             controller.Inventory.Initialize(spawnPickups, inventoryUI[playerIndex]);
             followCamera.AddTarget(player.transform);
-            playersInScene.TurnOn();
+            playersInScene.SetValue(true);
+            playerControlScheme.SetValue(PlayerInput.all[0].currentControlScheme);
         }
 
         /// <summary>
@@ -81,7 +84,7 @@ namespace TheGuarden.Players
         {
             if (PlayerInput.all.Count == 0)
             {
-                playersInScene.TurnOff();
+                playersInScene.SetValue(false);
             }
 
             if (followCamera != null)
@@ -127,6 +130,7 @@ namespace TheGuarden.Players
             if (success)
             {
                 GameLogger.LogInfo($"Switched player 1 control scheme to {device.name}", this, GameLogger.LogCategory.Player);
+                playerControlScheme.SetValue(PlayerInput.all[0].currentControlScheme);
             }
             else
             {

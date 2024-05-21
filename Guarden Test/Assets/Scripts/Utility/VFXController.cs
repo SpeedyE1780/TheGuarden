@@ -20,7 +20,7 @@ namespace TheGuarden.Utility
         {
             playState.OnValueChange += OnStateChanged;
 
-            if (playState.Toggled)
+            if (playState.Value)
             {
                 effect.Play();
             }
@@ -31,9 +31,9 @@ namespace TheGuarden.Utility
             playState.OnValueChange -= OnStateChanged;
         }
 
-        private void OnStateChanged()
+        private void OnStateChanged(bool value)
         {
-            if (playState.Toggled)
+            if (value)
             {
                 GameLogger.LogInfo($"{name} played", this, GameLogger.LogCategory.Scene);
                 effect.enabled = true;

@@ -20,7 +20,7 @@ namespace TheGuarden.UI
         private void OnEnable()
         {
             playerInScene.OnValueChange += TogglePrompt;
-            TogglePrompt();
+            TogglePrompt(playerInScene.Value);
         }
 
         private void OnDisable()
@@ -31,9 +31,9 @@ namespace TheGuarden.UI
         /// <summary>
         /// Toggle text state based on if players are in scene
         /// </summary>
-        private void TogglePrompt()
+        private void TogglePrompt(bool value)
         {
-            instructionText.enabled = !playerInScene.Toggled;
+            instructionText.enabled = !value;
         }
 
 #if UNITY_EDITOR

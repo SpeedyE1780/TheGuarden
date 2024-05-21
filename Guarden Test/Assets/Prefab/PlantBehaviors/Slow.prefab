@@ -251,16 +251,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6713672336998575727, guid: 46dff5c9072cfd648b73bee719ec54d1,
-        type: 3}
-      propertyPath: m_InitialEventName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6713672336998575727, guid: 46dff5c9072cfd648b73bee719ec54d1,
-        type: 3}
-      propertyPath: m_InitialEventNameOverriden
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6907024314729020310, guid: 46dff5c9072cfd648b73bee719ec54d1,
         type: 3}
       propertyPath: m_Name
@@ -269,42 +259,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6907024314729020310, guid: 46dff5c9072cfd648b73bee719ec54d1,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1223929402679181143}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46dff5c9072cfd648b73bee719ec54d1, type: 3}
 --- !u!4 &7999676946604817755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5497862874060123825, guid: 46dff5c9072cfd648b73bee719ec54d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2542522693315171306}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &8976365580873574524 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6907024314729020310, guid: 46dff5c9072cfd648b73bee719ec54d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 2542522693315171306}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1223929402679181143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8976365580873574524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 173b4e6eef31d7b4d96caf8cf614491c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 9107153111016881541}
-  playState: {fileID: 11400000, guid: a1fe37ac880a58a42bf273c37f86c91a, type: 2}
-  disableComponent: 1
---- !u!2083052967 &9107153111016881541 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 6713672336998575727, guid: 46dff5c9072cfd648b73bee719ec54d1,
     type: 3}
   m_PrefabInstance: {fileID: 2542522693315171306}
   m_PrefabAsset: {fileID: 0}

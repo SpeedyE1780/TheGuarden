@@ -40,7 +40,7 @@ namespace TheGuarden.Players
             animator.SetFloat(speedProperty.PropertyID, movement.magnitude);
 
             //Night camera is rotated so swizzle velocity to match camera orientation
-            if (nightMovement.Toggled)
+            if (nightMovement.Value)
             {
                 float horizontal = velocity.x;
                 float vertical = velocity.z;

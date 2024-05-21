@@ -25,7 +25,7 @@ namespace TheGuarden.Utility
 
         private IEnumerator Start()
         {
-            yield return new WaitUntil(() => playerState.Toggled);
+            yield return new WaitUntil(() => playerState.Value);
             onGameStarted.Raise();
         }
 

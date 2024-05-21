@@ -19,12 +19,37 @@ namespace TheGuarden.UI
         private TextMeshProUGUI instructionText;
         [SerializeField, Tooltip("StartWave early instruction text")]
         private InteractionInstruction instruction;
+        [SerializeField, Tooltip("Reference to player control scheme")]
+        private StringReference playerControlScheme;
 
         private bool dayCycle = false;
 
-        private void Start()
+        private void OnEnable()
         {
-            instructionText.text = instruction.GetAllBindingsInstructionMessage();
+            playerControlScheme.OnValueChange += UpdateInstructionText;
+        }
+
+        private void OnDisable()
+        {
+            playerControlScheme.OnValueChange -= UpdateInstructionText;
+        }
+
+        /// <summary>
+        /// Update the message based on the player control scheme
+        /// </summary>
+        /// <param name="controlScheme">Current control scheme</param>
+        private void UpdateInstructionText(string controlScheme)
+        {
+            instructionText.text = instruction.GetInstructionMessage(controlScheme);
+        }
+
+        /// <summary>
+        /// Called from game event
+        /// </summary>
+        public void OnGameStarted()
+        {
+            UpdateInstructionText(playerControlScheme.Value);
+            OnDayStarted();
         }
 
         /// <summary>

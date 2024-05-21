@@ -119,7 +119,10 @@ MonoBehaviour:
   inventoryUI:
   - {fileID: 0}
   - {fileID: 0}
+  spawnPlayerItems: []
   playerColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 0, b: 1, a: 1}
   playersInScene: {fileID: 11400000, guid: 12889063f6a2cbe44a83d35d4a6d435e, type: 2}
+  playerControlScheme: {fileID: 11400000, guid: 8423a68256ce3db47ab665b42f5e2c56,
+    type: 2}

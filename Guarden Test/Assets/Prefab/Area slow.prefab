@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5497862874060123825}
   - component: {fileID: 6713672336998575727}
   - component: {fileID: 2743300705790649782}
+  - component: {fileID: 217010901677981068}
   m_Layer: 0
   m_Name: Area slow
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6907024314729020310}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 34.15, y: -1.338, z: 34.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -42,8 +43,8 @@ VisualEffect:
   m_GameObject: {fileID: 6907024314729020310}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: 61016cd31521a2d409c239239fd2cf63, type: 3}
-  m_InitialEventName: OnPlay
-  m_InitialEventNameOverriden: 0
+  m_InitialEventName: 
+  m_InitialEventNameOverriden: 1
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
   m_AllowInstancing: 1
@@ -114,3 +115,18 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &217010901677981068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6907024314729020310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173b4e6eef31d7b4d96caf8cf614491c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 6713672336998575727}
+  playState: {fileID: 11400000, guid: a1fe37ac880a58a42bf273c37f86c91a, type: 2}
+  disableComponent: 1

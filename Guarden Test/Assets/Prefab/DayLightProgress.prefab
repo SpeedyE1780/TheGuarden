@@ -134,6 +134,8 @@ MonoBehaviour:
   cycle: {fileID: 0}
   instructionText: {fileID: 8606343346921685271}
   instruction: {fileID: 11400000, guid: 1954498888ec57448ad933a47f396a9d, type: 2}
+  playerControlScheme: {fileID: 11400000, guid: 8423a68256ce3db47ab665b42f5e2c56,
+    type: 2}
 --- !u!114 &8608284699460341184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,7 +213,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 419435551086980421}
         m_TargetAssemblyTypeName: TheGuarden.UI.DayLightProgress, TheGuarden.UI
-        m_MethodName: OnDayStarted
+        m_MethodName: OnGameStarted
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
