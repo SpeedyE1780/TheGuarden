@@ -49,6 +49,13 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("VFX OnFinishSucking Property")]
         private ExposedProperty onFinishSucking;
 
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource audioSource;
+        [SerializeField,Tooltip("Hover Sound")]
+        private AudioClip hoverClip;
+        [SerializeField, Tooltip("Enter Sound")]
+        private AudioClip UFOEnterClip;
+
         private float currentHealthMultiplier = 1.0f;
         private int currentWaveConfig = 0;
 
@@ -111,6 +118,7 @@ namespace TheGuarden.Enemies
 
             yield return MoveUFO(spawnPoint.position);
             ufo.Play();
+            audioSource.Play();
             ufo.SendEvent(onSucking.PropertyID);
 
             SpawnConfiguration configuration = new SpawnConfiguration()
@@ -128,6 +136,7 @@ namespace TheGuarden.Enemies
             yield return MoveUFO(endPosition);
 
             ufo.Stop();
+            audioSource.Stop();
             ufoTransform.gameObject.SetActive(false);
 
             yield return new WaitUntil(() => enemySet.Count == 0);

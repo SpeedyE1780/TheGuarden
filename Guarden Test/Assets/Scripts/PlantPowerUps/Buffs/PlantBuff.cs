@@ -11,12 +11,16 @@ namespace TheGuarden.PlantPowerUps.Buffs
         [SerializeField, Tooltip("Buff Modifier applied to IBuff")]
         private BuffModifier modifier;
 
-        /// <summary>
-        /// Get buff from collider
-        /// </summary>
-        /// <param name="other">Object that entered power up trigger</param>
-        /// <returns></returns>
-        private IBuff GetIBuff(Collider other)
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource audioSource;
+        
+
+    /// <summary>
+    /// Get buff from collider
+    /// </summary>
+    /// <param name="other">Object that entered power up trigger</param>
+    /// <returns></returns>
+    private IBuff GetIBuff(Collider other)
         {
             IBuff buff = other.GetComponent<IBuff>();
 
@@ -38,6 +42,8 @@ namespace TheGuarden.PlantPowerUps.Buffs
             }
 
             modifier.AddAndApplyBuff(buff);
+
+            audioSource.Play(); 
         }
 
         private void OnTriggerExit(Collider other)

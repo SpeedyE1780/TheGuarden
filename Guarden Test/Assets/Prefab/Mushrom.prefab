@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 6923517243752356787}
   - component: {fileID: 7334000047881488347}
   - component: {fileID: 310434028874281703}
+  - component: {fileID: 7497204107078882758}
   - component: {fileID: 6151858367588292063}
   - component: {fileID: 6588930742167892155}
   m_Layer: 12
@@ -409,6 +410,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
+--- !u!114 &7497204107078882758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6490151955704539681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75b3d3650499d147b33bc39a57d20bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 310434028874281703}
+  mushroomTop: {fileID: 621571245129447570}
+  finalColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &6151858367588292063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,10 +442,10 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 310434028874281703}
-        m_TargetAssemblyTypeName: TheGuarden.Utility.Health, TheGuarden.Utility
-        m_MethodName: Damage
-        m_Mode: 4
+      - m_Target: {fileID: 7497204107078882758}
+        m_TargetAssemblyTypeName: TheGuarden.Interactable.MushroomHealth, TheGuarden.Interactable
+        m_MethodName: Decay
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -587,11 +603,42 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8786819483201416578}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b778d6fd047141841bae1798514eee67,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 621571245129447570}
   m_SourcePrefab: {fileID: 100100000, guid: b778d6fd047141841bae1798514eee67, type: 3}
+--- !u!1 &290219535314869247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b778d6fd047141841bae1798514eee67,
+    type: 3}
+  m_PrefabInstance: {fileID: 632325773392307886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &621571245129447570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290219535314869247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6601113cb9b3e4647b17c019c0727ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 2236016672227850794}
+  material: {fileID: 0}
+  colorProperty: {fileID: 11400000, guid: 9e5abe7e439355f46bae90f9e46371a2, type: 2}
 --- !u!4 &1102468823084302661 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b778d6fd047141841bae1798514eee67,
+    type: 3}
+  m_PrefabInstance: {fileID: 632325773392307886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2236016672227850794 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: b778d6fd047141841bae1798514eee67,
     type: 3}
   m_PrefabInstance: {fileID: 632325773392307886}
   m_PrefabAsset: {fileID: 0}

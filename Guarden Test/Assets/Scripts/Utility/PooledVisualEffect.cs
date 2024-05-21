@@ -5,15 +5,15 @@ using UnityEngine.VFX;
 namespace TheGuarden.Utility
 {
     /// <summary>
-    /// Controls explosion and adds it to pool
+    /// PooledVisualEffect plays VFX and and adds it to pool
     /// </summary>
     [RequireComponent(typeof(VisualEffect))]
-    public class VFXExplosionController : MonoBehaviour, IPoolObject
+    public class PooledVisualEffect : MonoBehaviour, IPoolObject
     {
-        [SerializeField, Tooltip("Explosion VFX")]
+        [SerializeField, Tooltip("Pooled VFX")]
         private VisualEffect vfx;
         [SerializeField, Tooltip("Pool this item is returned to")]
-        private ObjectPool<VFXExplosionController> pool;
+        private ObjectPool<PooledVisualEffect> pool;
         [SerializeField, Tooltip("Delay before added back to pool")]
         private float delay = 0.5f;
 
@@ -36,7 +36,7 @@ namespace TheGuarden.Utility
         /// </summary>
         public void OnExitPool()
         {
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
 
         /// <summary>

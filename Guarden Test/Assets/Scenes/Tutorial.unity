@@ -1533,6 +1533,7 @@ GameObject:
   - component: {fileID: 605644087}
   - component: {fileID: 605644091}
   - component: {fileID: 605644092}
+  - component: {fileID: 605644093}
   m_Layer: 7
   m_Name: PlantBed
   m_TagString: Untagged
@@ -1661,7 +1662,20 @@ MonoBehaviour:
   dryColor: {r: 1, g: 0.66336644, b: 0.33663374, a: 1}
   wetColor: {r: 0.39607844, g: 0.2627451, b: 0.13333334, a: 1}
   dryingSpeed: 0.000001
-  renderer: {fileID: 605644088}
+  plantBedMaterial: {fileID: 605644093}
+--- !u!114 &605644093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605644086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6601113cb9b3e4647b17c019c0727ad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 605644088}
   material: {fileID: 2100000, guid: edaa92b3b01c4704a8c4e77eb588ad9e, type: 2}
   colorProperty: {fileID: 11400000, guid: 9e5abe7e439355f46bae90f9e46371a2, type: 2}
 --- !u!1 &650908587

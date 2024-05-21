@@ -28,6 +28,8 @@ namespace TheGuarden.Enemies
         private GameEvent onEnemyKilled;
         [SerializeField, Tooltip("Pool that enemy will return to once killed")]
         private ObjectPool<Enemy> enemyPool;
+        [SerializeField, Tooltip("VFX played when enemy dies")]
+        private ObjectPool<PooledVisualEffect> deathVFX;
 
         private EnemyPath path;
         private int pathIndex = 0;
@@ -44,12 +46,13 @@ namespace TheGuarden.Enemies
         internal bool Rewinding => rewinding;
 #endif
 
-        void Start()
+        private void Start()
         {
             health.OnOutOfHealth = () =>
             {
                 onEnemyKilled.Raise();
                 enemyPool.AddObject(this);
+                deathVFX.GetPooledObject().transform.SetPositionAndRotation(transform.position, transform.rotation);
             };
         }
 

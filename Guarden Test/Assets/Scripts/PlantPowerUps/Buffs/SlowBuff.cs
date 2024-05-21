@@ -11,11 +11,11 @@ namespace TheGuarden.PlantPowerUps.Buffs
         [SerializeField, Tooltip("Speed modifier applied to agent")]
         private float speedFactor = 0.5f;
 
-        /// <summary>
-        /// Reduce IBuff speed
-        /// </summary>
-        /// <param name="buff">IBuff who entered trigger</param>
-        internal override void ApplyBuff(IBuff buff)
+    /// <summary>
+    /// Reduce IBuff speed
+    /// </summary>
+    /// <param name="buff">IBuff who entered trigger</param>
+    internal override void ApplyBuff(IBuff buff)
         {
             buff.Agent.speed *= speedFactor;
         }

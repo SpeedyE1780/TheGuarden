@@ -14,27 +14,14 @@ namespace TheGuarden.Interactable
         private Color wetColor;
         [SerializeField, Tooltip("Speed at which bed is drying")]
         private float dryingSpeed = 0.01f;
-        [SerializeField, Tooltip("Mesh Renderer who's material will change")]
-        private MeshRenderer renderer;
-        [SerializeField, Tooltip("Material To Change")]
-        private Material material;
-        [SerializeField, Tooltip("Shader color property")]
-        private ExposedProperty colorProperty;
+        [SerializeField, Tooltip("Component updating instanced material of plant bed")]
+        private InstancedMaterialController plantBedMaterial;
 
         //Dry = 0, Wet = 1
         internal float dryWetRatio = 0;
 
         private void Start()
         {
-            foreach (Material mat in renderer.materials)
-            {
-                if (mat.name.Contains(material.name))
-                {
-                    material = mat;
-                    break;
-                }
-            }
-
             UpdateColor();
         }
 
@@ -44,10 +31,13 @@ namespace TheGuarden.Interactable
             UpdateColor();
         }
 
+        /// <summary>
+        /// Update plant bed color based on dry wet ratio
+        /// </summary>
         private void UpdateColor()
         {
             Color color = Color.Lerp(dryColor, wetColor, dryWetRatio);
-            material.SetVector(colorProperty.PropertyID, color);
+            plantBedMaterial.UpdateColor(color);
         }
 
         /// <summary>

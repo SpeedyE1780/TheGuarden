@@ -1,4 +1,5 @@
 using System;
+using TheGuarden.Utility.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -79,6 +80,8 @@ namespace TheGuarden.Enemies.Editor
                 collider.size = new Vector3(enemyPath.pathWidth, 0.5f, distance);
                 collider.isTrigger = true;
             }
+
+            RecordEditorHistory.MarkSceneDirty();
         }
 
         [MenuItem("CONTEXT/EnemyPath/Generate Force Fields")]
@@ -103,6 +106,8 @@ namespace TheGuarden.Enemies.Editor
                 forceField.transform.SetPositionAndRotation(collider.transform.position, collider.transform.rotation);
                 forceField.transform.localScale = collider.size;
             }
+
+            RecordEditorHistory.MarkSceneDirty();
         }
     }
 }

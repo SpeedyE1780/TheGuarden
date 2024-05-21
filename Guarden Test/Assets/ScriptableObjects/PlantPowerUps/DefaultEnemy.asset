@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2255ce3aea82147b78ea269ed409c3, type: 3}
   m_Name: DefaultEnemy
   m_EditorClassIdentifier: 
-  powerUpRange: 20
+  powerUpRange: 10
   powerUpMask:
     serializedVersion: 2
     m_Bits: 256

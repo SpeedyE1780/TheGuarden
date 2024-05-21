@@ -8,6 +8,7 @@ namespace TheGuarden.NPC
     /// Animal represents the animals wandering around the scene
     /// </summary>
     [RequireComponent(typeof(NavMeshAgent))]
+    
     internal class Animal : MonoBehaviour, IPoolObject
     {
         internal static Transform Shed { get; set; }
@@ -18,6 +19,8 @@ namespace TheGuarden.NPC
         private float stoppingDistance = 0.75f;
         [SerializeField, Tooltip("List of all spawned animals")]
         private AnimalSet spawnedAnimals;
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource source;
 
         private bool hiding = false;
 
@@ -46,6 +49,11 @@ namespace TheGuarden.NPC
             if (!agent.pathPending && agent.remainingDistance <= stoppingDistance && !hiding)
             {
                 agent.SetDestination(NavMeshSurfaceExtensions.GetPointOnSurface());
+                if(!source.isPlaying) 
+                {
+                    source.Play();
+                }
+                
             }
         }
 

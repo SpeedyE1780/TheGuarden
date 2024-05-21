@@ -10,6 +10,8 @@ namespace TheGuarden.PlantPowerUps.Behaviors
     {
         [SerializeField, Tooltip("Behavior Modifier")]
         private BehaviorModifier modifier;
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource audioSource;
 
         /// <summary>
         /// Apply plant behavior to IBehavior
@@ -18,6 +20,7 @@ namespace TheGuarden.PlantPowerUps.Behaviors
         private void ApplyBehavior(IBehavior behavior)
         {
             modifier.ApplyBehavior(behavior);
+            audioSource.Play();
         }
 
         private void OnTriggerEnter(Collider other)
