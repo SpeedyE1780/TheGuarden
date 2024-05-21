@@ -45,9 +45,9 @@ namespace TheGuarden.Enemies
         [SerializeField, Tooltip("Multiplier added each night to enemy's max health")]
         private float healthMultiplier = 0.5f;
         [SerializeField, Tooltip("VFX OnSucking Property")]
-        private ExposedProperty onSucking;
+        private ShaderProperty onSucking;
         [SerializeField, Tooltip("VFX OnFinishSucking Property")]
-        private ExposedProperty onFinishSucking;
+        private ShaderProperty onFinishSucking;
 
         [SerializeField, Tooltip("Audio Source")]
         private AudioSource audioSource;
