@@ -15,6 +15,8 @@ namespace TheGuarden.PlantPowerUps
         private ObjectPool<Projectile> projectilePool;
         [SerializeField, Tooltip("Cooldown between projectiles")]
         private float cooldown;
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource audioSource;
 
         private Transform targetEnemy;
 
@@ -50,6 +52,7 @@ namespace TheGuarden.PlantPowerUps
             while (targetEnemy != null && targetEnemy.gameObject.activeSelf)
             {
                 Projectile projectile = projectilePool.GetPooledObject();
+                audioSource.Play();
                 projectile.transform.SetPositionAndRotation(shootPoint.position, shootPoint.rotation);
                 projectile.Target = targetEnemy;
                 yield return new WaitForSeconds(cooldown);
