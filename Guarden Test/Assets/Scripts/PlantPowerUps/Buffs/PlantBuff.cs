@@ -42,8 +42,11 @@ namespace TheGuarden.PlantPowerUps.Buffs
             }
 
             modifier.AddAndApplyBuff(buff);
-
-            audioSource.Play(); 
+            if(!audioSource.isPlaying) 
+            {
+                audioSource.Play();
+            }
+            
         }
 
         private void OnTriggerExit(Collider other)
