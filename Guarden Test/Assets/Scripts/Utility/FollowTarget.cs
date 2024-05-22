@@ -40,7 +40,6 @@ namespace TheGuarden.Utility
 #if UNITY_EDITOR
         internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
         internal Bounds Bounds => followBounds;
-        internal Camera FollowCamera => followCamera;
 #endif
 
         private void Awake()
