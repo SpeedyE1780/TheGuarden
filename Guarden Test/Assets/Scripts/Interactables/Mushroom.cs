@@ -313,6 +313,7 @@ namespace TheGuarden.Interactable
             transform.SetParent(null);
             rb.constraints = RigidbodyConstraints.None;
             collisionsRadius.SetActive(false);
+            health.ResetHealth();
 
             if (ItemUI != null)
             {
