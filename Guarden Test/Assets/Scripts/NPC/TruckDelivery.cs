@@ -39,7 +39,7 @@ namespace TheGuarden.NPC
 
         private Vector3 SpawnPoint => transform.position + Vector3.up;
 
-        private void Awake()
+        private void Start()
         {
             items = items.Clone();
             deliverySource.clip = configuration.audioClip;
