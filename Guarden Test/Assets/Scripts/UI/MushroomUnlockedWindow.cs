@@ -38,6 +38,7 @@ namespace TheGuarden.UI
             {
                 unlockedMushrooms.Add(mushroom);
                 mushroomList.Add(mushroom);
+                GameLogger.LogInfo($"{mushroom.Name} added to unlocked list", this, GameLogger.LogCategory.PlantPowerUp);
             }
             else
             {
@@ -64,6 +65,7 @@ namespace TheGuarden.UI
         /// <returns></returns>
         private IEnumerator PopUp(MushroomInfo mushroom)
         {
+            GameLogger.LogInfo($"{mushroom.Name} tutorial popped up", this, GameLogger.LogCategory.PlantPowerUp);
             mushroomWindowActive.Raise();
             mushroomName.text = mushroom.Name;
             mushroomDescription.text = mushroom.Description;
@@ -72,6 +74,7 @@ namespace TheGuarden.UI
             Time.timeScale = 0;
             hideWindow = false;
             yield return new WaitUntil(() => hideWindow);
+            GameLogger.LogInfo($"{mushroom.Name} tutorial hidden", this, GameLogger.LogCategory.PlantPowerUp);
             mushroomList.Remove(mushroom);
             window.gameObject.SetActive(false);
             Time.timeScale = 1;
