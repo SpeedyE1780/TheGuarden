@@ -36,6 +36,7 @@ namespace TheGuarden.Utility
         public Camera FollowCamera => followCamera;
         public static Camera ActiveCamera { get; private set; }
         public static Camera UICamera { get; private set; }
+        public static Vector3 Center { get; private set; }
 
 #if UNITY_EDITOR
         internal Vector3 DefaultTargetPosition => defaultTarget != null ? defaultTarget.position : Vector3.zero;
@@ -105,6 +106,7 @@ namespace TheGuarden.Utility
         private Vector3 CalculateDesiredPosition()
         {
             CalculateCenter();
+            Center = center;
             float offsetMultiplier = MathExtensions.CalculateDistanceBasedOnFrustum(boundsSize, followCamera.aspect, followCamera.fieldOfView) + addedOffset;
             return center + (offset * offsetMultiplier);
         }

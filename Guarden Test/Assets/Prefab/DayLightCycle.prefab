@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbce87deea4eaf4c895f8a629d73003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 5000
+  dayDuration: 150
   transitionDuration: 3
   curve:
     serializedVersion: 2

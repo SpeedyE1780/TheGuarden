@@ -161,23 +161,30 @@ namespace TheGuarden.Interactable
             }
         }
 
-        private void LateUpdate()
+        private Vector3 CalculateViewportPosition()
         {
             Vector3 viewportPosition = FollowTarget.ActiveCamera.WorldToViewportPoint(transform.position);
+            Vector3 centerToMushroom = transform.position - FollowTarget.Center;
 
             if (viewportPosition.x < 0 || viewportPosition.x > 1)
             {
-                viewportPosition.x = 0.8f * Mathf.Sign(viewportPosition.x);
+                viewportPosition.x = centerToMushroom.x < 0 ? 0.2f : 0.8f;
             }
 
             if (viewportPosition.y < 0 || viewportPosition.y > 1)
             {
-                viewportPosition.y = 0.8f * Mathf.Sign(viewportPosition.y);
+                viewportPosition.y = centerToMushroom.z < 0 ? 0.2f : 0.8f;
             }
 
+            viewportPosition.z = FollowTarget.UICamera.nearClipPlane;
+            return viewportPosition;
+        }
+
+        private void LateUpdate()
+        {
+            Vector3 viewportPosition = CalculateViewportPosition();
             Vector3 position = FollowTarget.UICamera.ViewportToWorldPoint(viewportPosition);
-            indicator.position = position;
-            indicator.rotation = Quaternion.identity;
+            indicator.SetPositionAndRotation(position, Quaternion.identity);
 
             if (plantSoil != null)
             {
