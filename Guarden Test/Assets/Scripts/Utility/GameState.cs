@@ -1,5 +1,8 @@
 using System.Collections;
 using TheGuarden.Utility.Events;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace TheGuarden.Utility
@@ -27,6 +30,18 @@ namespace TheGuarden.Utility
         {
             yield return new WaitUntil(() => playerState.Value);
             onGameStarted.Raise();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+#if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+#else
+                Application.Quit();
+#endif
+            }
         }
 
         private void OnDestroy()

@@ -214,7 +214,7 @@
                 {
                     "name": "",
                     "id": "c7110e77-4f6c-406d-a645-49cef793c459",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "Hold(duration=1.5)",
                     "processors": "",
                     "groups": "Keyboard/Mouse",
