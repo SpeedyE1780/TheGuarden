@@ -34,6 +34,7 @@ namespace TheGuarden.UI
         {
             ItemUI itemUI = pool.GetPooledObject();
             itemUI.transform.SetParent(itemParents);
+            itemUI.transform.localScale = Vector3.one;
             itemUI.SetParent(this);
             items.Add(itemUI);
             return itemUI;
