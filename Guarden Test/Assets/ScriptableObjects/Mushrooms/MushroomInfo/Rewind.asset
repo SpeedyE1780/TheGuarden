@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroomName: Rewind
   mushroomDescription: Will force enemies to return to the start of their path.
-  mushroomSprite: {fileID: 21300000, guid: 88a96c2c6c99f714fbcca791a6bd3f53, type: 3}
+  windowSprite: {fileID: 21300000, guid: 34501ed92f6967545b4021ae7a06aa92, type: 3}
+  inventorySprite: {fileID: 21300000, guid: 34501ed92f6967545b4021ae7a06aa92, type: 3}
