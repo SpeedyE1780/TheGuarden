@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 3507935215370136681}
-  material: {fileID: 2100000, guid: df73d5de3a3300e4aa02dca53364d855, type: 2}
+  material: {fileID: 2100000, guid: beab159094c0f3f4f8e3b0ba8938a3d0, type: 2}
   colorProperty: {fileID: 11400000, guid: c47e457510d078c4cb09ebeefb08019f, type: 2}
 --- !u!23 &3507935215370136681 stripped
 MeshRenderer:

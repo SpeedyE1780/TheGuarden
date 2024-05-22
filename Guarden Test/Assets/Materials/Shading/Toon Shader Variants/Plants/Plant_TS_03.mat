@@ -28,7 +28,7 @@ Material:
     m_Floats:
     - _Smoothness: 0
     m_Colors:
-    - _Color_of_shader: {r: 2, g: 0, b: 0, a: 0}
+    - _Color_of_shader: {r: 2.0112388, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7733181874170687322
 MonoBehaviour:

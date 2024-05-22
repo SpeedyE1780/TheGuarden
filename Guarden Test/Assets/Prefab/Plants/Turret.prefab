@@ -565,7 +565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 8996091870964055075}
-  material: {fileID: 2100000, guid: c1e6c9d679ba0bf4494fc072d7f134ed, type: 2}
+  material: {fileID: 2100000, guid: 5273211a1540b034f8c6f6a244d0592e, type: 2}
   colorProperty: {fileID: 11400000, guid: c47e457510d078c4cb09ebeefb08019f, type: 2}
 --- !u!135 &5860325005260576543
 SphereCollider:
