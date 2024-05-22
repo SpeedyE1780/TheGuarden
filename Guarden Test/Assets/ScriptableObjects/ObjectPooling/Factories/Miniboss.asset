@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1901ebaf6ae365469889fbd31d45f58, type: 3}
   m_Name: Miniboss
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1603162837032802883, guid: da08cb0391222d24a8c1d581f42b1fde, type: 3}
+  prefab: {fileID: 933938793402577967, guid: da08cb0391222d24a8c1d581f42b1fde, type: 3}

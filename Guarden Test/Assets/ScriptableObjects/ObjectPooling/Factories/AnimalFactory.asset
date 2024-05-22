@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AnimalFactory
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 8383345020475829482, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
-  - {fileID: 6154216430207981063, guid: e1bb82ffc4eac86449cd4df0fc84dac5, type: 3}
-  - {fileID: 8849733885831135376, guid: 76a54f1a988d16b459be999a0a0688ff, type: 3}
+  - {fileID: 1756177901837872779, guid: bc0d8b27f8458aa48ab44f7274657e64, type: 3}
+  - {fileID: 4134452492413228134, guid: e1bb82ffc4eac86449cd4df0fc84dac5, type: 3}
+  - {fileID: 1646135528356856561, guid: 76a54f1a988d16b459be999a0a0688ff, type: 3}
