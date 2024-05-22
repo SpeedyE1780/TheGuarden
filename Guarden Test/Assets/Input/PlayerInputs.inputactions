@@ -245,37 +245,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Shift Tab",
-                    "id": "98609652-878d-4a93-911d-fad22f2c2ade",
-                    "path": "ButtonWithOneModifier",
+                    "name": "",
+                    "id": "518a9be5-acbf-433e-bb6a-639d04e83778",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "PreviousItem",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "Modifier",
-                    "id": "187d950e-08c0-451f-8546-26f0d9dce35a",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard/Mouse",
-                    "action": "PreviousItem",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Button",
-                    "id": "059e8197-e336-43f0-8c0b-558ea5c29722",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard/Mouse",
-                    "action": "PreviousItem",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
