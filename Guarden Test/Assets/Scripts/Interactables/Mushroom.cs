@@ -128,6 +128,7 @@ namespace TheGuarden.Interactable
             ToggleCollisions(false);
             FreePlantSoil();
             onMushroomInfoPickedUp.Raise(mushroomInfo);
+            indicator.gameObject.SetActive(false);
         }
 
         /// <summary>
@@ -346,6 +347,7 @@ namespace TheGuarden.Interactable
         public void OnExitPool()
         {
             gameObject.SetActive(true);
+            indicator.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -359,6 +361,7 @@ namespace TheGuarden.Interactable
             ToggleCollisions(true);
             TogglePowerUps(false);
             ResetItemUI();
+            indicator.gameObject.SetActive(true);
         }
 
         /// <summary>
