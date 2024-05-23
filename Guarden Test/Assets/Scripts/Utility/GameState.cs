@@ -1,8 +1,5 @@
 using System.Collections;
 using TheGuarden.Utility.Events;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,10 +32,14 @@ namespace TheGuarden.Utility
 
         private void Update()
         {
-            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("Menu");
+                SceneManager.LoadScene(0);
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(1);
             }
         }
 
