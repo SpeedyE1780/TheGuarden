@@ -374,11 +374,11 @@ namespace TheGuarden.Interactable
         /// Check for interactables around mushroom and return interaction instruction
         /// </summary>
         /// <returns>Instructions show on screen</returns>
-        public InteractionInstruction CheckForInteractable()
+        public string CheckForInteractable(string controlScheme)
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                return plantBedInstruction;
+                return plantBedInstruction.GetInstructionMessage(controlScheme);
             }
 
             return null;

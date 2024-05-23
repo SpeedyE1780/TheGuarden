@@ -245,11 +245,11 @@ namespace TheGuarden.Players
         {
             if (selectedItem != null)
             {
-                InteractionInstruction instruction = selectedItem.CheckForInteractable();
+                string instruction = selectedItem.CheckForInteractable(playerInput.currentControlScheme);
 
                 if (instruction != null)
                 {
-                    onInstructions.Raise(instruction.GetInstructionMessage(playerInput.currentControlScheme));
+                    onInstructions.Raise(instruction);
                 }
                 else if (!showPickUpInstruction)
                 {

@@ -76,6 +76,6 @@ namespace TheGuarden.Interactable
         /// Check if item can interact with surrounding game objects
         /// </summary>
         /// <returns></returns>
-        public InteractionInstruction CheckForInteractable();
+        public string CheckForInteractable(string controlScheme);
     }
 }

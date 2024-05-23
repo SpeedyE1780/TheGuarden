@@ -32,7 +32,7 @@ namespace TheGuarden.Interactable
         [SerializeField, Tooltip("Interaction shown when near plant bed")]
         private InteractionInstruction waterPlantBedInstruction;
         [SerializeField, Tooltip("Interatction shown when near plant bed and empty bucket")]
-        private InteractionInstruction missingWaterInstruction;
+        private Instruction missingWaterInstruction;
         [SerializeField, Tooltip("Bucket Icon")]
         private Sprite icon;
 
@@ -170,16 +170,16 @@ namespace TheGuarden.Interactable
         /// Check for interactables around bucket and return interaction instruction
         /// </summary>
         /// <returns>Instructions show on screen</returns>
-        public InteractionInstruction CheckForInteractable()
+        public string CheckForInteractable(string controlScheme)
         {
             if (Physics.CheckSphere(transform.position, overlapRadius, plantBedMask))
             {
-                return remainingUses > 0 ? waterPlantBedInstruction : missingWaterInstruction;
+                return remainingUses > 0 ? waterPlantBedInstruction.GetInstructionMessage(controlScheme) : missingWaterInstruction.GetInstructionMessage();
             }
 
             if (Physics.CheckSphere(transform.position, overlapRadius, lakeLayer))
             {
-                return addWaterInstruction;
+                return addWaterInstruction.GetInstructionMessage(controlScheme);
             }
 
             return null;

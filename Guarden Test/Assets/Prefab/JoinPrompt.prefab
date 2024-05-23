@@ -149,6 +149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc23096ac3908c24e80e079f9975c863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joinInstruction: {fileID: 11400000, guid: 86a210540b89fb74e95e2e4b3ffdd4c3, type: 2}
+  joinInstruction: {fileID: 11400000, guid: 9ff0bda90980d6a4188705217e71d25c, type: 2}
   playerInScene: {fileID: 11400000, guid: 12889063f6a2cbe44a83d35d4a6d435e, type: 2}
   instructionText: {fileID: 1436420322216178296}

@@ -11,7 +11,7 @@ namespace TheGuarden.UI
     internal class JoinPrompt : MonoBehaviour
     {
         [SerializeField, Tooltip("Joining instructions")]
-        private InteractionInstruction joinInstruction;
+        private Instruction joinInstruction;
         [SerializeField, Tooltip("Player in scene state")]
         private StateToggle playerInScene;
         [SerializeField, Tooltip("Prompt text")]
@@ -41,7 +41,7 @@ namespace TheGuarden.UI
         {
             if (joinInstruction != null)
             {
-                instructionText.text = joinInstruction.GetInstructionMessage(string.Empty);
+                instructionText.text = joinInstruction.GetInstructionMessage();
             }
         }
 #endif
