@@ -28,7 +28,10 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            pickUp.SetActive(enableOnStart);
+            if(enableOnStart) 
+            {
+                pickUp.SetActive(true);
+            }
             yield return new WaitUntil(() => !pickUp.activeSelf);
         }
     }

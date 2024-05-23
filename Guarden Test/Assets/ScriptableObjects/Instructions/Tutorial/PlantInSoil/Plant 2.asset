@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cff43e407f4e445867a15e8bf8da44, type: 3}
   m_Name: Plant 2
   m_EditorClassIdentifier: 
-  instructions: It is highlighted yellow to say that it is currently selected
+  instructions: Your currently selected item is highlighted.

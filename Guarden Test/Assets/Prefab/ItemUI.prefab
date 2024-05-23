@@ -194,6 +194,9 @@ MonoBehaviour:
   bwImage: {fileID: 8303374022138320605}
   coloredImage: {fileID: 1293906095716054318}
   pool: {fileID: 11400000, guid: 95131e689aab8814c90dedda1cc24be2, type: 2}
+  selectedSprite: {fileID: 21300000, guid: f1eb61459d52e6e40848e0b639831d43, type: 3}
+  notSelectedSprite: {fileID: 21300000, guid: 41b72d373e987664f8d1e9f12cb255ce, type: 3}
+  spriteComponent: {fileID: 6063846508952144973}
 --- !u!222 &8597901027639102959
 CanvasRenderer:
   m_ObjectHideFlags: 0

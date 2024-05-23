@@ -18,6 +18,12 @@ namespace TheGuarden.UI
         private Image coloredImage;
         [SerializeField, Tooltip("Pool this item is returned to")]
         private ObjectPool<ItemUI> pool;
+        [SerializeField, Tooltip("Sprite When Selected")]
+        private Sprite selectedSprite;
+        [SerializeField, Tooltip("Sprite When Not Selected")]
+        private Sprite notSelectedSprite;
+        [SerializeField,Tooltip("Sprite Component")] 
+        private Image spriteComponent;
 
         private InventoryUI inventoryUI;
         private ItemUI viewer;
@@ -62,6 +68,8 @@ namespace TheGuarden.UI
             coloredImage.enabled = reference.coloredImage.enabled;
             coloredImage.sprite = reference.coloredImage.sprite;
             coloredImage.fillAmount = reference.coloredImage.fillAmount;
+
+            spriteComponent.sprite = selectedSprite;
         }
 
         private void ClearItem()
@@ -73,6 +81,7 @@ namespace TheGuarden.UI
             bwImage.sprite = null;
             coloredImage.enabled = false;
             coloredImage.sprite = null;
+
         }
 
         /// <summary>
@@ -97,6 +106,8 @@ namespace TheGuarden.UI
             nameText.color = Color.yellow;
             viewer = inventoryUI.SelectedViewer;
             viewer.SetItem(this);
+
+            spriteComponent.sprite = selectedSprite;
         }
 
         /// <summary>
@@ -107,6 +118,8 @@ namespace TheGuarden.UI
             nameText.color = Color.white;
             viewer.ClearItem();
             viewer = null;
+
+            spriteComponent.sprite = notSelectedSprite;
         }
 
         /// <summary>
@@ -127,6 +140,8 @@ namespace TheGuarden.UI
             coloredImage.fillAmount = 0;
             nameText.text = "";
             nameText.color = Color.white;
+
+            spriteComponent.sprite = notSelectedSprite;
         }
 
         /// <summary>

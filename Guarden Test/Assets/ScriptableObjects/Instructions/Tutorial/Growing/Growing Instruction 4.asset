@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44cff43e407f4e445867a15e8bf8da44, type: 3}
   m_Name: Growing Instruction 4
   m_EditorClassIdentifier: 
-  instructions: This mushroom is currently not growing because it's off peak rate
-    was set to 0
+  instructions: 
