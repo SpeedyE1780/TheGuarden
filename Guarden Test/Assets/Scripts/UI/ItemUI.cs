@@ -50,6 +50,7 @@ namespace TheGuarden.UI
         /// <param name="reference">Item who's info is shown</param>
         private void SetItem(ItemUI reference)
         {
+            nameText.color = Color.yellow;
             nameText.text = reference.nameText.text;
             progressSlider.value = reference.progressSlider.value;
             itemImage.enabled = reference.itemImage.enabled;
@@ -58,6 +59,7 @@ namespace TheGuarden.UI
 
         private void ClearItem()
         {
+            nameText.color = Color.white;
             nameText.text = string.Empty;
             progressSlider.value = 0;
             itemImage.enabled = false;
