@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroomName: Turret
   mushroomDescription: Will shoot mushrooms at enemies within range.
-  windowSprite: {fileID: 21300000, guid: 8fe4c2d5b17ee5a4db40481babb0c932, type: 3}
-  inventorySprite: {fileID: 21300000, guid: 8fe4c2d5b17ee5a4db40481babb0c932, type: 3}
+  inventorySprite:
+    bwIcon: {fileID: 21300000, guid: 844c4c2af81b5dc4eaec8244143cc88a, type: 3}
+    coloredIcon: {fileID: 21300000, guid: 8fe4c2d5b17ee5a4db40481babb0c932, type: 3}

@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mushroomName: Tutorial Mushroom
   mushroomDescription: Simple Mushroom
-  mushroomSprite: {fileID: 21300000, guid: 844c4c2af81b5dc4eaec8244143cc88a, type: 3}
+  inventorySprite:
+    bwIcon: {fileID: 21300000, guid: 8558d05d1cfb0c445b357184dc27353e, type: 3}
+    coloredIcon: {fileID: 21300000, guid: afea070edcb509f4ba5146934962bbfb, type: 3}

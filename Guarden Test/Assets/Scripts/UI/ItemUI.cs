@@ -12,10 +12,10 @@ namespace TheGuarden.UI
     {
         [SerializeField, Tooltip("Item name text")]
         private TMP_Text nameText;
-        [SerializeField, Tooltip("Item progress slider")]
-        private Slider progressSlider;
-        [SerializeField, Tooltip("Item image")]
-        private Image itemImage;
+        [SerializeField, Tooltip("Black & White image")]
+        private Image bwImage;
+        [SerializeField, Tooltip("Colored image")]
+        private Image coloredImage;
         [SerializeField, Tooltip("Pool this item is returned to")]
         private ObjectPool<ItemUI> pool;
 
@@ -36,12 +36,15 @@ namespace TheGuarden.UI
         /// </summary>
         /// <param name="itemName">Item Name</param>
         /// <param name="progress">Item progress</param>
-        public void SetItem(string itemName, float progress, Sprite icon)
+        public void SetItem(string itemName, float progress, ItemIconPair icons)
         {
             nameText.text = itemName;
-            progressSlider.value = progress;
-            itemImage.enabled = icon != null;
-            itemImage.sprite = icon;
+            bwImage.enabled = icons.bwIcon != null;
+            bwImage.sprite = icons.bwIcon;
+
+            coloredImage.enabled = icons.coloredIcon != null;
+            coloredImage.sprite = icons.coloredIcon;
+            coloredImage.fillAmount = progress;
         }
 
         /// <summary>
@@ -52,18 +55,24 @@ namespace TheGuarden.UI
         {
             nameText.color = Color.yellow;
             nameText.text = reference.nameText.text;
-            progressSlider.value = reference.progressSlider.value;
-            itemImage.enabled = reference.itemImage.enabled;
-            itemImage.sprite = reference.itemImage.sprite;
+
+            bwImage.enabled = reference.bwImage.enabled;
+            bwImage.sprite = reference.bwImage.sprite;
+
+            coloredImage.enabled = reference.coloredImage.enabled;
+            coloredImage.sprite = reference.coloredImage.sprite;
+            coloredImage.fillAmount = reference.coloredImage.fillAmount;
         }
 
         private void ClearItem()
         {
             nameText.color = Color.white;
             nameText.text = string.Empty;
-            progressSlider.value = 0;
-            itemImage.enabled = false;
-            itemImage.sprite = null;
+            coloredImage.fillAmount = 0;
+            bwImage.enabled = false;
+            bwImage.sprite = null;
+            coloredImage.enabled = false;
+            coloredImage.sprite = null;
         }
 
         /// <summary>
@@ -72,11 +81,11 @@ namespace TheGuarden.UI
         /// <param name="progress">Progress slider value</param>
         public void SetProgress(float progress)
         {
-            progressSlider.value = progress;
+            coloredImage.fillAmount = progress;
 
             if (viewer != null)
             {
-                viewer.progressSlider.value = progress;
+                viewer.coloredImage.fillAmount = progress;
             }
         }
 
@@ -115,7 +124,7 @@ namespace TheGuarden.UI
         {
             inventoryUI.RemoveItem(this);
             gameObject.SetActive(false);
-            progressSlider.value = 0;
+            coloredImage.fillAmount = 0;
             nameText.text = "";
             nameText.color = Color.white;
         }

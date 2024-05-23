@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78998480c7d927b46ab4d43e36e00d6c, type: 3}
-  m_Name: Damage
+  m_Name: Glue
   m_EditorClassIdentifier: 
-  mushroomName: Poison
-  mushroomDescription: Will apply poison damage to enemies within range.
-  windowSprite: {fileID: 21300000, guid: afea070edcb509f4ba5146934962bbfb, type: 3}
-  inventorySprite: {fileID: 21300000, guid: afea070edcb509f4ba5146934962bbfb, type: 3}
+  mushroomName: Glue Mushroom
+  mushroomDescription: Will slow enemies in its glue
+  inventorySprite:
+    bwIcon: {fileID: 21300000, guid: e25004160fabc3e479bfb32336a2ada0, type: 3}
+    coloredIcon: {fileID: 21300000, guid: d655fed2122a1f7458a240eefcf77bc6, type: 3}

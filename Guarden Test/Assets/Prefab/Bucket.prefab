@@ -93,7 +93,9 @@ MonoBehaviour:
     type: 2}
   missingWaterInstruction: {fileID: 11400000, guid: ad61e1ba6e4492e41a9ea25ab26939a6,
     type: 2}
-  icon: {fileID: 21300000, guid: ed930a1426a829b49bcfd8c4f1a38621, type: 3}
+  icons:
+    bwIcon: {fileID: 21300000, guid: cd5245539662a0f47bb06fd756552f5a, type: 3}
+    coloredIcon: {fileID: 21300000, guid: ed930a1426a829b49bcfd8c4f1a38621, type: 3}
 --- !u!135 &7694266318504934349
 SphereCollider:
   m_ObjectHideFlags: 0

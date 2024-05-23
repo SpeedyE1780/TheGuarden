@@ -65,7 +65,7 @@ namespace TheGuarden.Interactable
         public ItemUI ItemUI { get; set; }
         public bool IsConsumedAfterInteraction { get; private set; }
         public bool HasInstantPickUp => GrowthPercentage < 0.001 || IsFullyGrown;
-        public Sprite Icon => mushroomInfo.InventorySprite;
+        public ItemIconPair Icons => mushroomInfo.InventorySprites;
 
         private void Start()
         {

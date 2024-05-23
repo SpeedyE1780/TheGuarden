@@ -33,8 +33,8 @@ namespace TheGuarden.Interactable
         private InteractionInstruction waterPlantBedInstruction;
         [SerializeField, Tooltip("Interatction shown when near plant bed and empty bucket")]
         private Instruction missingWaterInstruction;
-        [SerializeField, Tooltip("Bucket Icon")]
-        private Sprite icon;
+        [SerializeField, Tooltip("Bucket Icons")]
+        private ItemIconPair icons;
 
         private int remainingUses = 0;
         private VisualEffect splash;
@@ -45,7 +45,7 @@ namespace TheGuarden.Interactable
         public float UsabilityPercentage => remainingUses / (float)maxUses;
         public ItemUI ItemUI { get; set; }
         public bool HasInstantPickUp => true;
-        public Sprite Icon => icon;
+        public ItemIconPair Icons => icons;
 
         /// <summary>
         /// Move splash vfx to position and play it
