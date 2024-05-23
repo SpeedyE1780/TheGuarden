@@ -25,6 +25,7 @@ namespace TheGuarden.Enemies
         {
             Enemy enemy = pool.GetPooledObject();
             enemy.transform.SetPositionAndRotation(configuration.position, configuration.rotation);
+            enemy.Agent.Warp(configuration.position);
             enemy.SetPath(configuration.paths.GetRandomItem());
             enemy.Health.MutlitplyMaxHealth(configuration.healthMultiplier);
             GameLogger.LogInfo("Enemy Spawned", this, GameLogger.LogCategory.Enemy);
