@@ -17,6 +17,7 @@ namespace TheGuarden.Tutorial
         internal override void Setup()
         {
             pickUp = objectSpawner.SpawnedObject;
+            pickUp.SetActive(false);
         }
 
         /// <summary>
@@ -25,6 +26,7 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
+            pickUp.SetActive(true);
             yield return new WaitUntil(() => !pickUp.activeSelf);
         }
     }

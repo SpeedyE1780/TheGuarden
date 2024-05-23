@@ -19,13 +19,9 @@ namespace TheGuarden.Utility
         [SerializeField, Tooltip("State indicating if player joined the game")]
         private StateToggle playerState;
 
-        private void Awake()
-        {
-            onGameLoaded.Raise();
-        }
-
         private IEnumerator Start()
         {
+            onGameLoaded.Raise();
             yield return new WaitUntil(() => playerState.Value);
             onGameStarted.Raise();
         }

@@ -2873,6 +2873,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 711148435366920349, guid: 648626283a286704f95c17d909602fd7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.602766
+      objectReference: {fileID: 0}
+    - target: {fileID: 711148435366920349, guid: 648626283a286704f95c17d909602fd7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.523319
+      objectReference: {fileID: 0}
     - target: {fileID: 1954717721723066852, guid: 648626283a286704f95c17d909602fd7,
         type: 3}
       propertyPath: defaultTarget
@@ -3440,6 +3450,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7507081509947481241, guid: 28d90b06c8c068a4e8cb4fa032044638,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8692793330583692181, guid: 28d90b06c8c068a4e8cb4fa032044638,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3732,6 +3747,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1871049848}
   - component: {fileID: 1871049849}
+  - component: {fileID: 1871049850}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -3784,6 +3800,35 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1871049850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871049847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: f83f5f8ac08ca264d994805f76d0518e, type: 2}
+  registerTime: 0
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1871049849}
+        m_TargetAssemblyTypeName: TheGuarden.Tutorial.TutorialManager, TheGuarden.Tutorial
+        m_MethodName: OnGameStarted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

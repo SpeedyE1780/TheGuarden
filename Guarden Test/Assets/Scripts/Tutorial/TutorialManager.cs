@@ -22,7 +22,10 @@ namespace TheGuarden.Tutorial
             {
                 tutorial.Setup();
             }
+        }
 
+        public void OnGameStarted()
+        {
             StartCoroutine(RunTutorials());
         }
 
