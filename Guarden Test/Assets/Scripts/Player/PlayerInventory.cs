@@ -256,6 +256,10 @@ namespace TheGuarden.Players
                     onHideInstructions.Raise();
                 }
             }
+            else if (!showPickUpInstruction)
+            {
+                onHideInstructions.Raise();
+            }
         }
 
         private void OnTriggerStay(Collider other)
