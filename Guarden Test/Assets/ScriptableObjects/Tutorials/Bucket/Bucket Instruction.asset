@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bucket Instruction
   m_EditorClassIdentifier: 
   instructions:
-  - In order to grow mushroom you need to water the soil
-  - Pick up the bucket and fill it up with water
-  - Go to the lake and press E to fill the bucket you can see the meter growing
+  - {fileID: 11400000, guid: 1aef08b7eff9bd245bf83bcd8058d489, type: 2}
+  - {fileID: 11400000, guid: e0d3eacf78e6dfa41b712e88643da15e, type: 2}
+  - {fileID: 11400000, guid: c8d65ff793d14f244bb4b103f1146e7f, type: 2}
   ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}

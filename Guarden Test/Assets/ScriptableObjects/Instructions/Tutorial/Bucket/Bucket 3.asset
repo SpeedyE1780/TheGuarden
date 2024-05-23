@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
-  m_Name: NextItem
+  m_Name: Bucket 3
   m_EditorClassIdentifier: 
-  instructions: Press {0} to select next item
-  actionReference: {fileID: -8161005982480331658, guid: bf2bf6405e9bcb549a91507adaf74345,
+  instructions: Go to the lake and press {0} to fill the bucket you can see the meter
+    growing
+  actionReference: {fileID: -4463723971352298113, guid: bf2bf6405e9bcb549a91507adaf74345,
     type: 3}
+  defaultControlScheme: {fileID: 11400000, guid: 8423a68256ce3db47ab665b42f5e2c56,
+    type: 2}

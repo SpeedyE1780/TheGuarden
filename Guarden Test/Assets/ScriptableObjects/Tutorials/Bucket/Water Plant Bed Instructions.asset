@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Water Plant Bed Instructions
   m_EditorClassIdentifier: 
   instructions:
-  - Now that the bucket is filled go to the plant bed
-  - Once near the plant bed hold E to water it
+  - {fileID: 11400000, guid: a94a05174e679a64989d9f5ba1b9437b, type: 2}
+  - {fileID: 11400000, guid: 6d40c145f0bb02246ab812d2097fd546, type: 2}
   ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ba5e5f50ba106d4dbe735681987e27b, type: 3}
-  m_Name: HoldPickUp
+  m_Script: {fileID: 11500000, guid: 44cff43e407f4e445867a15e8bf8da44, type: 3}
+  m_Name: Bucket 2
   m_EditorClassIdentifier: 
-  instructions: Hold {0} to pick up item
-  actionReference: {fileID: 7743739715345199758, guid: bf2bf6405e9bcb549a91507adaf74345,
-    type: 3}
+  instructions: Pick up the bucket and fill it up with water

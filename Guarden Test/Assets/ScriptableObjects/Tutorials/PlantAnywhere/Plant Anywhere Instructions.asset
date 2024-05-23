@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Plant Anywhere Instructions
   m_EditorClassIdentifier: 
   instructions:
-  - Now that the mushroom is fully grown pick it up by holding space
-  - And plant it anywhere by holding E
+  - {fileID: 11400000, guid: d05106fa9e41eaf418a704e4efdb4c5d, type: 2}
+  - {fileID: 11400000, guid: 73eef911c57469f41ac4ccb0c4fe7f3b, type: 2}
   ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}
