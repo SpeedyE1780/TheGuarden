@@ -157,7 +157,6 @@ namespace TheGuarden.Interactable
             else
             {
                 onPlantingMushroom.Raise(true);
-                collisionsRadius.SetActive(false); //Hide collision sphere on mushroom being planted
             }
         }
 
