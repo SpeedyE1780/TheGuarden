@@ -13,12 +13,22 @@ PrefabInstance:
       propertyPath: agentSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2088987792130853587, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
+        type: 3}
+      propertyPath: m_Range
+      value: 3.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2469370035290940513, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
         type: 3}
       propertyPath: maxHealth
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2867677283546017762, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy Miniboss Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506030640046229215, guid: 5c1d987a2ffa1ae498b4a569f260f2c6,
         type: 3}
       propertyPath: m_Name
       value: Enemy Miniboss Variant
