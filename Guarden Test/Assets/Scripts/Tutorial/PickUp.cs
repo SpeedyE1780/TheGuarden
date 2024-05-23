@@ -10,6 +10,8 @@ namespace TheGuarden.Tutorial
     internal class PickUp : ObjectTutorial
     {
         private GameObject pickUp;
+        [SerializeField]
+        private bool enableOnStart = true;
 
         /// <summary>
         /// Get spawned object
@@ -26,7 +28,7 @@ namespace TheGuarden.Tutorial
         /// <returns></returns>
         internal override IEnumerator StartTutorial()
         {
-            pickUp.SetActive(true);
+            pickUp.SetActive(enableOnStart);
             yield return new WaitUntil(() => !pickUp.activeSelf);
         }
     }

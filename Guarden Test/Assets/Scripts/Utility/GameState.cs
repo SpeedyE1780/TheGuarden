@@ -35,7 +35,7 @@ namespace TheGuarden.Utility
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
 
