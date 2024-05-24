@@ -41,6 +41,8 @@ namespace TheGuarden.Utility
 
         private void OnDestroy()
         {
+            //Make sure timeScale is reset if player exits while game is paused
+            Time.timeScale = 1.0f;
             onExitGame.Raise();
         }
     }
