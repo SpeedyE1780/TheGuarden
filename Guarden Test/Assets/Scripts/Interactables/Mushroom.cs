@@ -126,6 +126,7 @@ namespace TheGuarden.Interactable
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             rb.constraints = RigidbodyConstraints.FreezeAll;
             ToggleCollisions(false);
+            TogglePowerUps(false);
             FreePlantSoil();
             onMushroomInfoPickedUp.Raise(mushroomInfo);
             indicator.gameObject.SetActive(false);
