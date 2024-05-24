@@ -55,7 +55,7 @@ namespace TheGuarden.UI
             GameLogger.LogInfo("Show Wave Report", this, GameLogger.LogCategory.UI);
             onWindowActive.Raise();
             Time.timeScale = 0.0f;
-            cowsKidnappedText.text = $"Cows Kidnapped: {cowsKidnapped}";
+            cowsKidnappedText.text = $"Animals Kidnapped: {cowsKidnapped}";
             enemiesKilledText.text = $"Enemies Killed: {enemiesKilled}";
             reportWindow.SetActive(true);
         }
