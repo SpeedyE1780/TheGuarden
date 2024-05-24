@@ -19,12 +19,32 @@ namespace TheGuarden.Utility
         private GameEvent onDayStarted;
         [SerializeField, Tooltip("Night Started event")]
         private GameEvent onNightStarted;
+        [SerializeField, Tooltip("Background Music Audio Source")]
+        private AudioSource bgAudioSource;
+        [SerializeField, Tooltip("Day Time clip")]
+        private AudioClip dayClip;
+        [SerializeField, Tooltip("Night Time clip")]
+        private AudioClip nightClip;
 
         private float dayTime = 0;
         private bool enemyWavedEnded = false;
         private bool startWaveEarly = false;
 
         public float DayProgess => dayTime / dayDuration;
+
+        private void Start()
+        {
+            ChangeAudioClip(dayClip);
+        }
+
+        private void ChangeAudioClip(AudioClip clip)
+        {
+            if (bgAudioSource.clip != clip || !bgAudioSource.isPlaying)
+            {
+                bgAudioSource.clip = clip;
+                bgAudioSource.Play();
+            }
+        }
 
         /// <summary>
         /// Start the daylight cycle when game starts
@@ -84,6 +104,7 @@ namespace TheGuarden.Utility
         private IEnumerator RunDay()
         {
             GameLogger.LogInfo("Day Started", this, GameLogger.LogCategory.Scene);
+            ChangeAudioClip(dayClip);
             dayTime = 0;
             startWaveEarly = false;
 
@@ -104,6 +125,7 @@ namespace TheGuarden.Utility
         private IEnumerator RunNight()
         {
             GameLogger.LogInfo("Night Started", this, GameLogger.LogCategory.Scene);
+            ChangeAudioClip(nightClip);
             enemyWavedEnded = false;
             onNightStarted.Raise();
 
