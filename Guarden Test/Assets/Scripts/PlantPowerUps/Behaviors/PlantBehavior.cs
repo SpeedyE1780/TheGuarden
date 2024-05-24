@@ -20,7 +20,11 @@ namespace TheGuarden.PlantPowerUps.Behaviors
         private void ApplyBehavior(IBehavior behavior)
         {
             modifier.ApplyBehavior(behavior);
-            audioSource.Play();
+            if(!audioSource.isPlaying) 
+            {
+                audioSource.Play();
+            }
+            
         }
 
         private void OnTriggerEnter(Collider other)

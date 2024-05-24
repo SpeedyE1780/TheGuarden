@@ -14,6 +14,8 @@ namespace TheGuarden.PlantPowerUps
         private Health mushroomHealth;
         [SerializeField, Tooltip("Mushroom explosion pool")]
         ObjectPool<PooledVisualEffect> explosionPool;
+        [SerializeField, Tooltip("Audio Source")]
+        private AudioSource audioSource;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -40,6 +42,7 @@ namespace TheGuarden.PlantPowerUps
 
                 if (enemyCollider.TryGetComponent(out Health enemyHealth))
                 {
+                    audioSource.Play();
                     enemyHealth.Kill();
                 }
             }
