@@ -22,7 +22,7 @@ namespace TheGuarden.UI
         private Sprite selectedSprite;
         [SerializeField, Tooltip("Sprite When Not Selected")]
         private Sprite notSelectedSprite;
-        [SerializeField,Tooltip("Sprite Component")] 
+        [SerializeField, Tooltip("Sprite Component")]
         private Image spriteComponent;
 
         private InventoryUI inventoryUI;
@@ -129,6 +129,12 @@ namespace TheGuarden.UI
         /// </summary>
         public void ReturnToPool()
         {
+            if (viewer != null)
+            {
+                viewer.ClearItem();
+                viewer = null;
+            }
+
             pool.AddObject(this);
         }
 
