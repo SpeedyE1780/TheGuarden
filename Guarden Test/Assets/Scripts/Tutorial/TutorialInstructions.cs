@@ -10,12 +10,12 @@ namespace TheGuarden.Tutorial
     /// Instructions is a list of instructions to show on screen
     /// </summary>
     [CreateAssetMenu(menuName = "Scriptable Objects/Tutorials/Instructions")]
-    internal class Instructions : Tutorial
+    internal class TutorialInstructions : Tutorial
     {
         [SerializeField, Tooltip("List of instructions")]
         private List<Instruction> instructions = new List<Instruction>();
         [SerializeField, Tooltip("This tutorial's UI")]
-        private InstructionUI ui;
+        private ObjectSpawner ui;
         [SerializeField, Tooltip("Game Window Active event")]
         private GameEvent gameWindowActive;
 
@@ -37,7 +37,7 @@ namespace TheGuarden.Tutorial
         /// </summary>
         internal override void Setup()
         {
-            instructionUI = Instantiate(ui);
+            instructionUI = ui.SpawnedObject.GetComponent<InstructionUI>();
             instructionUI.gameObject.SetActive(false);
         }
 
@@ -63,7 +63,7 @@ namespace TheGuarden.Tutorial
                 yield return new WaitUntil(() => hideWindow);
             }
 
-            Destroy(instructionUI.gameObject);
+           instructionUI.gameObject.SetActive(false);
         }
     }
 }
