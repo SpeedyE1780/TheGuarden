@@ -10,17 +10,15 @@ namespace TheGuarden.PlantPowerUps.Buffs
     {
         [SerializeField, Tooltip("Buff Modifier applied to IBuff")]
         private BuffModifier modifier;
-
         [SerializeField, Tooltip("Audio Source")]
         private AudioSource audioSource;
-        
 
-    /// <summary>
-    /// Get buff from collider
-    /// </summary>
-    /// <param name="other">Object that entered power up trigger</param>
-    /// <returns></returns>
-    private IBuff GetIBuff(Collider other)
+        /// <summary>
+        /// Get buff from collider
+        /// </summary>
+        /// <param name="other">Object that entered power up trigger</param>
+        /// <returns></returns>
+        private IBuff GetIBuff(Collider other)
         {
             IBuff buff = other.GetComponent<IBuff>();
 
@@ -42,11 +40,10 @@ namespace TheGuarden.PlantPowerUps.Buffs
             }
 
             modifier.AddAndApplyBuff(buff);
-            if(!audioSource.isPlaying) 
+            if (!audioSource.isPlaying)
             {
                 audioSource.Play();
             }
-            
         }
 
         private void OnTriggerExit(Collider other)
@@ -59,6 +56,18 @@ namespace TheGuarden.PlantPowerUps.Buffs
             }
 
             modifier.RemoveAndClearBuff(buff);
+        }
+
+        private void OnEnable()
+        {
+            GameLogger.LogInfo($"{name} is enabled checking for affected objects in range", this, GameLogger.LogCategory.PlantPowerUp);
+
+            Collider[] colliders = Physics.OverlapSphere(transform.position, Range, AffectedLayer);
+
+            foreach (Collider collider in colliders)
+            {
+                OnTriggerEnter(collider);
+            }
         }
 
         private void OnDisable()
