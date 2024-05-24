@@ -44,7 +44,7 @@ PlayerSettings:
     duration: 3
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
     duration: 2
-  - logo: {fileID: 21300000, guid: 9080672bb2a983d43aa38ee17eec3272, type: 3}
+  - logo: {fileID: 21300000, guid: 80b3688a4ed42c0489e4f8e1949497d3, type: 3}
     duration: 3.5
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
@@ -140,8 +140,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.5.02
-  preloadedAssets:
-  - {fileID: 11400000, guid: 5387670f45ec80d47a158d1e62b6507c, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

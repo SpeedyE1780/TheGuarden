@@ -51,6 +51,8 @@ namespace TheGuarden.UI
             coloredImage.enabled = icons.coloredIcon != null;
             coloredImage.sprite = icons.coloredIcon;
             coloredImage.fillAmount = progress;
+
+            spriteComponent.sprite = notSelectedSprite;
         }
 
         /// <summary>
