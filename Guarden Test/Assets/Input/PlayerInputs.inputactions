@@ -322,7 +322,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard/Mouse",
                     "action": "HideWindow",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -333,7 +333,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "HideWindow",
                     "isComposite": false,
                     "isPartOfComposite": false

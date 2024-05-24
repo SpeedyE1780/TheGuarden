@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e0d3eacf78e6dfa41b712e88643da15e, type: 2}
   - {fileID: 11400000, guid: c8d65ff793d14f244bb4b103f1146e7f, type: 2}
   ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}
+  gameWindowActive: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}

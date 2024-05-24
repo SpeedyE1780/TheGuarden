@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Introduction 1
   m_EditorClassIdentifier: 
   instructions: Welcome to The Guarden! (Press {0} to continue)
-  actionReference: {fileID: 7743739715345199758, guid: bf2bf6405e9bcb549a91507adaf74345,
+  actionReference: {fileID: -6518462492706779769, guid: bf2bf6405e9bcb549a91507adaf74345,
     type: 3}
   defaultControlScheme: {fileID: 11400000, guid: 8423a68256ce3db47ab665b42f5e2c56,
     type: 2}

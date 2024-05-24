@@ -15,3 +15,4 @@ MonoBehaviour:
   instructions:
   - {fileID: 11400000, guid: 9882175471fabb54cb40d2d5c8e2408d, type: 2}
   ui: {fileID: 3612364184600596288, guid: ac017681a9fed9643bcdb45e49380f07, type: 3}
+  gameWindowActive: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
