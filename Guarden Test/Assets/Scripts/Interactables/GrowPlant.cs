@@ -93,7 +93,6 @@ namespace TheGuarden.Interactable
         /// <param name="plantSoil">Soil in which plant is planted</param>
         public void PlantInSoil(PlantSoil plantSoil)
         {
-            isGrowing = true;
             soil = plantSoil;
             growingParticles.Play();
         }
