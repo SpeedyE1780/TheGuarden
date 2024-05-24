@@ -80,7 +80,7 @@ namespace TheGuarden.Interactable
             if (isGrowing)
             {
                 growingParticles.Stop();
-                transform.localScale = growingInfo.startSize;
+                growingTransform.localScale = growingInfo.startSize;
                 isGrowing = false;
             }
 
