@@ -29,7 +29,7 @@ namespace TheGuarden.PlantPowerUps
             if (targetEnemy == null && other.CompareTag(Tags.Enemy))
             {
                 targetEnemy = other.transform;
-                StartCoroutine(ShootTurret());
+                StartCoroutine(ShootTurret(targetEnemy));
             }
         }
 
@@ -44,26 +44,25 @@ namespace TheGuarden.PlantPowerUps
         /// <summary>
         /// Shoot projectiles until enemy is out of range or destroyed
         /// </summary>
+        /// <param name="enemy">Enemy targeted in this coroutine if target enemy is changed during wait instruction this coroutine is stopped</param>
         /// <returns></returns>
-        private IEnumerator ShootTurret()
+        private IEnumerator ShootTurret(Transform enemy)
         {
-            GameLogger.LogInfo($"{name} targeting {targetEnemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
+            GameLogger.LogInfo($"{name} targeting {enemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
 
-            while (targetEnemy != null && targetEnemy.gameObject.activeSelf)
+            while (enemy != null && enemy == targetEnemy && enemy.gameObject.activeSelf)
             {
                 Projectile projectile = projectilePool.GetPooledObject();
                 audioSource.Play();
                 projectile.transform.SetPositionAndRotation(shootPoint.position, shootPoint.rotation);
-                projectile.Target = targetEnemy;
+                projectile.Target = enemy;
                 yield return new WaitForSeconds(cooldown);
 
-                if (targetEnemy != null && Vector3.SqrMagnitude(targetEnemy.position - shootPoint.position) > Range)
+                if (enemy != null && Vector3.SqrMagnitude(enemy.position - shootPoint.position) > Range)
                 {
-                    targetEnemy = null;
+                    enemy = null;
                 }
             }
-
-            targetEnemy = null;
         }
     }
 }
