@@ -24,6 +24,11 @@ namespace TheGuarden.PlantPowerUps
         public Transform TargetEnemy => targetEnemy;
 #endif
 
+        private void OnDisable()
+        {
+            targetEnemy = null;
+        }
+
         private void OnTriggerStay(Collider other)
         {
             if (targetEnemy == null && other.CompareTag(Tags.Enemy))
@@ -41,6 +46,11 @@ namespace TheGuarden.PlantPowerUps
             }
         }
 
+        private bool IsEnemyValid(Transform enemy)
+        {
+            return enemy != null && enemy.gameObject.activeSelf;
+        }
+
         /// <summary>
         /// Shoot projectiles until enemy is out of range or destroyed
         /// </summary>
@@ -50,7 +60,7 @@ namespace TheGuarden.PlantPowerUps
         {
             GameLogger.LogInfo($"{name} targeting {enemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
 
-            while (enemy != null && enemy == targetEnemy && enemy.gameObject.activeSelf)
+            while (IsEnemyValid(enemy) && enemy == targetEnemy)
             {
                 Projectile projectile = projectilePool.GetPooledObject();
                 audioSource.Play();
@@ -58,11 +68,13 @@ namespace TheGuarden.PlantPowerUps
                 projectile.Target = enemy;
                 yield return new WaitForSeconds(cooldown);
 
-                if (enemy != null && Vector3.SqrMagnitude(enemy.position - shootPoint.position) > Range)
+                if (IsEnemyValid(enemy) && Vector3.SqrMagnitude(enemy.position - shootPoint.position) > Range)
                 {
-                    enemy = null;
+                    targetEnemy = null;
                 }
             }
+
+            targetEnemy = null;
         }
     }
 }
