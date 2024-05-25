@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instructions:
   - {fileID: 11400000, guid: d05106fa9e41eaf418a704e4efdb4c5d, type: 2}
-  - {fileID: 11400000, guid: 73eef911c57469f41ac4ccb0c4fe7f3b, type: 2}
   ui: {fileID: 11400000, guid: d2837401d1a6f12428e484d6941cf93b, type: 2}
   gameWindowActive: {fileID: 11400000, guid: a1fd974898e866041abb87d1c42ecb9b, type: 2}
