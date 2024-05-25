@@ -21,6 +21,7 @@ namespace TheGuarden.Tutorial
                 if (spawnedObject == null)
                 {
                     spawnedObject = Instantiate(objectPrefab);
+                    spawnedObject.transform.position = new Vector3 (0, 0, -6);
                     GameLogger.LogInfo($"{name}: spawning {objectPrefab.name} in scene", this, GameLogger.LogCategory.Tutorial);
                 }
 
