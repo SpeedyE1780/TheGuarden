@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 1109540112580696085}
   - component: {fileID: 625324356548733898}
   - component: {fileID: 2068885401518761321}
+  - component: {fileID: 2601124574316976576}
   m_Layer: 5
   m_Name: WaveReport
   m_TagString: Untagged
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 6009029f72417f44790918e3502d8968, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -179,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 84afc94b6d606944f8771fb6deef208b, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -207,6 +210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: c1cc721a5d38aa54ab4a7842451d60cc, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -235,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 254d201f55fae8a4a956ae1eb02bf755, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
@@ -263,12 +268,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameEvent: {fileID: 11400000, guid: 86078a7be0674614fae52396d8c1173c, type: 2}
+  registerTime: 0
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 803243347152222644}
         m_TargetAssemblyTypeName: TheGuarden.UI.WaveReport, TheGuarden.UI
         m_MethodName: OnHideWindow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2601124574316976576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034242072812181332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12d164c91fc05640b92cdc8e43acede, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameEvent: {fileID: 11400000, guid: 2dec7e6d91d12e74290271da4feab438, type: 2}
+  registerTime: 0
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 803243347152222644}
+        m_TargetAssemblyTypeName: TheGuarden.UI.WaveReport, TheGuarden.UI
+        m_MethodName: OnGameOver
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

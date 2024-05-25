@@ -19,8 +19,9 @@ namespace TheGuarden.UI
         [SerializeField, Tooltip("Game Event raised when window is active")]
         private GameEvent onWindowActive;
 
-        int cowsKidnapped = 0;
-        int enemiesKilled = 0;
+        private int cowsKidnapped = 0;
+        private int enemiesKilled = 0;
+        private bool gameEnded = false;
 
         /// <summary>
         /// Reset wave stats
@@ -47,6 +48,11 @@ namespace TheGuarden.UI
             cowsKidnapped += 1;
         }
 
+        public void OnGameOver()
+        {
+            gameEnded = true;
+        }
+
         /// <summary>
         /// Show report when wave ends and pause game
         /// </summary>
@@ -68,7 +74,7 @@ namespace TheGuarden.UI
             if (reportWindow.activeSelf)
             {
                 GameLogger.LogInfo("Hide Wave Report", this, GameLogger.LogCategory.UI);
-                Time.timeScale = 1.0f;
+                Time.timeScale = gameEnded ? 0.0f : 1.0f;
                 reportWindow.SetActive(false);
             }
         }
