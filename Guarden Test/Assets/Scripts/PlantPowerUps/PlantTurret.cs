@@ -23,58 +23,51 @@ namespace TheGuarden.PlantPowerUps
 #if UNITY_EDITOR
         public Transform TargetEnemy => targetEnemy;
 #endif
-
-        private void OnDisable()
+        private void OnEnable()
         {
-            targetEnemy = null;
+            StartCoroutine(DetectEnemy());
         }
 
-        private void OnTriggerStay(Collider other)
+        private IEnumerator DetectEnemy()
         {
-            if (targetEnemy == null && other.CompareTag(Tags.Enemy))
+            Collider[] enemyCollider = new Collider[1];
+
+            while (true)
             {
-                targetEnemy = other.transform;
-                StartCoroutine(ShootTurret(targetEnemy));
-            }
-        }
+                int count = Physics.OverlapSphereNonAlloc(transform.position, Range, enemyCollider, AffectedLayer);
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.transform == targetEnemy)
-            {
-                targetEnemy = null;
-            }
-        }
+                if (count > 0)
+                {
+                    targetEnemy = enemyCollider[0].transform;
+                    yield return ShootTurret();
+                }
 
-        private bool IsEnemyValid(Transform enemy)
-        {
-            return enemy != null && enemy.gameObject.activeSelf;
+                yield return new WaitForFixedUpdate();
+            }
         }
 
         /// <summary>
         /// Shoot projectiles until enemy is out of range or destroyed
         /// </summary>
-        /// <param name="enemy">Enemy targeted in this coroutine if target enemy is changed during wait instruction this coroutine is stopped</param>
         /// <returns></returns>
-        private IEnumerator ShootTurret(Transform enemy)
+        private IEnumerator ShootTurret()
         {
-            GameLogger.LogInfo($"{name} targeting {enemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
+            GameLogger.LogInfo($"{name} targeting {targetEnemy.name}", this, GameLogger.LogCategory.PlantPowerUp);
 
-            while (IsEnemyValid(enemy) && enemy == targetEnemy)
+            while (targetEnemy != null && targetEnemy.gameObject.activeSelf)
             {
                 Projectile projectile = projectilePool.GetPooledObject();
                 audioSource.Play();
                 projectile.transform.SetPositionAndRotation(shootPoint.position, shootPoint.rotation);
-                projectile.Target = enemy;
+                projectile.Target = targetEnemy;
                 yield return new WaitForSeconds(cooldown);
 
-                if (IsEnemyValid(enemy) && Vector3.SqrMagnitude(enemy.position - shootPoint.position) > Range)
+                if (!targetEnemy.gameObject.activeSelf || Vector3.Distance(targetEnemy.position, shootPoint.position) > Range)
                 {
                     targetEnemy = null;
+                    yield break;
                 }
             }
-
-            targetEnemy = null;
         }
     }
 }
