@@ -35,6 +35,7 @@ namespace TheGuarden.Enemies
         private int pathIndex = 0;
         private bool rewinding = false;
         private bool rewindComplete = false;
+        private float agentSpeed = 0.0f;
 
         private Vector3 TargetPosition => path[pathIndex];
         private bool ReachedDestination => !agent.pathPending && agent.remainingDistance <= distanceThreshold;
@@ -48,6 +49,8 @@ namespace TheGuarden.Enemies
 
         private void Start()
         {
+            agentSpeed = agent.speed;
+
             health.OnOutOfHealth = () =>
             {
                 onEnemyKilled.Raise();
@@ -170,6 +173,7 @@ namespace TheGuarden.Enemies
             gameObject.SetActive(false);
             health.ResetHealth();
             rewindComplete = false;
+            agent.speed = agentSpeed;
         }
 
         /// <summary>
