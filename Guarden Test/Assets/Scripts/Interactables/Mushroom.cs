@@ -271,6 +271,13 @@ namespace TheGuarden.Interactable
         {
             IsConsumedAfterInteraction = false;
 
+            //If player started interaction with different item selected prevent perform being called
+            if (!gameObject.activeSelf)
+            {
+                GameLogger.LogWarning("Interaction Performed called on disabled mushrooom", this, GameLogger.LogCategory.InventoryItem);
+                return;
+            }
+
             if (IsFullyGrown)
             {
                 PlantAnywhere();
