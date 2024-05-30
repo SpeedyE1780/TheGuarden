@@ -1,7 +1,9 @@
 # Overview 
 The Guarden is a tower defence game with the addition of farming and life-sim elements.
 # Installation
-Go to this page on [Itch.io](https://big-bad-prawn-games.itch.io/the-guarden) Extract the zip and run the executable "The Guarden"
+Go to this page on [Itch.io](https://big-bad-prawn-games.itch.io/the-guarden)   
+Download the ZIP file  
+Extract the Zip and run the executable "The Guarden"  
 # Controls
 
 ## Keyboard:
