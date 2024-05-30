@@ -1,5 +1,5 @@
 # Audio Licenses:
-
+## In game
 [Item Pickup Sound](https://freesound.org/people/nicholasdaryl/sounds/563465/):
 Assets/Audio/Clips/Item Pickup.wav
 
@@ -47,3 +47,13 @@ Assets/Audio/Clips/UFO Hover.wav
 
 [Ufo Enter](https://freesound.org/people/LaurenPonder/sounds/635691/):
 Assets/Audio/Clips/UFO Enter.wav
+
+## In Trailer
+
+[Stampede](https://freesound.org/people/bevibeldesign/sounds/350425/): 
+
+[Chickens Shrieking](https://freesound.org/people/craigsmith/sounds/479592/):
+
+[Rooster Sound](https://freesound.org/people/BenjaminNelan/sounds/435506/):
+
+
