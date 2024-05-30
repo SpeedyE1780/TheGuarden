@@ -2,9 +2,9 @@
 The Guarden is a tower defence game with the addition of farming and life-sim elements.
 # Installation
 
-#Controls
+# Controls
 
-##Keyboard:
+## Keyboard:
 
 Movement: WASD/Arrows
 
@@ -23,7 +23,7 @@ Drop Item: X
 Start Enemy Wave: Enter
 
 
-##Controller:
+## Controller:
 
 Movement: Left Stick
 
