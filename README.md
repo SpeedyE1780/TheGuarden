@@ -1,3 +1,46 @@
+# Overview 
+The Guarden is a tower defence game with the addition of farming and life-sim elements.
+# Installation
+
+#Controls
+
+##Keyboard:
+
+Movement: WASD/Arrows
+
+Pick Up: Space
+
+Interact: Hold E to interact
+
+Next Item in Inventory: Tab
+
+Previous Item in Inventory: Shift
+
+Drop out: Hold backspace
+
+Drop Item: X
+
+Start Enemy Wave: Enter
+
+
+##Controller:
+
+Movement: Left Stick
+
+Pick Up: South Button
+
+Interact: Hold West Button
+
+Next Item in Inventory: Right Bumper
+
+Previous Item in Inventory: Left Bumper
+
+Drop out: Hold Start button
+
+Drop Item: East Button
+
+Start Enemy Wave: Select button
+
 # Audio Licenses:
 ## In game
 [Item Pickup Sound](https://freesound.org/people/nicholasdaryl/sounds/563465/):
